@@ -1,0 +1,25 @@
+PODS:
+  - HydraAsync (1.2.1)
+  - Katana (3.0.2):
+    - HydraAsync (~> 1.2)
+  - Tempura (4.1.2):
+    - Katana (< 4, >= 3.0)
+
+DEPENDENCIES:
+  - Katana
+  - Tempura
+
+SPEC REPOS:
+  trunk:
+    - HydraAsync
+    - Katana
+    - Tempura
+
+SPEC CHECKSUMS:
+  HydraAsync: 8f2ab62d57e140b4ca587ae0f66e1eb04e8e6965
+  Katana: e22d5b5da00f593cc7ca5bd16a091278356ebb3d
+  Tempura: eb5426b9ae795fd2c83f6c5809dba824959a30eb
+
+PODFILE CHECKSUM: a3a60471c8fe738557f2e35b96b7e90c71abccbe
+
+COCOAPODS: 1.8.4
