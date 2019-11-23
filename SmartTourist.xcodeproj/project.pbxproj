@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,12 +12,16 @@
 		5F7A4CA34DB61B8A7EBF547D /* Pods_SmartTourist_SmartTouristUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */; };
 		E528FF87238971FE0065483B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528FF86238971FE0065483B /* AppDelegate.swift */; };
 		E528FF89238971FE0065483B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528FF88238971FE0065483B /* SceneDelegate.swift */; };
-		E528FF8B238971FE0065483B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528FF8A238971FE0065483B /* ViewController.swift */; };
-		E528FF8E238971FE0065483B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E528FF8C238971FE0065483B /* Main.storyboard */; };
+		E528FF8B238971FE0065483B /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528FF8A238971FE0065483B /* TestViewController.swift */; };
 		E528FF90238972020065483B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E528FF8F238972020065483B /* Assets.xcassets */; };
 		E528FF93238972020065483B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E528FF91238972020065483B /* LaunchScreen.storyboard */; };
 		E528FF9E238972030065483B /* SmartTouristTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528FF9D238972030065483B /* SmartTouristTests.swift */; };
 		E528FFA9238972030065483B /* SmartTouristUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528FFA8238972030065483B /* SmartTouristUITests.swift */; };
+		E5335CFE238981D000601F02 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335CFD238981D000601F02 /* AppState.swift */; };
+		E5335D00238984A100601F02 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335CFF238984A100601F02 /* Model.swift */; };
+		E5335D032389942D00601F02 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D022389942D00601F02 /* LoginView.swift */; };
+		E5335D052389946C00601F02 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D042389946C00601F02 /* LoginViewController.swift */; };
+		E5335D082389970B00601F02 /* DependenciesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D072389970B00601F02 /* DependenciesContainer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,8 +54,7 @@
 		E528FF83238971FE0065483B /* SmartTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartTourist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E528FF86238971FE0065483B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E528FF88238971FE0065483B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E528FF8A238971FE0065483B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		E528FF8D238971FE0065483B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E528FF8A238971FE0065483B /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		E528FF8F238972020065483B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E528FF92238972020065483B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E528FF94238972020065483B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -61,6 +64,11 @@
 		E528FFA4238972030065483B /* SmartTouristUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartTouristUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E528FFA8238972030065483B /* SmartTouristUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartTouristUITests.swift; sourceTree = "<group>"; };
 		E528FFAA238972030065483B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E5335CFD238981D000601F02 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		E5335CFF238984A100601F02 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		E5335D022389942D00601F02 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		E5335D042389946C00601F02 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E5335D072389970B00601F02 /* DependenciesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesContainer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +109,6 @@
 				32CB67A9575F481AB0E739F4 /* Pods-SmartTouristTests.debug.xcconfig */,
 				CB1F109E38A57D77901D8A65 /* Pods-SmartTouristTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -140,10 +147,12 @@
 		E528FF85238971FE0065483B /* SmartTourist */ = {
 			isa = PBXGroup;
 			children = (
+				E5335CFC2389818D00601F02 /* State */,
+				E5335D012389941200601F02 /* UI */,
+				E5335D06238996F500601F02 /* Dependencies */,
 				E528FF86238971FE0065483B /* AppDelegate.swift */,
 				E528FF88238971FE0065483B /* SceneDelegate.swift */,
-				E528FF8A238971FE0065483B /* ViewController.swift */,
-				E528FF8C238971FE0065483B /* Main.storyboard */,
+				E528FF8A238971FE0065483B /* TestViewController.swift */,
 				E528FF8F238972020065483B /* Assets.xcassets */,
 				E528FF91238972020065483B /* LaunchScreen.storyboard */,
 				E528FF94238972020065483B /* Info.plist */,
@@ -169,6 +178,32 @@
 			path = SmartTouristUITests;
 			sourceTree = "<group>";
 		};
+		E5335CFC2389818D00601F02 /* State */ = {
+			isa = PBXGroup;
+			children = (
+				E5335CFD238981D000601F02 /* AppState.swift */,
+				E5335CFF238984A100601F02 /* Model.swift */,
+			);
+			path = State;
+			sourceTree = "<group>";
+		};
+		E5335D012389941200601F02 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				E5335D022389942D00601F02 /* LoginView.swift */,
+				E5335D042389946C00601F02 /* LoginViewController.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		E5335D06238996F500601F02 /* Dependencies */ = {
+			isa = PBXGroup;
+			children = (
+				E5335D072389970B00601F02 /* DependenciesContainer.swift */,
+			);
+			path = Dependencies;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -181,6 +216,7 @@
 				E528FF80238971FE0065483B /* Frameworks */,
 				E528FF81238971FE0065483B /* Resources */,
 				3F36C68F5739F82D20D127AD /* [CP] Embed Pods Frameworks */,
+				572E144F9B6BBC528E666282 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -219,6 +255,7 @@
 				E528FFA1238972030065483B /* Frameworks */,
 				E528FFA2238972030065483B /* Resources */,
 				B934A062E9A666B18CA3ACCC /* [CP] Embed Pods Frameworks */,
+				4729319255556D304D33FACF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -280,7 +317,6 @@
 			files = (
 				E528FF93238972020065483B /* LaunchScreen.storyboard in Resources */,
 				E528FF90238972020065483B /* Assets.xcassets in Resources */,
-				E528FF8E238971FE0065483B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,6 +420,40 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SmartTourist/Pods-SmartTourist-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		4729319255556D304D33FACF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SmartTourist-SmartTouristUITests/Pods-SmartTourist-SmartTouristUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SmartTourist-SmartTouristUITests/Pods-SmartTourist-SmartTouristUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SmartTourist-SmartTouristUITests/Pods-SmartTourist-SmartTouristUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		572E144F9B6BBC528E666282 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SmartTourist/Pods-SmartTourist-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SmartTourist/Pods-SmartTourist-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SmartTourist/Pods-SmartTourist-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B934A062E9A666B18CA3ACCC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -408,9 +478,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E528FF8B238971FE0065483B /* ViewController.swift in Sources */,
+				E5335D082389970B00601F02 /* DependenciesContainer.swift in Sources */,
+				E5335D052389946C00601F02 /* LoginViewController.swift in Sources */,
+				E5335D032389942D00601F02 /* LoginView.swift in Sources */,
+				E5335D00238984A100601F02 /* Model.swift in Sources */,
+				E528FF8B238971FE0065483B /* TestViewController.swift in Sources */,
 				E528FF87238971FE0065483B /* AppDelegate.swift in Sources */,
 				E528FF89238971FE0065483B /* SceneDelegate.swift in Sources */,
+				E5335CFE238981D000601F02 /* AppState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,14 +521,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		E528FF8C238971FE0065483B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E528FF8D238971FE0065483B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		E528FF91238972020065483B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -587,6 +654,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SM32T6M59X;
 				INFOPLIST_FILE = SmartTourist/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -606,6 +674,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SM32T6M59X;
 				INFOPLIST_FILE = SmartTourist/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -7,17 +7,35 @@
 //
 
 import UIKit
+import Katana
+import Tempura
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, RootInstaller {
 
     var window: UIWindow?
-
+    var store: Store<AppState, DependenciesContainer>!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        store = Store<AppState, DependenciesContainer>()
+        window = UIWindow(frame: UIScreen.main.bounds)
+        let navigator: Navigator! = self.store!.dependencies.navigator
+        navigator.start(using: self, in: self.window!, at: Screen.home)
+        window?.windowScene = windowScene
+    }
+    
+    func installRoot(identifier: RouteElementIdentifier, context: Any?, completion: () -> ()) -> Bool {
+        if identifier == Screen.home.rawValue {
+            let viewController = LoginViewController(store: self.store)
+            self.window?.rootViewController = viewController
+            completion()
+            return true
+        }
+        return false
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -8,6 +8,10 @@ target 'SmartTourist' do
   # Pods for SmartTourist
   pod 'Katana'
   pod 'Tempura'
+  pod 'PinLayout'
+  pod 'SwiftLocation'
+  pod 'GooglePlaces'
+  pod 'GoogleMaps'
 
   target 'SmartTouristTests' do
     inherit! :search_paths
