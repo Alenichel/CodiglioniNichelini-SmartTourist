@@ -12,7 +12,6 @@
 		5F7A4CA34DB61B8A7EBF547D /* Pods_SmartTourist_SmartTouristUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */; };
 		E528FF87238971FE0065483B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528FF86238971FE0065483B /* AppDelegate.swift */; };
 		E528FF89238971FE0065483B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528FF88238971FE0065483B /* SceneDelegate.swift */; };
-		E528FF8B238971FE0065483B /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528FF8A238971FE0065483B /* TestViewController.swift */; };
 		E528FF90238972020065483B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E528FF8F238972020065483B /* Assets.xcassets */; };
 		E528FF93238972020065483B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E528FF91238972020065483B /* LaunchScreen.storyboard */; };
 		E528FF9E238972030065483B /* SmartTouristTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528FF9D238972030065483B /* SmartTouristTests.swift */; };
@@ -25,6 +24,7 @@
 		E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */; };
 		E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA4238ADEF3008D7C86 /* SideEffects.swift */; };
 		E5AEEAAC238ADB580094A37B /* UIControl+TargetActionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AEEAAB238ADB580094A37B /* UIControl+TargetActionable.swift */; };
+		E5FDE321238B08A40018D791 /* GooglePlacesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE320238B08A40018D791 /* GooglePlacesAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +57,6 @@
 		E528FF83238971FE0065483B /* SmartTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartTourist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E528FF86238971FE0065483B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E528FF88238971FE0065483B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E528FF8A238971FE0065483B /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		E528FF8F238972020065483B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E528FF92238972020065483B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E528FF94238972020065483B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -75,6 +74,7 @@
 		E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateUpdaters.swift; sourceTree = "<group>"; };
 		E585FCA4238ADEF3008D7C86 /* SideEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideEffects.swift; sourceTree = "<group>"; };
 		E5AEEAAB238ADB580094A37B /* UIControl+TargetActionable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+TargetActionable.swift"; sourceTree = "<group>"; };
+		E5FDE320238B08A40018D791 /* GooglePlacesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,13 +153,11 @@
 		E528FF85238971FE0065483B /* SmartTourist */ = {
 			isa = PBXGroup;
 			children = (
+				E5FDE322238B0B320018D791 /* Application */,
 				E5335CFC2389818D00601F02 /* State */,
 				E5335D012389941200601F02 /* UI */,
 				E5335D06238996F500601F02 /* Dependencies */,
 				E5AEEAAA238ADB030094A37B /* Utilities */,
-				E528FF86238971FE0065483B /* AppDelegate.swift */,
-				E528FF88238971FE0065483B /* SceneDelegate.swift */,
-				E528FF8A238971FE0065483B /* TestViewController.swift */,
 				E528FF8F238972020065483B /* Assets.xcassets */,
 				E528FF91238972020065483B /* LaunchScreen.storyboard */,
 				E528FF94238972020065483B /* Info.plist */,
@@ -209,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				E5335D072389970B00601F02 /* DependenciesContainer.swift */,
+				E5FDE320238B08A40018D791 /* GooglePlacesAPI.swift */,
 			);
 			path = Dependencies;
 			sourceTree = "<group>";
@@ -219,6 +218,15 @@
 				E5AEEAAB238ADB580094A37B /* UIControl+TargetActionable.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		E5FDE322238B0B320018D791 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				E528FF86238971FE0065483B /* AppDelegate.swift */,
+				E528FF88238971FE0065483B /* SceneDelegate.swift */,
+			);
+			path = Application;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -500,12 +508,12 @@
 				E5335D032389942D00601F02 /* PlacesTestView.swift in Sources */,
 				E5335D00238984A100601F02 /* Model.swift in Sources */,
 				E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */,
-				E528FF8B238971FE0065483B /* TestViewController.swift in Sources */,
 				E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */,
 				E528FF87238971FE0065483B /* AppDelegate.swift in Sources */,
 				E528FF89238971FE0065483B /* SceneDelegate.swift in Sources */,
 				E5AEEAAC238ADB580094A37B /* UIControl+TargetActionable.swift in Sources */,
 				E5335CFE238981D000601F02 /* AppState.swift in Sources */,
+				E5FDE321238B08A40018D791 /* GooglePlacesAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

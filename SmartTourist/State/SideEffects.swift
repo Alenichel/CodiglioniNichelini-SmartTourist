@@ -8,23 +8,15 @@
 
 import Foundation
 import Katana
+import GooglePlaces
 
 
 struct GetCurrentPlace: SideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
-        DispatchQueue.main.async {
-            context.dependencies.placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
-                if let error = error {
-                    print("Current Place error: \(error.localizedDescription)")
-                    return
-                }
-                if let placeLikelihoodList = placeLikelihoodList {
-                    if let place = placeLikelihoodList.likelihoods.first?.place, let placeName = place.name {
-                        print("Current place: \(placeName)")
-                        context.dispatch(SetCurrentPlace(place: placeName))
-                    }
-                }
-            })
+        context.dependencies.placesAPI.getNearbyAttractions().then { attractions in
+            if let place = attractions.first, let placeName = place.name {
+                context.dispatch(SetCurrentPlace(place: placeName))
+            }
         }
     }
 }
