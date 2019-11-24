@@ -11,9 +11,18 @@ import Katana
 
 
 struct SetCurrentPlace: StateUpdater {
-    let place: String
+    let place: String?
     
     func updateState(_ state: inout AppState) {
         state.currentPlace = place
+        state.loading = false
+    }
+}
+
+
+struct SetLoading: StateUpdater {
+    func updateState(_ state: inout AppState) {
+        state.currentPlace = nil
+        state.loading = true
     }
 }

@@ -12,4 +12,5 @@ import Katana
 // MARK: - State
 struct AppState: State {
     var currentPlace: String?
+    var loading: Bool = false
 }

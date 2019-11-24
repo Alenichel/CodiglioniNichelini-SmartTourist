@@ -7,11 +7,11 @@ PODS:
   - GooglePlaces (3.6.0):
     - GoogleMaps/Base (= 3.6.0)
   - HydraAsync (1.2.1)
-  - Katana (3.0.2):
+  - Katana (3.1.0):
     - HydraAsync (~> 1.2)
   - PinLayout (1.8.13)
   - SwiftLocation (4.2.0)
-  - Tempura (4.1.2):
+  - Tempura (4.1.3):
     - Katana (< 4, >= 3.0)
 
 DEPENDENCIES:
@@ -36,10 +36,10 @@ SPEC CHECKSUMS:
   GoogleMaps: 82f8fe307193bb4de6ef6bf9e88f1d624b718f9d
   GooglePlaces: 1b9d29cf3e164903d873600f511f42acdfe85294
   HydraAsync: 8f2ab62d57e140b4ca587ae0f66e1eb04e8e6965
-  Katana: e22d5b5da00f593cc7ca5bd16a091278356ebb3d
+  Katana: caa2adb661a386f9a993a15845841dc2c9b083aa
   PinLayout: e41a50260a76508b7a7fcee8955c76639adc69bc
   SwiftLocation: 609ac8859f2c5d48a6cadd2a58c63b1dae02dc25
-  Tempura: eb5426b9ae795fd2c83f6c5809dba824959a30eb
+  Tempura: 134037b86b529cc4a0360fb191799b0cf0463b54
 
 PODFILE CHECKSUM: 31d5a0a9e9874c06e44758b7f1db707d1a85a282
 
