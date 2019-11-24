@@ -19,9 +19,12 @@
 		E528FFA9238972030065483B /* SmartTouristUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528FFA8238972030065483B /* SmartTouristUITests.swift */; };
 		E5335CFE238981D000601F02 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335CFD238981D000601F02 /* AppState.swift */; };
 		E5335D00238984A100601F02 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335CFF238984A100601F02 /* Model.swift */; };
-		E5335D032389942D00601F02 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D022389942D00601F02 /* LoginView.swift */; };
-		E5335D052389946C00601F02 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D042389946C00601F02 /* LoginViewController.swift */; };
+		E5335D032389942D00601F02 /* PlacesTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D022389942D00601F02 /* PlacesTestView.swift */; };
+		E5335D052389946C00601F02 /* PlacesTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D042389946C00601F02 /* PlacesTestViewController.swift */; };
 		E5335D082389970B00601F02 /* DependenciesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D072389970B00601F02 /* DependenciesContainer.swift */; };
+		E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */; };
+		E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA4238ADEF3008D7C86 /* SideEffects.swift */; };
+		E5AEEAAC238ADB580094A37B /* UIControl+TargetActionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AEEAAB238ADB580094A37B /* UIControl+TargetActionable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,9 +69,12 @@
 		E528FFAA238972030065483B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5335CFD238981D000601F02 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		E5335CFF238984A100601F02 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		E5335D022389942D00601F02 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		E5335D042389946C00601F02 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E5335D022389942D00601F02 /* PlacesTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesTestView.swift; sourceTree = "<group>"; };
+		E5335D042389946C00601F02 /* PlacesTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesTestViewController.swift; sourceTree = "<group>"; };
 		E5335D072389970B00601F02 /* DependenciesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesContainer.swift; sourceTree = "<group>"; };
+		E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateUpdaters.swift; sourceTree = "<group>"; };
+		E585FCA4238ADEF3008D7C86 /* SideEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideEffects.swift; sourceTree = "<group>"; };
+		E5AEEAAB238ADB580094A37B /* UIControl+TargetActionable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+TargetActionable.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +156,7 @@
 				E5335CFC2389818D00601F02 /* State */,
 				E5335D012389941200601F02 /* UI */,
 				E5335D06238996F500601F02 /* Dependencies */,
+				E5AEEAAA238ADB030094A37B /* Utilities */,
 				E528FF86238971FE0065483B /* AppDelegate.swift */,
 				E528FF88238971FE0065483B /* SceneDelegate.swift */,
 				E528FF8A238971FE0065483B /* TestViewController.swift */,
@@ -183,6 +190,8 @@
 			children = (
 				E5335CFD238981D000601F02 /* AppState.swift */,
 				E5335CFF238984A100601F02 /* Model.swift */,
+				E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */,
+				E585FCA4238ADEF3008D7C86 /* SideEffects.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -190,8 +199,8 @@
 		E5335D012389941200601F02 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				E5335D022389942D00601F02 /* LoginView.swift */,
-				E5335D042389946C00601F02 /* LoginViewController.swift */,
+				E5335D022389942D00601F02 /* PlacesTestView.swift */,
+				E5335D042389946C00601F02 /* PlacesTestViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -202,6 +211,14 @@
 				E5335D072389970B00601F02 /* DependenciesContainer.swift */,
 			);
 			path = Dependencies;
+			sourceTree = "<group>";
+		};
+		E5AEEAAA238ADB030094A37B /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				E5AEEAAB238ADB580094A37B /* UIControl+TargetActionable.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -479,12 +496,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5335D082389970B00601F02 /* DependenciesContainer.swift in Sources */,
-				E5335D052389946C00601F02 /* LoginViewController.swift in Sources */,
-				E5335D032389942D00601F02 /* LoginView.swift in Sources */,
+				E5335D052389946C00601F02 /* PlacesTestViewController.swift in Sources */,
+				E5335D032389942D00601F02 /* PlacesTestView.swift in Sources */,
 				E5335D00238984A100601F02 /* Model.swift in Sources */,
+				E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */,
 				E528FF8B238971FE0065483B /* TestViewController.swift in Sources */,
+				E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */,
 				E528FF87238971FE0065483B /* AppDelegate.swift in Sources */,
 				E528FF89238971FE0065483B /* SceneDelegate.swift in Sources */,
+				E5AEEAAC238ADB580094A37B /* UIControl+TargetActionable.swift in Sources */,
 				E5335CFE238981D000601F02 /* AppState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

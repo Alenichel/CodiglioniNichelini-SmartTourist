@@ -30,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, RootInstaller {
     
     func installRoot(identifier: RouteElementIdentifier, context: Any?, completion: () -> ()) -> Bool {
         if identifier == Screen.home.rawValue {
-            let viewController = LoginViewController(store: self.store)
+            let viewController = PlacesTestViewController(store: self.store)
             self.window?.rootViewController = viewController
             completion()
             return true
