@@ -11,6 +11,7 @@ import Katana
 
 // MARK: - State
 struct AppState: State {
+    var firstLaunch: Bool = true
     var currentPlace: String?
     var loading: Bool = false
 }

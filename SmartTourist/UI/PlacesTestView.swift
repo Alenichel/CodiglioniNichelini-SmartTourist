@@ -46,6 +46,17 @@ class PlacesTestView: UIView, ViewControllerModellableView {
         self.button.setImage(UIImage(systemName: "location.fill"), for: .normal)
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.label.sizeToFit()
+        self.button.sizeToFit()
+        self.activityIndicator.sizeToFit()
+        self.label.pin.center()
+        self.button.pin.below(of: self.label, aligned: .center).marginTop(50)
+        //self.activityIndicator.pin.above(of: self.label, aligned: .center).marginBottom(100)
+        self.activityIndicator.pin.center()
+    }
+    
     func update(oldModel: PlacesTestViewModel?) {
         if let model = self.model {
             self.label.text = model.location
@@ -56,16 +67,5 @@ class PlacesTestView: UIView, ViewControllerModellableView {
             }
             self.setNeedsLayout()
         }
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.label.sizeToFit()
-        self.button.sizeToFit()
-        self.activityIndicator.sizeToFit()
-        self.label.pin.center()
-        self.button.pin.below(of: self.label, aligned: .center).marginTop(50)
-        //self.activityIndicator.pin.above(of: self.label, aligned: .center).marginBottom(100)
-        self.activityIndicator.pin.center()
     }
 }

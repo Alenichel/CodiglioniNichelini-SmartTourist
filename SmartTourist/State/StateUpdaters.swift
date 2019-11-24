@@ -26,3 +26,10 @@ struct SetLoading: StateUpdater {
         state.loading = true
     }
 }
+
+
+struct SetFirstLaunch: StateUpdater {
+    func updateState(_ state: inout AppState) {
+        state.firstLaunch = false
+    }
+}
