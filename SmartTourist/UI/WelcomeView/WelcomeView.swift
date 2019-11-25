@@ -10,22 +10,30 @@ import Tempura
 import PinLayout
 
 
-struct WelcomeViewModel: ViewModelWithState {
+struct WelcomeViewModel: ViewModelWithLocalState {
+    let index: Int
     let text: String
     let buttonText: String
     
-    init(state: AppState) {
-        let index = state.welcomeState.screenIndex
-        self.text = state.welcomeState.labels[index]
-        self.buttonText = state.welcomeState.buttons[index]
+    init(state: AppState?, localState: WelcomeLocalState) {
+        self.index = localState.pageIndex
+        if self.index < 3, let state = state {
+            self.text = state.welcomeState.labels[index]
+            self.buttonText = state.welcomeState.buttons[index]
+        } else {
+            self.text = ""
+            self.buttonText = ""
+        }
     }
 }
 
 
+// Maybe it's better if this view becomes a list of buttons, and
+// each button will trigger the request for a specific permission
 class WelcomeView: UIView, ViewControllerModellableView {
     // MARK: Subviews
     var label = UILabel()
-    var button = UIButton(type: .roundedRect)
+    var button = UIButton(type: .system)
     
     // MARK: Interactions
     var didTapButton: Interaction?
@@ -39,6 +47,7 @@ class WelcomeView: UIView, ViewControllerModellableView {
     }
     
     func style() {
+        self.backgroundColor = .systemBackground
         self.label.numberOfLines = 4
         self.label.textAlignment = .center
         self.label.font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 8)

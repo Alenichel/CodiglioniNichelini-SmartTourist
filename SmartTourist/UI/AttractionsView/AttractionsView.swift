@@ -25,7 +25,7 @@ class AttractionsView: UIView, ViewControllerModellableView {
     }
     
     func style() {
-        
+        self.backgroundColor = .systemBackground
     }
     
     override func layoutSubviews() {

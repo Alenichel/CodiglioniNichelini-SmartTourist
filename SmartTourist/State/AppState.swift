@@ -18,7 +18,6 @@ struct AppState: State {
 
 
 struct WelcomeState {
-    var screenIndex: Int = 0
     var labels: [String] = [
         "Welcome to Smart Tourist!",
         "In order to work properly, Smart Tourist needs your location.",

@@ -32,10 +32,3 @@ struct SetFirstLaunch: StateUpdater {
         state.firstLaunch = false
     }
 }
-
-
-struct IncrementWelcomeScreenIndex: StateUpdater {
-    func updateState(_ state: inout AppState) {
-        state.welcomeState.screenIndex += 1
-    }
-}

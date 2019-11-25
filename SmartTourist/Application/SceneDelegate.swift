@@ -33,8 +33,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, RootInstaller {
             self.window?.rootViewController = viewController
             completion()
             return true
+        } else if identifier == ScreenID.attractions.rawValue {
+            let viewController = AttractionsViewController(store: self.store)
+            self.window?.rootViewController = viewController
+            completion()
+            return true
         } else if identifier == ScreenID.welcome.rawValue {
-            let viewController = WelcomeViewController(store: self.store)
+            let viewController = WelcomeViewController(store: self.store, localState: WelcomeLocalState())
             self.window?.rootViewController = viewController
             completion()
             return true
