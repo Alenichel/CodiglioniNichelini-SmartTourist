@@ -2,13 +2,17 @@
 //  WelcomeViewController.swift
 //  SmartTourist
 //
-//  Created by Fabio Codiglioni on 24/11/2019.
-//  Copyright © 2019 Fabio Codiglioni. All rights reserved.
+//  Created on 25/11/2019
 //
 
 import UIKit
+import Tempura
 
 
-class WelcomeViewController: UIPageViewController {
-
+class WelcomeViewController: ViewController<WelcomeView> {
+    override func setupInteraction() {
+        self.rootView.didTapButton = { [unowned self] in
+            self.dispatch(IncrementWelcomeScreenIndex())
+        }
+    }
 }

@@ -2,8 +2,7 @@
 //  PlacesTestView.swift
 //  SmartTourist
 //
-//  Created by Fabio Codiglioni on 23/11/2019.
-//  Copyright © 2019 Fabio Codiglioni. All rights reserved.
+//  Created on 23/11/2019.
 //
 
 import UIKit

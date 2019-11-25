@@ -10,6 +10,11 @@
 		2600720118ACEE0881FCB41F /* Pods_SmartTouristTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32E56BB7B73B2546D81ECE2D /* Pods_SmartTouristTests.framework */; };
 		4DC68C698795D2E15DF07FFE /* Pods_SmartTourist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A68ECEB84859705FE364757 /* Pods_SmartTourist.framework */; };
 		5F7A4CA34DB61B8A7EBF547D /* Pods_SmartTourist_SmartTouristUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */; };
+		E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F5238C4AFF0052825F /* WelcomeView.swift */; };
+		E524A0F8238C4C060052825F /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F7238C4C060052825F /* WelcomeViewController.swift */; };
+		E524A0FB238C4DB40052825F /* AttractionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0FA238C4DB40052825F /* AttractionsView.swift */; };
+		E524A0FD238C4DBF0052825F /* AttractionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0FC238C4DBF0052825F /* AttractionsViewController.swift */; };
+		E524A0FF238C4F530052825F /* ScreenID.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0FE238C4F530052825F /* ScreenID.swift */; };
 		E528FF87238971FE0065483B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528FF86238971FE0065483B /* AppDelegate.swift */; };
 		E528FF89238971FE0065483B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528FF88238971FE0065483B /* SceneDelegate.swift */; };
 		E528FF90238972020065483B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E528FF8F238972020065483B /* Assets.xcassets */; };
@@ -24,8 +29,6 @@
 		E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA4238ADEF3008D7C86 /* SideEffects.swift */; };
 		E5AEEAAC238ADB580094A37B /* UIControl+TargetActionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AEEAAB238ADB580094A37B /* UIControl+TargetActionable.swift */; };
 		E5FDE321238B08A40018D791 /* GooglePlacesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE320238B08A40018D791 /* GooglePlacesAPI.swift */; };
-		E5FDE325238B25730018D791 /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE324238B25730018D791 /* WelcomeView.swift */; };
-		E5FDE327238B25810018D791 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE326238B25810018D791 /* WelcomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +58,11 @@
 		BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartTourist_SmartTouristUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB1F109E38A57D77901D8A65 /* Pods-SmartTouristTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTouristTests.release.xcconfig"; path = "Target Support Files/Pods-SmartTouristTests/Pods-SmartTouristTests.release.xcconfig"; sourceTree = "<group>"; };
 		D30A90CC896E2EB573AFC6C5 /* Pods-SmartTourist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist.debug.xcconfig"; path = "Target Support Files/Pods-SmartTourist/Pods-SmartTourist.debug.xcconfig"; sourceTree = "<group>"; };
+		E524A0F5238C4AFF0052825F /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
+		E524A0F7238C4C060052825F /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		E524A0FA238C4DB40052825F /* AttractionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionsView.swift; sourceTree = "<group>"; };
+		E524A0FC238C4DBF0052825F /* AttractionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionsViewController.swift; sourceTree = "<group>"; };
+		E524A0FE238C4F530052825F /* ScreenID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenID.swift; sourceTree = "<group>"; };
 		E528FF83238971FE0065483B /* SmartTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartTourist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E528FF86238971FE0065483B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E528FF88238971FE0065483B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,8 +83,6 @@
 		E585FCA4238ADEF3008D7C86 /* SideEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideEffects.swift; sourceTree = "<group>"; };
 		E5AEEAAB238ADB580094A37B /* UIControl+TargetActionable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+TargetActionable.swift"; sourceTree = "<group>"; };
 		E5FDE320238B08A40018D791 /* GooglePlacesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesAPI.swift; sourceTree = "<group>"; };
-		E5FDE324238B25730018D791 /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
-		E5FDE326238B25810018D791 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +134,24 @@
 				32E56BB7B73B2546D81ECE2D /* Pods_SmartTouristTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E524A0F9238C4DA30052825F /* AttractionsView */ = {
+			isa = PBXGroup;
+			children = (
+				E524A0FA238C4DB40052825F /* AttractionsView.swift */,
+				E524A0FC238C4DBF0052825F /* AttractionsViewController.swift */,
+			);
+			path = AttractionsView;
+			sourceTree = "<group>";
+		};
+		E524A100238C4F950052825F /* TestView */ = {
+			isa = PBXGroup;
+			children = (
+				E5335D022389942D00601F02 /* PlacesTestView.swift */,
+				E5335D042389946C00601F02 /* PlacesTestViewController.swift */,
+			);
+			path = TestView;
 			sourceTree = "<group>";
 		};
 		E528FF7A238971FE0065483B = {
@@ -198,9 +222,10 @@
 		E5335D012389941200601F02 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				E524A0FE238C4F530052825F /* ScreenID.swift */,
 				E5FDE323238B25610018D791 /* WelcomeView */,
-				E5335D022389942D00601F02 /* PlacesTestView.swift */,
-				E5335D042389946C00601F02 /* PlacesTestViewController.swift */,
+				E524A0F9238C4DA30052825F /* AttractionsView */,
+				E524A100238C4F950052825F /* TestView */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -234,8 +259,8 @@
 		E5FDE323238B25610018D791 /* WelcomeView */ = {
 			isa = PBXGroup;
 			children = (
-				E5FDE324238B25730018D791 /* WelcomeView.swift */,
-				E5FDE326238B25810018D791 /* WelcomeViewController.swift */,
+				E524A0F5238C4AFF0052825F /* WelcomeView.swift */,
+				E524A0F7238C4C060052825F /* WelcomeViewController.swift */,
 			);
 			path = WelcomeView;
 			sourceTree = "<group>";
@@ -519,13 +544,16 @@
 				E5335D032389942D00601F02 /* PlacesTestView.swift in Sources */,
 				E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */,
 				E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */,
-				E5FDE327238B25810018D791 /* WelcomeViewController.swift in Sources */,
 				E528FF87238971FE0065483B /* AppDelegate.swift in Sources */,
-				E5FDE325238B25730018D791 /* WelcomeView.swift in Sources */,
+				E524A0FB238C4DB40052825F /* AttractionsView.swift in Sources */,
+				E524A0FF238C4F530052825F /* ScreenID.swift in Sources */,
+				E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */,
 				E528FF89238971FE0065483B /* SceneDelegate.swift in Sources */,
 				E5AEEAAC238ADB580094A37B /* UIControl+TargetActionable.swift in Sources */,
+				E524A0F8238C4C060052825F /* WelcomeViewController.swift in Sources */,
 				E5335CFE238981D000601F02 /* AppState.swift in Sources */,
 				E5FDE321238B08A40018D791 /* GooglePlacesAPI.swift in Sources */,
+				E524A0FD238C4DBF0052825F /* AttractionsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -2,8 +2,7 @@
 //  SceneDelegate.swift
 //  SmartTourist
 //
-//  Created by Fabio Codiglioni on 23/11/2019.
-//  Copyright © 2019 Fabio Codiglioni. All rights reserved.
+//  Created on 23/11/2019.
 //
 
 import UIKit
@@ -24,13 +23,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, RootInstaller {
         store = Store<AppState, DependenciesContainer>()
         window = UIWindow(frame: UIScreen.main.bounds)
         let navigator: Navigator! = self.store!.dependencies.navigator
-        navigator.start(using: self, in: self.window!, at: Screen.home)
+        navigator.start(using: self, in: self.window!, at: ScreenID.test)
         window?.windowScene = windowScene
     }
     
     func installRoot(identifier: RouteElementIdentifier, context: Any?, completion: () -> ()) -> Bool {
-        if identifier == Screen.home.rawValue {
+        if identifier == ScreenID.test.rawValue {
             let viewController = PlacesTestViewController(store: self.store)
+            self.window?.rootViewController = viewController
+            completion()
+            return true
+        } else if identifier == ScreenID.welcome.rawValue {
+            let viewController = WelcomeViewController(store: self.store)
             self.window?.rootViewController = viewController
             completion()
             return true

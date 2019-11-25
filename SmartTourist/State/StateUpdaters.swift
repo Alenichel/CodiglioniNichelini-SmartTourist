@@ -2,8 +2,7 @@
 //  StateUpdaters.swift
 //  SmartTourist
 //
-//  Created by Fabio Codiglioni on 24/11/2019.
-//  Copyright © 2019 Fabio Codiglioni. All rights reserved.
+//  Created on 24/11/2019.
 //
 
 import Foundation
@@ -31,5 +30,12 @@ struct SetLoading: StateUpdater {
 struct SetFirstLaunch: StateUpdater {
     func updateState(_ state: inout AppState) {
         state.firstLaunch = false
+    }
+}
+
+
+struct IncrementWelcomeScreenIndex: StateUpdater {
+    func updateState(_ state: inout AppState) {
+        state.welcomeState.screenIndex += 1
     }
 }
