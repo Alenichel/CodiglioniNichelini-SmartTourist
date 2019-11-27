@@ -34,7 +34,6 @@ class PlacesTestView: UIView, ViewControllerModellableView {
         self.button.on(.touchUpInside) { sender in
             self.didTapButton?()
         }
-        print(self.frame)
         let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
         self.mapView = GMSMapView.map(withFrame: .zero, camera: camera)
         self.addSubview(self.label)
@@ -57,14 +56,12 @@ class PlacesTestView: UIView, ViewControllerModellableView {
         self.button.sizeToFit()
         self.activityIndicator.sizeToFit()
         self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height * 0.65)
-        self.label.pin.center()
+        self.label.pin.bottom(25%).hCenter()
         self.button.pin.bottom(15%).hCenter()
-        self.activityIndicator.pin.center()
-        //self.mapView.pin.center()
+        self.activityIndicator.pin.bottom(25%).hCenter()
     }
     
     func update(oldModel: PlacesTestViewModel?) {
-        print(self.frame.size)
         if let model = self.model {
             self.label.text = model.location
             if model.loading {
