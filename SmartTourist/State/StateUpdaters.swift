@@ -7,10 +7,11 @@
 
 import Foundation
 import Katana
+import GooglePlaces
 
 
 struct SetCurrentPlace: StateUpdater {
-    let place: String?
+    let place: GMSPlace?
     
     func updateState(_ state: inout AppState) {
         state.currentPlace = place

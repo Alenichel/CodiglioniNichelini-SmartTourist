@@ -14,8 +14,8 @@ struct GetCurrentPlace: SideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
         context.dispatch(SetLoading())
         context.dependencies.placesAPI.getNearbyAttractions().then { attractions in
-            if let place = attractions.first, let placeName = place.name {
-                context.dispatch(SetCurrentPlace(place: placeName))
+            if let place = attractions.first {
+                context.dispatch(SetCurrentPlace(place: place))
             } else {
                 context.dispatch(SetCurrentPlace(place: nil))
             }

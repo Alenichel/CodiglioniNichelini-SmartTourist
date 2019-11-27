@@ -7,11 +7,13 @@
 
 import Foundation
 import Katana
+import GooglePlaces
+
 
 // MARK: - State
 struct AppState: State {
     var firstLaunch: Bool = true
-    var currentPlace: String?
+    var currentPlace: GMSPlace?
     var loading: Bool = false
     var welcomeState = WelcomeState()
 }

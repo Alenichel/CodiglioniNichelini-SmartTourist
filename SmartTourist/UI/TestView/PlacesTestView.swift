@@ -12,11 +12,13 @@ import GoogleMaps
 
 
 struct PlacesTestViewModel: ViewModelWithState {
-    let location: String
+    let placeName: String
+    let coordinates: CLLocationCoordinate2D?
     let loading: Bool
     
     init(state: AppState) {
-        self.location = state.currentPlace ?? ""
+        self.placeName = state.currentPlace?.name ?? ""
+        self.coordinates = state.currentPlace?.coordinate
         self.loading = state.loading
     }
 }
@@ -63,7 +65,11 @@ class PlacesTestView: UIView, ViewControllerModellableView {
     
     func update(oldModel: PlacesTestViewModel?) {
         if let model = self.model {
-            self.label.text = model.location
+            self.label.text = model.placeName
+            if let coordinates = model.coordinates {
+                let camera = GMSCameraPosition.camera(withLatitude: coordinates.latitude, longitude: coordinates.longitude, zoom: 15.0)
+                self.mapView.animate(to: camera)
+            }
             if model.loading {
                 self.activityIndicator.startAnimating()
             } else {
