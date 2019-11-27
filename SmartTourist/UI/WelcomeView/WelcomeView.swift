@@ -51,6 +51,7 @@ class WelcomeView: UIView, ViewControllerModellableView {
         self.label.numberOfLines = 4
         self.label.textAlignment = .center
         self.label.font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 8)
+        self.button.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 4)
     }
     
     override func layoutSubviews() {
@@ -58,7 +59,7 @@ class WelcomeView: UIView, ViewControllerModellableView {
         self.label.sizeToFit()
         self.button.sizeToFit()
         self.label.pin.center()
-        self.button.pin.below(of: self.label, aligned: .center).marginTop(100)
+        self.button.pin.bottom(25%).hCenter()
     }
     
     func update(oldModel: WelcomeViewModel?) {

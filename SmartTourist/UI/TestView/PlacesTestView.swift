@@ -51,8 +51,7 @@ class PlacesTestView: UIView, ViewControllerModellableView {
         self.button.sizeToFit()
         self.activityIndicator.sizeToFit()
         self.label.pin.center()
-        self.button.pin.below(of: self.label, aligned: .center).marginTop(50)
-        //self.activityIndicator.pin.above(of: self.label, aligned: .center).marginBottom(100)
+        self.button.pin.bottom(35%).hCenter()
         self.activityIndicator.pin.center()
     }
     
