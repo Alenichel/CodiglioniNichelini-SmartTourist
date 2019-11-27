@@ -36,8 +36,7 @@ class PlacesTestView: UIView, ViewControllerModellableView {
         self.button.on(.touchUpInside) { sender in
             self.didTapButton?()
         }
-        let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
-        self.mapView = GMSMapView.map(withFrame: .zero, camera: camera)
+        self.mapView = GMSMapView(frame: .zero)
         do {
             // Set the map style by passing the URL of the local file.
             if let styleURL = Bundle.main.url(forResource: "mapStyle", withExtension: "json") {

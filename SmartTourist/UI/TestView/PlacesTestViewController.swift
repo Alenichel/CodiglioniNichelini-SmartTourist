@@ -43,7 +43,6 @@ class PlacesTestViewController: ViewController<PlacesTestView>, CLLocationManage
     override func setupInteraction() {
         self.rootView.didTapButton = { [unowned self] in
             self.dispatch(GetCurrentPlace())
-            NotificationManager.shared.scheduleNotification(body: "Hello, world")
         }
     }
 }

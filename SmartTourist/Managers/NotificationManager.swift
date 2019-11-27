@@ -37,10 +37,7 @@ class NotificationManager {
         content.categoryIdentifier = self.identifier
         let category = UNNotificationCategory(identifier: self.identifier, actions: [], intentIdentifiers: [], options: [])
         self.nc.setNotificationCategories([category])
-        var date = Date()
-        print(date)
-        date += TimeInterval(5)
-        print(date)
+        let date = Date() + TimeInterval(1)
         let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         let request = UNNotificationRequest(identifier: self.identifier, content: content, trigger: trigger)
