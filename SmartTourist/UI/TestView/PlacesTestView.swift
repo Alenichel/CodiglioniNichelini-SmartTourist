@@ -38,22 +38,20 @@ class PlacesTestView: UIView, ViewControllerModellableView {
         }
         let camera = GMSCameraPosition.camera(withLatitude: -33.86, longitude: 151.20, zoom: 6.0)
         self.mapView = GMSMapView.map(withFrame: .zero, camera: camera)
+        do {
+            // Set the map style by passing the URL of the local file.
+            if let styleURL = Bundle.main.url(forResource: "mapStyle", withExtension: "json") {
+                mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+            } else {
+                print("Unable to find style.json")
+            }
+        } catch {
+            print("One or more of the map styles failed to load. \(error)")
+        }
         self.addSubview(self.label)
         self.addSubview(self.button)
         self.addSubview(self.activityIndicator)
         self.addSubview(self.mapView)
-        
-        do {
-             // Set the map style by passing the URL of the local file.
-             if let styleURL = Bundle.main.url(forResource: "mapStyle", withExtension: "json") {
-               mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
-             } else {
-               NSLog("Unable to find style.json")
-             }
-           } catch {
-             NSLog("One or more of the map styles failed to load. \(error)")
-           }
-        
     }
     
     func style() {
@@ -79,7 +77,7 @@ class PlacesTestView: UIView, ViewControllerModellableView {
         if let model = self.model {
             self.label.text = model.placeName
             if let coordinates = model.coordinates {
-                let camera = GMSCameraPosition.camera(withLatitude: coordinates.latitude, longitude: coordinates.longitude, zoom: 15.0)
+                let camera = GMSCameraPosition.camera(withLatitude: coordinates.latitude, longitude: coordinates.longitude, zoom: 17)
                 self.mapView.animate(to: camera)
             }
             if model.loading {
