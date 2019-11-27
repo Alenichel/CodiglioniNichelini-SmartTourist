@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Hydra
 import UserNotifications
 
 
@@ -23,6 +24,20 @@ class NotificationManager {
             if granted {
                 print("Notification permission granted")
             }
+        }
+    }
+    
+    var notificationsEnabled: Bool {
+        let promise = Promise<Bool>(in: .background) { resolve, reject, status in
+            self.nc.getNotificationSettings(completionHandler: {settings in
+                resolve(settings.authorizationStatus == .authorized)
+            })
+        }
+        do {
+            let value = try await(promise)
+            return value
+        } catch {
+            return false
         }
     }
     

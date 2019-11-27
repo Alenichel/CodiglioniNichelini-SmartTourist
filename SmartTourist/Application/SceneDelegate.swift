@@ -20,21 +20,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, RootInstaller {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        store = Store<AppState, DependenciesContainer>()
+        store = Store<AppState, DependenciesContainer>(interceptors: [
+            DispatchableLogger.interceptor(),
+        ])
         window = UIWindow(frame: UIScreen.main.bounds)
         let navigator: Navigator! = self.store!.dependencies.navigator
-        navigator.start(using: self, in: self.window!, at: ScreenID.attractions)
+        navigator.start(using: self, in: self.window!, at: Screen.attractions)
         window?.windowScene = windowScene
     }
     
     func installRoot(identifier: RouteElementIdentifier, context: Any?, completion: () -> ()) -> Bool {
-        if identifier == ScreenID.attractions.rawValue {
+        if identifier == Screen.attractions.rawValue {
             let viewController = AttractionsViewController(store: self.store)
-            self.window?.rootViewController = viewController
-            completion()
-            return true
-        } else if identifier == ScreenID.welcome.rawValue {
-            let viewController = WelcomeViewController(store: self.store, localState: WelcomeLocalState())
             self.window?.rootViewController = viewController
             completion()
             return true

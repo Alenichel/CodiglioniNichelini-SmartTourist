@@ -1,5 +1,5 @@
 //
-//  ScreenID.swift
+//  Screen.swift
 //  SmartTourist
 //
 //  Created on 25/11/2019
@@ -8,7 +8,7 @@
 import Foundation
 
 
-enum ScreenID: String {
+enum Screen: String {
     case welcome
     case attractions
 }

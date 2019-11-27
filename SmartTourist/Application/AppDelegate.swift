@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         GMSServices.provideAPIKey("AIzaSyBAtMbvNlX14W5aGIEbcOLp83ZZjskfLck")
         GMSPlacesClient.provideAPIKey("AIzaSyBAtMbvNlX14W5aGIEbcOLp83ZZjskfLck")
         NotificationManager.shared.setDelegate(self)
-        NotificationManager.shared.requestAuth()        // TODO: Move to WelcomeView
+        //NotificationManager.shared.requestAuth()        // TODO: Move to WelcomeView
         return true
     }
 

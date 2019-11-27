@@ -11,62 +11,87 @@ import PinLayout
 
 
 struct WelcomeViewModel: ViewModelWithLocalState {
-    let index: Int
-    let text: String
-    let buttonText: String
+    let locationButtonEnabled: Bool
+    let notificationsButtonEnabled: Bool
     
     init(state: AppState?, localState: WelcomeLocalState) {
-        self.index = localState.pageIndex
-        if self.index < 3, let state = state {
-            self.text = state.welcomeState.labels[index]
-            self.buttonText = state.welcomeState.buttons[index]
-        } else {
-            self.text = ""
-            self.buttonText = ""
-        }
+        self.locationButtonEnabled = localState.locationButtonEnabled
+        self.notificationsButtonEnabled = localState.notificationsButtonEnabled
     }
 }
 
 
-// Maybe it's better if this view becomes a list of buttons, and
-// each button will trigger the request for a specific permission
 class WelcomeView: UIView, ViewControllerModellableView {
     // MARK: Subviews
-    var label = UILabel()
-    var button = UIButton(type: .system)
+    var title = UILabel()
+    var locationLabel = UILabel()
+    var notificationsLabel = UILabel()
+    var locationButton = UIButton(type: .system)
+    var notificationsButton = UIButton(type: .system)
+    var closeButton = UIButton(type: .system)
     
     // MARK: Interactions
-    var didTapButton: Interaction?
+    var didTapLocation: Interaction?
+    var didTapNotifications: Interaction?
+    var didTapClose: Interaction?
 
     func setup() {
-        self.button.on(.touchUpInside) { button in
-            self.didTapButton?()
+        self.title.text = "In order to provide a better user experience, Smart Tourist needs the following permissions."
+        self.locationLabel.text = "Location"
+        self.notificationsLabel.text = "Notifications"
+        self.locationButton.setTitle("Enable", for: .normal)
+        self.locationButton.on(.touchUpInside) { button in
+            self.didTapLocation?()
         }
-        self.addSubview(self.label)
-        self.addSubview(self.button)
+        self.notificationsButton.setTitle("Enable", for: .normal)
+        self.notificationsButton.on(.touchUpInside) { button in
+            self.didTapNotifications?()
+        }
+        self.closeButton.setTitle("Close", for: .normal)
+        self.closeButton.on(.touchUpInside) { button in
+            self.didTapClose?()
+        }
+        self.addSubview(self.title)
+        self.addSubview(self.locationLabel)
+        self.addSubview(self.notificationsLabel)
+        self.addSubview(self.locationButton)
+        self.addSubview(self.notificationsButton)
+        self.addSubview(self.closeButton)
     }
     
     func style() {
         self.backgroundColor = .systemBackground
-        self.label.numberOfLines = 4
-        self.label.textAlignment = .center
-        self.label.font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 8)
-        self.button.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 4)
+        self.title.numberOfLines = 5
+        self.title.textAlignment = .center
+        self.title.font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 8)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.label.sizeToFit()
-        self.button.sizeToFit()
-        self.label.pin.center()
-        self.button.pin.bottom(25%).hCenter()
+        self.title.sizeToFit()
+        self.locationLabel.sizeToFit()
+        self.notificationsLabel.sizeToFit()
+        self.locationButton.sizeToFit()
+        self.notificationsButton.sizeToFit()
+        self.closeButton.sizeToFit()
+        self.title.pin.top(10%).left(5%).right(5%)
+        self.locationLabel.pin.below(of: self.title).marginTop(10%).left(5%)
+        self.locationButton.pin.below(of: self.title).marginTop(10%).right(10%)
+        self.notificationsLabel.pin.below(of: self.locationLabel).marginTop(5%).left(5%)
+        self.notificationsButton.pin.below(of: self.locationLabel).marginTop(5%).right(10%)
+        self.closeButton.pin.bottom(15%).hCenter()
     }
     
     func update(oldModel: WelcomeViewModel?) {
         if let model = self.model {
-            self.label.text = model.text
-            self.button.setTitle(model.buttonText, for: .normal)
-            self.setNeedsLayout()
+            self.updateButton(self.locationButton, enabled: model.locationButtonEnabled)
+            self.updateButton(self.notificationsButton, enabled: model.notificationsButtonEnabled)
         }
+        self.setNeedsLayout()
+    }
+    
+    private func updateButton(_ button: UIButton, enabled: Bool) {
+        button.setTitle(enabled ? "Enabled" : "Enable", for: .normal)
+        button.isEnabled = !enabled
     }
 }

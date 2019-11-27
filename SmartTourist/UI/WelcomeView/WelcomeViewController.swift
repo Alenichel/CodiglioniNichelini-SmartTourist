@@ -11,12 +11,14 @@ import Tempura
 
 class WelcomeViewController: ViewControllerWithLocalState<WelcomeView> {
     override func setupInteraction() {
-        self.rootView.didTapButton = { [unowned self] in
-            self.localState.pageIndex += 1
-            if self.localState.pageIndex >= 3 {
-                self.dispatch(Hide(animated: true))
-                self.dispatch(SetFirstLaunch())
-            }
+        self.rootView.didTapLocation = {
+            print("Location tapped")
+        }
+        self.rootView.didTapNotifications = {
+            NotificationManager.shared.requestAuth()
+        }
+        self.rootView.didTapClose = { [unowned self] in
+            self.dispatch(Hide(animated: true))
         }
     }
 }
@@ -24,17 +26,23 @@ class WelcomeViewController: ViewControllerWithLocalState<WelcomeView> {
 
 extension WelcomeViewController: RoutableWithConfiguration {
     var routeIdentifier: RouteElementIdentifier {
-        ScreenID.welcome.rawValue
+        Screen.welcome.rawValue
     }
     
     var navigationConfiguration: [NavigationRequest : NavigationInstruction] {
         [
-            .hide(ScreenID.welcome): .dismissModally(behaviour: .hard)
+            .hide(Screen.welcome): .dismissModally(behaviour: .hard)
         ]
     }
 }
 
 
 struct WelcomeLocalState: LocalState {
-    var pageIndex: Int = 0
+    var locationButtonEnabled: Bool {
+        return true     // Should return if the button should be enabled or not
+    }
+    
+    var notificationsButtonEnabled: Bool {
+        NotificationManager.shared.notificationsEnabled
+    }
 }
