@@ -13,8 +13,6 @@
 		991F955C238EDD4D002A1093 /* mapStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = 991F955B238EDD4D002A1093 /* mapStyle.json */; };
 		E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F5238C4AFF0052825F /* WelcomeView.swift */; };
 		E524A0F8238C4C060052825F /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F7238C4C060052825F /* WelcomeViewController.swift */; };
-		E524A0FB238C4DB40052825F /* AttractionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0FA238C4DB40052825F /* AttractionsView.swift */; };
-		E524A0FD238C4DBF0052825F /* AttractionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0FC238C4DBF0052825F /* AttractionsViewController.swift */; };
 		E524A0FF238C4F530052825F /* ScreenID.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0FE238C4F530052825F /* ScreenID.swift */; };
 		E528FF87238971FE0065483B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528FF86238971FE0065483B /* AppDelegate.swift */; };
 		E528FF89238971FE0065483B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528FF88238971FE0065483B /* SceneDelegate.swift */; };
@@ -24,8 +22,8 @@
 		E528FFA9238972030065483B /* SmartTouristUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528FFA8238972030065483B /* SmartTouristUITests.swift */; };
 		E52EECCF238EE5FE006196BA /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52EECCE238EE5FE006196BA /* NotificationManager.swift */; };
 		E5335CFE238981D000601F02 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335CFD238981D000601F02 /* AppState.swift */; };
-		E5335D032389942D00601F02 /* PlacesTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D022389942D00601F02 /* PlacesTestView.swift */; };
-		E5335D052389946C00601F02 /* PlacesTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D042389946C00601F02 /* PlacesTestViewController.swift */; };
+		E5335D032389942D00601F02 /* AttractionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D022389942D00601F02 /* AttractionsView.swift */; };
+		E5335D052389946C00601F02 /* AttractionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D042389946C00601F02 /* AttractionsViewController.swift */; };
 		E5335D082389970B00601F02 /* DependenciesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D072389970B00601F02 /* DependenciesContainer.swift */; };
 		E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */; };
 		E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA4238ADEF3008D7C86 /* SideEffects.swift */; };
@@ -63,8 +61,6 @@
 		D30A90CC896E2EB573AFC6C5 /* Pods-SmartTourist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist.debug.xcconfig"; path = "Target Support Files/Pods-SmartTourist/Pods-SmartTourist.debug.xcconfig"; sourceTree = "<group>"; };
 		E524A0F5238C4AFF0052825F /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		E524A0F7238C4C060052825F /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
-		E524A0FA238C4DB40052825F /* AttractionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionsView.swift; sourceTree = "<group>"; };
-		E524A0FC238C4DBF0052825F /* AttractionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionsViewController.swift; sourceTree = "<group>"; };
 		E524A0FE238C4F530052825F /* ScreenID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenID.swift; sourceTree = "<group>"; };
 		E528FF83238971FE0065483B /* SmartTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartTourist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E528FF86238971FE0065483B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -80,8 +76,8 @@
 		E528FFAA238972030065483B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E52EECCE238EE5FE006196BA /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
 		E5335CFD238981D000601F02 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
-		E5335D022389942D00601F02 /* PlacesTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesTestView.swift; sourceTree = "<group>"; };
-		E5335D042389946C00601F02 /* PlacesTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesTestViewController.swift; sourceTree = "<group>"; };
+		E5335D022389942D00601F02 /* AttractionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionsView.swift; sourceTree = "<group>"; };
+		E5335D042389946C00601F02 /* AttractionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionsViewController.swift; sourceTree = "<group>"; };
 		E5335D072389970B00601F02 /* DependenciesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesContainer.swift; sourceTree = "<group>"; };
 		E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateUpdaters.swift; sourceTree = "<group>"; };
 		E585FCA4238ADEF3008D7C86 /* SideEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideEffects.swift; sourceTree = "<group>"; };
@@ -148,22 +144,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E524A0F9238C4DA30052825F /* AttractionsView */ = {
+		E524A100238C4F950052825F /* AttractionsView */ = {
 			isa = PBXGroup;
 			children = (
-				E524A0FA238C4DB40052825F /* AttractionsView.swift */,
-				E524A0FC238C4DBF0052825F /* AttractionsViewController.swift */,
+				E5335D022389942D00601F02 /* AttractionsView.swift */,
+				E5335D042389946C00601F02 /* AttractionsViewController.swift */,
 			);
 			path = AttractionsView;
-			sourceTree = "<group>";
-		};
-		E524A100238C4F950052825F /* TestView */ = {
-			isa = PBXGroup;
-			children = (
-				E5335D022389942D00601F02 /* PlacesTestView.swift */,
-				E5335D042389946C00601F02 /* PlacesTestViewController.swift */,
-			);
-			path = TestView;
 			sourceTree = "<group>";
 		};
 		E528FF7A238971FE0065483B = {
@@ -246,8 +233,7 @@
 			children = (
 				E524A0FE238C4F530052825F /* ScreenID.swift */,
 				E5FDE323238B25610018D791 /* WelcomeView */,
-				E524A0F9238C4DA30052825F /* AttractionsView */,
-				E524A100238C4F950052825F /* TestView */,
+				E524A100238C4F950052825F /* AttractionsView */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -563,13 +549,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5335D082389970B00601F02 /* DependenciesContainer.swift in Sources */,
-				E5335D052389946C00601F02 /* PlacesTestViewController.swift in Sources */,
-				E5335D032389942D00601F02 /* PlacesTestView.swift in Sources */,
+				E5335D052389946C00601F02 /* AttractionsViewController.swift in Sources */,
+				E5335D032389942D00601F02 /* AttractionsView.swift in Sources */,
 				E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */,
 				E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */,
 				E528FF87238971FE0065483B /* AppDelegate.swift in Sources */,
 				E52EECCF238EE5FE006196BA /* NotificationManager.swift in Sources */,
-				E524A0FB238C4DB40052825F /* AttractionsView.swift in Sources */,
 				E524A0FF238C4F530052825F /* ScreenID.swift in Sources */,
 				E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */,
 				E528FF89238971FE0065483B /* SceneDelegate.swift in Sources */,
@@ -577,7 +562,6 @@
 				E524A0F8238C4C060052825F /* WelcomeViewController.swift in Sources */,
 				E5335CFE238981D000601F02 /* AppState.swift in Sources */,
 				E5FDE321238B08A40018D791 /* GooglePlacesAPI.swift in Sources */,
-				E524A0FD238C4DBF0052825F /* AttractionsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

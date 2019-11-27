@@ -23,17 +23,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, RootInstaller {
         store = Store<AppState, DependenciesContainer>()
         window = UIWindow(frame: UIScreen.main.bounds)
         let navigator: Navigator! = self.store!.dependencies.navigator
-        navigator.start(using: self, in: self.window!, at: ScreenID.test)
+        navigator.start(using: self, in: self.window!, at: ScreenID.attractions)
         window?.windowScene = windowScene
     }
     
     func installRoot(identifier: RouteElementIdentifier, context: Any?, completion: () -> ()) -> Bool {
-        if identifier == ScreenID.test.rawValue {
-            let viewController = PlacesTestViewController(store: self.store)
-            self.window?.rootViewController = viewController
-            completion()
-            return true
-        } else if identifier == ScreenID.attractions.rawValue {
+        if identifier == ScreenID.attractions.rawValue {
             let viewController = AttractionsViewController(store: self.store)
             self.window?.rootViewController = viewController
             completion()

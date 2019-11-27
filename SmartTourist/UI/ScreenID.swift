@@ -11,5 +11,4 @@ import Foundation
 enum ScreenID: String {
     case welcome
     case attractions
-    case test
 }
