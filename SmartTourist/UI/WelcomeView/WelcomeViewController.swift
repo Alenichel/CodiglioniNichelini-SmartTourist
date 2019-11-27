@@ -16,6 +16,7 @@ class WelcomeViewController: ViewControllerWithLocalState<WelcomeView> {
         }
         self.rootView.didTapNotifications = {
             NotificationManager.shared.requestAuth()
+            self.localState.notificationsButtonEnabled = !NotificationManager.shared.notificationsEnabled
         }
         self.rootView.didTapClose = { [unowned self] in
             self.dispatch(Hide(animated: true))
@@ -38,11 +39,6 @@ extension WelcomeViewController: RoutableWithConfiguration {
 
 
 struct WelcomeLocalState: LocalState {
-    var locationButtonEnabled: Bool {
-        return true     // Should return if the button should be enabled or not
-    }
-    
-    var notificationsButtonEnabled: Bool {
-        NotificationManager.shared.notificationsEnabled
-    }
+    var locationButtonEnabled = true
+    var notificationsButtonEnabled = true
 }

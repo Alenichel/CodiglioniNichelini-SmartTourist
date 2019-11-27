@@ -9,16 +9,17 @@ import UIKit
 import Tempura
 import PinLayout
 import GoogleMaps
+import GooglePlaces
 
 
 struct AttractionsViewModel: ViewModelWithState {
-    let placeName: String
-    let coordinates: CLLocationCoordinate2D?
+    let currentPlace: GMSPlace?
+    let currentLocation: CLLocationCoordinate2D?
     let loading: Bool
     
     init(state: AppState) {
-        self.placeName = state.currentPlace?.name ?? ""
-        self.coordinates = state.currentPlace?.coordinate
+        self.currentPlace = state.currentPlace
+        self.currentLocation = state.currentLocation
         self.loading = state.loading
     }
 }
@@ -39,7 +40,8 @@ class AttractionsView: UIView, ViewControllerModellableView {
         self.mapView = GMSMapView(frame: .zero)
         do {
             // Set the map style by passing the URL of the local file.
-            if let styleURL = Bundle.main.url(forResource: "mapStyle", withExtension: "json") {
+            let style = UITraitCollection.current.userInterfaceStyle == .dark ? "mapStyle.dark" : "mapStyle"
+            if let styleURL = Bundle.main.url(forResource: style, withExtension: "json") {
                 mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
             } else {
                 print("Unable to find style.json")
@@ -47,6 +49,7 @@ class AttractionsView: UIView, ViewControllerModellableView {
         } catch {
             print("One or more of the map styles failed to load. \(error)")
         }
+        self.mapView.isMyLocationEnabled = true
         self.addSubview(self.label)
         self.addSubview(self.button)
         self.addSubview(self.activityIndicator)
@@ -74,9 +77,11 @@ class AttractionsView: UIView, ViewControllerModellableView {
     
     func update(oldModel: AttractionsViewModel?) {
         if let model = self.model {
-            self.label.text = model.placeName
-            if let coordinates = model.coordinates {
-                let camera = GMSCameraPosition.camera(withLatitude: coordinates.latitude, longitude: coordinates.longitude, zoom: 17)
+            if let currentPlace = model.currentPlace, let placeName = currentPlace.name {
+                self.label.text = placeName
+            }
+            if let location = model.currentLocation {
+                let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17)
                 self.mapView.animate(to: camera)
             }
             if model.loading {

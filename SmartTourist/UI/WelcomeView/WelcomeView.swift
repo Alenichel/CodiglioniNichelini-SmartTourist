@@ -91,7 +91,7 @@ class WelcomeView: UIView, ViewControllerModellableView {
     }
     
     private func updateButton(_ button: UIButton, enabled: Bool) {
-        button.setTitle(enabled ? "Enabled" : "Enable", for: .normal)
-        button.isEnabled = !enabled
+        button.setTitle(enabled ? "Enable" : "Enabled", for: .normal)
+        button.isEnabled = enabled
     }
 }

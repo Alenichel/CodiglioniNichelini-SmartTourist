@@ -13,6 +13,7 @@ import GooglePlaces
 // MARK: - State
 struct AppState: State {
     var firstLaunch: Bool = true
+    var currentLocation: CLLocationCoordinate2D?
     var currentPlace: GMSPlace?
     var loading: Bool = false
 }

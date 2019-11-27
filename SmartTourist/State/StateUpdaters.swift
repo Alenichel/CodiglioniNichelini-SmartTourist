@@ -10,6 +10,22 @@ import Katana
 import GooglePlaces
 
 
+struct SetFirstLaunch: StateUpdater {
+    func updateState(_ state: inout AppState) {
+        state.firstLaunch = false
+    }
+}
+
+
+struct SetCurrentLocation: StateUpdater {
+    let location: CLLocationCoordinate2D?
+    
+    func updateState(_ state: inout AppState) {
+        state.currentLocation = location
+    }
+}
+
+
 struct SetCurrentPlace: StateUpdater {
     let place: GMSPlace?
     
@@ -24,12 +40,5 @@ struct SetLoading: StateUpdater {
     func updateState(_ state: inout AppState) {
         state.currentPlace = nil
         state.loading = true
-    }
-}
-
-
-struct SetFirstLaunch: StateUpdater {
-    func updateState(_ state: inout AppState) {
-        state.firstLaunch = false
     }
 }
