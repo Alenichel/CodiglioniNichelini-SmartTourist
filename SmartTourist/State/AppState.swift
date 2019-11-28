@@ -17,7 +17,13 @@ import GooglePlaces
 // less than X seconds ago, we can avoid to make a new request.
 struct AppState: State {
     var firstLaunch: Bool = true
+    var locationState = LocationState()
+    var loading: Bool = false
+}
+
+
+struct LocationState {
+    var lastUpdate: Date = Date().advanced(by: TimeInterval(-30))
     var currentLocation: CLLocationCoordinate2D?
     var currentPlace: GMSPlace?
-    var loading: Bool = false
 }

@@ -18,8 +18,8 @@ struct AttractionsViewModel: ViewModelWithState {
     let loading: Bool
     
     init(state: AppState) {
-        self.currentPlace = state.currentPlace
-        self.currentLocation = state.currentLocation
+        self.currentPlace = state.locationState.currentPlace
+        self.currentLocation = state.locationState.currentLocation
         self.loading = state.loading
     }
 }

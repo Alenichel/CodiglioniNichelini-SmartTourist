@@ -15,7 +15,7 @@ struct MainViewModel: ViewModelWithLocalState {
     let cardPercentage: Percent
     
     init(state: AppState?, localState: MainLocalState) {
-        self.place = state?.currentPlace?.name ?? "NO PLACE"
+        self.place = state?.locationState.currentPlace?.name ?? "NO PLACE"
         self.cardPercentage = localState.cardPercentage%
     }
 }

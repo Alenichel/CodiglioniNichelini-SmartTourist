@@ -48,4 +48,9 @@ class GooglePlacesAPI {
         }
     }
     
+    /*func getPopularPlaces() -> Promise<[GMSPlace]> {
+        return Promise<GMSPlace>(in: .main) { resolve, reject, status in
+            self.placesClient.
+        }
+    }*/
 }
