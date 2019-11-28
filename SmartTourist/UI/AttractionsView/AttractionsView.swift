@@ -49,7 +49,6 @@ class AttractionsView: UIView, ViewControllerModellableView {
         } catch {
             print("One or more of the map styles failed to load. \(error)")
         }
-        //self.mapView.isMyLocationEnabled = true
         self.addSubview(self.label)
         self.addSubview(self.button)
         self.addSubview(self.activityIndicator)
@@ -81,6 +80,7 @@ class AttractionsView: UIView, ViewControllerModellableView {
                 self.label.text = placeName
             }
             if let location = model.currentLocation {
+                self.mapView.isMyLocationEnabled = true
                 if let lastCircle = self.lastCircle {
                     lastCircle.map = nil
                 }
