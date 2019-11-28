@@ -15,7 +15,7 @@ struct GetCurrentPlace: SideEffect {
         context.dispatch(SetLoading())
         let lastUpdate = context.getState().locationState.lastUpdate
         if lastUpdate.distance(to: Date()) > 30 {       // If last update occurred more than X seconds ago
-            context.dependencies.placesAPI.getNearbyAttractions().then { attractions in
+            context.dependencies.googleAPI.getNearbyAttractions().then { attractions in
                 if let place = attractions.first {
                     context.dispatch(SetCurrentPlace(place: place))
                 } else {

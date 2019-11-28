@@ -33,7 +33,7 @@
 		E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */; };
 		E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA4238ADEF3008D7C86 /* SideEffects.swift */; };
 		E5AEEAAC238ADB580094A37B /* UIControl+TargetActionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AEEAAB238ADB580094A37B /* UIControl+TargetActionable.swift */; };
-		E5FDE321238B08A40018D791 /* GooglePlacesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE320238B08A40018D791 /* GooglePlacesAPI.swift */; };
+		E5FDE321238B08A40018D791 /* GoogleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE320238B08A40018D791 /* GoogleAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,7 +92,7 @@
 		E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateUpdaters.swift; sourceTree = "<group>"; };
 		E585FCA4238ADEF3008D7C86 /* SideEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideEffects.swift; sourceTree = "<group>"; };
 		E5AEEAAB238ADB580094A37B /* UIControl+TargetActionable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+TargetActionable.swift"; sourceTree = "<group>"; };
-		E5FDE320238B08A40018D791 /* GooglePlacesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesAPI.swift; sourceTree = "<group>"; };
+		E5FDE320238B08A40018D791 /* GoogleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,7 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				E5335D072389970B00601F02 /* DependenciesContainer.swift */,
-				E5FDE320238B08A40018D791 /* GooglePlacesAPI.swift */,
+				E5FDE320238B08A40018D791 /* GoogleAPI.swift */,
 			);
 			path = Dependencies;
 			sourceTree = "<group>";
@@ -589,7 +589,7 @@
 				E524A0F8238C4C060052825F /* WelcomeViewController.swift in Sources */,
 				E51185EF238FC27000F01D83 /* MainViewController.swift in Sources */,
 				E5335CFE238981D000601F02 /* AppState.swift in Sources */,
-				E5FDE321238B08A40018D791 /* GooglePlacesAPI.swift in Sources */,
+				E5FDE321238B08A40018D791 /* GoogleAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

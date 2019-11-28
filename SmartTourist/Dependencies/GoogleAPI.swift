@@ -1,5 +1,5 @@
 //
-//  GooglePlacesAPI.swift
+//  GoogleAPI.swift
 //  SmartTourist
 //
 //  Created on 24/11/2019.
@@ -11,7 +11,7 @@ import GooglePlaces
 import Hydra
 
 
-class GooglePlacesAPI {
+class GoogleAPI {
     
     var placesClient = GMSPlacesClient.shared()
     
