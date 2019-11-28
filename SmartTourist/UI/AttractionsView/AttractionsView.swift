@@ -49,7 +49,7 @@ class AttractionsView: UIView, ViewControllerModellableView {
         } catch {
             print("One or more of the map styles failed to load. \(error)")
         }
-        self.mapView.isMyLocationEnabled = true
+        //self.mapView.isMyLocationEnabled = true
         self.addSubview(self.label)
         self.addSubview(self.button)
         self.addSubview(self.activityIndicator)

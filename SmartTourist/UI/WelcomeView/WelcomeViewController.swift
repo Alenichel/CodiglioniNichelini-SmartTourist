@@ -12,7 +12,7 @@ import Tempura
 class WelcomeViewController: ViewControllerWithLocalState<WelcomeView> {
     override func setupInteraction() {
         self.rootView.didTapLocation = {
-            print("Location tapped")
+            LocationManager.shared.requestAuth()
         }
         self.rootView.didTapNotifications = {
             NotificationManager.shared.requestAuth()
