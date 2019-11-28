@@ -17,6 +17,7 @@ class AttractionsViewController: ViewController<AttractionsView>, CLLocationMana
     override func viewDidLoad() {
         super.viewDidLoad()
         LocationManager.shared.setDelegate(self)
+        LocationManager.shared.startUpdatingLocation()
         if self.state.firstLaunch {
             self.dispatch(SetFirstLaunch())
             self.dispatch(Show(Screen.welcome, animated: true))

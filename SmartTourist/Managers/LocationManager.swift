@@ -17,9 +17,12 @@ class LocationManager {
     func requestAuth() {
         lm.requestAlwaysAuthorization()
         lm.desiredAccuracy = kCLLocationAccuracyBest
-        lm.startUpdatingLocation()
         print("Starting updating location")
-        lm.distanceFilter = 250
+        lm.distanceFilter = 50
+    }
+    
+    func startUpdatingLocation(){
+        lm.startUpdatingLocation()
     }
     
     func setDelegate (_ delegate: CLLocationManagerDelegate){
