@@ -11,6 +11,9 @@
 		4DC68C698795D2E15DF07FFE /* Pods_SmartTourist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A68ECEB84859705FE364757 /* Pods_SmartTourist.framework */; };
 		5F7A4CA34DB61B8A7EBF547D /* Pods_SmartTourist_SmartTouristUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */; };
 		991F955C238EDD4D002A1093 /* mapStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = 991F955B238EDD4D002A1093 /* mapStyle.json */; };
+		E51185EB238FBFC900F01D83 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51185EA238FBFC900F01D83 /* CardView.swift */; };
+		E51185ED238FC26200F01D83 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51185EC238FC26200F01D83 /* MainView.swift */; };
+		E51185EF238FC27000F01D83 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51185EE238FC27000F01D83 /* MainViewController.swift */; };
 		E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F5238C4AFF0052825F /* WelcomeView.swift */; };
 		E524A0F8238C4C060052825F /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F7238C4C060052825F /* WelcomeViewController.swift */; };
 		E524A0FF238C4F530052825F /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0FE238C4F530052825F /* Screen.swift */; };
@@ -60,6 +63,9 @@
 		BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartTourist_SmartTouristUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB1F109E38A57D77901D8A65 /* Pods-SmartTouristTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTouristTests.release.xcconfig"; path = "Target Support Files/Pods-SmartTouristTests/Pods-SmartTouristTests.release.xcconfig"; sourceTree = "<group>"; };
 		D30A90CC896E2EB573AFC6C5 /* Pods-SmartTourist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist.debug.xcconfig"; path = "Target Support Files/Pods-SmartTourist/Pods-SmartTourist.debug.xcconfig"; sourceTree = "<group>"; };
+		E51185EA238FBFC900F01D83 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		E51185EC238FC26200F01D83 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		E51185EE238FC27000F01D83 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		E524A0F5238C4AFF0052825F /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		E524A0F7238C4C060052825F /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		E524A0FE238C4F530052825F /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
@@ -145,6 +151,16 @@
 				32E56BB7B73B2546D81ECE2D /* Pods_SmartTouristTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E51185E3238FBE9200F01D83 /* CardViewController */ = {
+			isa = PBXGroup;
+			children = (
+				E51185EA238FBFC900F01D83 /* CardView.swift */,
+				E51185EC238FC26200F01D83 /* MainView.swift */,
+				E51185EE238FC27000F01D83 /* MainViewController.swift */,
+			);
+			path = CardViewController;
 			sourceTree = "<group>";
 		};
 		E524A100238C4F950052825F /* AttractionsView */ = {
@@ -235,6 +251,7 @@
 			isa = PBXGroup;
 			children = (
 				E524A0FE238C4F530052825F /* Screen.swift */,
+				E51185E3238FBE9200F01D83 /* CardViewController */,
 				E5FDE323238B25610018D791 /* WelcomeView */,
 				E524A100238C4F950052825F /* AttractionsView */,
 			);
@@ -553,6 +570,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5335D082389970B00601F02 /* DependenciesContainer.swift in Sources */,
+				E51185EB238FBFC900F01D83 /* CardView.swift in Sources */,
 				E5335D052389946C00601F02 /* AttractionsViewController.swift in Sources */,
 				E5335D032389942D00601F02 /* AttractionsView.swift in Sources */,
 				E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */,
@@ -561,9 +579,11 @@
 				E52EECCF238EE5FE006196BA /* NotificationManager.swift in Sources */,
 				E524A0FF238C4F530052825F /* Screen.swift in Sources */,
 				E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */,
+				E51185ED238FC26200F01D83 /* MainView.swift in Sources */,
 				E528FF89238971FE0065483B /* SceneDelegate.swift in Sources */,
 				E5AEEAAC238ADB580094A37B /* UIControl+TargetActionable.swift in Sources */,
 				E524A0F8238C4C060052825F /* WelcomeViewController.swift in Sources */,
+				E51185EF238FC27000F01D83 /* MainViewController.swift in Sources */,
 				E5335CFE238981D000601F02 /* AppState.swift in Sources */,
 				E5FDE321238B08A40018D791 /* GooglePlacesAPI.swift in Sources */,
 			);

@@ -35,10 +35,10 @@ class AttractionsViewController: ViewController<AttractionsView>, CLLocationMana
             alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alert, animated: true)
         }
-        /*if self.state.firstLaunch {
+        if self.state.firstLaunch {
             self.dispatch(SetFirstLaunch())
             self.dispatch(Show(Screen.welcome, animated: true))
-        }*/
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

@@ -9,7 +9,6 @@ target 'SmartTourist' do
   pod 'Katana'
   pod 'Tempura'
   pod 'PinLayout'
-  pod 'SwiftLocation'
   pod 'GooglePlaces'
   pod 'GoogleMaps'
 
