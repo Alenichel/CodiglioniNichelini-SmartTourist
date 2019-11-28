@@ -11,13 +11,10 @@
 		4DC68C698795D2E15DF07FFE /* Pods_SmartTourist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A68ECEB84859705FE364757 /* Pods_SmartTourist.framework */; };
 		5F7A4CA34DB61B8A7EBF547D /* Pods_SmartTourist_SmartTouristUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */; };
 		991F955C238EDD4D002A1093 /* mapStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = 991F955B238EDD4D002A1093 /* mapStyle.json */; };
-<<<<<<< HEAD
 		E51185EB238FBFC900F01D83 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51185EA238FBFC900F01D83 /* CardView.swift */; };
 		E51185ED238FC26200F01D83 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51185EC238FC26200F01D83 /* MainView.swift */; };
 		E51185EF238FC27000F01D83 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51185EE238FC27000F01D83 /* MainViewController.swift */; };
-=======
 		992533C4238FF8B800EE479A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992533C3238FF8B800EE479A /* LocationManager.swift */; };
->>>>>>> 91f2989f63bea516f840b7846570f0a0cbc378df
 		E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F5238C4AFF0052825F /* WelcomeView.swift */; };
 		E524A0F8238C4C060052825F /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F7238C4C060052825F /* WelcomeViewController.swift */; };
 		E524A0FF238C4F530052825F /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0FE238C4F530052825F /* Screen.swift */; };
