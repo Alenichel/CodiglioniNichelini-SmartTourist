@@ -87,6 +87,9 @@ class AttractionsView: UIView, ViewControllerModellableView {
                 let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17)
                 self.mapView.animate(to: camera)
                 let circle = GMSCircle(position: location, radius: 100)
+                if traitCollection.userInterfaceStyle == .dark{
+                    circle.strokeColor = .white
+                }
                 circle.map = self.mapView
                 self.lastCircle = circle
             }
