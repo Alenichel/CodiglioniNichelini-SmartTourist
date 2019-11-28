@@ -30,7 +30,7 @@ class AttractionsView: UIView, ViewControllerModellableView {
     var button = UIButton(type: .system)
     var activityIndicator = UIActivityIndicatorView(style: .large)
     var mapView: GMSMapView!
-    
+    var lastCircle: GMSCircle?
     var didTapButton: Interaction?
     
     func setup() {
@@ -81,8 +81,14 @@ class AttractionsView: UIView, ViewControllerModellableView {
             }
             if let location = model.currentLocation {
                 self.mapView.isMyLocationEnabled = true
+                if let lastCircle = self.lastCircle {
+                    lastCircle.map = nil
+                }
                 let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17)
                 self.mapView.animate(to: camera)
+                let circle = GMSCircle(position: location, radius: 100)
+                circle.map = self.mapView
+                self.lastCircle = circle
             }
             if model.loading {
                 self.activityIndicator.startAnimating()

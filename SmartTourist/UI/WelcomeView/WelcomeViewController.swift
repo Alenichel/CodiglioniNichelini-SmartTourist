@@ -20,6 +20,7 @@ class WelcomeViewController: ViewControllerWithLocalState<WelcomeView> {
         }
         self.rootView.didTapClose = { [unowned self] in
             self.dispatch(Hide(animated: true))
+            LocationManager.shared.startUpdatingLocation()
         }
     }
 }
