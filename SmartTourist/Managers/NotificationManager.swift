@@ -12,6 +12,7 @@ import UserNotifications
 
 class NotificationManager {
     static let shared = NotificationManager()
+    private init() {}
         
     private let nc = UNUserNotificationCenter.current()
     private let identifier = "smart-tourist"

@@ -13,20 +13,21 @@ import GooglePlaces
 struct GetCurrentPlace: SideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
         context.dispatch(SetLoading())
-        if let lastUpdate = context.getState().locationState.lastUpdate {
-            let diff = Date().distance(to: lastUpdate)
-            if abs(diff) > 15 {
-                context.dependencies.placesAPI.getNearbyAttractions().then { attractions in
-                    if let place = attractions.first {
-                        context.dispatch(SetCurrentPlace(place: place))
-                    } else {
-                        context.dispatch(SetCurrentPlace(place: nil))
-                    }
-                    context.dispatch(SetLastUpdate(lastUpdate: Date()))
-                }.catch { error in
+        let lastUpdate = context.getState().locationState.lastUpdate
+        if lastUpdate.distance(to: Date()) > 30 {       // If last update occurred more than X seconds ago
+            context.dependencies.placesAPI.getNearbyAttractions().then { attractions in
+                if let place = attractions.first {
+                    context.dispatch(SetCurrentPlace(place: place))
+                } else {
                     context.dispatch(SetCurrentPlace(place: nil))
                 }
+            }.catch { error in
+                context.dispatch(SetCurrentPlace(place: nil))
+            }.always {
+                context.dispatch(SetLastUpdate(lastUpdate: Date()))
             }
+        } else {
+            context.dispatch(SetCurrentPlace(place: context.getState().locationState.currentPlace))
         }
     }
 }

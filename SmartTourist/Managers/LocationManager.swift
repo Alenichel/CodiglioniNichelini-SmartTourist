@@ -8,24 +8,30 @@
 import Foundation
 import CoreLocation
 
+
 class LocationManager {
     static let shared = LocationManager()
-    private init(){}
+    private init() {}
     
-    var lm = CLLocationManager()
+    private var lm = CLLocationManager()
 
     func requestAuth() {
-        lm.requestAlwaysAuthorization()
-        lm.desiredAccuracy = kCLLocationAccuracyBest
+        self.lm.requestAlwaysAuthorization()
+        self.lm.desiredAccuracy = kCLLocationAccuracyBest
+        self.lm.distanceFilter = 100
+    }
+    
+    func startUpdatingLocation() {
+        self.lm.startUpdatingLocation()
         print("Starting updating location")
-        lm.distanceFilter = 50
     }
     
-    func startUpdatingLocation(){
-        lm.startUpdatingLocation()
+    func stopUpdatingLocation() {
+        self.lm.stopUpdatingLocation()
+        print("Stopped updating location")
     }
     
-    func setDelegate (_ delegate: CLLocationManagerDelegate){
+    func setDelegate (_ delegate: CLLocationManagerDelegate) {
         self.lm.delegate = delegate
     }
 }

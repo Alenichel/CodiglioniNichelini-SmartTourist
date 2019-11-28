@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, RootInstaller {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         store = Store<AppState, DependenciesContainer>(interceptors: [
-            DispatchableLogger.interceptor(),
+            //DispatchableLogger.interceptor(),
         ])
         window = UIWindow(frame: UIScreen.main.bounds)
         let navigator: Navigator! = self.store!.dependencies.navigator

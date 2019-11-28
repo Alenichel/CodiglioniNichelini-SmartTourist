@@ -12,21 +12,20 @@ import GooglePlaces
 
 
 class AttractionsViewController: ViewController<AttractionsView>, CLLocationManagerDelegate {
-    var locationManager = CLLocationManager()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         LocationManager.shared.setDelegate(self)
-        LocationManager.shared.startUpdatingLocation()
         if self.state.firstLaunch {
             self.dispatch(SetFirstLaunch())
             self.dispatch(Show(Screen.welcome, animated: true))
+            LocationManager.shared.stopUpdatingLocation()
+        } else {
+            LocationManager.shared.startUpdatingLocation()
         }
-        LocationManager.shared.startUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("--> didUpdateLocations: \(locations)")
+        print("[didUpdateLocations]: \(locations)")
         if let location = locations.first {
             self.dispatch(SetCurrentLocation(location: location.coordinate))
             self.dispatch(GetCurrentPlace())
