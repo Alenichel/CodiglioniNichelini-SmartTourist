@@ -21,7 +21,7 @@ struct SetCurrentLocation: StateUpdater {
     let location: CLLocationCoordinate2D?
     
     func updateState(_ state: inout AppState) {
-        state.currentLocation = location
+        state.locationState.currentLocation = location
     }
 }
 
@@ -30,7 +30,7 @@ struct SetCurrentPlace: StateUpdater {
     let place: GMSPlace?
     
     func updateState(_ state: inout AppState) {
-        state.currentPlace = place
+        state.locationState.currentPlace = place
         state.loading = false
     }
 }
@@ -38,7 +38,16 @@ struct SetCurrentPlace: StateUpdater {
 
 struct SetLoading: StateUpdater {
     func updateState(_ state: inout AppState) {
-        state.currentPlace = nil
+        state.locationState.currentPlace = nil
         state.loading = true
+    }
+}
+
+
+struct SetLastUpdate: StateUpdater {
+    let lastUpdate: Date
+    
+    func updateState(_ state: inout AppState) {
+        state.locationState.lastUpdate = lastUpdate
     }
 }

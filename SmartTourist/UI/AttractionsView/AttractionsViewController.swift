@@ -21,6 +21,7 @@ class AttractionsViewController: ViewController<AttractionsView>, CLLocationMana
             self.dispatch(SetFirstLaunch())
             self.dispatch(Show(Screen.welcome, animated: true))
         }
+        LocationManager.shared.startUpdatingLocation()
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

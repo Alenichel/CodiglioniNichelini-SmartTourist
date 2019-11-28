@@ -18,8 +18,8 @@ struct AttractionsViewModel: ViewModelWithState {
     let loading: Bool
     
     init(state: AppState) {
-        self.currentPlace = state.currentPlace
-        self.currentLocation = state.currentLocation
+        self.currentPlace = state.locationState.currentPlace
+        self.currentLocation = state.locationState.currentLocation
         self.loading = state.loading
     }
 }
@@ -49,7 +49,6 @@ class AttractionsView: UIView, ViewControllerModellableView {
         } catch {
             print("One or more of the map styles failed to load. \(error)")
         }
-        //self.mapView.isMyLocationEnabled = true
         self.addSubview(self.label)
         self.addSubview(self.button)
         self.addSubview(self.activityIndicator)
@@ -81,6 +80,7 @@ class AttractionsView: UIView, ViewControllerModellableView {
                 self.label.text = placeName
             }
             if let location = model.currentLocation {
+                self.mapView.isMyLocationEnabled = true
                 let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17)
                 self.mapView.animate(to: camera)
             }

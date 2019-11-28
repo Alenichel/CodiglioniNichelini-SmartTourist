@@ -11,6 +11,5 @@ import Foundation
 enum Screen: String {
     case welcome
     case attractions
-    case card
     case test
 }
