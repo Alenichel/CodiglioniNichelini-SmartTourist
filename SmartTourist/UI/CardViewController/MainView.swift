@@ -11,11 +11,9 @@ import PinLayout
 
 
 struct MainViewModel: ViewModelWithLocalState {
-    let place: String
     let cardPercentage: Percent
     
     init(state: AppState?, localState: MainLocalState) {
-        self.place = state?.locationState.currentPlace?.name ?? "NO PLACE"
         self.cardPercentage = localState.cardPercentage%
     }
 }
@@ -51,7 +49,7 @@ class MainView: UIView, ViewControllerModellableView {
     
     func update(oldModel: MainViewModel?) {
         if let model = self.model {
-            let cardViewModel = CardViewModel(place: model.place)
+            let cardViewModel = CardViewModel(percent: model.cardPercentage)
             self.cardView.model = cardViewModel
         }
         self.setNeedsLayout()

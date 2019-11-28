@@ -12,7 +12,7 @@ import PinLayout
 
 
 struct CardViewModel: ViewModel {
-    let place: String
+    let percent: Percent
 }
 
 
@@ -25,7 +25,6 @@ class CardView: UIView, ModellableView {
     func setup() {
         self.handle.setImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
         self.handle.on(.touchUpInside) { button in
-            print(button)
             self.animate?()
         }
         self.addSubview(self.handle)
@@ -36,10 +35,10 @@ class CardView: UIView, ModellableView {
         self.backgroundColor = .systemBackground
         self.label.font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 8)
         self.label.textAlignment = .center
-        self.handle.tintColor = .systemGray
+        self.handle.tintColor = .secondaryLabel
         self.layer.cornerRadius = 30
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowOpacity = 1
+        self.layer.shadowColor = UIColor.label.cgColor
+        self.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 0.25 : 0.75
         self.layer.shadowOffset = .zero
         self.layer.shadowRadius = 10
     }
@@ -54,7 +53,7 @@ class CardView: UIView, ModellableView {
     
     func update(oldModel: CardViewModel?) {
         if let model = self.model {
-            self.label.text = model.place
+            self.label.text = model.percent.description
         }
         self.setNeedsLayout()
     }
