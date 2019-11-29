@@ -41,6 +41,6 @@ extension WelcomeViewController: RoutableWithConfiguration {
 
 
 struct WelcomeLocalState: LocalState {
-    var locationButtonEnabled = true//!LocationManager.shared.locationEnabled
-    var notificationsButtonEnabled = true//!NotificationManager.shared.notificationsEnabled
+    var locationButtonEnabled = !LocationManager.shared.locationEnabled
+    var notificationsButtonEnabled = !NotificationManager.shared.notificationsEnabled
 }
