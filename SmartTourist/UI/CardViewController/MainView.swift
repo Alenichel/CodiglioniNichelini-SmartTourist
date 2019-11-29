@@ -12,9 +12,11 @@ import PinLayout
 
 struct MainViewModel: ViewModelWithLocalState {
     let cardPercentage: Percent
+    let animate: Bool
     
     init(state: AppState?, localState: MainLocalState) {
-        self.cardPercentage = localState.cardPercentage%
+        self.cardPercentage = localState.cardState.rawValue%
+        self.animate = localState.animate
     }
 }
 
@@ -40,6 +42,10 @@ class MainView: UIView, ViewControllerModellableView {
         super.layoutSubviews()
         self.label.sizeToFit()
         self.label.pin.center()
+        self.layoutCardView()
+    }
+    
+    func layoutCardView() {
         if let model = self.model {
             self.cardView.pin.bottom().left().right().top(model.cardPercentage)
         } else {
@@ -51,7 +57,13 @@ class MainView: UIView, ViewControllerModellableView {
         if let model = self.model {
             let cardViewModel = CardViewModel(percent: model.cardPercentage)
             self.cardView.model = cardViewModel
+            if model.animate {
+                UIView.animate(withDuration: 0.5) {
+                    self.layoutCardView()
+                }
+            } else {
+                self.setNeedsLayout()
+            }
         }
-        self.setNeedsLayout()
     }
 }

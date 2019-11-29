@@ -36,7 +36,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, RootInstaller {
             completion()
             return true
         } else if identifier == Screen.test.rawValue {
-            let vc = MainViewController(store: self.store, localState: MainLocalState(cardPercentage: 30))
+            let vc = MainViewController(store: self.store, localState: MainLocalState())
             self.window?.rootViewController = vc
             completion()
             return true

@@ -13,12 +13,12 @@ import PinLayout
 class MainViewController: ViewControllerWithLocalState<MainView> {
     override func setupInteraction() {
         self.rootView.cardView.animate = { [unowned self] in
-            if self.localState.cardPercentage == 70 {
-                self.localState.cardPercentage = 30
-            } else if self.localState.cardPercentage == 30 {
-                self.localState.cardPercentage = 70
-            } else {
-                print("ERROR")
+            self.localState.animate = true
+            switch self.localState.cardState {
+            case .expanded:
+                self.localState.cardState = .collapsed
+            case .collapsed:
+                self.localState.cardState = .expanded
             }
         }
     }
@@ -26,5 +26,11 @@ class MainViewController: ViewControllerWithLocalState<MainView> {
 
 
 struct MainLocalState: LocalState {
-    var cardPercentage: Int
+    enum CardState: Int {
+        case expanded = 30
+        case collapsed = 70
+    }
+    
+    var cardState: CardState = .collapsed
+    var animate: Bool = false
 }

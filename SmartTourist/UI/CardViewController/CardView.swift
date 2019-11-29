@@ -47,8 +47,8 @@ class CardView: UIView, ModellableView {
         super.layoutSubviews()
         self.handle.sizeToFit()
         self.label.sizeToFit()
-        self.handle.pin.top(5%).left().right()
-        self.label.pin.top(20%).left(5%).right(5%)
+        self.handle.pin.top(20).left().right()
+        self.label.pin.below(of: self.handle).marginTop(50).left(5%).right(5%)
     }
     
     func update(oldModel: CardViewModel?) {
