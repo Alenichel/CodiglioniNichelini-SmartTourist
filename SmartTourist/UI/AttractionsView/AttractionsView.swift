@@ -28,14 +28,19 @@ struct AttractionsViewModel: ViewModelWithState {
 
 
 class AttractionsView: UIView, ViewControllerModellableView {
+    // MARK: Subviews
     var label = UILabel()
     var cityNameLabel = UILabel()
     var button = UIButton(type: .system)
     var activityIndicator = UIActivityIndicatorView(style: .large)
     var mapView: GMSMapView!
     var lastCircle: GMSCircle?
+    var topBlurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+    
+    // MARK: Interactions
     var didTapButton: Interaction?
     
+    // MARK: Setup
     func setup() {
         self.button.on(.touchUpInside) { sender in
             self.didTapButton?()
@@ -57,17 +62,20 @@ class AttractionsView: UIView, ViewControllerModellableView {
         self.addSubview(self.activityIndicator)
         self.addSubview(self.mapView)
         self.addSubview(self.cityNameLabel)
+        self.addSubview(self.topBlurEffect)
     }
     
+    // MARK: Style
     func style() {
         self.backgroundColor = .systemBackground
         self.label.font = UIFont.systemFont(ofSize: 24)
-        self.cityNameLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        self.cityNameLabel.font = UIFont.systemFont(ofSize: 32, weight: .bold)
         self.button.setTitle(" Locate me", for: .normal)
         self.button.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         self.button.setImage(UIImage(systemName: "location.fill"), for: .normal)
     }
     
+    // MARK: Layout subviews
     override func layoutSubviews() {
         super.layoutSubviews()
         self.label.sizeToFit()
@@ -79,8 +87,10 @@ class AttractionsView: UIView, ViewControllerModellableView {
         self.cityNameLabel.pin.top(5%).left(5%)
         self.button.pin.bottom(15%).hCenter()
         self.activityIndicator.pin.bottom(25%).hCenter()
+        self.topBlurEffect.pin.top().left().right().bottom(95%)
     }
     
+    // MARK: Update
     func update(oldModel: AttractionsViewModel?) {
         if let model = self.model {
             if let currentPlace = model.currentPlace, let placeName = currentPlace.name {
