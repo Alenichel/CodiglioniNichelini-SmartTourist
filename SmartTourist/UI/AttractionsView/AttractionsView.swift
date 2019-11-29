@@ -35,7 +35,7 @@ class AttractionsView: UIView, ViewControllerModellableView {
     var activityIndicator = UIActivityIndicatorView(style: .large)
     var mapView: GMSMapView!
     var lastCircle: GMSCircle?
-    var topBlurEffect = UIVisualEffectView(effect: UIBlurEffect(style: .light))
+    var topBlurEffect = UIVisualEffectView(effect: UIBlurEffect(style: UITraitCollection.current.userInterfaceStyle == .dark ? .dark : .light))
     
     // MARK: Interactions
     var didTapButton: Interaction?
@@ -84,10 +84,10 @@ class AttractionsView: UIView, ViewControllerModellableView {
         self.activityIndicator.sizeToFit()
         self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height * 0.65)
         self.label.pin.bottom(25%).hCenter()
-        self.cityNameLabel.pin.top(5%).left(5%)
+        self.cityNameLabel.pin.top(5.5%).left(2%)
         self.button.pin.bottom(15%).hCenter()
         self.activityIndicator.pin.bottom(25%).hCenter()
-        self.topBlurEffect.pin.top().left().right().bottom(95%)
+        self.topBlurEffect.pin.top().left().right().bottom(94.5%)
     }
     
     // MARK: Update
