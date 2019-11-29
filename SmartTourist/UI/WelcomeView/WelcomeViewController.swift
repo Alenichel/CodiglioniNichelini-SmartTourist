@@ -13,6 +13,7 @@ class WelcomeViewController: ViewControllerWithLocalState<WelcomeView> {
     override func setupInteraction() {
         self.rootView.didTapLocation = {
             LocationManager.shared.requestAuth()
+            self.localState.locationButtonEnabled = !LocationManager.shared.locationEnabled
         }
         self.rootView.didTapNotifications = {
             NotificationManager.shared.requestAuth()
@@ -40,6 +41,6 @@ extension WelcomeViewController: RoutableWithConfiguration {
 
 
 struct WelcomeLocalState: LocalState {
-    var locationButtonEnabled = true
-    var notificationsButtonEnabled = true
+    var locationButtonEnabled = true//!LocationManager.shared.locationEnabled
+    var notificationsButtonEnabled = true//!NotificationManager.shared.notificationsEnabled
 }

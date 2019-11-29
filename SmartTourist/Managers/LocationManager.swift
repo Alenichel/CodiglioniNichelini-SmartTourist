@@ -21,6 +21,11 @@ class LocationManager {
         self.lm.distanceFilter = 100
     }
     
+    var locationEnabled: Bool {
+        let status = CLLocationManager.authorizationStatus()
+        return status == .authorizedAlways || status == .authorizedWhenInUse
+    }
+    
     func startUpdatingLocation() {
         self.lm.startUpdatingLocation()
         print("Starting updating location")

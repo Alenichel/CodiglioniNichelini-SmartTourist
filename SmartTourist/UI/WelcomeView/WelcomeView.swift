@@ -26,9 +26,9 @@ class WelcomeView: UIView, ViewControllerModellableView {
     var title = UILabel()
     var locationLabel = UILabel()
     var notificationsLabel = UILabel()
-    var locationButton = UIButton(type: .system)
-    var notificationsButton = UIButton(type: .system)
-    var closeButton = UIButton(type: .system)
+    var locationButton = UIButton()
+    var notificationsButton = UIButton()
+    var closeButton = UIButton()
     
     // MARK: Interactions
     var didTapLocation: Interaction?
@@ -64,6 +64,7 @@ class WelcomeView: UIView, ViewControllerModellableView {
         self.title.numberOfLines = 5
         self.title.textAlignment = .center
         self.title.font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 8)
+        self.styleButton(self.closeButton)
     }
     
     override func layoutSubviews() {
@@ -71,27 +72,59 @@ class WelcomeView: UIView, ViewControllerModellableView {
         self.title.sizeToFit()
         self.locationLabel.sizeToFit()
         self.notificationsLabel.sizeToFit()
-        self.locationButton.sizeToFit()
+        /*self.locationButton.sizeToFit()
         self.notificationsButton.sizeToFit()
-        self.closeButton.sizeToFit()
-        self.title.pin.top(10%).left(5%).right(5%)
-        self.locationLabel.pin.below(of: self.title).marginTop(10%).left(5%)
-        self.locationButton.pin.below(of: self.title).marginTop(10%).right(10%)
-        self.notificationsLabel.pin.below(of: self.locationLabel).marginTop(5%).left(5%)
-        self.notificationsButton.pin.below(of: self.locationLabel).marginTop(5%).right(10%)
-        self.closeButton.pin.bottom(15%).hCenter()
+        self.closeButton.sizeToFit()*/
+        self.title.pin
+            .top(10%)
+            .left(5%)
+            .right(5%)
+        self.locationLabel.pin
+            .below(of: self.title)
+            .marginTop(10%)
+            .left(5%)
+        self.locationButton.pin
+            .below(of: self.title)
+            .marginTop(10%)
+            .right(5%)
+            .width(100)
+            .sizeToFit(.width)
+        self.notificationsLabel.pin
+            .below(of: self.locationLabel)
+            .marginTop(5%)
+            .left(5%)
+        self.notificationsButton.pin
+            .below(of: self.locationButton)
+            .marginTop(5%)
+            .right(5%)
+            .width(100)
+            .sizeToFit(.width)
+        self.closeButton.pin
+            .bottom(15%)
+            .hCenter()
+            .width(100)
+            .sizeToFit(.width)
     }
     
     func update(oldModel: WelcomeViewModel?) {
         if let model = self.model {
-            self.updateButton(self.locationButton, enabled: model.locationButtonEnabled)
-            self.updateButton(self.notificationsButton, enabled: model.notificationsButtonEnabled)
+            self.styleButton(self.locationButton, enabled: model.locationButtonEnabled)
+            self.styleButton(self.notificationsButton, enabled: model.notificationsButtonEnabled)
         }
         self.setNeedsLayout()
     }
     
-    private func updateButton(_ button: UIButton, enabled: Bool) {
-        button.setTitle(enabled ? "Enable" : "Enabled", for: .normal)
-        button.isEnabled = enabled
+    private func styleButton(_ button: UIButton, enabled: Bool? = nil) {
+        button.backgroundColor = .systemBlue
+        if let enabled = enabled {
+            button.setTitle(enabled ? "Enable" : "Enabled", for: .normal)
+            button.isEnabled = enabled
+            button.backgroundColor = enabled ? .systemBlue : .systemGreen
+            //button.layer.opacity = enabled ? 1.0 : 0.5
+        }
+        button.layer.cornerRadius = 16
+        button.setTitleColor(.white, for: .normal)
+        //print("\(button).width = \(button.frame.size.width)")
+        //print("Increased \(button).width = \(button.frame.size.width)")
     }
 }
