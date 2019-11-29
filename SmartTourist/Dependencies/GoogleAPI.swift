@@ -10,10 +10,10 @@ import GoogleMaps
 import GooglePlaces
 import Hydra
 
-
 class GoogleAPI {
     
     var placesClient = GMSPlacesClient.shared()
+    var geocoder = GMSGeocoder()
     
     enum PlaceType: String {
         case touristAttraction = "tourist_attraction"
@@ -53,4 +53,35 @@ class GoogleAPI {
             self.placesClient.
         }
     }*/
+    
+    func getCityName(coordinates: CLLocationCoordinate2D) -> String? {
+        let promise = Promise<String?>(in: .background){ resolve, reject, status in
+            /*self.geocoder.reverseGeocodeCoordinate(coordinates, completionHandler: { (response, error) in
+                let to_return = response?.firstResult()?.locality
+                resolve(to_return)
+            })*/
+            resolve("CIAO")
+        }
+        do {
+            let cityName = try await(promise)
+            return cityName
+        } catch {
+            return nil
+        }
+    }
+    
+    
+    func prova(coordinates: CLLocationCoordinate2D){
+        GMSGeocoder().reverseGeocodeCoordinate(coordinates, completionHandler: {
+            (_ response,_ error) in print(response?.firstResult()?.locality as Any)
+        })
+    
+    }
 }
+
+
+    /*
+    GMSGeocoder().reverseGeocodeCoordinate(coordinates, completionHandler: {
+        (_ response,_ error) in print(response?.firstResult()?.locality as Any)
+    })
+}*/

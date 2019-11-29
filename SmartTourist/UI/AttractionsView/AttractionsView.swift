@@ -27,6 +27,7 @@ struct AttractionsViewModel: ViewModelWithState {
 
 class AttractionsView: UIView, ViewControllerModellableView {
     var label = UILabel()
+    var cityNameLabel = UILabel()
     var button = UIButton(type: .system)
     var activityIndicator = UIActivityIndicatorView(style: .large)
     var mapView: GMSMapView!
@@ -53,11 +54,13 @@ class AttractionsView: UIView, ViewControllerModellableView {
         self.addSubview(self.button)
         self.addSubview(self.activityIndicator)
         self.addSubview(self.mapView)
+        self.addSubview(self.cityNameLabel)
     }
     
     func style() {
         self.backgroundColor = .systemBackground
         self.label.font = UIFont.systemFont(ofSize: 24)
+        self.cityNameLabel.font = UIFont.systemFont(ofSize: 28, weight: .bold)
         self.button.setTitle(" Locate me", for: .normal)
         self.button.titleLabel?.font = UIFont.systemFont(ofSize: 24)
         self.button.setImage(UIImage(systemName: "location.fill"), for: .normal)
@@ -66,10 +69,12 @@ class AttractionsView: UIView, ViewControllerModellableView {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.label.sizeToFit()
+        self.cityNameLabel.sizeToFit()
         self.button.sizeToFit()
         self.activityIndicator.sizeToFit()
         self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height * 0.65)
         self.label.pin.bottom(25%).hCenter()
+        self.cityNameLabel.pin.top(5%).left(5%)
         self.button.pin.bottom(15%).hCenter()
         self.activityIndicator.pin.bottom(25%).hCenter()
     }
@@ -92,6 +97,9 @@ class AttractionsView: UIView, ViewControllerModellableView {
                 }
                 circle.map = self.mapView
                 self.lastCircle = circle
+                let cn = GoogleAPI().getCityName(coordinates: (self.model?.currentLocation)!) ?? "UNKNOWN"
+                self.cityNameLabel.text = cn
+                //GoogleAPI().prova(coordinates: (self.model?.currentLocation!)!)
             }
             if model.loading {
                 self.activityIndicator.startAnimating()
