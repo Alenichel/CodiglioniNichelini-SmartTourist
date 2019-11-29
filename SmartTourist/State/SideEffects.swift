@@ -31,3 +31,16 @@ struct GetCurrentPlace: SideEffect {
         }
     }
 }
+
+
+struct GetCurrentCity: SideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
+        if let coordinates = context.getState().locationState.currentLocation {
+            context.dependencies.googleAPI.getCityName(coordinates: coordinates).then { city in
+                context.dispatch(SetCurrentCity(city: city))
+            }.catch { error in
+                context.dispatch(SetCurrentCity(city: nil))
+            }
+        }
+    }
+}

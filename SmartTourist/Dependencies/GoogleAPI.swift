@@ -48,40 +48,16 @@ class GoogleAPI {
         }
     }
     
-    /*func getPopularPlaces() -> Promise<[GMSPlace]> {
-        return Promise<GMSPlace>(in: .main) { resolve, reject, status in
-            self.placesClient.
+    func getCityName(coordinates: CLLocationCoordinate2D) -> Promise<String> {
+        return Promise<String>(in: .background) { resolve, reject, status in
+            self.geocoder.reverseGeocodeCoordinate(coordinates) { response, error in
+                if let error = error {
+                    reject(error)
+                }
+                if let city = response?.firstResult()?.locality {
+                    resolve(city)
+                }
+            }
         }
-    }*/
-    
-    func getCityName(coordinates: CLLocationCoordinate2D) -> String? {
-        let promise = Promise<String?>(in: .background){ resolve, reject, status in
-            /*self.geocoder.reverseGeocodeCoordinate(coordinates, completionHandler: { (response, error) in
-                let to_return = response?.firstResult()?.locality
-                resolve(to_return)
-            })*/
-            resolve("CIAO")
-        }
-        do {
-            let cityName = try await(promise)
-            return cityName
-        } catch {
-            return nil
-        }
-    }
-    
-    
-    func prova(coordinates: CLLocationCoordinate2D){
-        GMSGeocoder().reverseGeocodeCoordinate(coordinates, completionHandler: {
-            (_ response,_ error) in print(response?.firstResult()?.locality as Any)
-        })
-    
     }
 }
-
-
-    /*
-    GMSGeocoder().reverseGeocodeCoordinate(coordinates, completionHandler: {
-        (_ response,_ error) in print(response?.firstResult()?.locality as Any)
-    })
-}*/

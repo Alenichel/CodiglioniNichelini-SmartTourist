@@ -26,4 +26,5 @@ struct LocationState {
     var lastUpdate: Date = Date()
     var currentLocation: CLLocationCoordinate2D?
     var currentPlace: GMSPlace?
+    var currentCity: String?
 }

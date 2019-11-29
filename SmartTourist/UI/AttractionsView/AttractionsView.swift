@@ -15,11 +15,13 @@ import GooglePlaces
 struct AttractionsViewModel: ViewModelWithState {
     let currentPlace: GMSPlace?
     let currentLocation: CLLocationCoordinate2D?
+    let currentCity: String?
     let loading: Bool
     
     init(state: AppState) {
         self.currentPlace = state.locationState.currentPlace
         self.currentLocation = state.locationState.currentLocation
+        self.currentCity = state.locationState.currentCity
         self.loading = state.loading
     }
 }
@@ -97,9 +99,9 @@ class AttractionsView: UIView, ViewControllerModellableView {
                 }
                 circle.map = self.mapView
                 self.lastCircle = circle
-                let cn = GoogleAPI().getCityName(coordinates: (self.model?.currentLocation)!) ?? "UNKNOWN"
-                self.cityNameLabel.text = cn
-                //GoogleAPI().prova(coordinates: (self.model?.currentLocation!)!)
+            }
+            if let city = model.currentCity {
+                self.cityNameLabel.text = city
             }
             if model.loading {
                 self.activityIndicator.startAnimating()

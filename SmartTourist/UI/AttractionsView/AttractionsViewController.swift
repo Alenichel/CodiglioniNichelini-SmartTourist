@@ -29,6 +29,7 @@ class AttractionsViewController: ViewController<AttractionsView>, CLLocationMana
         if let location = locations.first {
             self.dispatch(SetCurrentLocation(location: location.coordinate))
             self.dispatch(GetCurrentPlace())
+            self.dispatch(GetCurrentCity())
         }
     }
     
