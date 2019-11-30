@@ -13,7 +13,7 @@ import GooglePlaces
 
 
 struct AttractionsViewModel: ViewModelWithLocalState {
-    let currentPlace: GMSPlace?
+    let currentPlaces: GMSPlace?
     let currentLocation: CLLocationCoordinate2D?
     let currentCity: String?
     let cardPercent: Percent
@@ -21,11 +21,11 @@ struct AttractionsViewModel: ViewModelWithLocalState {
     
     init(state: AppState?, localState: AttractionsLocalState) {
         if let state = state {
-            self.currentPlace = state.locationState.currentPlace
+            self.currentPlaces = state.locationState.currentPlaces
             self.currentLocation = state.locationState.currentLocation
             self.currentCity = state.locationState.currentCity
         } else {
-            self.currentPlace = nil
+            self.currentPlaces = nil
             self.currentLocation = nil
             self.currentCity = nil
         }
@@ -93,7 +93,7 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Update
     func update(oldModel: AttractionsViewModel?) {
         if let model = self.model {
-            let listCardViewModel = ListCardViewModel(currentPlace: model.currentPlace)
+            let listCardViewModel = ListCardViewModel(currentPlaces: model.currentPlaces)
             self.listCardView.model = listCardViewModel
             if let location = model.currentLocation {
                 self.mapView.isMyLocationEnabled = true

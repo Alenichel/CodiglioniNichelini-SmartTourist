@@ -12,6 +12,7 @@ target 'SmartTourist' do
   pod 'FlexLayout'
   pod 'GooglePlaces'
   pod 'GoogleMaps'
+  pod 'DeepDiff'
 
   target 'SmartTouristTests' do
     inherit! :search_paths

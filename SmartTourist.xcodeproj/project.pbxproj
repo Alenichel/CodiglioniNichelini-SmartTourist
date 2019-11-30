@@ -10,8 +10,14 @@
 		2600720118ACEE0881FCB41F /* Pods_SmartTouristTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32E56BB7B73B2546D81ECE2D /* Pods_SmartTouristTests.framework */; };
 		4DC68C698795D2E15DF07FFE /* Pods_SmartTourist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A68ECEB84859705FE364757 /* Pods_SmartTourist.framework */; };
 		5F7A4CA34DB61B8A7EBF547D /* Pods_SmartTourist_SmartTouristUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */; };
+		99046DB22392B3AE00E63045 /* PlacesCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99046DB12392B3AE00E63045 /* PlacesCollectionView.swift */; };
+		99046DB42392B3E300E63045 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99046DB32392B3E300E63045 /* Source.swift */; };
 		991F955C238EDD4D002A1093 /* mapStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = 991F955B238EDD4D002A1093 /* mapStyle.json */; };
 		992533C4238FF8B800EE479A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992533C3238FF8B800EE479A /* LocationManager.swift */; };
+		993B35402392B4D90003FD8F /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B353F2392B4D80003FD8F /* DataSource.swift */; };
+		993B35422392B5020003FD8F /* ConfigurableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B35412392B5020003FD8F /* ConfigurableCell.swift */; };
+		993B35462392B9150003FD8F /* AttractionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B35452392B9150003FD8F /* AttractionCell.swift */; };
+		993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B35472392C1D00003FD8F /* AttractionFlowLayout.swift */; };
 		E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F5238C4AFF0052825F /* WelcomeView.swift */; };
 		E524A0F8238C4C060052825F /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F7238C4C060052825F /* WelcomeViewController.swift */; };
 		E524A0FF238C4F530052825F /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0FE238C4F530052825F /* Screen.swift */; };
@@ -56,8 +62,14 @@
 		32CB67A9575F481AB0E739F4 /* Pods-SmartTouristTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTouristTests.debug.xcconfig"; path = "Target Support Files/Pods-SmartTouristTests/Pods-SmartTouristTests.debug.xcconfig"; sourceTree = "<group>"; };
 		32E56BB7B73B2546D81ECE2D /* Pods_SmartTouristTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartTouristTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A68ECEB84859705FE364757 /* Pods_SmartTourist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartTourist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		99046DB12392B3AE00E63045 /* PlacesCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesCollectionView.swift; sourceTree = "<group>"; };
+		99046DB32392B3E300E63045 /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
 		991F955B238EDD4D002A1093 /* mapStyle.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mapStyle.json; sourceTree = "<group>"; };
 		992533C3238FF8B800EE479A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		993B353F2392B4D80003FD8F /* DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		993B35412392B5020003FD8F /* ConfigurableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurableCell.swift; sourceTree = "<group>"; };
+		993B35452392B9150003FD8F /* AttractionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionCell.swift; sourceTree = "<group>"; };
+		993B35472392C1D00003FD8F /* AttractionFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionFlowLayout.swift; sourceTree = "<group>"; };
 		AB3310E805FE2AAD225A0C8E /* Pods-SmartTourist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist.release.xcconfig"; path = "Target Support Files/Pods-SmartTourist/Pods-SmartTourist.release.xcconfig"; sourceTree = "<group>"; };
 		B169329D24736107D441A8F6 /* Pods-SmartTourist-SmartTouristUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist-SmartTouristUITests.release.xcconfig"; path = "Target Support Files/Pods-SmartTourist-SmartTouristUITests/Pods-SmartTourist-SmartTouristUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartTourist_SmartTouristUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,6 +153,26 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		993B35432392B7B90003FD8F /* CollectionView */ = {
+			isa = PBXGroup;
+			children = (
+				99046DB12392B3AE00E63045 /* PlacesCollectionView.swift */,
+				99046DB32392B3E300E63045 /* Source.swift */,
+				993B353F2392B4D80003FD8F /* DataSource.swift */,
+				993B35412392B5020003FD8F /* ConfigurableCell.swift */,
+			);
+			path = CollectionView;
+			sourceTree = "<group>";
+		};
+		993B35442392B8F80003FD8F /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				993B35452392B9150003FD8F /* AttractionCell.swift */,
+				993B35472392C1D00003FD8F /* AttractionFlowLayout.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		E29D77648F2366C0DE89CACB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +186,7 @@
 		E524A100238C4F950052825F /* AttractionsView */ = {
 			isa = PBXGroup;
 			children = (
+				993B35442392B8F80003FD8F /* Subviews */,
 				E5335D022389942D00601F02 /* MapView.swift */,
 				E553D14A23926CC600C3199C /* ListCardView.swift */,
 				E5335D042389946C00601F02 /* AttractionsViewController.swift */,
@@ -259,6 +292,7 @@
 		E5AEEAAA238ADB030094A37B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				993B35432392B7B90003FD8F /* CollectionView */,
 				E5AEEAAB238ADB580094A37B /* UIControl+TargetActionable.swift */,
 			);
 			path = Utilities;
@@ -564,14 +598,20 @@
 				E553D14B23926CC600C3199C /* ListCardView.swift in Sources */,
 				E5335D032389942D00601F02 /* MapView.swift in Sources */,
 				E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */,
+				993B35402392B4D90003FD8F /* DataSource.swift in Sources */,
+				993B35462392B9150003FD8F /* AttractionCell.swift in Sources */,
+				993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */,
 				E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */,
 				E528FF87238971FE0065483B /* AppDelegate.swift in Sources */,
 				E52EECCF238EE5FE006196BA /* NotificationManager.swift in Sources */,
+				993B35422392B5020003FD8F /* ConfigurableCell.swift in Sources */,
 				E524A0FF238C4F530052825F /* Screen.swift in Sources */,
 				E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */,
 				E528FF89238971FE0065483B /* SceneDelegate.swift in Sources */,
 				E5AEEAAC238ADB580094A37B /* UIControl+TargetActionable.swift in Sources */,
 				E524A0F8238C4C060052825F /* WelcomeViewController.swift in Sources */,
+				99046DB42392B3E300E63045 /* Source.swift in Sources */,
+				99046DB22392B3AE00E63045 /* PlacesCollectionView.swift in Sources */,
 				E5335CFE238981D000601F02 /* AppState.swift in Sources */,
 				E5FDE321238B08A40018D791 /* GoogleAPI.swift in Sources */,
 			);
@@ -740,7 +780,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SM32T6M59X;
+				DEVELOPMENT_TEAM = 3E65HHUN9M;
 				INFOPLIST_FILE = SmartTourist/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -760,7 +800,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SM32T6M59X;
+				DEVELOPMENT_TEAM = 3E65HHUN9M;
 				INFOPLIST_FILE = SmartTourist/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

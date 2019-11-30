@@ -26,7 +26,7 @@ struct GetCurrentPlace: SideEffect {
                 context.dispatch(SetLastUpdate(lastUpdate: Date()))
             }
         } else {
-            context.dispatch(SetCurrentPlace(place: context.getState().locationState.currentPlace))
+            context.dispatch(SetCurrentPlace(place: context.getState().locationState.currentPlaces))
         }
     }
 }
