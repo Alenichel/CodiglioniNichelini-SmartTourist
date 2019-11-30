@@ -21,7 +21,7 @@ struct ListCardViewModel: ViewModel, Equatable {
 
 class ListCardView: UIView, ModellableView {
     var handle = UIButton(type: .system)
-    var chooser = UISegmentedControl(items: ["Near", "Popular"])
+    var chooser = UISegmentedControl(items: ["Nearest", "Popular"])
     var scrollView = UIScrollView()
     var attractionListView: CollectionView<AttractionCell, SimpleSource<AttractionCellViewModel>>!
     
@@ -64,11 +64,12 @@ class ListCardView: UIView, ModellableView {
         // ---> self.chooser.addTarget(self, action: "action:", for: .valueChanged)
         self.handle.tintColor = .secondaryLabel
         self.layer.cornerRadius = 30
-        self.layer.shadowColor = UIColor.label.cgColor
-        self.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 0.25 : 0.75
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 1 : 0.75
         self.layer.shadowOffset = .zero
         self.layer.shadowRadius = 10
         self.attractionListView.backgroundColor = .systemBackground
+        self.scrollView.backgroundColor = .systemBackground
     }
     
     override func layoutSubviews() {

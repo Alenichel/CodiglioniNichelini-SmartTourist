@@ -67,7 +67,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     
     //MARK: Style
     func style() {
-        self.backgroundColor = .white
+        self.backgroundColor = .systemBackground
         self.label.font = AttractionCell.font
         self.image.tintColor = .secondaryLabel
     }
@@ -75,15 +75,17 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     // MARK: Layout
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.label.pin.top().bottom().left().right().margin(15)
+        self.label.pin.top().bottom().left().right(10%).margin(15)
         self.image.pin.vCenter(to: self.label.edge.vCenter).right(15)
     }
     
     static var paddingHeight: CGFloat = 10
     static var maxTextWidth: CGFloat = 0.80
     static func size(for model: AttractionCellViewModel) -> CGSize {
-        let textWidth = UIScreen.main.bounds.width * AttractionCell.maxTextWidth
-        let textHeight = model.attractionName.height(constraintedWidth: textWidth, font: font)
+        //let textWidth = UIScreen.main.bounds.width * AttractionCell.maxTextWidth
+        //let textHeight = model.attractionName.height(constraintedWidth: textWidth, font: font)
+        let textHeight: CGFloat = 34
+        print("\(model.attractionName) = \(textHeight)")
         return CGSize(width: UIScreen.main.bounds.width,
                       height: textHeight + 2 * AttractionCell.paddingHeight)
     }
