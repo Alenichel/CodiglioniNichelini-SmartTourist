@@ -1,11 +1,10 @@
 //
 //  ConfigurableCell.swift
-//  SmartTourist
+//  TempuraElements
 //
-//  Created on 30/11/2019
+//  Created by Andrea De Angelis on 10/01/2018.
 //
 
-import Foundation
 import Tempura
 
 // a ReusableCell is a cell defining a `reuseIdentifier` to be used when dequeueing the cell

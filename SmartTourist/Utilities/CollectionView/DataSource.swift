@@ -1,8 +1,8 @@
 //
 //  DataSource.swift
-//  SmartTourist
+//  TempuraElements
 //
-//  Created on 30/11/2019
+//  Created by Andrea De Angelis on 10/01/2018.
 //
 
 import Foundation
@@ -14,6 +14,7 @@ import UIKit
 // note that you still need to trigger reloadData() yourself
 // if you are looking for a way to automatize the reloadData() or performBatchUpdates() when the data changes,
 // look at the CollectionView class
+
 public class DataSource<S: Source, Cell: UICollectionViewCell>: NSObject,
 UICollectionViewDataSource where Cell: ConfigurableCell, Cell.VM == S.SourceType {
   

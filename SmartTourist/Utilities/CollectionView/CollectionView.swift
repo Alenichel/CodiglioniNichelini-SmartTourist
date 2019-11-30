@@ -1,8 +1,8 @@
 //
-//  PlacesCollectionView.swift
-//  SmartTourist
+//  CollectionView.swift
+//  TempuraElements
 //
-//  Created on 30/11/2019
+//  Created by Andrea De Angelis on 10/01/2018.
 //
 
 import Foundation
@@ -14,6 +14,7 @@ import UIKit
 /// instead of reloading everything (will use `reloadData()` behind the scenes),
 /// set the `useDiffs` property to `true` and the CollectionView will automatically take care of that
 /// (using 'performBatchUpdates()' on the changes)
+
 open class CollectionView<Cell: UICollectionViewCell, S: Source>: UICollectionView,
 UICollectionViewDelegateFlowLayout  where Cell: ConfigurableCell & SizeableCell, Cell.VM == S.SourceType {
   

@@ -29,7 +29,7 @@ struct AttractionCellViewModel: ViewModel {
     
     init(place: String) {
         self.identifier = "1234"
-        attractionName = place
+        self.attractionName = place
     }
     
 }
@@ -53,7 +53,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     }
     
     required init?(coder aDecoder: NSCoder) {
-      fatalError("init(coder:) has not been implemented")
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Setup
@@ -73,15 +73,19 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         self.setNeedsLayout()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.attractionNameLabel.pin.top().bottom().left().right()
+    }
+    
     // MARK: - Layout
     static var paddingHeight: CGFloat = 10
     static var maxTextWidth: CGFloat = 0.80
     static func size(for model: AttractionCellViewModel) -> CGSize {
-      let textWidth = UIScreen.main.bounds.width * AttractionCell.maxTextWidth
-        //let textHeight = model.attractionName//height(constraintedWidth: textWidth, font: UIFont.systemFont(ofSize: 17))
-        let textHeight: CGFloat = 20
-      return CGSize(width: UIScreen.main.bounds.width,
-                    height: textHeight + 2 * AttractionCell.paddingHeight)
+        let textWidth = UIScreen.main.bounds.width * AttractionCell.maxTextWidth
+        let textHeight = model.attractionName.height(constraintedWidth: textWidth, font: UIFont.systemFont(ofSize: 17))
+        return CGSize(width: UIScreen.main.bounds.width,
+                      height: textHeight + 2 * AttractionCell.paddingHeight)
     }
 }
 
