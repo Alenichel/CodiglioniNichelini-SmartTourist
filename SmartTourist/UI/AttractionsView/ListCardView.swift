@@ -1,5 +1,5 @@
 //
-//  CardView.swift
+//  ListCardView.swift
 //  SmartTourist
 //
 //  Created on 28/11/2019
@@ -11,12 +11,12 @@ import GooglePlaces
 import PinLayout
 
 
-struct CardViewModel: ViewModel {
-    let percent: Percent
+struct ListCardViewModel: ViewModel {
+    let currentPlace: GMSPlace?
 }
 
 
-class CardView: UIView, ModellableView {
+class ListCardView: UIView, ModellableView {
     var handle = UIButton(type: .system)
     var label = UILabel()
     
@@ -51,9 +51,9 @@ class CardView: UIView, ModellableView {
         self.label.pin.below(of: self.handle).marginTop(50).left(5%).right(5%)
     }
     
-    func update(oldModel: CardViewModel?) {
+    func update(oldModel: ListCardViewModel?) {
         if let model = self.model {
-            self.label.text = model.percent.description
+            self.label.text = model.currentPlace?.name ?? ""
         }
         self.setNeedsLayout()
     }

@@ -40,7 +40,6 @@ struct SetCurrentPlace: StateUpdater {
     
     func updateState(_ state: inout AppState) {
         state.locationState.currentPlace = place
-        state.loading = false
     }
 }
 
@@ -50,13 +49,5 @@ struct SetCurrentCity: StateUpdater {
     
     func updateState(_ state: inout AppState) {
         state.locationState.currentCity = city
-    }
-}
-
-
-struct SetLoading: StateUpdater {
-    func updateState(_ state: inout AppState) {
-        state.locationState.currentPlace = nil
-        state.loading = true
     }
 }

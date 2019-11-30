@@ -11,7 +11,7 @@ import Tempura
 import GooglePlaces
 
 
-class AttractionsViewController: ViewController<AttractionsView>, CLLocationManagerDelegate {
+class AttractionsViewController: ViewControllerWithLocalState<MapView>, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         LocationManager.shared.setDelegate(self)
@@ -37,6 +37,15 @@ class AttractionsViewController: ViewController<AttractionsView>, CLLocationMana
         self.rootView.didTapButton = { [unowned self] in
             self.dispatch(GetCurrentPlace())
         }
+        self.rootView.listCardView.animate = { [unowned self] in
+            self.localState.animate = true
+            switch self.localState.cardState {
+            case .expanded:
+                self.localState.cardState = .collapsed
+            case .collapsed:
+                self.localState.cardState = .expanded
+            }
+        }
     }
 }
 
@@ -55,4 +64,15 @@ extension AttractionsViewController: RoutableWithConfiguration {
             })
         ]
     }
+}
+
+
+struct AttractionsLocalState: LocalState {
+    enum CardState: Int {
+        case expanded = 30
+        case collapsed = 70
+    }
+    
+    var cardState: CardState = .collapsed
+    var animate: Bool = false
 }

@@ -14,12 +14,11 @@ import GooglePlaces
 struct AppState: State {
     var firstLaunch: Bool = true
     var locationState = LocationState()
-    var loading: Bool = false
 }
 
 
 struct LocationState {
-    var lastUpdate: Date = Date()
+    var lastUpdate: Date = Date().advanced(by: TimeInterval(-60))
     var currentLocation: CLLocationCoordinate2D?
     var currentPlace: GMSPlace?
     var currentCity: String?

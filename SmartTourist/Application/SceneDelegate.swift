@@ -31,13 +31,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, RootInstaller {
     
     func installRoot(identifier: RouteElementIdentifier, context: Any?, completion: () -> ()) -> Bool {
         if identifier == Screen.attractions.rawValue {
-            let viewController = AttractionsViewController(store: self.store)
+            let viewController = AttractionsViewController(store: self.store, localState: AttractionsLocalState())
             self.window?.rootViewController = viewController
-            completion()
-            return true
-        } else if identifier == Screen.test.rawValue {
-            let vc = MainViewController(store: self.store, localState: MainLocalState())
-            self.window?.rootViewController = vc
             completion()
             return true
         }
