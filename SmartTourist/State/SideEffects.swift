@@ -16,16 +16,12 @@ struct GetCurrentPlace: SideEffect {
         if lastUpdate.distance(to: Date()) > 30 {       // If last update occurred more than X seconds ago
             context.dispatch(SetLastUpdate(lastUpdate: Date()))
             context.dependencies.googleAPI.getNearbyAttractions().then { attractions in
-                if let place = attractions.first {
-                    context.dispatch(SetCurrentPlace(place: place))
-                } else {
-                    context.dispatch(SetCurrentPlace(place: nil))
-                }
+                context.dispatch(SetCurrentPlace(places: attractions))
             }.catch { error in
-                context.dispatch(SetCurrentPlace(place: nil))
+                context.dispatch(SetCurrentPlace(places: []))
             }
         } else {
-            context.dispatch(SetCurrentPlace(place: context.getState().locationState.currentPlaces))
+            context.dispatch(SetCurrentPlace(places: context.getState().locationState.nearestPlaces))
         }
     }
 }

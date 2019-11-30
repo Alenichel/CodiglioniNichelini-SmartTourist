@@ -11,18 +11,17 @@ import GooglePlaces
 import PinLayout
 
 struct ListCardViewModel: ViewModel, Equatable {
-    let currentPlaces: GMSPlace?
+    let places: [GMSPlace]
     
     static func == (l: ListCardViewModel, r: ListCardViewModel) -> Bool {
-        if l.currentPlaces == r.currentPlaces {return false}
-        return true
+        return l.places == r.places
     }
 }
 
 
 class ListCardView: UIView, ModellableView {
     var handle = UIButton(type: .system)
-    var chooser = UISegmentedControl(items: ["Popular", "Nearest"])
+    var chooser = UISegmentedControl(items: ["Near", "Popular"])
     var scrollView = UIScrollView()
     var attractionListView: CollectionView<AttractionCell, SimpleSource<AttractionCellViewModel>>!
     
@@ -86,15 +85,14 @@ class ListCardView: UIView, ModellableView {
     }
     
     func update(oldModel: ListCardViewModel?) {
-        if let model = self.model {
-        //    self.label.text = model.currentPlace?.name ?? ""
-            let attraction = AttractionCellViewModel(place: "Poli")
-            self.attractionListView.source = SimpleSource<AttractionCellViewModel>([attraction])
-        }
+        guard let model = self.model else { return }
+        let attraction = AttractionCellViewModel(place: "Politecnico di Milano")
+        self.attractionListView.source = SimpleSource<AttractionCellViewModel>([attraction])
         self.setNeedsLayout()
     }
         
     @objc func segmentedValueChanged(_ sender:UISegmentedControl!) {
+        // TODO: change source of attractionListView
         print("Selected Segment Index is : \(sender.selectedSegmentIndex)")
     }
 

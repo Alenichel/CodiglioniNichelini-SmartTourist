@@ -166,6 +166,7 @@
 		993B35442392B8F80003FD8F /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				E553D14A23926CC600C3199C /* ListCardView.swift */,
 				993B35452392B9150003FD8F /* AttractionCell.swift */,
 				993B35472392C1D00003FD8F /* AttractionFlowLayout.swift */,
 			);
@@ -187,7 +188,6 @@
 			children = (
 				993B35442392B8F80003FD8F /* Subviews */,
 				E5335D022389942D00601F02 /* MapView.swift */,
-				E553D14A23926CC600C3199C /* ListCardView.swift */,
 				E5335D042389946C00601F02 /* AttractionsViewController.swift */,
 			);
 			path = AttractionsView;

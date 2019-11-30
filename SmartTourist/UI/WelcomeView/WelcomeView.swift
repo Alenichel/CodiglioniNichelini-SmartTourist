@@ -105,10 +105,9 @@ class WelcomeView: UIView, ViewControllerModellableView {
     }
     
     func update(oldModel: WelcomeViewModel?) {
-        if let model = self.model {
-            self.styleButton(self.locationButton, enabled: model.locationButtonEnabled)
-            self.styleButton(self.notificationsButton, enabled: model.notificationsButtonEnabled)
-        }
+        guard let model = self.model else { return }
+        self.styleButton(self.locationButton, enabled: model.locationButtonEnabled)
+        self.styleButton(self.notificationsButton, enabled: model.notificationsButtonEnabled)
         self.setNeedsLayout()
     }
     

@@ -20,6 +20,6 @@ struct AppState: State {
 struct LocationState {
     var lastUpdate: Date = Date().advanced(by: TimeInterval(-60))
     var currentLocation: CLLocationCoordinate2D?
-    var currentPlaces: GMSPlace?
+    var nearestPlaces: [GMSPlace] = [GMSPlace]()
     var currentCity: String?
 }

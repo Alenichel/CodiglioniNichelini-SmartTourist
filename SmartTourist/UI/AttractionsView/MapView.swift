@@ -13,7 +13,7 @@ import GooglePlaces
 
 
 struct AttractionsViewModel: ViewModelWithLocalState {
-    let currentPlaces: GMSPlace?
+    let nearestPlaces: [GMSPlace]
     let currentLocation: CLLocationCoordinate2D?
     let currentCity: String?
     let cardPercent: Percent
@@ -21,11 +21,11 @@ struct AttractionsViewModel: ViewModelWithLocalState {
     
     init(state: AppState?, localState: AttractionsLocalState) {
         if let state = state {
-            self.currentPlaces = state.locationState.currentPlaces
+            self.nearestPlaces = state.locationState.nearestPlaces
             self.currentLocation = state.locationState.currentLocation
             self.currentCity = state.locationState.currentCity
         } else {
-            self.currentPlaces = nil
+            self.nearestPlaces = []
             self.currentLocation = nil
             self.currentCity = nil
         }
@@ -92,33 +92,32 @@ class MapView: UIView, ViewControllerModellableView {
     
     // MARK: Update
     func update(oldModel: AttractionsViewModel?) {
-        if let model = self.model {
-            let listCardViewModel = ListCardViewModel(currentPlaces: model.currentPlaces)
-            self.listCardView.model = listCardViewModel
-            if let location = model.currentLocation {
-                self.mapView.isMyLocationEnabled = true
-                if let lastCircle = self.lastCircle {
-                    lastCircle.map = nil
-                }
-                let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17)
-                self.mapView.animate(to: camera)
-                let circle = GMSCircle(position: location, radius: 100)
-                if traitCollection.userInterfaceStyle == .dark{
-                    circle.strokeColor = .white
-                }
-                circle.map = self.mapView
-                self.lastCircle = circle
+        guard let model = self.model else { return }
+        let listCardViewModel = ListCardViewModel(places: model.nearestPlaces)
+        self.listCardView.model = listCardViewModel
+        if let location = model.currentLocation {
+            self.mapView.isMyLocationEnabled = true
+            if let lastCircle = self.lastCircle {
+                lastCircle.map = nil
             }
-            if let city = model.currentCity {
-                self.cityNameLabel.text = city
+            let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17)
+            self.mapView.animate(to: camera)
+            let circle = GMSCircle(position: location, radius: 100)
+            if traitCollection.userInterfaceStyle == .dark{
+                circle.strokeColor = .white
             }
-            if model.animateCard {
-                UIView.animate(withDuration: 0.5) {
-                    self.layoutCardView()
-                }
-            } else {
-                self.setNeedsLayout()
+            circle.map = self.mapView
+            self.lastCircle = circle
+        }
+        if let city = model.currentCity {
+            self.cityNameLabel.text = city
+        }
+        if model.animateCard {
+            UIView.animate(withDuration: 0.5) {
+                self.layoutCardView()
             }
+        } else {
+            self.setNeedsLayout()
         }
     }
 }

@@ -36,10 +36,10 @@ struct SetCurrentLocation: StateUpdater {
 
 
 struct SetCurrentPlace: StateUpdater {
-    let place: GMSPlace?
+    let places: [GMSPlace]
     
     func updateState(_ state: inout AppState) {
-        state.locationState.currentPlaces = place
+        state.locationState.nearestPlaces = places
     }
 }
 

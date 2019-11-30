@@ -35,17 +35,20 @@ struct AttractionCellViewModel: ViewModel {
 }
 
 
+// MARK: - View
 class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     static var identifierForReuse: String = "AttractionCell"
+    static var font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 8)
     
-    //MARK: - Subviews
-    var attractionNameLabel: UILabel = UILabel()
+    //MARK: Subviews
+    var label = UILabel()
+    var image = UIImageView(image: UIImage(systemName: "chevron.right"))
     
     // MARK: Interactions
     var didToggle: ((String) -> ())?
     var didTapEdit: ((String) -> ())?
     
-    //MARK: - Init
+    //MARK: Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.setup()
@@ -56,45 +59,49 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Setup
+    // MARK: Setup
     func setup() {
-        self.addSubview(self.attractionNameLabel)
+        self.addSubview(self.label)
+        self.addSubview(self.image)
     }
     
-    //MARK: - Style
+    //MARK: Style
     func style() {
         self.backgroundColor = .white
+        self.label.font = AttractionCell.font
+        self.image.tintColor = .secondaryLabel
     }
     
-    //MARK: - Layout
-    func update(oldModel: AttractionCellViewModel?) {
-        guard let model = self.model else { return }
-        self.attractionNameLabel.text = model.attractionName
-        self.setNeedsLayout()
-    }
-    
+    // MARK: Layout
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.attractionNameLabel.pin.top().bottom().left().right()
+        self.label.pin.top().bottom().left().right().margin(15)
+        self.image.pin.vCenter(to: self.label.edge.vCenter).right(15)
     }
     
-    // MARK: - Layout
     static var paddingHeight: CGFloat = 10
     static var maxTextWidth: CGFloat = 0.80
     static func size(for model: AttractionCellViewModel) -> CGSize {
         let textWidth = UIScreen.main.bounds.width * AttractionCell.maxTextWidth
-        let textHeight = model.attractionName.height(constraintedWidth: textWidth, font: UIFont.systemFont(ofSize: 17))
+        let textHeight = model.attractionName.height(constraintedWidth: textWidth, font: font)
         return CGSize(width: UIScreen.main.bounds.width,
                       height: textHeight + 2 * AttractionCell.paddingHeight)
     }
+    
+    //MARK: Update
+    func update(oldModel: AttractionCellViewModel?) {
+        guard let model = self.model else { return }
+        self.label.text = model.attractionName
+        self.setNeedsLayout()
+    }
 }
+
 
 // MARK: - DiffAware conformance
 extension AttractionCellViewModel: DiffAware {
-  var diffId: Int { return self.identifier.hashValue }
-  
-  static func compareContent(_ a: AttractionCellViewModel, _ b: AttractionCellViewModel) -> Bool {
-    if a.attractionName != b.attractionName {return false}
-    return true
-  }
+    var diffId: Int { return self.identifier.hashValue }
+
+    static func compareContent(_ a: AttractionCellViewModel, _ b: AttractionCellViewModel) -> Bool {
+        return a.identifier == b.identifier
+    }
 }
