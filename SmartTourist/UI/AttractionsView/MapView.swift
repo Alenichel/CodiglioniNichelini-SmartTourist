@@ -18,6 +18,7 @@ struct AttractionsViewModel: ViewModelWithLocalState {
     let currentCity: String?
     let cardPercent: Percent
     let animateCard: Bool
+    let mapCentered: Bool
     
     init(state: AppState?, localState: AttractionsLocalState) {
         if let state = state {
@@ -31,6 +32,7 @@ struct AttractionsViewModel: ViewModelWithLocalState {
         }
         self.cardPercent = localState.cardState.rawValue%
         self.animateCard = localState.animate
+        self.mapCentered = localState.mapCentered
     }
 }
 
@@ -39,13 +41,11 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Subviews
     var cityNameLabel = UILabel()
     var mapView: GMSMapView!
+    var locationButton = RoundedButton()
     var lastLittleCircle: GMSCircle?
     var lastBigCircle: GMSCircle?
     var topBlurEffect = UIVisualEffectView(effect: UIBlurEffect(style: UITraitCollection.current.userInterfaceStyle == .dark ? .dark : .light))
     var listCardView = ListCardView()
-    
-    // MARK: Interactions
-    var didTapButton: Interaction?
     
     // MARK: Setup
     func setup() {
@@ -61,7 +61,13 @@ class MapView: UIView, ViewControllerModellableView {
         } catch {
             print("One or more of the map styles failed to load. \(error)")
         }
+        self.mapView.delegate = self.viewController as? AttractionsViewController
+        self.locationButton.setImage(UIImage(systemName: "location.fill"), for: .normal)
+        self.locationButton.on(.touchUpInside) { button in
+            self.centerMap()
+        }
         self.addSubview(self.mapView)
+        self.addSubview(self.locationButton)
         self.addSubview(self.cityNameLabel)
         self.addSubview(self.topBlurEffect)
         self.addSubview(self.listCardView)
@@ -73,6 +79,12 @@ class MapView: UIView, ViewControllerModellableView {
     func style() {
         self.backgroundColor = .systemBackground
         self.cityNameLabel.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+        self.locationButton.backgroundColor = .systemBackground
+        self.locationButton.layer.cornerRadius = 20
+        self.locationButton.layer.shadowColor = UIColor.black.cgColor
+        self.locationButton.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 1 : 0.75
+        self.locationButton.layer.shadowOffset = .zero
+        self.locationButton.layer.shadowRadius = 4
     }
     
     // MARK: Layout subviews
@@ -81,14 +93,16 @@ class MapView: UIView, ViewControllerModellableView {
         self.cityNameLabel.sizeToFit()
         self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height * 0.70)
         self.cityNameLabel.pin.top(5.5%).left(2%).right()
+        self.locationButton.pin.top(6.5%).right(3%).width(40).height(40)
         self.topBlurEffect.pin.top().left().right().bottom(94.5%)
         self.layoutCardView()
     }
     
     func layoutCardView() {
-        if let model = self.model {
-            self.listCardView.pin.bottom().left().right().top(model.cardPercent)
-        }
+        guard let model = self.model else { return }
+        self.listCardView.pin.bottom().left().right().top(model.cardPercent)
+        self.mapView.frame.size.height = model.cardPercent.of(self.frame.height)
+        self.layoutIfNeeded()
     }
     
     // MARK: Update
@@ -96,16 +110,18 @@ class MapView: UIView, ViewControllerModellableView {
         guard let model = self.model else { return }
         let listCardViewModel = ListCardViewModel(places: model.nearestPlaces)
         self.listCardView.model = listCardViewModel
+        self.locationButton.tintColor = model.mapCentered ? .systemRed : .label
         if let location = model.currentLocation {
             self.mapView.isMyLocationEnabled = true
+            if model.mapCentered {
+                self.centerMap()
+            }
             if let lastLittleCircle = self.lastLittleCircle {
                 lastLittleCircle.map = nil
             }
             if let lastBigCircle = self.lastBigCircle {
                 lastBigCircle.map = nil
             }
-            let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17)
-            self.mapView.animate(to: camera)
             let littleCircle = GMSCircle(position: location, radius: 333)
             let bigCircle = GMSCircle(position: location, radius: 1000)
             if traitCollection.userInterfaceStyle == .dark{
@@ -127,5 +143,11 @@ class MapView: UIView, ViewControllerModellableView {
         } else {
             self.setNeedsLayout()
         }
+    }
+    
+    func centerMap() {
+        guard let model = self.model, let location = model.currentLocation else { return }
+        let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17)
+        self.mapView.animate(to: camera)
     }
 }

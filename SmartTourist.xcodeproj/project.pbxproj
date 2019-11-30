@@ -220,7 +220,6 @@
 			children = (
 				E5FDE322238B0B320018D791 /* Application */,
 				E5335CFC2389818D00601F02 /* State */,
-				E5F971502392D92B0096C296 /* Model */,
 				E5335D012389941200601F02 /* UI */,
 				E5335D06238996F500601F02 /* Dependencies */,
 				E52EECD0238EE690006196BA /* Managers */,
@@ -296,13 +295,6 @@
 				E57C47152392BC3A008DE784 /* RoundedButton.swift */,
 			);
 			path = Elements;
-			sourceTree = "<group>";
-		};
-		E5F971502392D92B0096C296 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		E5F971512392D96E0096C296 /* Utilities */ = {
@@ -816,7 +808,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3E65HHUN9M;
+				DEVELOPMENT_TEAM = SM32T6M59X;
 				INFOPLIST_FILE = SmartTourist/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -836,7 +828,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3E65HHUN9M;
+				DEVELOPMENT_TEAM = SM32T6M59X;
 				INFOPLIST_FILE = SmartTourist/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

@@ -9,6 +9,7 @@ import Foundation
 import CoreLocation
 import Tempura
 import GooglePlaces
+import GoogleMaps
 
 
 class AttractionsViewController: ViewControllerWithLocalState<MapView>, CLLocationManagerDelegate {
@@ -34,9 +35,6 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView>, CLLocati
     }
     
     override func setupInteraction() {
-        self.rootView.didTapButton = { [unowned self] in
-            self.dispatch(GetCurrentPlace())
-        }
         self.rootView.listCardView.animate = { [unowned self] in
             self.localState.animate = true
             switch self.localState.cardState {
@@ -46,6 +44,13 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView>, CLLocati
                 self.localState.cardState = .expanded
             }
         }
+    }
+}
+
+
+extension AttractionsViewController: GMSMapViewDelegate {
+    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+        self.localState.mapCentered = !gesture      // If the user moved the map (gesture = true), than the map is not centered anymore
     }
 }
 
@@ -75,4 +80,5 @@ struct AttractionsLocalState: LocalState {
     
     var cardState: CardState = .collapsed
     var animate: Bool = false
+    var mapCentered: Bool = true
 }

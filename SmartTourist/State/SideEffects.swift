@@ -12,8 +12,7 @@ import GooglePlaces
 
 struct GetCurrentPlace: SideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
-        let lastUpdate = context.getState().locationState.lastUpdate
-        if lastUpdate.distance(to: Date()) > 30 {       // If last update occurred more than X seconds ago
+        if context.getState().locationState.lastUpdate.distance(to: Date()) > 30 {       // If last update occurred more than X seconds ago
             context.dispatch(SetLastUpdate(lastUpdate: Date()))
             context.dependencies.googleAPI.getNearbyAttractions().then { attractions in
                 context.dispatch(SetCurrentPlace(places: attractions))

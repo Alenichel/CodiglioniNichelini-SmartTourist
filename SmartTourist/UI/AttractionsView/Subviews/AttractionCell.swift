@@ -33,6 +33,7 @@ struct AttractionCellViewModel: ViewModel {
         self.identifier = place.placeID ?? "0000"
         self.attractionName = place.name ?? "NoName"
         self.rating = place.rating
+        print("\(attractionName) = \(rating)")
     }
     
 }
@@ -79,11 +80,9 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         self.cosmos.settings.updateOnTouch = false
         self.cosmos.settings.starSize = Double(UIFont.systemFontSize)
         self.cosmos.settings.starMargin = 5
-        //self.cosmos.settings.filledColor = UIColor.orange
-        //self.cosmos.settings.emptyBorderColor = UIColor.orange
-        //self.cosmos.settings.filledBorderColor = UIColor.orange
-        self.cosmos.settings.filledImage = UIImage(systemName: "star.fill")?.withTintColor(UIColor.orange)
-        self.cosmos.settings.emptyImage = UIImage(systemName: "star")?.withTintColor(UIColor.orange)
+        self.cosmos.settings.fillMode = .precise
+        self.cosmos.settings.filledImage = UIImage(systemName: "star.fill")
+        self.cosmos.settings.emptyImage = UIImage(systemName: "star")
         self.cosmos.settings.disablePanGestures = true
     }
     
@@ -92,7 +91,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         super.layoutSubviews()
         self.label.pin.top().bottom().left().right(10%).margin(15)
         self.image.pin.vCenter(to: self.label.edge.vCenter).right(15)
-        self.cosmos.pin.top(to: self.label.edge.bottom).left(15)
+        self.cosmos.pin.below(of: self.label, aligned: .left)
     }
 
     
