@@ -21,17 +21,17 @@ class RoundedButton: UIButton {
     
     func style() {
         self.layer.cornerRadius = 16
-        self.addTarget(self, action: #selector(onTouchDown), for: .touchDown)
-        self.addTarget(self, action: #selector(onTouchDragExit), for: .touchDragExit)
     }
     
-    @objc func onTouchDown() {
-        self.layer.opacity = 0.6
-    }
-    
-    @objc func onTouchDragExit() {
-        UIView.animate(withDuration: 0.3) {
-            self.layer.opacity = 1
+    override var isHighlighted: Bool {
+        didSet {
+            if self.isHighlighted {
+                self.layer.opacity = 0.6
+            } else {
+                UIView.animate(withDuration: 0.3) {
+                    self.layer.opacity = 1
+                }
+            }
         }
     }
 }
