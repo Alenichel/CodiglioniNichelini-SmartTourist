@@ -11,6 +11,7 @@ import Tempura
 import PinLayout
 import DeepDiff
 import GooglePlaces
+import Cosmos
 
 public protocol SizeableCell: ModellableView {
   static func size(for model: VM) -> CGSize
@@ -42,11 +43,11 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     static var identifierForReuse: String = "AttractionCell"
     static var font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 4)
     
+    
     //MARK: Subviews
     var label = UILabel()
     var image = UIImageView(image: UIImage(systemName: "chevron.right"))
-    var starIcon = UIImageView(image: UIImage(systemName: "star.fill"))
-    var ratingLabel = UILabel()
+    var cosmos = CosmosView(frame: .zero)
     
     // MARK: Interactions
     var didToggle: ((String) -> ())?
@@ -67,16 +68,23 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     func setup() {
         self.addSubview(self.label)
         self.addSubview(self.image)
-        self.addSubview(self.starIcon)
-        self.addSubview(self.ratingLabel)
+        self.addSubview(self.cosmos)
     }
     
     //MARK: Style
     func style() {
         self.backgroundColor = .systemBackground
         self.label.font = AttractionCell.font
-        self.ratingLabel.font = AttractionCell.font
         self.image.tintColor = .secondaryLabel
+        self.cosmos.settings.updateOnTouch = false
+        self.cosmos.settings.starSize = Double(UIFont.systemFontSize)
+        self.cosmos.settings.starMargin = 5
+        //self.cosmos.settings.filledColor = UIColor.orange
+        //self.cosmos.settings.emptyBorderColor = UIColor.orange
+        //self.cosmos.settings.filledBorderColor = UIColor.orange
+        self.cosmos.settings.filledImage = UIImage(systemName: "star.fill")?.withTintColor(UIColor.orange)
+        self.cosmos.settings.emptyImage = UIImage(systemName: "star")?.withTintColor(UIColor.orange)
+        self.cosmos.settings.disablePanGestures = true
     }
     
     // MARK: Layout
@@ -84,8 +92,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         super.layoutSubviews()
         self.label.pin.top().bottom().left().right(10%).margin(15)
         self.image.pin.vCenter(to: self.label.edge.vCenter).right(15)
-        self.starIcon.pin.left(of: self.image).vCenter()
-        self.ratingLabel.pin.left(of: self.starIcon).vCenter()
+        self.cosmos.pin.top(to: self.label.edge.bottom).left(15)
     }
 
     
@@ -103,7 +110,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     func update(oldModel: AttractionCellViewModel?) {
         guard let model = self.model else { return }
         self.label.text = model.attractionName
-        self.ratingLabel.text = "AAAAAAAAAAAA"
+        self.cosmos.rating = Double(model.rating)
         self.setNeedsLayout()
     }
 }

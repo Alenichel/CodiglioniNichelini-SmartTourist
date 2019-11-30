@@ -1,4 +1,5 @@
 PODS:
+  - Cosmos (20.0.1)
   - DeepDiff (2.3.1)
   - FlexLayout (1.3.17)
   - GoogleMaps (3.6.0):
@@ -16,6 +17,7 @@ PODS:
     - Katana (< 4, >= 3.0)
 
 DEPENDENCIES:
+  - Cosmos (~> 20.0)
   - DeepDiff
   - FlexLayout
   - GoogleMaps
@@ -26,6 +28,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Cosmos
     - DeepDiff
     - FlexLayout
     - GoogleMaps
@@ -36,6 +39,7 @@ SPEC REPOS:
     - Tempura
 
 SPEC CHECKSUMS:
+  Cosmos: b47fddf2102bb48580cd3025d9ce0a5c658a65da
   DeepDiff: e5ae6c50d0321568e4508cec5930b9f10bb293fc
   FlexLayout: 257b6763526bc957d2abc2b77a05760b86ca0e21
   GoogleMaps: 82f8fe307193bb4de6ef6bf9e88f1d624b718f9d
@@ -45,6 +49,6 @@ SPEC CHECKSUMS:
   PinLayout: e41a50260a76508b7a7fcee8955c76639adc69bc
   Tempura: 134037b86b529cc4a0360fb191799b0cf0463b54
 
-PODFILE CHECKSUM: f67accfe595a427e7397a5bea5d0c40e1d5f05da
+PODFILE CHECKSUM: 98205d7b7480c28f84914c0f8e6169bf2f46c504
 
 COCOAPODS: 1.8.4

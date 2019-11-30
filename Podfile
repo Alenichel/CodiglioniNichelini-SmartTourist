@@ -13,6 +13,7 @@ target 'SmartTourist' do
   pod 'GooglePlaces'
   pod 'GoogleMaps'
   pod 'DeepDiff'
+  pod 'Cosmos', '~> 20.0'
 
   target 'SmartTouristTests' do
     inherit! :search_paths
