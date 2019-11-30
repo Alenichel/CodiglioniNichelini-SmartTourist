@@ -26,9 +26,9 @@ class WelcomeView: UIView, ViewControllerModellableView {
     var title = UILabel()
     var locationLabel = UILabel()
     var notificationsLabel = UILabel()
-    var locationButton = UIButton()
-    var notificationsButton = UIButton()
-    var closeButton = UIButton()
+    var locationButton = RoundedButton()
+    var notificationsButton = RoundedButton()
+    var closeButton = RoundedButton()
     
     // MARK: Interactions
     var didTapLocation: Interaction?
@@ -84,21 +84,19 @@ class WelcomeView: UIView, ViewControllerModellableView {
             .marginTop(10%)
             .left(5%)
         self.locationButton.pin
-            .below(of: self.title)
-            .marginTop(10%)
             .right(5%)
             .width(100)
             .sizeToFit(.width)
+            .vCenter(to: self.locationLabel.edge.vCenter)
         self.notificationsLabel.pin
             .below(of: self.locationLabel)
             .marginTop(5%)
             .left(5%)
         self.notificationsButton.pin
-            .below(of: self.locationButton)
-            .marginTop(5%)
             .right(5%)
             .width(100)
             .sizeToFit(.width)
+            .vCenter(to: self.notificationsLabel.edge.vCenter)
         self.closeButton.pin
             .bottom(15%)
             .hCenter()
@@ -116,15 +114,11 @@ class WelcomeView: UIView, ViewControllerModellableView {
     
     private func styleButton(_ button: UIButton, enabled: Bool? = nil) {
         button.backgroundColor = .systemBlue
+        button.setTitleColor(.white, for: .normal)
         if let enabled = enabled {
             button.setTitle(enabled ? "Enable" : "Enabled", for: .normal)
             button.isEnabled = enabled
             button.backgroundColor = enabled ? .systemBlue : .systemGreen
-            //button.layer.opacity = enabled ? 1.0 : 0.5
         }
-        button.layer.cornerRadius = 16
-        button.setTitleColor(.white, for: .normal)
-        //print("\(button).width = \(button.frame.size.width)")
-        //print("Increased \(button).width = \(button.frame.size.width)")
     }
 }
