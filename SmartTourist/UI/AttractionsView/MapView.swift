@@ -39,7 +39,8 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Subviews
     var cityNameLabel = UILabel()
     var mapView: GMSMapView!
-    var lastCircle: GMSCircle?
+    var lastLittleCircle: GMSCircle?
+    var lastBigCircle: GMSCircle?
     var topBlurEffect = UIVisualEffectView(effect: UIBlurEffect(style: UITraitCollection.current.userInterfaceStyle == .dark ? .dark : .light))
     var listCardView = ListCardView()
     
@@ -97,17 +98,24 @@ class MapView: UIView, ViewControllerModellableView {
         self.listCardView.model = listCardViewModel
         if let location = model.currentLocation {
             self.mapView.isMyLocationEnabled = true
-            if let lastCircle = self.lastCircle {
-                lastCircle.map = nil
+            if let lastLittleCircle = self.lastLittleCircle {
+                lastLittleCircle.map = nil
+            }
+            if let lastBigCircle = self.lastBigCircle {
+                lastBigCircle.map = nil
             }
             let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17)
             self.mapView.animate(to: camera)
-            let circle = GMSCircle(position: location, radius: 100)
+            let littleCircle = GMSCircle(position: location, radius: 333)
+            let bigCircle = GMSCircle(position: location, radius: 1000)
             if traitCollection.userInterfaceStyle == .dark{
-                circle.strokeColor = .white
+                littleCircle.strokeColor = .white
+                bigCircle.strokeColor = .white
             }
-            circle.map = self.mapView
-            self.lastCircle = circle
+            littleCircle.map = self.mapView
+            bigCircle.map = self.mapView
+            self.lastLittleCircle = littleCircle
+            self.lastBigCircle = bigCircle
         }
         if let city = model.currentCity {
             self.cityNameLabel.text = city

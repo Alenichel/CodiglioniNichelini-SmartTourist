@@ -87,7 +87,7 @@ class ListCardView: UIView, ModellableView {
     
     func update(oldModel: ListCardViewModel?) {
         guard let model = self.model else { return }
-        let attractions = model.places.map{ AttractionCellViewModel(place: $0.name!) }
+        let attractions = model.places.map{ AttractionCellViewModel(place: $0) }
         self.attractionListView.source = SimpleSource<AttractionCellViewModel>(attractions)
         self.setNeedsLayout()
     }

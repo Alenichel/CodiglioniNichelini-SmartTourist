@@ -20,6 +20,7 @@ public protocol SizeableCell: ModellableView {
 struct AttractionCellViewModel: ViewModel {
     var attractionName: String
     var identifier: String
+    var rating: Float
     
     static func == (l: AttractionCellViewModel, r: AttractionCellViewModel) -> Bool {
         if l.identifier != r.identifier {return false}
@@ -27,9 +28,10 @@ struct AttractionCellViewModel: ViewModel {
         return true
     }
     
-    init(place: String) {
-        self.identifier = "1234"
-        self.attractionName = place
+    init(place: GMSPlace) {
+        self.identifier = place.placeID ?? "0000"
+        self.attractionName = place.name ?? "NoName"
+        self.rating = place.rating
     }
     
 }
@@ -38,11 +40,13 @@ struct AttractionCellViewModel: ViewModel {
 // MARK: - View
 class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     static var identifierForReuse: String = "AttractionCell"
-    static var font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 8)
+    static var font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 4)
     
     //MARK: Subviews
     var label = UILabel()
     var image = UIImageView(image: UIImage(systemName: "chevron.right"))
+    var starIcon = UIImageView(image: UIImage(systemName: "star.fill"))
+    var ratingLabel = UILabel()
     
     // MARK: Interactions
     var didToggle: ((String) -> ())?
@@ -63,12 +67,15 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     func setup() {
         self.addSubview(self.label)
         self.addSubview(self.image)
+        self.addSubview(self.starIcon)
+        self.addSubview(self.ratingLabel)
     }
     
     //MARK: Style
     func style() {
         self.backgroundColor = .systemBackground
         self.label.font = AttractionCell.font
+        self.ratingLabel.font = AttractionCell.font
         self.image.tintColor = .secondaryLabel
     }
     
@@ -77,7 +84,10 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         super.layoutSubviews()
         self.label.pin.top().bottom().left().right(10%).margin(15)
         self.image.pin.vCenter(to: self.label.edge.vCenter).right(15)
+        self.starIcon.pin.left(of: self.image).vCenter()
+        self.ratingLabel.pin.left(of: self.starIcon).vCenter()
     }
+
     
     static var paddingHeight: CGFloat = 10
     static var maxTextWidth: CGFloat = 0.80
@@ -93,6 +103,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     func update(oldModel: AttractionCellViewModel?) {
         guard let model = self.model else { return }
         self.label.text = model.attractionName
+        self.ratingLabel.text = "AAAAAAAAAAAA"
         self.setNeedsLayout()
     }
 }
