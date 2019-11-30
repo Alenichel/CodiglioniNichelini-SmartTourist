@@ -79,7 +79,7 @@ class MapView: UIView, ViewControllerModellableView {
         super.layoutSubviews()
         self.cityNameLabel.sizeToFit()
         self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height * 0.70)
-        self.cityNameLabel.pin.top(5.5%).left(2%)
+        self.cityNameLabel.pin.top(5.5%).left(2%).right()
         self.topBlurEffect.pin.top().left().right().bottom(94.5%)
         self.layoutCardView()
     }

@@ -85,7 +85,6 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         //let textWidth = UIScreen.main.bounds.width * AttractionCell.maxTextWidth
         //let textHeight = model.attractionName.height(constraintedWidth: textWidth, font: font)
         let textHeight: CGFloat = 34
-        print("\(model.attractionName) = \(textHeight)")
         return CGSize(width: UIScreen.main.bounds.width,
                       height: textHeight + 2 * AttractionCell.paddingHeight)
     }
