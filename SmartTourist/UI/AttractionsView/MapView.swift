@@ -62,7 +62,7 @@ class MapView: UIView, ViewControllerModellableView {
             print("One or more of the map styles failed to load. \(error)")
         }
         self.mapView.delegate = self.viewController as? AttractionsViewController
-        self.locationButton.setImage(UIImage(systemName: "location.fill"), for: .normal)
+        self.locationButton.tintColor = .label
         self.locationButton.on(.touchUpInside) { button in
             self.centerMap()
         }
@@ -110,7 +110,7 @@ class MapView: UIView, ViewControllerModellableView {
         guard let model = self.model else { return }
         let listCardViewModel = ListCardViewModel(places: model.nearestPlaces)
         self.listCardView.model = listCardViewModel
-        self.locationButton.tintColor = model.mapCentered ? .systemRed : .label
+        self.locationButton.setImage(UIImage(systemName: model.mapCentered ? "location.fill" : "location"), for: .normal)
         if let location = model.currentLocation {
             self.mapView.isMyLocationEnabled = true
             if model.mapCentered {
