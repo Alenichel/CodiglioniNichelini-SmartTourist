@@ -19,12 +19,11 @@ public protocol SizeableCell: ModellableView {
 
 // MARK: View Model
 struct AttractionCellViewModel: ViewModel {
-    var attractionName: String
-    var identifier: String
-    var rating: Float
-    var currentLocation: CLLocationCoordinate2D
-    var distance: Int
-    
+    let attractionName: String
+    let identifier: String
+    let rating: Float
+    let currentLocation: CLLocationCoordinate2D
+    let distance: Int
     
     static func == (l: AttractionCellViewModel, r: AttractionCellViewModel) -> Bool {
         if l.identifier != r.identifier {return false}
@@ -51,16 +50,20 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     static var identifierForReuse: String = "AttractionCell"
     static var font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 4)
     
-    
     //MARK: Subviews
     var nameLabel = UILabel()
     var image = UIImageView(image: UIImage(systemName: "chevron.right"))
     var cosmos = CosmosView(frame: .zero)
     var distanceLabel = UILabel()
+    var tapGestureRecognizer = UITapGestureRecognizer()
     
     // MARK: Interactions
-    var didToggle: ((String) -> ())?
-    var didTapEdit: ((String) -> ())?
+    var didTap: ((String) -> Void)?
+    
+    @objc func didTapFunc(sender: UIGestureRecognizer) {
+        guard let model = self.model, let didTap = self.didTap else { return }
+        didTap(model.attractionName)
+    }
     
     //MARK: Init
     override init(frame: CGRect) {
@@ -75,10 +78,9 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     
     // MARK: Setup
     func setup() {
-        self.nameLabel.sizeToFit()
-        self.image.sizeToFit()
-        self.cosmos.sizeToFit()
-        self.distanceLabel.sizeToFit()
+        self.distanceLabel.textAlignment = .right
+        self.tapGestureRecognizer.addTarget(self, action: #selector(didTapFunc))
+        self.addGestureRecognizer(self.tapGestureRecognizer)
         self.addSubview(self.nameLabel)
         self.addSubview(self.image)
         self.addSubview(self.cosmos)
@@ -89,7 +91,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     func style() {
         self.backgroundColor = .systemBackground
         self.nameLabel.font = AttractionCell.font
-        self.distanceLabel.font = AttractionCell.font
+        self.distanceLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         self.image.tintColor = .secondaryLabel
         self.cosmos.settings.updateOnTouch = false
         self.cosmos.settings.starSize = Double(UIFont.systemFontSize)
@@ -103,10 +105,14 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     // MARK: Layout
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.nameLabel.pin.top().bottom().left().right(10%).margin(15)
-        self.image.pin.vCenter(to: self.nameLabel.edge.vCenter).right(15)
+        self.nameLabel.sizeToFit()
+        self.image.sizeToFit()
+        self.cosmos.sizeToFit()
+        self.distanceLabel.sizeToFit()
+        self.nameLabel.pin.top().bottom().left().right(15%).margin(15)
+        self.image.pin.vCenter().right(15)
         self.cosmos.pin.below(of: self.nameLabel, aligned: .left)
-        self.distanceLabel.pin.top(70%).bottom().left(80%).right(15) // to fix
+        self.distanceLabel.pin.vCenter().right(35)
     }
 
     
@@ -115,7 +121,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     static func size(for model: AttractionCellViewModel) -> CGSize {
         //let textWidth = UIScreen.main.bounds.width * AttractionCell.maxTextWidth
         //let textHeight = model.attractionName.height(constraintedWidth: textWidth, font: font)
-        let textHeight: CGFloat = 34
+        let textHeight: CGFloat = 42
         return CGSize(width: UIScreen.main.bounds.width,
                       height: textHeight + 2 * AttractionCell.paddingHeight)
     }
@@ -125,7 +131,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         guard let model = self.model else {return}
         self.nameLabel.text = model.attractionName
         self.cosmos.rating = Double(model.rating)
-        self.distanceLabel.text = "\(model.distance)m"
+        self.distanceLabel.text = "\(model.distance) m"
         self.setNeedsLayout()
     }
 }

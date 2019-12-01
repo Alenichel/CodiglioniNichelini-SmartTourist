@@ -29,8 +29,7 @@ class ListCardView: UIView, ModellableView {
     
     // MARK: - Interactions
     var animate: Interaction?
-    var didTapEditItem: ((String) -> ())?
-    var didToggleItem: ((String) -> ())?
+    var didTapItem: ((String) -> Void)?
     
     func setup() {
         self.handle.setImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
@@ -44,11 +43,8 @@ class ListCardView: UIView, ModellableView {
         self.attractionListView = CollectionView<AttractionCell, SimpleSource<AttractionCellViewModel>>(frame: .zero, layout: attractionsLayout)
         self.attractionListView.useDiffs = true
         self.attractionListView.configureInteractions = { [unowned self] cell, indexPath in
-            cell.didTapEdit = { [unowned self] id in
-                self.didTapEditItem?(id)
-            }
-            cell.didToggle = { [unowned self] itemID in
-                self.didToggleItem?(itemID)
+            cell.didTap = { [unowned self] id in
+                self.didTapItem?(id)
             }
         }
         self.scrollView.addSubview(self.attractionListView)

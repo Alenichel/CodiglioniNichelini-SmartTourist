@@ -14,6 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, RootInstaller {
 
     var window: UIWindow?
     var store: Store<AppState, DependenciesContainer>!
+    static var navigationController: UINavigationController!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -32,7 +33,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, RootInstaller {
     func installRoot(identifier: RouteElementIdentifier, context: Any?, completion: () -> ()) -> Bool {
         if identifier == Screen.attractions.rawValue {
             let viewController = AttractionsViewController(store: self.store, localState: AttractionsLocalState())
-            self.window?.rootViewController = viewController
+            SceneDelegate.navigationController = UINavigationController(rootViewController: viewController)
+            self.window?.rootViewController = SceneDelegate.navigationController
             completion()
             return true
         }

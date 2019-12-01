@@ -16,6 +16,19 @@ class AttractionDetailViewController: ViewControllerWithLocalState<AttractionDet
 }
 
 
+extension AttractionDetailViewController: RoutableWithConfiguration {
+    var routeIdentifier: RouteElementIdentifier {
+        Screen.detail.rawValue
+    }
+    
+    var navigationConfiguration: [NavigationRequest : NavigationInstruction] {
+        [
+            .hide(Screen.detail): .pop
+        ]
+    }
+}
+
+
 struct AttractionDetailLocalState: LocalState {
-    var attraction: GMSPlace
+    var attraction: String
 }

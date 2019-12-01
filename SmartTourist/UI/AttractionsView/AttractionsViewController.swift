@@ -13,6 +13,16 @@ import GoogleMaps
 
 
 class AttractionsViewController: ViewControllerWithLocalState<MapView>, CLLocationManagerDelegate {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        SceneDelegate.navigationController.setNavigationBarHidden(true, animated: animated)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        SceneDelegate.navigationController.setNavigationBarHidden(false, animated: animated)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         LocationManager.shared.setDelegate(self)
@@ -44,6 +54,9 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView>, CLLocati
                 self.localState.cardState = .expanded
             }
         }
+        self.rootView.listCardView.didTapItem = { [unowned self] id in
+            self.dispatch(Show(Screen.detail, animated: true, context: id))
+        }
     }
 }
 
@@ -63,9 +76,12 @@ extension AttractionsViewController: RoutableWithConfiguration {
     var navigationConfiguration: [NavigationRequest : NavigationInstruction] {
         [
             .show(Screen.welcome): .presentModally({ [unowned self] context in
-                let welcomeViewController = WelcomeViewController(store: self.store, localState: WelcomeLocalState())
-                welcomeViewController.modalPresentationStyle = .overCurrentContext
-                return welcomeViewController
+                let vc = WelcomeViewController(store: self.store, localState: WelcomeLocalState())
+                vc.modalPresentationStyle = .overCurrentContext
+                return vc
+            }),
+            .show(Screen.detail): .push({ [unowned self] context in
+                return AttractionDetailViewController(store: self.store, localState: AttractionDetailLocalState(attraction: context as! String))
             })
         ]
     }
