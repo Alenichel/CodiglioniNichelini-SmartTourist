@@ -85,8 +85,8 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         self.cosmos.settings.starSize = Double(UIFont.systemFontSize)
         self.cosmos.settings.starMargin = 5
         self.cosmos.settings.fillMode = .precise
-        self.cosmos.settings.filledImage = UIImage(systemName: "star.fill")
-        self.cosmos.settings.emptyImage = UIImage(systemName: "star")
+        self.cosmos.settings.filledImage = UIImage(systemName: "star.fill")?.maskWithColor(color: .label)
+        self.cosmos.settings.emptyImage = UIImage(systemName: "star")?.maskWithColor(color: .label)
         self.cosmos.settings.disablePanGestures = true
     }
     

@@ -32,6 +32,7 @@
 		E553D14B23926CC600C3199C /* ListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E553D14A23926CC600C3199C /* ListCardView.swift */; };
 		E5628B4D2393D4D500A61676 /* AttractionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5628B4C2393D4D500A61676 /* AttractionDetailView.swift */; };
 		E5628B4F2393D4E100A61676 /* AttractionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5628B4E2393D4E100A61676 /* AttractionDetailViewController.swift */; };
+		E5628B512394224F00A61676 /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5628B502394224F00A61676 /* UIImage+Color.swift */; };
 		E57C47162392BC3A008DE784 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57C47152392BC3A008DE784 /* RoundedButton.swift */; };
 		E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */; };
 		E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA4238ADEF3008D7C86 /* SideEffects.swift */; };
@@ -102,6 +103,7 @@
 		E553D14A23926CC600C3199C /* ListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCardView.swift; sourceTree = "<group>"; };
 		E5628B4C2393D4D500A61676 /* AttractionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionDetailView.swift; sourceTree = "<group>"; };
 		E5628B4E2393D4E100A61676 /* AttractionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionDetailViewController.swift; sourceTree = "<group>"; };
+		E5628B502394224F00A61676 /* UIImage+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
 		E57C47152392BC3A008DE784 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateUpdaters.swift; sourceTree = "<group>"; };
 		E585FCA4238ADEF3008D7C86 /* SideEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideEffects.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 				E5F971592392D96E0096C296 /* CGRect+Utils.swift */,
 				E5F9715A2392D96E0096C296 /* UIView+Blink.swift */,
 				E5F9715B2392D96E0096C296 /* String+Height.swift */,
+				E5628B502394224F00A61676 /* UIImage+Color.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -646,6 +649,7 @@
 				E5F971632392D96F0096C296 /* UIView+Blink.swift in Sources */,
 				E52EECCF238EE5FE006196BA /* NotificationManager.swift in Sources */,
 				E524A0FF238C4F530052825F /* Screen.swift in Sources */,
+				E5628B512394224F00A61676 /* UIImage+Color.swift in Sources */,
 				E5628B4D2393D4D500A61676 /* AttractionDetailView.swift in Sources */,
 				E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */,
 				E57C47162392BC3A008DE784 /* RoundedButton.swift in Sources */,
