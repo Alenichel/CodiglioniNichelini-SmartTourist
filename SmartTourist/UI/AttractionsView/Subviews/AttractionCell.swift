@@ -33,7 +33,6 @@ struct AttractionCellViewModel: ViewModel {
         self.identifier = place.placeID ?? "0000"
         self.attractionName = place.name ?? "NoName"
         self.rating = place.rating
-        print("\(attractionName) = \(rating)")
     }
     
 }
