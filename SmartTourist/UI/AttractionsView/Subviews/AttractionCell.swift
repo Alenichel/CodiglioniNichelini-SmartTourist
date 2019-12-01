@@ -105,7 +105,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         super.layoutSubviews()
         self.nameLabel.pin.top().bottom().left().right(10%).margin(15)
         self.image.pin.vCenter(to: self.nameLabel.edge.vCenter).right(15)
-        self.cosmos.pin.below(of: self.nameLabel, aligned: .left).right(70%)
+        self.cosmos.pin.below(of: self.nameLabel, aligned: .left)
         self.distanceLabel.pin.top(70%).bottom().left(80%).right(15) // to fix
     }
 
@@ -122,9 +122,9 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     
     //MARK: Update
     func update(oldModel: AttractionCellViewModel?) {
-        guard let model = self.model else { return }
         self.nameLabel.text = model.attractionName
-        self.cosmos.rating = Double(model.rating)
+        self.nameLabel.text = model.attractionName
+        self.distanceLabel.text = "\(model.distance)m"
         self.distanceLabel.text = "\(model.distance)m"
         self.setNeedsLayout()
     }
