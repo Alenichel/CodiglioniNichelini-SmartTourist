@@ -122,9 +122,9 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     
     //MARK: Update
     func update(oldModel: AttractionCellViewModel?) {
+        guard let model = self.model else {return}
         self.nameLabel.text = model.attractionName
-        self.nameLabel.text = model.attractionName
-        self.distanceLabel.text = "\(model.distance)m"
+        self.cosmos.rating = Double(model.rating)
         self.distanceLabel.text = "\(model.distance)m"
         self.setNeedsLayout()
     }
