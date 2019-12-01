@@ -12,6 +12,7 @@ import PinLayout
 
 struct ListCardViewModel: ViewModel, Equatable {
     let places: [GMSPlace]
+    let currentLocation: CLLocationCoordinate2D?
     
     static func == (l: ListCardViewModel, r: ListCardViewModel) -> Bool {
         return l.places == r.places
@@ -87,7 +88,7 @@ class ListCardView: UIView, ModellableView {
     
     func update(oldModel: ListCardViewModel?) {
         guard let model = self.model else { return }
-        let attractions = model.places.map{ AttractionCellViewModel(place: $0) }
+        let attractions = model.places.map{ AttractionCellViewModel(place: $0, currentLocation: model.currentLocation) }
         self.attractionListView.source = SimpleSource<AttractionCellViewModel>(attractions)
         self.setNeedsLayout()
     }

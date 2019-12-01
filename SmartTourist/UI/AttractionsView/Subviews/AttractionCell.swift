@@ -22,6 +22,9 @@ struct AttractionCellViewModel: ViewModel {
     var attractionName: String
     var identifier: String
     var rating: Float
+    var currentLocation: CLLocationCoordinate2D
+    var distance: Int
+    
     
     static func == (l: AttractionCellViewModel, r: AttractionCellViewModel) -> Bool {
         if l.identifier != r.identifier {return false}
@@ -29,11 +32,15 @@ struct AttractionCellViewModel: ViewModel {
         return true
     }
     
-    init(place: GMSPlace) {
+    init(place: GMSPlace, currentLocation: CLLocationCoordinate2D?) {
         self.identifier = place.placeID ?? "0000"
         self.attractionName = place.name ?? "NoName"
         self.rating = place.rating
-        print("\(attractionName) = \(rating)")
+        self.currentLocation = currentLocation ?? CLLocationCoordinate2D()
+        let current = CLLocation(latitude: currentLocation!.latitude, longitude: currentLocation!.longitude)
+        let target = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+        self.distance = Int(current.distance(from: target).rounded())
+        print("\(attractionName) = \(rating) - \(self.distance)m")
     }
     
 }
@@ -46,9 +53,10 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     
     
     //MARK: Subviews
-    var label = UILabel()
+    var nameLabel = UILabel()
     var image = UIImageView(image: UIImage(systemName: "chevron.right"))
     var cosmos = CosmosView(frame: .zero)
+    var distanceLabel = UILabel()
     
     // MARK: Interactions
     var didToggle: ((String) -> ())?
@@ -67,15 +75,21 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     
     // MARK: Setup
     func setup() {
-        self.addSubview(self.label)
+        self.nameLabel.sizeToFit()
+        self.image.sizeToFit()
+        self.cosmos.sizeToFit()
+        self.distanceLabel.sizeToFit()
+        self.addSubview(self.nameLabel)
         self.addSubview(self.image)
         self.addSubview(self.cosmos)
+        self.addSubview(self.distanceLabel)
     }
     
     //MARK: Style
     func style() {
         self.backgroundColor = .systemBackground
-        self.label.font = AttractionCell.font
+        self.nameLabel.font = AttractionCell.font
+        self.distanceLabel.font = AttractionCell.font
         self.image.tintColor = .secondaryLabel
         self.cosmos.settings.updateOnTouch = false
         self.cosmos.settings.starSize = Double(UIFont.systemFontSize)
@@ -89,9 +103,10 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     // MARK: Layout
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.label.pin.top().bottom().left().right(10%).margin(15)
-        self.image.pin.vCenter(to: self.label.edge.vCenter).right(15)
-        self.cosmos.pin.below(of: self.label, aligned: .left)
+        self.nameLabel.pin.top().bottom().left().right(10%).margin(15)
+        self.image.pin.vCenter(to: self.nameLabel.edge.vCenter).right(15)
+        self.cosmos.pin.below(of: self.nameLabel, aligned: .left).right(70%)
+        self.distanceLabel.pin.top(70%).bottom().left(80%).right(15) // to fix
     }
 
     
@@ -108,8 +123,9 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     //MARK: Update
     func update(oldModel: AttractionCellViewModel?) {
         guard let model = self.model else { return }
-        self.label.text = model.attractionName
+        self.nameLabel.text = model.attractionName
         self.cosmos.rating = Double(model.rating)
+        self.distanceLabel.text = "\(model.distance)m"
         self.setNeedsLayout()
     }
 }
