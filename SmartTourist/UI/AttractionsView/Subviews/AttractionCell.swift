@@ -39,7 +39,7 @@ struct AttractionCellViewModel: ViewModel {
         let current = CLLocation(latitude: currentLocation!.latitude, longitude: currentLocation!.longitude)
         let target = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
         self.distance = Int(current.distance(from: target).rounded())
-        print("\(attractionName) = \(rating) - \(self.distance)m")
+        //print("\(attractionName) = \(rating) - \(self.distance)m")
     }
     
 }
@@ -48,22 +48,12 @@ struct AttractionCellViewModel: ViewModel {
 // MARK: - View
 class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     static var identifierForReuse: String = "AttractionCell"
-    static var font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 4)
     
     //MARK: Subviews
     var nameLabel = UILabel()
     var image = UIImageView(image: UIImage(systemName: "chevron.right"))
     var cosmos = CosmosView(frame: .zero)
     var distanceLabel = UILabel()
-    var tapGestureRecognizer = UITapGestureRecognizer()
-    
-    // MARK: Interactions
-    var didTap: ((String) -> Void)?
-    
-    @objc func didTapFunc(sender: UIGestureRecognizer) {
-        guard let model = self.model, let didTap = self.didTap else { return }
-        didTap(model.attractionName)
-    }
     
     //MARK: Init
     override init(frame: CGRect) {
@@ -79,8 +69,6 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     // MARK: Setup
     func setup() {
         self.distanceLabel.textAlignment = .right
-        self.tapGestureRecognizer.addTarget(self, action: #selector(didTapFunc))
-        self.addGestureRecognizer(self.tapGestureRecognizer)
         self.addSubview(self.nameLabel)
         self.addSubview(self.image)
         self.addSubview(self.cosmos)
@@ -90,7 +78,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     //MARK: Style
     func style() {
         self.backgroundColor = .systemBackground
-        self.nameLabel.font = AttractionCell.font
+        self.nameLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 4)
         self.distanceLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         self.image.tintColor = .secondaryLabel
         self.cosmos.settings.updateOnTouch = false
@@ -109,13 +97,12 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         self.image.sizeToFit()
         self.cosmos.sizeToFit()
         self.distanceLabel.sizeToFit()
-        self.nameLabel.pin.top().bottom().left().right(15%).margin(15)
+        self.nameLabel.pin.top(10).bottom(50%).left(15).right(90)
+        self.cosmos.pin.top(55%).bottom().left(15)
         self.image.pin.vCenter().right(15)
-        self.cosmos.pin.below(of: self.nameLabel, aligned: .left)
         self.distanceLabel.pin.vCenter().right(35)
     }
 
-    
     static var paddingHeight: CGFloat = 10
     static var maxTextWidth: CGFloat = 0.80
     static func size(for model: AttractionCellViewModel) -> CGSize {

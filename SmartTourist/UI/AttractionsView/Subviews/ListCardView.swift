@@ -26,11 +26,10 @@ class ListCardView: UIView, ModellableView {
     var scrollView = UIScrollView()
     var attractionListView: CollectionView<AttractionCell, SimpleSource<AttractionCellViewModel>>!
     
-    
     // MARK: - Interactions
     var animate: Interaction?
     var didTapItem: ((String) -> Void)?
-    
+        
     func setup() {
         self.handle.setImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
         self.handle.on(.touchUpInside) { button in
@@ -42,9 +41,19 @@ class ListCardView: UIView, ModellableView {
         let attractionsLayout = AttractionFlowLayout()
         self.attractionListView = CollectionView<AttractionCell, SimpleSource<AttractionCellViewModel>>(frame: .zero, layout: attractionsLayout)
         self.attractionListView.useDiffs = true
-        self.attractionListView.configureInteractions = { [unowned self] cell, indexPath in
-            cell.didTap = { [unowned self] id in
-                self.didTapItem?(id)
+        self.attractionListView.didSelectItem = { [unowned self] indexPath in
+            guard let cell = self.attractionListView.cellForItem(at: indexPath) as? AttractionCell else { return }
+            guard let string = cell.model?.attractionName else { return }
+            self.didTapItem?(string)
+        }
+        self.attractionListView.didHighlightItem = { [unowned self] indexPath in
+            guard let cell = self.attractionListView.cellForItem(at: indexPath) else { return }
+            cell.backgroundColor = .secondarySystemBackground
+        }
+        self.attractionListView.didUnhighlightItem = { [unowned self] indexPath in
+            guard let cell = self.attractionListView.cellForItem(at: indexPath) else { return }
+            UIView.animate(withDuration: 0.5) {
+                cell.backgroundColor = .systemBackground
             }
         }
         self.scrollView.addSubview(self.attractionListView)
@@ -84,7 +93,7 @@ class ListCardView: UIView, ModellableView {
     
     func update(oldModel: ListCardViewModel?) {
         guard let model = self.model else { return }
-        let attractions = model.places.map{ AttractionCellViewModel(place: $0, currentLocation: model.currentLocation) }
+        let attractions = model.places.map { AttractionCellViewModel(place: $0, currentLocation: model.currentLocation) }
         self.attractionListView.source = SimpleSource<AttractionCellViewModel>(attractions)
         self.setNeedsLayout()
     }
@@ -93,6 +102,4 @@ class ListCardView: UIView, ModellableView {
         // TODO: change source of attractionListView
         print("Selected Segment Index is : \(sender.selectedSegmentIndex)")
     }
-
 }
-

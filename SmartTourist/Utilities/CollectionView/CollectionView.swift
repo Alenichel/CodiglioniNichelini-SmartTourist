@@ -68,18 +68,31 @@ UICollectionViewDelegateFlowLayout  where Cell: ConfigurableCell & SizeableCell,
   }
   
   // MARK: - Interactions
-  open var didTapItem: ItemSelectionHandler?
+  open var didSelectItem: ItemSelectionHandler?
+  open var didDeselectItem: ItemSelectionHandler?
+  open var didHighlightItem: ItemSelectionHandler?
+  open var didUnhighlightItem: ItemSelectionHandler?
   open var configureInteractions: ((Cell, IndexPath) -> ())? {
     didSet {
       self.customDataSource.configureInteractions = self.configureInteractions
     }
   }
-  open var didTapEdit: ((String) -> ())?
-  
   
   // MARK: - UICollectionViewDelegate
   open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    self.didTapItem?(indexPath)
+    self.didSelectItem?(indexPath)
+  }
+  
+  open func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+    self.didDeselectItem?(indexPath)
+  }
+    
+  open func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+    self.didHighlightItem?(indexPath)
+  }
+
+  open func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
+    self.didUnhighlightItem?(indexPath)
   }
   
   open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
