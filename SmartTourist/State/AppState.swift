@@ -12,7 +12,7 @@ import GooglePlaces
 
 // MARK: - State
 struct AppState: State {
-    var firstLaunch: Bool = false
+    var firstLaunch: Bool = true
     var locationState = LocationState()
 }
 
