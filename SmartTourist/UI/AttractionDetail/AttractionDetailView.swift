@@ -15,6 +15,7 @@ import Cosmos
 struct AttractionDetailViewModel: ViewModelWithLocalState {
     let attraction: GMSPlace
     var description: String
+    var mainPhotoMetadata: GMSPlacePhotoMetadata
     
     init(state: AppState?, localState: AttractionDetailLocalState) {
         self.attraction = localState.attraction
@@ -27,11 +28,13 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     var nameLabel = UILabel()
     var descriptionText = UITextView()
     var cosmos = CosmosView(frame: .zero)
+    var scrollView = UIScrollView()
     
     func setup() {
         self.addSubview(self.nameLabel)
         self.addSubview(self.cosmos)
-        self.addSubview(self.descriptionText)
+        self.addSubview(self.scrollView)
+        self.scrollView.addSubview(self.descriptionText)
     }
     
     func style() {
@@ -46,6 +49,8 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.cosmos.settings.filledImage = UIImage(systemName: "star.fill")?.maskWithColor(color: .orange)
         self.cosmos.settings.emptyImage = UIImage(systemName: "star")?.maskWithColor(color: .orange)
         self.cosmos.settings.disablePanGestures = true
+        self.scrollView.backgroundColor = .systemBackground
+        self.scrollView.alwaysBounceVertical = true
     }
     
     override func layoutSubviews() {
@@ -55,7 +60,8 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.cosmos.sizeToFit()
         self.cosmos.pin.below(of: self.nameLabel, aligned: .center).margin(20)
         self.descriptionText.sizeToFit()
-        self.descriptionText.pin.horizontally(20).bottom().top(180)
+        self.scrollView.pin.horizontally().bottom().top(180)
+        self.descriptionText.pin.all(20)
     }
     
     func update(oldModel: AttractionDetailViewModel?) {

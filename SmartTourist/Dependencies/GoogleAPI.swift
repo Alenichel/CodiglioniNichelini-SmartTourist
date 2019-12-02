@@ -60,4 +60,17 @@ class GoogleAPI {
             }
         }
     }
+    
+    func getPlacePicture(photoMetadata: GMSPlacePhotoMetadata) -> Promise<UIImage> {
+        return Promise<UIImage>(in: .background) { resolve, reject, status in
+            self.placesClient.loadPlacePhoto(photoMetadata, callback: { (photo, error) -> Void in
+                if let error = error {
+                    print("Error loading photo metadata: \(error.localizedDescription)")
+                    reject(error)
+                } else {
+                    resolve(photo!)
+                }
+            })
+        }
+    }
 }
