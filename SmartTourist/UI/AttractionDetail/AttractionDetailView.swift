@@ -15,7 +15,7 @@ import Cosmos
 struct AttractionDetailViewModel: ViewModelWithLocalState {
     let attraction: GMSPlace
     var description: String
-    var mainPhotoMetadata: GMSPlacePhotoMetadata
+    //var mainPhotoMetadata: GMSPlacePhotoMetadata
     
     init(state: AppState?, localState: AttractionDetailLocalState) {
         self.attraction = localState.attraction
