@@ -11,7 +11,6 @@ import Tempura
 import GooglePlaces
 import GoogleMaps
 
-
 class AttractionsViewController: ViewControllerWithLocalState<MapView>, CLLocationManagerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -81,7 +80,7 @@ extension AttractionsViewController: RoutableWithConfiguration {
                 return vc
             }),
             .show(Screen.detail): .push({ [unowned self] context in
-                return AttractionDetailViewController(store: self.store, localState: AttractionDetailLocalState(attraction: context as! String))
+                return AttractionDetailViewController(store: self.store, localState: AttractionDetailLocalState(attraction: context as! GMSPlace))
             })
         ]
     }

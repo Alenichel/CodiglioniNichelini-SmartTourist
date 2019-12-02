@@ -28,7 +28,7 @@ class ListCardView: UIView, ModellableView {
     
     // MARK: - Interactions
     var animate: Interaction?
-    var didTapItem: ((String) -> Void)?
+    var didTapItem: ((GMSPlace) -> Void)?
         
     func setup() {
         self.handle.setImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
@@ -43,8 +43,10 @@ class ListCardView: UIView, ModellableView {
         self.attractionListView.useDiffs = true
         self.attractionListView.didSelectItem = { [unowned self] indexPath in
             guard let cell = self.attractionListView.cellForItem(at: indexPath) as? AttractionCell else { return }
-            guard let string = cell.model?.attractionName else { return }
-            self.didTapItem?(string)
+//            guard let string = cell.model?.attractionName else { return }
+//            self.didTapItem?(string)
+            guard let toPass = cell.model?.place else { return }
+            self.didTapItem?(toPass)
         }
         self.attractionListView.didHighlightItem = { [unowned self] indexPath in
             guard let cell = self.attractionListView.cellForItem(at: indexPath) else { return }

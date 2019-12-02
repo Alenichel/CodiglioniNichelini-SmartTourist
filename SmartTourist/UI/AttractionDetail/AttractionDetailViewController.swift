@@ -30,5 +30,5 @@ extension AttractionDetailViewController: RoutableWithConfiguration {
 
 
 struct AttractionDetailLocalState: LocalState {
-    var attraction: String
+    var attraction: GMSPlace
 }

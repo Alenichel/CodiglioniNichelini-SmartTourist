@@ -24,6 +24,7 @@ struct AttractionCellViewModel: ViewModel {
     let rating: Float
     let currentLocation: CLLocationCoordinate2D
     let distance: Int
+    let place: GMSPlace // what version to keep ? 
     
     static func == (l: AttractionCellViewModel, r: AttractionCellViewModel) -> Bool {
         if l.identifier != r.identifier {return false}
@@ -40,6 +41,7 @@ struct AttractionCellViewModel: ViewModel {
         let target = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
         self.distance = Int(current.distance(from: target).rounded())
         //print("\(attractionName) = \(rating) - \(self.distance)m")
+        self.place = place
     }
     
 }
