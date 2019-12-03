@@ -51,6 +51,8 @@ class MapView: UIView, ViewControllerModellableView {
     func setup() {
         self.mapView = GMSMapView(frame: .zero)
         self.loadMapStyle()
+        self.mapView.settings.compassButton = true
+        self.mapView.settings.tiltGestures = false
         self.mapView.delegate = self.viewController as? AttractionsViewController
         self.locationButton.tintColor = .label
         self.locationButton.on(.touchUpInside) { button in
@@ -75,8 +77,6 @@ class MapView: UIView, ViewControllerModellableView {
         self.locationButton.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 1 : 0.75
         self.locationButton.layer.shadowOffset = .zero
         self.locationButton.layer.shadowRadius = 4
-        self.mapView.settings.compassButton = true
-        self.mapView.settings.tiltGestures = false
     }
     
     // MARK: Layout subviews
@@ -85,7 +85,7 @@ class MapView: UIView, ViewControllerModellableView {
         self.cityNameLabel.sizeToFit()
         self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height * 0.70)
         self.cityNameLabel.pin.top(5.5%).left(2%).right()
-        self.locationButton.pin.top(6.5%).right(3%).width(40).height(40)
+        //self.locationButton.pin.bottom(6.5%).right(3%).width(40).height(40)
         self.topBlurEffect.pin.top().left().right().bottom(94.5%)
         self.layoutCardView()
     }
@@ -94,6 +94,8 @@ class MapView: UIView, ViewControllerModellableView {
         guard let model = self.model else { return }
         self.listCardView.pin.bottom().left().right().top(model.cardPercent)
         self.mapView.frame.size.height = model.cardPercent.of(self.frame.height)
+        let inversePercent = (100 - model.cardPercent.of(100) + 2)%
+        self.locationButton.pin.bottom(inversePercent).right(3%).size(40)
         self.layoutIfNeeded()
     }
     
