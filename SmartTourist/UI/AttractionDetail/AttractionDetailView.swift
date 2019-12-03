@@ -27,7 +27,10 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
         let openStatus = localState.attraction.isOpen()
         self.isOpen = openStatus == .open ? "Open" : (openStatus == .closed ? "Closed": "")
         //print("\(attraction.name!) is open? \(attraction.isOpen())")
-        self.nRating = "\(Int(localState.attraction.userRatingsTotal / 1000))k"
+        let n = localState.attraction.userRatingsTotal
+        if n > 1000 { self.nRating = "\(Int(localState.attraction.userRatingsTotal / 1000))k" }
+        else { self.nRating = "\(n)" }
+        
     }
 }
 
