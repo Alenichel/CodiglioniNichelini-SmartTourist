@@ -94,7 +94,7 @@ class MapView: UIView, ViewControllerModellableView {
         self.listCardView.pin.bottom().left().right().top(model.cardPercent)
         self.mapView.frame.size.height = model.cardPercent.of(self.frame.height)
         let inversePercent = (100 - model.cardPercent.of(100) + 2)%
-        self.locationButton.pin.bottom(inversePercent).right(3%).size(40)
+        self.locationButton.pin.bottom(inversePercent).right(4%).size(40)
         self.layoutIfNeeded()
     }
     
