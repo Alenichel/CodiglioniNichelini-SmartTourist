@@ -12,6 +12,9 @@ import Hydra
 
 class GoogleAPI {
     
+    static let shared = GoogleAPI()
+    private init() {}
+    
     var placesClient = GMSPlacesClient.shared()
     var geocoder = GMSGeocoder()
     
@@ -21,7 +24,7 @@ class GoogleAPI {
     
     func getNearbyPlaces() -> Promise<[GMSPlace]> {
         return Promise<[GMSPlace]>(in: .main) { resolve, reject, status in
-            self.placesClient.currentPlace { (placeLikelihoodList, error) -> Void in
+            self.placesClient.currentPlace { placeLikelihoodList, error in
                 if let error = error {
                     print(error.localizedDescription)
                     reject(error)
@@ -63,14 +66,14 @@ class GoogleAPI {
     
     func getPlacePicture(photoMetadata: GMSPlacePhotoMetadata) -> Promise<UIImage> {
         return Promise<UIImage>(in: .background) { resolve, reject, status in
-            self.placesClient.loadPlacePhoto(photoMetadata, callback: { (photo, error) -> Void in
+            self.placesClient.loadPlacePhoto(photoMetadata) { photo, error in
                 if let error = error {
                     print("Error loading photo metadata: \(error.localizedDescription)")
                     reject(error)
                 } else {
                     resolve(photo!)
                 }
-            })
+            }
         }
     }
 }

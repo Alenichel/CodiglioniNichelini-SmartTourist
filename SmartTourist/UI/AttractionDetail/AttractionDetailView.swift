@@ -14,12 +14,14 @@ import Cosmos
 
 struct AttractionDetailViewModel: ViewModelWithLocalState {
     let attraction: GMSPlace
-    var description: String
-    //var mainPhotoMetadata: GMSPlacePhotoMetadata
+    let description: String
+    let image: UIImage?
+    //let mainPhotoMetadata: GMSPlacePhotoMetadata
     
     init(state: AppState?, localState: AttractionDetailLocalState) {
         self.attraction = localState.attraction
         self.description = "Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        self.image = localState.attractionImage
     }
 }
 
@@ -29,8 +31,10 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     var descriptionText = UITextView()
     var cosmos = CosmosView(frame: .zero)
     var scrollView = UIScrollView()
+    var imageView = UIImageView()
     
     func setup() {
+        self.addSubview(self.imageView)
         self.addSubview(self.nameLabel)
         self.addSubview(self.cosmos)
         self.addSubview(self.scrollView)
@@ -39,11 +43,11 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     
     func style() {
         self.backgroundColor = .systemBackground
-        self.nameLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        self.descriptionText.font = UIFont.systemFont(ofSize: 18)
+        self.nameLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.5, weight: .bold)
+        self.descriptionText.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.3)
         self.descriptionText.textAlignment = NSTextAlignment.justified
         self.cosmos.settings.updateOnTouch = false
-        self.cosmos.settings.starSize = Double(UIFont.systemFontSize) + 12
+        self.cosmos.settings.starSize = Double(UIFont.systemFontSize) * 1.1
         self.cosmos.settings.starMargin = 5
         self.cosmos.settings.fillMode = .precise
         self.cosmos.settings.filledImage = UIImage(systemName: "star.fill")?.maskWithColor(color: .orange)
@@ -60,8 +64,10 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.cosmos.sizeToFit()
         self.cosmos.pin.below(of: self.nameLabel, aligned: .center).margin(20)
         self.descriptionText.sizeToFit()
-        self.scrollView.pin.horizontally().bottom().top(180)
+        self.scrollView.pin.horizontally().bottom().top(250)
         self.descriptionText.pin.all(20)
+        self.imageView.sizeToFit()
+        self.imageView.pin.top(self.safeAreaInsets).bottom(50%).left().right()
     }
     
     func update(oldModel: AttractionDetailViewModel?) {
@@ -69,6 +75,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.nameLabel.text = model.attraction.name
         self.cosmos.rating = Double(model.attraction.rating)
         self.descriptionText.text = model.description
+        self.imageView.image = model.image
         self.setNeedsLayout()
     }
 }

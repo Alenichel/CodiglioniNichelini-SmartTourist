@@ -15,7 +15,7 @@ final class DependenciesContainer: NavigationProvider {
     let promisableDispatch: PromisableStoreDispatch
     let getAppState: () -> AppState
     let navigator = Navigator()
-    let googleAPI = GoogleAPI()
+    let googleAPI = GoogleAPI.shared
     
     var getState: () -> State {
         return self.getAppState
