@@ -98,7 +98,7 @@ class WelcomeView: UIView, ViewControllerModellableView {
             .sizeToFit(.width)
             .vCenter(to: self.notificationsLabel.edge.vCenter)
         self.closeButton.pin
-            .bottom(15%)
+            .bottom(10%)
             .hCenter()
             .width(100)
             .sizeToFit(.width)
