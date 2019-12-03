@@ -50,17 +50,7 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Setup
     func setup() {
         self.mapView = GMSMapView(frame: .zero)
-        do {
-            // Set the map style by passing the URL of the local file.
-            let style = UITraitCollection.current.userInterfaceStyle == .dark ? "mapStyle.dark" : "mapStyle"
-            if let styleURL = Bundle.main.url(forResource: style, withExtension: "json") {
-                mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
-            } else {
-                print("Unable to find style.json")
-            }
-        } catch {
-            print("One or more of the map styles failed to load. \(error)")
-        }
+        self.loadMapStyle()
         self.mapView.delegate = self.viewController as? AttractionsViewController
         self.locationButton.tintColor = .label
         self.locationButton.on(.touchUpInside) { button in
@@ -145,9 +135,27 @@ class MapView: UIView, ViewControllerModellableView {
         }
     }
     
-    func centerMap() {
+    private func centerMap() {
         guard let model = self.model, let location = model.currentLocation else { return }
         let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17)
         self.mapView.animate(to: camera)
+    }
+    
+    private func loadMapStyle() {
+        do {
+            let style = UITraitCollection.current.userInterfaceStyle == .dark ? "mapStyle.dark" : "mapStyle"
+            if let styleURL = Bundle.main.url(forResource: style, withExtension: "json") {
+                mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+            } else {
+                print("Unable to find style.json")
+            }
+        } catch {
+            print("One or more of the map styles failed to load. \(error)")
+        }
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.loadMapStyle()
     }
 }
