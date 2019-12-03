@@ -36,11 +36,12 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.addSubview(self.imageView)
         self.addSubview(self.scrollView)
         self.scrollView.addSubview(self.descriptionText)
-        self.addSubview(self.cosmos)
+        self.scrollView.addSubview(self.cosmos)
     }
     
     func style() {
         self.backgroundColor = .systemBackground
+        self.imageView.contentMode = .scaleAspectFill
         self.descriptionText.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.3)
         self.descriptionText.textAlignment = NSTextAlignment.justified
         self.cosmos.settings.updateOnTouch = false
@@ -56,13 +57,13 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.cosmos.sizeToFit()
-        self.cosmos.pin.below(of: self.imageView, aligned: .center).margin(20)
-        self.descriptionText.sizeToFit()
-        self.scrollView.pin.horizontally().bottom().top(280)
-        self.descriptionText.pin.all(20)
         self.imageView.sizeToFit()
         self.imageView.pin.top(self.safeAreaInsets).bottom(50%).left().right()
+        self.scrollView.pin.horizontally().bottom().below(of: self.imageView)
+        self.cosmos.sizeToFit()
+        self.cosmos.pin.topCenter().margin(20)
+        self.descriptionText.sizeToFit()
+        self.descriptionText.pin.bottom(20).horizontally(20).below(of: self.cosmos)
     }
     
     func update(oldModel: AttractionDetailViewModel?) {
