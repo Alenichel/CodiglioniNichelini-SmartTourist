@@ -9,6 +9,7 @@ import Foundation
 import Katana
 import Tempura
 import GooglePlaces
+import WikipediaKit
 
 
 final class DependenciesContainer: NavigationProvider {
@@ -16,6 +17,7 @@ final class DependenciesContainer: NavigationProvider {
     let getAppState: () -> AppState
     let navigator = Navigator()
     let googleAPI = GoogleAPI.shared
+    let wikiAPI = WikipediaAPI.shared
     
     var getState: () -> State {
         return self.getAppState

@@ -12,6 +12,9 @@
 		5F7A4CA34DB61B8A7EBF547D /* Pods_SmartTourist_SmartTouristUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */; };
 		991F955C238EDD4D002A1093 /* mapStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = 991F955B238EDD4D002A1093 /* mapStyle.json */; };
 		992533C4238FF8B800EE479A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992533C3238FF8B800EE479A /* LocationManager.swift */; };
+		992816A423969E540033F43C /* WikipediaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9928169D23969DD20033F43C /* WikipediaKit.framework */; };
+		992816A523969E540033F43C /* WikipediaKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9928169D23969DD20033F43C /* WikipediaKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		992816A823969ECC0033F43C /* WikipediaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992816A723969ECC0033F43C /* WikipediaAPI.swift */; };
 		993B35462392B9150003FD8F /* AttractionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B35452392B9150003FD8F /* AttractionCell.swift */; };
 		993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B35472392C1D00003FD8F /* AttractionFlowLayout.swift */; };
 		E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F5238C4AFF0052825F /* WelcomeView.swift */; };
@@ -49,6 +52,41 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		9928169A23969DD20033F43C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9928169223969DD20033F43C /* WikipediaKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 27E365081E81757500F39F78;
+			remoteInfo = "WikipediaKit-macOS";
+		};
+		9928169C23969DD20033F43C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9928169223969DD20033F43C /* WikipediaKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 27E365471E81AC6A00F39F78;
+			remoteInfo = "WikipediaKit-iOS";
+		};
+		9928169E23969DD20033F43C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9928169223969DD20033F43C /* WikipediaKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 27E3658A1E81C95D00F39F78;
+			remoteInfo = "WikipediaKit-watchOS";
+		};
+		992816A023969DD20033F43C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9928169223969DD20033F43C /* WikipediaKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 27E365AC1E81C9E300F39F78;
+			remoteInfo = "WikipediaKit-tvOS";
+		};
+		992816A223969DD20033F43C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9928169223969DD20033F43C /* WikipediaKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 274EFCDD1EB899E90047428B;
+			remoteInfo = WikipediaKitTests;
+		};
 		E528FF9A238972030065483B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E528FF7B238971FE0065483B /* Project object */;
@@ -65,6 +103,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		992816A623969E540033F43C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				992816A523969E540033F43C /* WikipediaKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		014CE858DC4BFB7532A5EC85 /* Pods-SmartTourist-SmartTouristUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist-SmartTouristUITests.debug.xcconfig"; path = "Target Support Files/Pods-SmartTourist-SmartTouristUITests/Pods-SmartTourist-SmartTouristUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		32CB67A9575F481AB0E739F4 /* Pods-SmartTouristTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTouristTests.debug.xcconfig"; path = "Target Support Files/Pods-SmartTouristTests/Pods-SmartTouristTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -72,6 +124,8 @@
 		4A68ECEB84859705FE364757 /* Pods_SmartTourist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartTourist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		991F955B238EDD4D002A1093 /* mapStyle.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mapStyle.json; sourceTree = "<group>"; };
 		992533C3238FF8B800EE479A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		9928169223969DD20033F43C /* WikipediaKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WikipediaKit.xcodeproj; path = ../WikipediaKit/WikipediaKit.xcodeproj; sourceTree = "<group>"; };
+		992816A723969ECC0033F43C /* WikipediaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikipediaAPI.swift; sourceTree = "<group>"; };
 		993B35452392B9150003FD8F /* AttractionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionCell.swift; sourceTree = "<group>"; };
 		993B35472392C1D00003FD8F /* AttractionFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionFlowLayout.swift; sourceTree = "<group>"; };
 		AB3310E805FE2AAD225A0C8E /* Pods-SmartTourist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist.release.xcconfig"; path = "Target Support Files/Pods-SmartTourist/Pods-SmartTourist.release.xcconfig"; sourceTree = "<group>"; };
@@ -125,6 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DC68C698795D2E15DF07FFE /* Pods_SmartTourist.framework in Frameworks */,
+				992816A423969E540033F43C /* WikipediaKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,6 +224,18 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		9928169323969DD20033F43C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9928169B23969DD20033F43C /* WikipediaKit.framework */,
+				9928169D23969DD20033F43C /* WikipediaKit.framework */,
+				9928169F23969DD20033F43C /* WikipediaKit.framework */,
+				992816A123969DD20033F43C /* WikipediaKit.framework */,
+				992816A323969DD20033F43C /* WikipediaKitTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		993B35442392B8F80003FD8F /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +249,7 @@
 		E29D77648F2366C0DE89CACB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9928169223969DD20033F43C /* WikipediaKit.xcodeproj */,
 				4A68ECEB84859705FE364757 /* Pods_SmartTourist.framework */,
 				BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */,
 				32E56BB7B73B2546D81ECE2D /* Pods_SmartTouristTests.framework */,
@@ -292,6 +360,7 @@
 			children = (
 				E5335D072389970B00601F02 /* DependenciesContainer.swift */,
 				E5FDE320238B08A40018D791 /* GoogleAPI.swift */,
+				992816A723969ECC0033F43C /* WikipediaAPI.swift */,
 			);
 			path = Dependencies;
 			sourceTree = "<group>";
@@ -369,6 +438,7 @@
 				E528FF81238971FE0065483B /* Resources */,
 				3F36C68F5739F82D20D127AD /* [CP] Embed Pods Frameworks */,
 				572E144F9B6BBC528E666282 /* [CP] Copy Pods Resources */,
+				992816A623969E540033F43C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -453,6 +523,12 @@
 			mainGroup = E528FF7A238971FE0065483B;
 			productRefGroup = E528FF84238971FE0065483B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 9928169323969DD20033F43C /* Products */;
+					ProjectRef = 9928169223969DD20033F43C /* WikipediaKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				E528FF82238971FE0065483B /* SmartTourist */,
@@ -461,6 +537,44 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		9928169B23969DD20033F43C /* WikipediaKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = WikipediaKit.framework;
+			remoteRef = 9928169A23969DD20033F43C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9928169D23969DD20033F43C /* WikipediaKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = WikipediaKit.framework;
+			remoteRef = 9928169C23969DD20033F43C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9928169F23969DD20033F43C /* WikipediaKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = WikipediaKit.framework;
+			remoteRef = 9928169E23969DD20033F43C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		992816A123969DD20033F43C /* WikipediaKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = WikipediaKit.framework;
+			remoteRef = 992816A023969DD20033F43C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		992816A323969DD20033F43C /* WikipediaKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = WikipediaKitTests.xctest;
+			remoteRef = 992816A223969DD20033F43C /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		E528FF81238971FE0065483B /* Resources */ = {
@@ -650,6 +764,7 @@
 				E52EECCF238EE5FE006196BA /* NotificationManager.swift in Sources */,
 				E524A0FF238C4F530052825F /* Screen.swift in Sources */,
 				E5628B512394224F00A61676 /* UIImage+Color.swift in Sources */,
+				992816A823969ECC0033F43C /* WikipediaAPI.swift in Sources */,
 				E5628B4D2393D4D500A61676 /* AttractionDetailView.swift in Sources */,
 				E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */,
 				E57C47162392BC3A008DE784 /* RoundedButton.swift in Sources */,

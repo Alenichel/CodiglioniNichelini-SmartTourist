@@ -30,7 +30,7 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
         let n = localState.attraction.userRatingsTotal
         if n > 1000 { self.nRating = "\(Int(localState.attraction.userRatingsTotal / 1000))k" }
         else { self.nRating = "\(n)" }
-        
+        WikipediaAPI.shared.search(title: self.attraction.name!)
     }
 }
 
