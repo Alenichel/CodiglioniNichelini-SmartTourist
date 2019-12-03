@@ -27,7 +27,6 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
 
 
 class AttractionDetailView: UIView, ViewControllerModellableView {
-    var nameLabel = UILabel()
     var descriptionText = UITextView()
     var cosmos = CosmosView(frame: .zero)
     var scrollView = UIScrollView()
@@ -35,15 +34,13 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     
     func setup() {
         self.addSubview(self.imageView)
-        self.addSubview(self.nameLabel)
-        self.addSubview(self.cosmos)
         self.addSubview(self.scrollView)
         self.scrollView.addSubview(self.descriptionText)
+        self.addSubview(self.cosmos)
     }
     
     func style() {
         self.backgroundColor = .systemBackground
-        self.nameLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.5, weight: .bold)
         self.descriptionText.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.3)
         self.descriptionText.textAlignment = NSTextAlignment.justified
         self.cosmos.settings.updateOnTouch = false
@@ -59,12 +56,10 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.nameLabel.sizeToFit()
-        self.nameLabel.pin.hCenter().top(100)
         self.cosmos.sizeToFit()
-        self.cosmos.pin.below(of: self.nameLabel, aligned: .center).margin(20)
+        self.cosmos.pin.below(of: self.imageView, aligned: .center).margin(20)
         self.descriptionText.sizeToFit()
-        self.scrollView.pin.horizontally().bottom().top(250)
+        self.scrollView.pin.horizontally().bottom().top(280)
         self.descriptionText.pin.all(20)
         self.imageView.sizeToFit()
         self.imageView.pin.top(self.safeAreaInsets).bottom(50%).left().right()
@@ -72,7 +67,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     
     func update(oldModel: AttractionDetailViewModel?) {
         guard let model = self.model else { return }
-        self.nameLabel.text = model.attraction.name
+        SceneDelegate.navigationController.navigationBar.topItem?.title = model.attraction.name
         self.cosmos.rating = Double(model.attraction.rating)
         self.descriptionText.text = model.description
         self.imageView.image = model.image
