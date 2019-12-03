@@ -85,7 +85,6 @@ class MapView: UIView, ViewControllerModellableView {
         self.cityNameLabel.sizeToFit()
         self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height * 0.70)
         self.cityNameLabel.pin.top(5.5%).left(2%).right()
-        //self.locationButton.pin.bottom(6.5%).right(3%).width(40).height(40)
         self.topBlurEffect.pin.top().left().right().bottom(94.5%)
         self.layoutCardView()
     }
@@ -161,5 +160,6 @@ class MapView: UIView, ViewControllerModellableView {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         self.loadMapStyle()
+        self.topBlurEffect.effect = UIBlurEffect(style: UITraitCollection.current.userInterfaceStyle == .dark ? .dark : .light)
     }
 }
