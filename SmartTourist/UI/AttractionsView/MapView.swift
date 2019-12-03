@@ -85,6 +85,8 @@ class MapView: UIView, ViewControllerModellableView {
         self.locationButton.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 1 : 0.75
         self.locationButton.layer.shadowOffset = .zero
         self.locationButton.layer.shadowRadius = 4
+        self.mapView.settings.compassButton = true
+        self.mapView.settings.tiltGestures = false
     }
     
     // MARK: Layout subviews
