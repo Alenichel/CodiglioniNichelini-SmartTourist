@@ -20,7 +20,6 @@ class WelcomeViewController: ViewControllerWithLocalState<WelcomeView> {
             self.localState.notificationsButtonEnabled = !NotificationManager.shared.notificationsEnabled
         }
         self.rootView.didTapClose = { [unowned self] in
-            self.dispatch(SetFirstLaunch())
             self.dispatch(Hide(animated: true))
             LocationManager.shared.startUpdatingLocation()
         }

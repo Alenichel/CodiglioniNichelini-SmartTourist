@@ -12,11 +12,10 @@ import GooglePlaces
 
 // MARK: - State
 struct AppState: State, Codable {
-    var firstLaunch: Bool = true
     var locationState = LocationState()
     
-    enum CodingKeys: CodingKey {    // Filter what properties to persist. I don't think it's necessary to persist locationState
-        case firstLaunch
+    enum CodingKeys: CodingKey {    // Filter what properties to persist
+        
     }
     
     static var persistURL: URL {

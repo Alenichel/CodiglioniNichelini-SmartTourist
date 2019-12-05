@@ -14,15 +14,7 @@ struct SetState: StateUpdater {
     let state: AppState
     
     func updateState(_ state: inout AppState) {
-        state.firstLaunch = self.state.firstLaunch
         state.locationState = self.state.locationState
-    }
-}
-
-
-struct SetFirstLaunch: StateUpdater, Persistable {
-    func updateState(_ state: inout AppState) {
-        state.firstLaunch = false
     }
 }
 
