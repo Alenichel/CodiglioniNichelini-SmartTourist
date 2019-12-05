@@ -15,7 +15,7 @@
 		992816A823969ECC0033F43C /* WikipediaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992816A723969ECC0033F43C /* WikipediaAPI.swift */; };
 		993B35462392B9150003FD8F /* AttractionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B35452392B9150003FD8F /* AttractionCell.swift */; };
 		993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B35472392C1D00003FD8F /* AttractionFlowLayout.swift */; };
-		99F5A117239951720056E68D /* DetailImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F5A116239951720056E68D /* DetailImage.swift */; };
+		99F5A11923995D9E0056E68D /* UIImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */; };
 		E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F5238C4AFF0052825F /* WelcomeView.swift */; };
 		E524A0F8238C4C060052825F /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F7238C4C060052825F /* WelcomeViewController.swift */; };
 		E524A0FF238C4F530052825F /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0FE238C4F530052825F /* Screen.swift */; };
@@ -131,7 +131,7 @@
 		992816A723969ECC0033F43C /* WikipediaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikipediaAPI.swift; sourceTree = "<group>"; };
 		993B35452392B9150003FD8F /* AttractionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionCell.swift; sourceTree = "<group>"; };
 		993B35472392C1D00003FD8F /* AttractionFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionFlowLayout.swift; sourceTree = "<group>"; };
-		99F5A116239951720056E68D /* DetailImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImage.swift; sourceTree = "<group>"; };
+		99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+setImage.swift"; sourceTree = "<group>"; };
 		AB3310E805FE2AAD225A0C8E /* Pods-SmartTourist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist.release.xcconfig"; path = "Target Support Files/Pods-SmartTourist/Pods-SmartTourist.release.xcconfig"; sourceTree = "<group>"; };
 		B169329D24736107D441A8F6 /* Pods-SmartTourist-SmartTouristUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist-SmartTouristUITests.release.xcconfig"; path = "Target Support Files/Pods-SmartTourist-SmartTouristUITests/Pods-SmartTourist-SmartTouristUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartTourist_SmartTouristUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -255,7 +255,6 @@
 		99F5A110239951580056E68D /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				99F5A116239951720056E68D /* DetailImage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -409,6 +408,7 @@
 				E5F9715A2392D96E0096C296 /* UIView+Blink.swift */,
 				E5F9715B2392D96E0096C296 /* String+Height.swift */,
 				E5628B502394224F00A61676 /* UIImage+Color.swift */,
+				99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -765,7 +765,7 @@
 			files = (
 				E5628B4F2393D4E100A61676 /* AttractionDetailViewController.swift in Sources */,
 				E5335D082389970B00601F02 /* DependenciesContainer.swift in Sources */,
-				99F5A117239951720056E68D /* DetailImage.swift in Sources */,
+				99F5A11923995D9E0056E68D /* UIImageView+setImage.swift in Sources */,
 				E5F9715D2392D96F0096C296 /* String+Random.swift in Sources */,
 				E5335D052389946C00601F02 /* AttractionsViewController.swift in Sources */,
 				992533C4238FF8B800EE479A /* LocationManager.swift in Sources */,
