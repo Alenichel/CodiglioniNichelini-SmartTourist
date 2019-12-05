@@ -15,11 +15,6 @@ class AttractionDetailViewController: ViewControllerWithLocalState<AttractionDet
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = self.localState.attraction.name
-        if let photoMetadata = self.localState.attraction.photos?.first {
-            GoogleAPI.shared.getPlacePicture(photoMetadata: photoMetadata).then { image in
-                self.localState.attractionImage = image
-            }
-        }
     }
     override func setupInteraction() {}
 }
