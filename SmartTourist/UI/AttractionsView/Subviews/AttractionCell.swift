@@ -40,7 +40,6 @@ struct AttractionCellViewModel: ViewModel {
         let current = CLLocation(latitude: currentLocation!.latitude, longitude: currentLocation!.longitude)
         let target = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
         self.distance = Int(current.distance(from: target).rounded())
-        //print("\(attractionName) = \(rating) - \(self.distance)m")
         self.place = place
     }
     

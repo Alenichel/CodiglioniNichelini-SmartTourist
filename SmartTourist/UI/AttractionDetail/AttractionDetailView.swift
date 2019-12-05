@@ -26,11 +26,10 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
         self.photo = DetailImage(place: localState.attraction)
         let openStatus = localState.attraction.isOpen()
         self.isOpen = openStatus == .open ? "Open" : (openStatus == .closed ? "Closed": "")
-        //print("\(attraction.name!) is open? \(attraction.isOpen())")
         let n = localState.attraction.userRatingsTotal
         if n > 1000 { self.nRating = "\(Int(localState.attraction.userRatingsTotal / 1000))k" }
         else { self.nRating = "\(n)" }
-        WikipediaAPI.shared.search(title: self.attraction.name!)
+        //WikipediaAPI.shared.search(title: self.attraction.name!)
     }
 }
 

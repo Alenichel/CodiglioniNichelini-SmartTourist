@@ -10,9 +10,11 @@ import Katana
 import GooglePlaces
 
 
-struct SetFirstLaunch: StateUpdater {
+struct SetState: StateUpdater {
+    let state: AppState
+    
     func updateState(_ state: inout AppState) {
-        state.firstLaunch = false
+        state.locationState = self.state.locationState
     }
 }
 

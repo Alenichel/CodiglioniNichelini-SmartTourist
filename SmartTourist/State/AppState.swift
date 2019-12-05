@@ -11,9 +11,18 @@ import GooglePlaces
 
 
 // MARK: - State
-struct AppState: State {
-    var firstLaunch: Bool = true
+struct AppState: State, Codable {
     var locationState = LocationState()
+    
+    enum CodingKeys: CodingKey {    // Filter what properties to persist
+        
+    }
+    
+    static var persistURL: URL {
+        let documentsDirectories = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentDirectory = documentsDirectories.first!
+        return documentDirectory.appendingPathComponent("AppState.json")
+    }
 }
 
 

@@ -22,7 +22,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, RootInstaller {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         store = Store<AppState, DependenciesContainer>(interceptors: [
             //DispatchableLogger.interceptor(),
+            PersistorInterceptor.interceptor()
         ])
+        //store.dispatch(LoadState())
         window = UIWindow(frame: UIScreen.main.bounds)
         let navigator: Navigator! = self.store!.dependencies.navigator
         navigator.start(using: self, in: self.window!, at: Screen.attractions)

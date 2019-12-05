@@ -29,8 +29,7 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView>, CLLocati
     override func viewDidLoad() {
         super.viewDidLoad()
         LocationManager.shared.setDelegate(self)
-        if self.state.firstLaunch {
-            self.dispatch(SetFirstLaunch())
+        if !LocationManager.shared.locationEnabled || !NotificationManager.shared.notificationsEnabled {
             self.dispatch(Show(Screen.welcome, animated: true))
             LocationManager.shared.stopUpdatingLocation()
         } else {
