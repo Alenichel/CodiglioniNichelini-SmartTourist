@@ -16,14 +16,19 @@ class NotificationManager {
         
     private let nc = UNUserNotificationCenter.current()
     private let identifier = "smart-tourist"
+    
+    var onPermissionGranted: (() -> Void)?
+    var onPermissionDeclined: (() -> Void)?
         
     func requestAuth() {
         self.nc.requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
             if let error = error {
                 print(error.localizedDescription)
+                self.onPermissionDeclined?()
             }
             if granted {
                 print("Notification permission granted")
+                self.onPermissionGranted?()
             }
         }
     }

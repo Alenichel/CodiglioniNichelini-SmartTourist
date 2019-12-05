@@ -11,7 +11,7 @@ import Tempura
 import GooglePlaces
 import GoogleMaps
 
-class AttractionsViewController: ViewControllerWithLocalState<MapView>, CLLocationManagerDelegate {
+class AttractionsViewController: ViewControllerWithLocalState<MapView> {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let navigationController = self.navigationController {
@@ -37,15 +37,6 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView>, CLLocati
         }
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("[didUpdateLocations]: \(locations)")
-        if let location = locations.first {
-            self.dispatch(SetCurrentLocation(location: location.coordinate))
-            self.dispatch(GetCurrentPlace())
-            self.dispatch(GetCurrentCity())
-        }
-    }
-    
     override func setupInteraction() {
         self.rootView.listCardView.animate = { [unowned self] in
             self.localState.animate = true
@@ -58,6 +49,18 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView>, CLLocati
         }
         self.rootView.listCardView.didTapItem = { [unowned self] id in
             self.dispatch(Show(Screen.detail, animated: true, context: id))
+        }
+    }
+}
+
+
+extension AttractionsViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("[didUpdateLocations]: \(locations)")
+        if let location = locations.first {
+            self.dispatch(SetCurrentLocation(location: location.coordinate))
+            self.dispatch(GetCurrentPlace())
+            self.dispatch(GetCurrentCity())
         }
     }
 }
