@@ -18,6 +18,12 @@ struct AppState: State, Codable {
     enum CodingKeys: CodingKey {    // Filter what properties to persist. I don't think it's necessary to persist locationState
         case firstLaunch
     }
+    
+    static var persistURL: URL {
+        let documentsDirectories = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentDirectory = documentsDirectories.first!
+        return documentDirectory.appendingPathComponent("AppState.json")
+    }
 }
 
 

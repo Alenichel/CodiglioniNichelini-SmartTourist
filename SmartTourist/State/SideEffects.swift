@@ -41,10 +41,11 @@ struct GetCurrentCity: SideEffect {
 struct LoadState: SideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
         let decoder = JSONDecoder()
-        let data = Data()   // TODO: Load data from disk
         do {
+            let data = try Data(contentsOf: AppState.persistURL)
             let state = try decoder.decode(AppState.self, from: data)
             context.dispatch(SetState(state: state))
+            print("Loaded state from JSON")
         } catch {
             print("Error while decoding JSON")
             print(error.localizedDescription)

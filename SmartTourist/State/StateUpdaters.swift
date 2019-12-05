@@ -20,7 +20,7 @@ struct SetState: StateUpdater {
 }
 
 
-struct SetFirstLaunch: StateUpdater {
+struct SetFirstLaunch: StateUpdater, Persistable {
     func updateState(_ state: inout AppState) {
         state.firstLaunch = false
     }

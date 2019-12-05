@@ -30,6 +30,8 @@
 		E5335D032389942D00601F02 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D022389942D00601F02 /* MapView.swift */; };
 		E5335D052389946C00601F02 /* AttractionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D042389946C00601F02 /* AttractionsViewController.swift */; };
 		E5335D082389970B00601F02 /* DependenciesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D072389970B00601F02 /* DependenciesContainer.swift */; };
+		E54E01B423996806009D0331 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E01B323996806009D0331 /* Persistable.swift */; };
+		E54E01BB23996839009D0331 /* Interceptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E01BA23996839009D0331 /* Interceptors.swift */; };
 		E553D14B23926CC600C3199C /* ListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E553D14A23926CC600C3199C /* ListCardView.swift */; };
 		E5628B4D2393D4D500A61676 /* AttractionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5628B4C2393D4D500A61676 /* AttractionDetailView.swift */; };
 		E5628B4F2393D4E100A61676 /* AttractionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5628B4E2393D4E100A61676 /* AttractionDetailViewController.swift */; };
@@ -154,6 +156,8 @@
 		E5335D022389942D00601F02 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		E5335D042389946C00601F02 /* AttractionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionsViewController.swift; sourceTree = "<group>"; };
 		E5335D072389970B00601F02 /* DependenciesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesContainer.swift; sourceTree = "<group>"; };
+		E54E01B323996806009D0331 /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
+		E54E01BA23996839009D0331 /* Interceptors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptors.swift; sourceTree = "<group>"; };
 		E553D14A23926CC600C3199C /* ListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCardView.swift; sourceTree = "<group>"; };
 		E5628B4C2393D4D500A61676 /* AttractionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionDetailView.swift; sourceTree = "<group>"; };
 		E5628B4E2393D4E100A61676 /* AttractionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionDetailViewController.swift; sourceTree = "<group>"; };
@@ -339,6 +343,8 @@
 				E5335CFD238981D000601F02 /* AppState.swift */,
 				E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */,
 				E585FCA4238ADEF3008D7C86 /* SideEffects.swift */,
+				E54E01BA23996839009D0331 /* Interceptors.swift */,
+				E54E01B323996806009D0331 /* Persistable.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -756,6 +762,7 @@
 				E5335D032389942D00601F02 /* MapView.swift in Sources */,
 				E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */,
 				993B35462392B9150003FD8F /* AttractionCell.swift in Sources */,
+				E54E01B423996806009D0331 /* Persistable.swift in Sources */,
 				993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */,
 				E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */,
 				E528FF87238971FE0065483B /* AppDelegate.swift in Sources */,
@@ -777,6 +784,7 @@
 				E5F971642392D96F0096C296 /* String+Height.swift in Sources */,
 				E5F971622392D96F0096C296 /* CGRect+Utils.swift in Sources */,
 				E5FDE321238B08A40018D791 /* GoogleAPI.swift in Sources */,
+				E54E01BB23996839009D0331 /* Interceptors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

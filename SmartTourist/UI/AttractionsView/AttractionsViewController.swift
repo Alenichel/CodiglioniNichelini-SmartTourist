@@ -30,7 +30,6 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView>, CLLocati
         super.viewDidLoad()
         LocationManager.shared.setDelegate(self)
         if self.state.firstLaunch {
-            self.dispatch(SetFirstLaunch())
             self.dispatch(Show(Screen.welcome, animated: true))
             LocationManager.shared.stopUpdatingLocation()
         } else {
