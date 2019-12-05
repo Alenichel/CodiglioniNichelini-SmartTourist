@@ -15,7 +15,6 @@ class DetailImage {
     
     init(place: GMSPlace) {
         self.imgMetadata = (place.photos?.first)!
-        self.fetch()
     }
     
     func fetch(){
