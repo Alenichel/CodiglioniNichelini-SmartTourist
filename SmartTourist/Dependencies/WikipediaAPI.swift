@@ -7,6 +7,7 @@
 
 import UIKit
 import WikipediaKit
+import Hydra
 
 class WikipediaAPI {
     
@@ -17,13 +18,14 @@ class WikipediaAPI {
         WikipediaNetworking.appAuthorEmailForAPI = "ale.nichelg@gmail.com"
     }
     
-    func search(title: String) {
-        let _ = Wikipedia.shared.requestOptimizedSearchResults(language: language, term: title) { (searchResults, error) in
-            guard error == nil else { return }
-            guard let searchResults = searchResults else { return }
-            
-            for articlePreview in searchResults.items {
-                print(articlePreview.displayTitle)
+    func search(searchTerms: String) -> Promise<String> {
+        return Promise<String>(in: .background) { resolve, reject, status in
+            let _ = Wikipedia.shared.requestOptimizedSearchResults(language: self.language, term: searchTerms) { (searchResults, error) in
+            if let error = error {reject(error)}
+            if let searchResults = searchResults {
+                for articlePreview in searchResults.items { print(articlePreview.displayTitle) }
+                resolve(searchResults.items.first?.description ?? "No description")
+                }
             }
         }
     }
