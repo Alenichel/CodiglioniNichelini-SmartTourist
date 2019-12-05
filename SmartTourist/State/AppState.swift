@@ -11,13 +11,13 @@ import GooglePlaces
 
 
 // MARK: - State
-struct AppState: State {
+struct AppState: State, Codable {
     var firstLaunch: Bool = true
     var locationState = LocationState()
 }
 
 
-struct LocationState {
+struct LocationState: Codable {
     var lastUpdate: Date = Date().advanced(by: TimeInterval(-60))
     var currentLocation: CLLocationCoordinate2D?
     var nearestPlaces: [GMSPlace] = [GMSPlace]()
