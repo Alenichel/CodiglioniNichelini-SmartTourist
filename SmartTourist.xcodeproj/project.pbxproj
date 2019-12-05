@@ -12,8 +12,6 @@
 		5F7A4CA34DB61B8A7EBF547D /* Pods_SmartTourist_SmartTouristUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */; };
 		991F955C238EDD4D002A1093 /* mapStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = 991F955B238EDD4D002A1093 /* mapStyle.json */; };
 		992533C4238FF8B800EE479A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992533C3238FF8B800EE479A /* LocationManager.swift */; };
-		992816A423969E540033F43C /* WikipediaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9928169D23969DD20033F43C /* WikipediaKit.framework */; };
-		992816A523969E540033F43C /* WikipediaKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9928169D23969DD20033F43C /* WikipediaKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		992816A823969ECC0033F43C /* WikipediaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992816A723969ECC0033F43C /* WikipediaAPI.swift */; };
 		993B35462392B9150003FD8F /* AttractionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B35452392B9150003FD8F /* AttractionCell.swift */; };
 		993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B35472392C1D00003FD8F /* AttractionFlowLayout.swift */; };
@@ -39,6 +37,8 @@
 		E57C47162392BC3A008DE784 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57C47152392BC3A008DE784 /* RoundedButton.swift */; };
 		E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */; };
 		E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA4238ADEF3008D7C86 /* SideEffects.swift */; };
+		E5F5BE292399112D0076665F /* WikipediaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9928169D23969DD20033F43C /* WikipediaKit.framework */; };
+		E5F5BE2A2399112D0076665F /* WikipediaKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9928169D23969DD20033F43C /* WikipediaKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E5F9715C2392D96F0096C296 /* UIControl+TargetActionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F971522392D96E0096C296 /* UIControl+TargetActionable.swift */; };
 		E5F9715D2392D96F0096C296 /* String+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F971532392D96E0096C296 /* String+Random.swift */; };
 		E5F9715E2392D96F0096C296 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F971552392D96E0096C296 /* Source.swift */; };
@@ -104,13 +104,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		992816A623969E540033F43C /* Embed Frameworks */ = {
+		E5F5BE2B2399112D0076665F /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				992816A523969E540033F43C /* WikipediaKit.framework in Embed Frameworks */,
+				E5F5BE2A2399112D0076665F /* WikipediaKit.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -179,7 +179,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DC68C698795D2E15DF07FFE /* Pods_SmartTourist.framework in Frameworks */,
-				992816A423969E540033F43C /* WikipediaKit.framework in Frameworks */,
+				E5F5BE292399112D0076665F /* WikipediaKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,7 +438,7 @@
 				E528FF81238971FE0065483B /* Resources */,
 				3F36C68F5739F82D20D127AD /* [CP] Embed Pods Frameworks */,
 				572E144F9B6BBC528E666282 /* [CP] Copy Pods Resources */,
-				992816A623969E540033F43C /* Embed Frameworks */,
+				E5F5BE2B2399112D0076665F /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
