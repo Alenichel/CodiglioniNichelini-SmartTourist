@@ -14,12 +14,16 @@ import GoogleMaps
 class AttractionsViewController: ViewControllerWithLocalState<MapView>, CLLocationManagerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        SceneDelegate.navigationController.setNavigationBarHidden(true, animated: animated)
+        if let navigationController = self.navigationController {
+            navigationController.setNavigationBarHidden(true, animated: animated)
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        SceneDelegate.navigationController.setNavigationBarHidden(false, animated: animated)
+        if let navigationController = self.navigationController {
+            navigationController.setNavigationBarHidden(false, animated: animated)
+        }
     }
     
     override func viewDidLoad() {

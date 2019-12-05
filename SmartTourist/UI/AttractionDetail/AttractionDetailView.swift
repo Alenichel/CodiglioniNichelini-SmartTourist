@@ -93,7 +93,6 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     
     func update(oldModel: AttractionDetailViewModel?) {
         guard let model = self.model else { return }
-        SceneDelegate.navigationController.navigationBar.topItem?.title = model.attraction.name
         self.cosmos.rating = Double(model.attraction.rating)
         self.descriptionText.text = model.description
         self.imageView.image = model.image
