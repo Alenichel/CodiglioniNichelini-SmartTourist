@@ -14,22 +14,23 @@ import Cosmos
 
 struct AttractionDetailViewModel: ViewModelWithLocalState {
     let attraction: GMSPlace
-    let description: String
+    var description: String
     let isOpen: String
     let mainPhotoMetadata: GMSPlacePhotoMetadata
     let nRating: String
+    let wikipediaSearchTerms: String
     
     init?(state: AppState?, localState: AttractionDetailLocalState) {
         guard let state = state else { return nil }
         self.attraction = localState.attraction
-        self.description = "Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        self.description = ""
         self.mainPhotoMetadata = (self.attraction.photos?.first)!
         let openStatus = localState.attraction.isOpen()
         self.isOpen = openStatus == .open ? "Open" : (openStatus == .closed ? "Closed": "")
         let n = localState.attraction.userRatingsTotal
         if n > 1000 { self.nRating = "\(Int(localState.attraction.userRatingsTotal / 1000))k" }
         else { self.nRating = "\(n)" }
-        //WikipediaAPI.shared.search(title: self.attraction.name!)
+        self.wikipediaSearchTerms = "\(self.attraction.name ?? "") \(state.locationState.currentCity ?? "")"
     }
 }
 
@@ -100,6 +101,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
             self.openLabel.textColor = .systemGreen
         } else { self.openLabel.textColor = .systemRed}
         self.nRatingsLabel.text = model.nRating
+        self.descriptionText.setText(searchTerms: model.wikipediaSearchTerms)
         self.setNeedsLayout()
     }
 }

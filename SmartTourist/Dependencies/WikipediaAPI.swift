@@ -24,7 +24,7 @@ class WikipediaAPI {
             if let error = error {reject(error)}
             if let searchResults = searchResults {
                 for articlePreview in searchResults.items { print(articlePreview.displayTitle) }
-                resolve(searchResults.items.first?.description ?? "No description")
+                resolve(searchResults.items.first?.displayText ?? "No description")
                 }
             }
         }
