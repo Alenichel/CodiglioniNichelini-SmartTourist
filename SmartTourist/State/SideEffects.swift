@@ -28,12 +28,26 @@ struct GetCurrentPlace: SideEffect {
 
 struct GetCurrentCity: SideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
-        if let coordinates = context.getState().locationState.currentLocation {
-            context.dependencies.googleAPI.getCityName(coordinates: coordinates).then { city in
-                context.dispatch(SetCurrentCity(city: city))
-            }.catch { error in
-                context.dispatch(SetCurrentCity(city: nil))
-            }
+        guard let coordinates = context.getState().locationState.currentLocation else { return }
+        context.dependencies.googleAPI.getCityName(coordinates: coordinates).then { city in
+            context.dispatch(SetCurrentCity(city: city))
+        }.catch { error in
+            context.dispatch(SetCurrentCity(city: nil))
+        }
+    }
+}
+
+
+struct LoadState: SideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
+        let decoder = JSONDecoder()
+        let data = Data()   // TODO: Load data from disk
+        do {
+            let state = try decoder.decode(AppState.self, from: data)
+            context.dispatch(SetState(state: state))
+        } catch {
+            print("Error while decoding JSON")
+            print(error.localizedDescription)
         }
     }
 }
