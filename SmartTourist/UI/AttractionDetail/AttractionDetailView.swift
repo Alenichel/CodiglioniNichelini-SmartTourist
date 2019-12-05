@@ -19,7 +19,8 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
     let mainPhotoMetadata: GMSPlacePhotoMetadata
     let nRating: String
     
-    init(state: AppState?, localState: AttractionDetailLocalState) {
+    init?(state: AppState?, localState: AttractionDetailLocalState) {
+        guard let state = state else { return nil }
         self.attraction = localState.attraction
         self.description = "Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
         self.mainPhotoMetadata = (self.attraction.photos?.first)!

@@ -14,7 +14,8 @@ struct WelcomeViewModel: ViewModelWithLocalState {
     let locationButtonEnabled: Bool
     let notificationsButtonEnabled: Bool
     
-    init(state: AppState?, localState: WelcomeLocalState) {
+    init?(state: AppState?, localState: WelcomeLocalState) {
+        guard let state = state else { return nil }
         self.locationButtonEnabled = localState.locationButtonEnabled
         self.notificationsButtonEnabled = localState.notificationsButtonEnabled
     }
