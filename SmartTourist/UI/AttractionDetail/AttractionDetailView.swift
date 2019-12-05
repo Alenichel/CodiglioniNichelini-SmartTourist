@@ -15,15 +15,14 @@ import Cosmos
 struct AttractionDetailViewModel: ViewModelWithLocalState {
     let attraction: GMSPlace
     let description: String
-    let photo: DetailImage
     let isOpen: String
-    //let mainPhotoMetadata: GMSPlacePhotoMetadata
+    let mainPhotoMetadata: GMSPlacePhotoMetadata
     let nRating: String
     
     init(state: AppState?, localState: AttractionDetailLocalState) {
         self.attraction = localState.attraction
         self.description = "Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        self.photo = DetailImage(place: localState.attraction)
+        self.mainPhotoMetadata = (self.attraction.photos?.first)!
         let openStatus = localState.attraction.isOpen()
         self.isOpen = openStatus == .open ? "Open" : (openStatus == .closed ? "Closed": "")
         //print("\(attraction.name!) is open? \(attraction.isOpen())")
@@ -95,7 +94,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         guard let model = self.model else { return }
         self.cosmos.rating = Double(model.attraction.rating)
         self.descriptionText.text = model.description
-        self.imageView.setImage(img: model.photo)
+        self.imageView.setImage(metadata: model.mainPhotoMetadata)
         self.openLabel.text = model.isOpen
         if self.openLabel.text == "Open" {
             self.openLabel.textColor = .systemGreen
