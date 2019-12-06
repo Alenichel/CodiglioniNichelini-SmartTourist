@@ -1,5 +1,5 @@
 //
-//  UiText+setText.swift
+//  UITextView+setText.swift
 //  SmartTourist
 //
 //  Created on 05/12/2019
