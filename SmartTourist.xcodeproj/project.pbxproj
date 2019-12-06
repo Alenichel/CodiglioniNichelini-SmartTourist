@@ -254,13 +254,6 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
-		99F5A110239951580056E68D /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		E29D77648F2366C0DE89CACB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,7 +300,6 @@
 		E528FF85238971FE0065483B /* SmartTourist */ = {
 			isa = PBXGroup;
 			children = (
-				99F5A110239951580056E68D /* Model */,
 				E5FDE322238B0B320018D791 /* Application */,
 				E5335CFC2389818D00601F02 /* State */,
 				E5335D012389941200601F02 /* UI */,
