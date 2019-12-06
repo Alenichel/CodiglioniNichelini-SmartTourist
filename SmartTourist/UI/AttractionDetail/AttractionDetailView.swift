@@ -40,25 +40,26 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     var openLabel = UILabel()
     var nRatingsLabel = UILabel()
     var cosmos = CosmosView(frame: .zero)
-    var scrollView = UIScrollView()
+    var containerView = UIView()
     var imageView = UIImageView()
     var lineView = UIView()
     
     func setup() {
         self.addSubview(self.imageView)
-        self.addSubview(self.scrollView)
-        self.scrollView.addSubview(self.descriptionText)
-        self.scrollView.addSubview(self.cosmos)
-        self.scrollView.addSubview(self.openLabel)
-        self.scrollView.addSubview(self.lineView)
-        self.scrollView.addSubview(self.nRatingsLabel)
+        self.addSubview(self.containerView)
+        self.containerView.addSubview(self.descriptionText)
+        self.containerView.addSubview(self.cosmos)
+        self.containerView.addSubview(self.openLabel)
+        self.containerView.addSubview(self.lineView)
+        self.containerView.addSubview(self.nRatingsLabel)
     }
     
     func style() {
         self.backgroundColor = .systemBackground
         self.imageView.contentMode = .scaleAspectFill
-        self.descriptionText.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.3)
+        self.descriptionText.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.15)
         self.descriptionText.textAlignment = NSTextAlignment.justified
+        self.descriptionText.contentInset = UIEdgeInsets(top: 5, left: 20, bottom: 20, right: 20)
         self.cosmos.settings.updateOnTouch = false
         self.cosmos.settings.starSize = Double(UIFont.systemFontSize) * 1.1
         self.cosmos.settings.starMargin = 5
@@ -66,8 +67,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.cosmos.settings.filledImage = UIImage(systemName: "star.fill")?.maskWithColor(color: .orange)
         self.cosmos.settings.emptyImage = UIImage(systemName: "star")?.maskWithColor(color: .orange)
         self.cosmos.settings.disablePanGestures = true
-        self.scrollView.backgroundColor = .systemBackground
-        self.scrollView.alwaysBounceVertical = true
+        self.containerView.backgroundColor = .systemBackground
         self.openLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.3)
         self.nRatingsLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .bold)
         self.nRatingsLabel.textColor = .systemOrange
@@ -79,16 +79,14 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         super.layoutSubviews()
         self.imageView.sizeToFit()
         self.imageView.pin.top(self.safeAreaInsets).bottom(50%).left().right()
-        self.scrollView.pin.horizontally().bottom().below(of: self.imageView)
+        self.containerView.pin.horizontally().bottom().below(of: self.imageView)
         self.cosmos.sizeToFit()
         self.cosmos.pin.topLeft().marginHorizontal(20).marginTop(15)
-        //self.openLabel.sizeToFit()
-        //self.openLabel.pin.after(of: self.cosmos, aligned: .center).marginLeft(20)
         self.nRatingsLabel.sizeToFit()
         self.nRatingsLabel.pin.after(of: self.cosmos, aligned: .center).marginLeft(5)
         self.lineView.pin.below(of: self.cosmos).horizontally(5).height(1).marginTop(15)
         self.descriptionText.sizeToFit()
-        self.descriptionText.pin.bottom(20).horizontally(20).below(of: self.lineView)
+        self.descriptionText.pin.bottom().horizontally().below(of: self.lineView)
     }
     
     func update(oldModel: AttractionDetailViewModel?) {
