@@ -1,4 +1,5 @@
 PODS:
+  - Alamofire (5.0.0-rc.3)
   - Cosmos (20.0.1)
   - DeepDiff (2.3.1)
   - FlexLayout (1.3.17)
@@ -17,6 +18,7 @@ PODS:
     - Katana (< 4, >= 3.0)
 
 DEPENDENCIES:
+  - Alamofire (~> 5.0.0-rc.3)
   - Cosmos (~> 20.0)
   - DeepDiff
   - FlexLayout
@@ -28,6 +30,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - Alamofire
     - Cosmos
     - DeepDiff
     - FlexLayout
@@ -39,6 +42,7 @@ SPEC REPOS:
     - Tempura
 
 SPEC CHECKSUMS:
+  Alamofire: ca8c0de6906873be89d6deec5c8de279e00bf872
   Cosmos: b47fddf2102bb48580cd3025d9ce0a5c658a65da
   DeepDiff: e5ae6c50d0321568e4508cec5930b9f10bb293fc
   FlexLayout: 257b6763526bc957d2abc2b77a05760b86ca0e21
@@ -49,6 +53,6 @@ SPEC CHECKSUMS:
   PinLayout: e41a50260a76508b7a7fcee8955c76639adc69bc
   Tempura: d38c2d982864d9dbca6b11a519e8b00024d04abd
 
-PODFILE CHECKSUM: 98205d7b7480c28f84914c0f8e6169bf2f46c504
+PODFILE CHECKSUM: 1576c591dba0dcd89702e85ba4ca94151dd58e33
 
 COCOAPODS: 1.8.4

@@ -14,6 +14,7 @@ target 'SmartTourist' do
   pod 'GoogleMaps'
   pod 'DeepDiff'
   pod 'Cosmos', '~> 20.0'
+  pod 'Alamofire', '~> 5.0.0-rc.3'
 
   target 'SmartTouristTests' do
     inherit! :search_paths
