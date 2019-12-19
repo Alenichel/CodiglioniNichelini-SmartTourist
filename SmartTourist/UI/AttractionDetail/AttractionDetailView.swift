@@ -87,7 +87,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         guard let model = self.model else { return }
         self.cosmos.rating = Double(model.attraction.rating)
         self.descriptionText.text = model.description
-        self.imageView.setImage(metadata: model.photo)
+        self.imageView.setImage(model.photo)
         self.nRatingsLabel.text = model.nRating
         self.descriptionText.setText(searchTerms: model.wikipediaSearchTerms)
         self.setNeedsLayout()

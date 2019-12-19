@@ -47,12 +47,11 @@ class ListCardView: UIView, ModellableView {
         self.attractionListView = CollectionView<AttractionCell, SimpleSource<AttractionCellViewModel>>(frame: .zero, layout: attractionsLayout)
         self.attractionListView.useDiffs = true
         self.attractionListView.didSelectItem = { [unowned self] indexPath in
-            /*guard let model = self.model,
+            guard let model = self.model,
                 let cell = self.attractionListView.cellForItem(at: indexPath) as? AttractionCell,
-                let cellPlaceID = cell.model?.identifier else { return }
-            let places = model.selectedSegmentIndex == 0 ? model.nearestPlaces : model.popularPlaces
-                let cellPlace = places.first(where: {$0.placeID == cellPlaceID}) else { return }
-            self.didTapItem?(cellPlace)*/
+                let cellPlaceID = cell.model?.identifier,
+                let cellPlace = model.places.first(where: {$0.placeID == cellPlaceID}) else { return }
+            self.didTapItem?(cellPlace)
         }
         self.attractionListView.didHighlightItem = { [unowned self] indexPath in
             guard let cell = self.attractionListView.cellForItem(at: indexPath) else { return }
@@ -92,7 +91,7 @@ class ListCardView: UIView, ModellableView {
         self.chooser.pin.below(of: self.handle).marginTop(20).hCenter()
         //self.label.pin.below(of: self.handle).marginTop(50).left(5%).right(5%)
         //self.label.pin.below(of: self.handle).marginTop(50).left(5%).right(5%)
-        self.scrollView.pin.below(of: self.chooser).marginTop(10).left().right().bottom()
+        self.scrollView.pin.below(of: self.chooser).marginTop(15).left().right().bottom()
         self.attractionListView.frame = self.scrollView.frame.bounds
     }
     

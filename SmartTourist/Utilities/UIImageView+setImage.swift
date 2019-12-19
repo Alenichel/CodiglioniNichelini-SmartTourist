@@ -10,9 +10,9 @@ import UIKit
 
 
 extension UIImageView {
-    func setImage(metadata: GPPhoto){
-        /*GoogleAPI.shared.getPlacePicture(photoMetadata: metadata).then { image in
+    func setImage(_ photo: GPPhoto){
+        GoogleAPI.shared.getPhoto(photo).then { image in
             self.image = image
-        }*/
+        }
     }
 }

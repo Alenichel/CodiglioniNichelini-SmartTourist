@@ -67,19 +67,6 @@ class GoogleAPI {
         }
     }
     
-    /*func getPlacePicture(photoMetadata: GMSPlacePhotoMetadata) -> Promise<UIImage> {
-        return Promise<UIImage>(in: .background) { resolve, reject, status in
-            self.placesClient.loadPlacePhoto(photoMetadata) { photo, error in
-                if let error = error {
-                    print("Error loading photo metadata: \(error.localizedDescription)")
-                    reject(error)
-                } else {
-                    resolve(photo!)
-                }
-            }
-        }
-    }*/
-    
     func getPopularPlaces(city: String) -> Promise<[GPPlace]> {
         return Promise<[GPPlace]>(in: .background) { resolve, reject, status in
             let parameters = [
@@ -101,6 +88,29 @@ class GoogleAPI {
                         print(error.localizedDescription)
                         reject(error)
                     }
+                case .failure:
+                    guard let error = response.error else { return }
+                    print(error.localizedDescription)
+                    reject(error)
+                }
+            }
+        }
+    }
+    
+    func getPhoto(_ photo: GPPhoto) -> Promise<UIImage> {
+        return Promise<UIImage>(in: .background) { resolve, reject, status in
+            let parameters = [
+                "key": GoogleAPI.apiKey,
+                "photoreference": photo.photoReference,
+                "maxheight": "\(photo.height)",
+                "maxwidth": "\(photo.width)"
+            ]
+            AF.request("https://maps.googleapis.com/maps/api/place/photo", parameters: parameters).response { response in
+                switch response.result {
+                case .success:
+                    guard let data = response.data else { return }
+                    guard let image = UIImage(data: data) else { return }
+                    resolve(image)
                 case .failure:
                     guard let error = response.error else { return }
                     print(error.localizedDescription)
