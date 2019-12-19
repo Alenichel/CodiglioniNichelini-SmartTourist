@@ -14,8 +14,9 @@ import CoreLocation
 
 
 public protocol SizeableCell: ModellableView {
-  static func size(for model: VM) -> CGSize
+    static func size(for model: VM) -> CGSize
 }
+
 
 // MARK: View Model
 struct AttractionCellViewModel: ViewModel {
@@ -24,12 +25,9 @@ struct AttractionCellViewModel: ViewModel {
     let rating: Double
     let currentLocation: CLLocationCoordinate2D
     let distance: Int
-    //let place: GMSPlace // what version to keep ?
     
     static func == (l: AttractionCellViewModel, r: AttractionCellViewModel) -> Bool {
-        if l.identifier != r.identifier {return false}
-        if l.attractionName != r.attractionName {return false}
-        return true
+        return l.identifier == r.identifier
     }
     
     init(place: GPPlace, currentLocation: CLLocationCoordinate2D) {
