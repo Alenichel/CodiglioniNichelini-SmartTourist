@@ -19,10 +19,10 @@ struct GPResponse: Decodable {
 
 
 struct GPPlace: Decodable {
-    let geometry: GPGeometry
-    let name: String?
-    let photos: [GPPhoto]?
-    let placeID: String?
+    let location: CLLocationCoordinate2D
+    let name: String
+    let photos: [GPPhoto]
+    let placeID: String
     let rating: Double
     let userRatingsTotal: Int
     
@@ -30,28 +30,33 @@ struct GPPlace: Decodable {
         case geometry
         case name
         case photos
-        case placeID
+        case placeId
         case rating
         case userRatingsTotal
+        
+        enum LocationKeys: CodingKey {
+            case location
+        }
     }
     
     init(place: GMSPlace) {
-        let location = place.coordinate
-        self.geometry = GPGeometry(location: location)
-        self.name = place.name
+        self.location = place.coordinate
+        self.name = place.name!
         self.photos = []
-        self.placeID = place.placeID
+        self.placeID = place.placeID!
         self.rating = Double(place.rating)
         self.userRatingsTotal = Int(place.userRatingsTotal)
     }
-}
-
-
-struct GPGeometry: Decodable {
-    let location: CLLocationCoordinate2D
     
-    enum CodingKeys: CodingKey {
-        case location
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let geometryContainer = try container.nestedContainer(keyedBy: CodingKeys.LocationKeys.self, forKey: .geometry)
+        self.location = try geometryContainer.decode(CLLocationCoordinate2D.self, forKey: .location)
+        self.name = try container.decode(String.self, forKey: .name)
+        self.photos = try container.decode([GPPhoto].self, forKey: .photos)
+        self.placeID = try container.decode(String.self, forKey: .placeId)
+        self.rating = try container.decode(Double.self, forKey: .rating)
+        self.userRatingsTotal = try container.decode(Int.self, forKey: .userRatingsTotal)
     }
 }
 

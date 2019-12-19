@@ -11,8 +11,8 @@ import GooglePlaces
 import Hydra
 import Alamofire
 
+
 class GoogleAPI {
-    
     static let apiKey = "AIzaSyBAtMbvNlX14W5aGIEbcOLp83ZZjskfLck"
     static let shared = GoogleAPI()
     private init() {}
@@ -85,7 +85,6 @@ class GoogleAPI {
                 "language": "en",
                 "key": GoogleAPI.apiKey,
                 "query": "\(city) main attractions",
-                "fields": "geometry,place_id,name"
             ]
             AF.request("https://maps.googleapis.com/maps/api/place/textsearch/json", parameters: parameters).responseJSON { response in
                 switch response.result {
