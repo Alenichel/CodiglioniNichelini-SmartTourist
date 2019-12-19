@@ -50,6 +50,10 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
         self.rootView.listCardView.didTapItem = { [unowned self] id in
             self.dispatch(Show(Screen.detail, animated: true, context: id))
         }
+        self.rootView.listCardView.didChangeSegmentedValue = { [unowned self] index in
+            print("selectedSegmentIndex \(index)")
+            self.localState.selectedSegmentIndex = index
+        }
     }
 }
 
@@ -59,8 +63,9 @@ extension AttractionsViewController: CLLocationManagerDelegate {
         print("[didUpdateLocations]: \(locations)")
         if let location = locations.first {
             self.dispatch(SetCurrentLocation(location: location.coordinate))
-            self.dispatch(GetCurrentPlace())
             self.dispatch(GetCurrentCity())
+            self.dispatch(GetNearestPlaces())
+            //self.dispatch(GetPopularPlaces())
         }
     }
 }
@@ -102,4 +107,5 @@ struct AttractionsLocalState: LocalState {
     var cardState: CardState = .collapsed
     var animate: Bool = false
     var mapCentered: Bool = true
+    var selectedSegmentIndex: Int = 0
 }

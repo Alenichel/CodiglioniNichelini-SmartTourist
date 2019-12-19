@@ -19,15 +19,6 @@ struct SetState: StateUpdater {
 }
 
 
-struct SetLastUpdate: StateUpdater {
-    let lastUpdate: Date
-    
-    func updateState(_ state: inout AppState) {
-        state.locationState.lastUpdate = lastUpdate
-    }
-}
-
-
 struct SetCurrentLocation: StateUpdater {
     let location: CLLocationCoordinate2D?
     
@@ -37,8 +28,26 @@ struct SetCurrentLocation: StateUpdater {
 }
 
 
-struct SetCurrentPlace: StateUpdater {
-    let places: [GMSPlace]
+struct SetCurrentCity: StateUpdater {
+    let city: String?
+    
+    func updateState(_ state: inout AppState) {
+        state.locationState.currentCity = city
+    }
+}
+
+
+struct SetCurrentCityLastUpdate: StateUpdater {
+    let lastUpdate: Date
+    
+    func updateState(_ state: inout AppState) {
+        state.locationState.currentCityLastUpdate = lastUpdate
+    }
+}
+
+
+struct SetNearestPlaces: StateUpdater {
+    let places: [GPPlace]
     
     func updateState(_ state: inout AppState) {
         state.locationState.nearestPlaces = places
@@ -46,10 +55,28 @@ struct SetCurrentPlace: StateUpdater {
 }
 
 
-struct SetCurrentCity: StateUpdater {
-    let city: String?
+struct SetNearestPlacesLastUpdate: StateUpdater {
+    let lastUpdate: Date
     
     func updateState(_ state: inout AppState) {
-        state.locationState.currentCity = city
+        state.locationState.nearestPlacesLastUpdate = lastUpdate
+    }
+}
+
+
+struct SetPopularPlaces: StateUpdater {
+    let places: [GPPlace]
+    
+    func updateState(_ state: inout AppState) {
+        state.locationState.popularPlaces = places
+    }
+}
+
+
+struct SetPopularPlacesLastUpdate: StateUpdater {
+    let lastUpdate: Date
+    
+    func updateState(_ state: inout AppState) {
+        state.locationState.popularPlacesLastUpdate = lastUpdate
     }
 }

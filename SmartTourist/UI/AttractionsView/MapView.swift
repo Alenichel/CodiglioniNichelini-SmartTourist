@@ -13,26 +13,25 @@ import GooglePlaces
 
 
 struct AttractionsViewModel: ViewModelWithLocalState {
-    let nearestPlaces: [GMSPlace]
+    let nearestPlaces: [GPPlace]
+    let popularPlaces: [GPPlace]
     let currentLocation: CLLocationCoordinate2D?
     let currentCity: String?
     let cardPercent: Percent
     let animateCard: Bool
     let mapCentered: Bool
+    let selectedSegmentIndex: Int
     
-    init(state: AppState?, localState: AttractionsLocalState) {
-        if let state = state {
-            self.nearestPlaces = state.locationState.nearestPlaces
-            self.currentLocation = state.locationState.currentLocation
-            self.currentCity = state.locationState.currentCity
-        } else {
-            self.nearestPlaces = []
-            self.currentLocation = nil
-            self.currentCity = nil
-        }
+    init?(state: AppState?, localState: AttractionsLocalState) {
+        guard let state = state else { return nil }
+        self.nearestPlaces = state.locationState.nearestPlaces
+        self.popularPlaces = state.locationState.popularPlaces
+        self.currentLocation = state.locationState.currentLocation
+        self.currentCity = state.locationState.currentCity
         self.cardPercent = localState.cardState.rawValue%
         self.animateCard = localState.animate
         self.mapCentered = localState.mapCentered
+        self.selectedSegmentIndex = localState.selectedSegmentIndex
     }
 }
 
@@ -101,7 +100,7 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Update
     func update(oldModel: AttractionsViewModel?) {
         guard let model = self.model else { return }
-        let listCardViewModel = ListCardViewModel(places: model.nearestPlaces, currentLocation: model.currentLocation)
+        let listCardViewModel = ListCardViewModel(currentLocation: model.currentLocation, places: model.selectedSegmentIndex == 0 ? model.nearestPlaces : model.popularPlaces)
         self.listCardView.model = listCardViewModel
         self.locationButton.setImage(UIImage(systemName: model.mapCentered ? "location.fill" : "location"), for: .normal)
         if let location = model.currentLocation {

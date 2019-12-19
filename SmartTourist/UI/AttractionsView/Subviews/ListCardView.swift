@@ -10,13 +10,13 @@ import Tempura
 import GooglePlaces
 import PinLayout
 
-struct ListCardViewModel: ViewModel, Equatable {
-    let places: [GMSPlace]
+struct ListCardViewModel: ViewModel/*, Equatable*/ {
     let currentLocation: CLLocationCoordinate2D?
+    let places: [GPPlace]
     
-    static func == (l: ListCardViewModel, r: ListCardViewModel) -> Bool {
-        return l.places == r.places
-    }
+    /*static func == (l: ListCardViewModel, r: ListCardViewModel) -> Bool {
+        return l.selectedSegmentIndex == r.selectedSegmentIndex && l.nearestPlaces == r.nearestPlaces && l.popularPlaces == r.popularPlaces
+    }*/
 }
 
 
@@ -29,6 +29,7 @@ class ListCardView: UIView, ModellableView {
     // MARK: - Interactions
     var animate: Interaction?
     var didTapItem: ((GMSPlace) -> Void)?
+    var didChangeSegmentedValue: ((Int) -> Void)?
         
     func setup() {
         self.handle.setImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
@@ -36,17 +37,21 @@ class ListCardView: UIView, ModellableView {
             self.animate?()
         }
         self.chooser.selectedSegmentIndex = 0
+        self.chooser.on(.valueChanged) { control in
+            self.didChangeSegmentedValue?(control.selectedSegmentIndex)
+        }
         self.scrollView.isPagingEnabled = true
         self.scrollView.isScrollEnabled = false
         let attractionsLayout = AttractionFlowLayout()
         self.attractionListView = CollectionView<AttractionCell, SimpleSource<AttractionCellViewModel>>(frame: .zero, layout: attractionsLayout)
         self.attractionListView.useDiffs = true
         self.attractionListView.didSelectItem = { [unowned self] indexPath in
-            guard let cell = self.attractionListView.cellForItem(at: indexPath) as? AttractionCell else { return }
-//            guard let string = cell.model?.attractionName else { return }
-//            self.didTapItem?(string)
-            guard let toPass = cell.model?.place else { return }
-            self.didTapItem?(toPass)
+            /*guard let model = self.model,
+                let cell = self.attractionListView.cellForItem(at: indexPath) as? AttractionCell,
+                let cellPlaceID = cell.model?.identifier else { return }
+            let places = model.selectedSegmentIndex == 0 ? model.nearestPlaces : model.popularPlaces
+                let cellPlace = places.first(where: {$0.placeID == cellPlaceID}) else { return }
+            self.didTapItem?(cellPlace)*/
         }
         self.attractionListView.didHighlightItem = { [unowned self] indexPath in
             guard let cell = self.attractionListView.cellForItem(at: indexPath) else { return }
@@ -67,9 +72,6 @@ class ListCardView: UIView, ModellableView {
     func style() {
         self.backgroundColor = .systemBackground
         self.chooser.apportionsSegmentWidthsByContent = true
-        //self.chooser.setEnabled(true, forSegmentAt: 1)
-        self.chooser.addTarget(self, action: #selector(self.segmentedValueChanged(_:)), for: .valueChanged)
-        // ---> self.chooser.addTarget(self, action: "action:", for: .valueChanged)
         self.handle.tintColor = .secondaryLabel
         self.layer.cornerRadius = 30
         self.layer.shadowColor = UIColor.black.cgColor
@@ -94,14 +96,9 @@ class ListCardView: UIView, ModellableView {
     }
     
     func update(oldModel: ListCardViewModel?) {
-        guard let model = self.model else { return }
-        let attractions = model.places.map { AttractionCellViewModel(place: $0, currentLocation: model.currentLocation) }
+        guard let model = self.model, let currentLocation = model.currentLocation else { return }
+        let attractions = model.places.map { AttractionCellViewModel(place: $0, currentLocation: currentLocation) }
         self.attractionListView.source = SimpleSource<AttractionCellViewModel>(attractions)
         self.setNeedsLayout()
-    }
-        
-    @objc func segmentedValueChanged(_ sender:UISegmentedControl!) {
-        // TODO: change source of attractionListView
-        print("Selected Segment Index is : \(sender.selectedSegmentIndex)")
     }
 }

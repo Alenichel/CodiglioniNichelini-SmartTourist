@@ -46,7 +46,7 @@ final class AttractionFlowLayout: UICollectionViewFlowLayout {
   override func finalLayoutAttributesForDisappearingItem(at itemIndexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
     guard let attributes = super.finalLayoutAttributesForDisappearingItem(at: itemIndexPath) else { return nil }
     guard self.removingIndexes.contains(itemIndexPath) else { return attributes }
-    let frame = CGRect(x: attributes.frame.minX + attributes.frame.width,
+    let frame = CGRect(x: attributes.frame.minX/* + attributes.frame.width*/,
                        y: attributes.frame.minY,
                        width: attributes.frame.width,
                        height: attributes.frame.height)

@@ -21,10 +21,10 @@ public protocol SizeableCell: ModellableView {
 struct AttractionCellViewModel: ViewModel {
     let attractionName: String
     let identifier: String
-    let rating: Float
+    let rating: Double
     let currentLocation: CLLocationCoordinate2D
     let distance: Int
-    let place: GMSPlace // what version to keep ? 
+    //let place: GMSPlace // what version to keep ?
     
     static func == (l: AttractionCellViewModel, r: AttractionCellViewModel) -> Bool {
         if l.identifier != r.identifier {return false}
@@ -33,14 +33,24 @@ struct AttractionCellViewModel: ViewModel {
     }
     
     init(place: GMSPlace, currentLocation: CLLocationCoordinate2D?) {
-        self.identifier = place.placeID ?? "0000"
+        //self.place = place
+        self.identifier = place.placeID ?? UUID().description
         self.attractionName = place.name ?? "NoName"
-        self.rating = place.rating
+        self.rating = Double(place.rating)
         self.currentLocation = currentLocation ?? CLLocationCoordinate2D()
-        let current = CLLocation(latitude: currentLocation!.latitude, longitude: currentLocation!.longitude)
+        let current = CLLocation(latitude: self.currentLocation.latitude, longitude: self.currentLocation.longitude)
         let target = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
         self.distance = Int(current.distance(from: target).rounded())
-        self.place = place
+    }
+    
+    init(place: GPPlace, currentLocation: CLLocationCoordinate2D) {
+        self.identifier = place.placeID ?? UUID().description
+        self.attractionName = place.name ?? "NoName"
+        self.rating = place.rating
+        self.currentLocation = currentLocation
+        let current = CLLocation(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
+        let target = CLLocation(latitude: place.geometry.location.lat, longitude: place.geometry.location.lng)
+        self.distance = Int(current.distance(from: target).rounded())
     }
     
 }
