@@ -67,7 +67,7 @@ extension CLLocationCoordinate2D: Decodable {
 }
 
 
-struct GPPhoto: Decodable {
+class GPPhoto: Decodable {
     let photoReference: String
     let height: Int
     let width: Int

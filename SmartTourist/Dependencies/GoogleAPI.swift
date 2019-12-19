@@ -5,7 +5,7 @@
 //  Created on 24/11/2019.
 //
 
-import Foundation
+import UIKit
 import GoogleMaps
 import Hydra
 import Alamofire
@@ -13,10 +13,12 @@ import Alamofire
 
 class GoogleAPI {
     static let apiKey = "AIzaSyBAtMbvNlX14W5aGIEbcOLp83ZZjskfLck"
+    
     static let shared = GoogleAPI()
     private init() {}
     
-    var geocoder = GMSGeocoder()
+    private let geocoder = GMSGeocoder()
+    private let photoCache = NSCache<GPPhoto, UIImage>()
     
     enum PlaceType: String {
         case touristAttraction = "tourist_attraction"
@@ -99,22 +101,27 @@ class GoogleAPI {
     
     func getPhoto(_ photo: GPPhoto) -> Promise<UIImage> {
         return Promise<UIImage>(in: .background) { resolve, reject, status in
-            let parameters = [
-                "key": GoogleAPI.apiKey,
-                "photoreference": photo.photoReference,
-                "maxheight": "\(photo.height)",
-                "maxwidth": "\(photo.width)"
-            ]
-            AF.request("https://maps.googleapis.com/maps/api/place/photo", parameters: parameters).response { response in
-                switch response.result {
-                case .success:
-                    guard let data = response.data else { return }
-                    guard let image = UIImage(data: data) else { return }
-                    resolve(image)
-                case .failure:
-                    guard let error = response.error else { return }
-                    print(error.localizedDescription)
-                    reject(error)
+            if let image = self.photoCache.object(forKey: photo) {
+                resolve(image)
+            } else {
+                let parameters = [
+                    "key": GoogleAPI.apiKey,
+                    "photoreference": photo.photoReference,
+                    "maxheight": "\(photo.height)",
+                    "maxwidth": "\(photo.width)"
+                ]
+                AF.request("https://maps.googleapis.com/maps/api/place/photo", parameters: parameters).response { response in
+                    switch response.result {
+                    case .success:
+                        guard let data = response.data else { return }
+                        guard let image = UIImage(data: data) else { return }
+                        self.photoCache.setObject(image, forKey: photo)
+                        resolve(image)
+                    case .failure:
+                        guard let error = response.error else { return }
+                        print(error.localizedDescription)
+                        reject(error)
+                    }
                 }
             }
         }
