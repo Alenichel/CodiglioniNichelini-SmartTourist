@@ -10,7 +10,6 @@ target 'SmartTourist' do
   pod 'Tempura'
   pod 'PinLayout'
   pod 'FlexLayout'
-  pod 'GooglePlaces'
   pod 'GoogleMaps'
   pod 'DeepDiff'
   pod 'Cosmos', '~> 20.0'
