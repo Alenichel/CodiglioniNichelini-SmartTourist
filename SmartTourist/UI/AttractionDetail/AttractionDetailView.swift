@@ -19,6 +19,7 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
     let mainPhotoMetadata: GMSPlacePhotoMetadata
     let nRating: String
     let wikipediaSearchTerms: String
+    let currentLocation: CLLocationCoordinate2D
     
     init?(state: AppState?, localState: AttractionDetailLocalState) {
         guard let state = state else { return nil }
@@ -30,7 +31,8 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
         let n = localState.attraction.userRatingsTotal
         if n > 1000 { self.nRating = "\(Int(localState.attraction.userRatingsTotal / 1000))k" }
         else { self.nRating = "\(n)" }
-        self.wikipediaSearchTerms = "\(self.attraction.name ?? "") \(state.locationState.currentCity ?? "")"
+        self.wikipediaSearchTerms = self.attraction.name ?? ""
+        self.currentLocation = state.locationState.currentLocation!
     }
 }
 
@@ -99,7 +101,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
             self.openLabel.textColor = .systemGreen
         } else { self.openLabel.textColor = .systemRed}
         self.nRatingsLabel.text = model.nRating
-        self.descriptionText.setText(searchTerms: model.wikipediaSearchTerms)
+        self.descriptionText.setText(coordinates: model.currentLocation, searchTerms: model.wikipediaSearchTerms)
         self.setNeedsLayout()
     }
 }

@@ -9,6 +9,7 @@ import UIKit
 import WikipediaKit
 import Hydra
 import GoogleMaps
+import Fuse
 
 class WikipediaAPI {
     
@@ -32,20 +33,28 @@ class WikipediaAPI {
     }
     
     
-    func getArticleFromNearbyArticles(coordinates: CLLocationCoordinate2D, searchTerms: String) -> Promise<[WikipediaArticlePreview]> {
-        return Promise<[WikipediaArticlePreview]>(in: .background) { resolve, reject, status in
-            let _ = Wikipedia.shared.requestNearbyResults(language: self.language, latitude: Double(coordinates.latitude), longitude: Double(coordinates.longitude)) { (articlePreviews, resultsLanguage, error) in
+    func getArticleNameFromNearbyArticles(coordinates: CLLocationCoordinate2D, searchTerms: String) -> Promise<String> {
+        return Promise<String>(in: .background) { resolve, reject, status in
+            let _ = Wikipedia.shared.requestNearbyResults(language: self.language, latitude: Double(coordinates.latitude), longitude: Double(coordinates.longitude), maxCount: 50) { (articlePreviews, resultsLanguage, error) in
                 guard error == nil else { return }
                 guard let articlePreviews = articlePreviews else { return }
                 
-                for a in articlePreviews {
-                    print(a.displayTitle)
-                    if let coordinate = a.coordinate {
-                        print(coordinate.latitude)
-                        print(coordinate.longitude)
-                    }
+                let fuse = Fuse()
+                
+                let titles = articlePreviews.map{article -> String in
+                    print(article.title)
+                    return article.title
                 }
-                resolve(articlePreviews)
+                let results = fuse.search(searchTerms, in: titles).sorted(by: {
+                    $0.score > $1.score
+                })
+
+                results.forEach { item in
+                    print("index: " + String(item.index))
+                    print("score: " + String(item.score))
+                }
+                
+                resolve(titles[results.first!.index])
             }
         }
     }

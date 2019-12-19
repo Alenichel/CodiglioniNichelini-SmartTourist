@@ -7,11 +7,14 @@
 
 import Foundation
 import UIKit
+import GoogleMaps
 
 extension UITextView {
-    func setText(searchTerms: String){
-        WikipediaAPI.shared.search(searchTerms: searchTerms).then { description in
-            self.text = description
+    func setText(coordinates: CLLocationCoordinate2D ,searchTerms: String){
+        /*WikipediaAPI.shared.getArticleNameFromNearbyArticles(coordinates: coordinates, searchTerms: searchTerms).then(WikipediaAPI.shared.search).then { description in
+            self.text = description*/
+        WikipediaAPI.shared.getArticleNameFromNearbyArticles(coordinates: coordinates, searchTerms: searchTerms).then { description in
+        self.text = description
         }
     }
 }
