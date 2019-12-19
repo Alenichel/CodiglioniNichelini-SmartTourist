@@ -13,25 +13,21 @@ import GooglePlaces
 
 
 struct AttractionsViewModel: ViewModelWithLocalState {
-    let nearestPlaces: [GPPlace]
-    let popularPlaces: [GPPlace]
+    let places: [GPPlace]
     let currentLocation: CLLocationCoordinate2D?
     let currentCity: String?
     let cardPercent: Percent
     let animateCard: Bool
     let mapCentered: Bool
-    let selectedSegmentIndex: Int
     
     init?(state: AppState?, localState: AttractionsLocalState) {
         guard let state = state else { return nil }
-        self.nearestPlaces = state.locationState.nearestPlaces
-        self.popularPlaces = state.locationState.popularPlaces
+        self.places = localState.selectedSegmentIndex == 0 ? state.locationState.nearestPlaces : state.locationState.popularPlaces
         self.currentLocation = state.locationState.currentLocation
         self.currentCity = state.locationState.currentCity
         self.cardPercent = localState.cardState.rawValue%
         self.animateCard = localState.animate
         self.mapCentered = localState.mapCentered
-        self.selectedSegmentIndex = localState.selectedSegmentIndex
     }
 }
 
@@ -100,7 +96,7 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Update
     func update(oldModel: AttractionsViewModel?) {
         guard let model = self.model else { return }
-        let listCardViewModel = ListCardViewModel(currentLocation: model.currentLocation, places: model.selectedSegmentIndex == 0 ? model.nearestPlaces : model.popularPlaces)
+        let listCardViewModel = ListCardViewModel(currentLocation: model.currentLocation, places: model.places)
         self.listCardView.model = listCardViewModel
         self.locationButton.setImage(UIImage(systemName: model.mapCentered ? "location.fill" : "location"), for: .normal)
         if let location = model.currentLocation {
