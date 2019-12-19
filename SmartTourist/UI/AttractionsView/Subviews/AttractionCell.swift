@@ -49,7 +49,7 @@ struct AttractionCellViewModel: ViewModel {
         self.rating = place.rating
         self.currentLocation = currentLocation
         let current = CLLocation(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
-        let target = CLLocation(latitude: place.geometry.location.lat, longitude: place.geometry.location.lng)
+        let target = CLLocation(latitude: place.geometry.location.latitude, longitude: place.geometry.location.longitude)
         self.distance = Int(current.distance(from: target).rounded())
     }
     

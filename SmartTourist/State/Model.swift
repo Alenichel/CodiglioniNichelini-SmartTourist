@@ -36,7 +36,7 @@ struct GPPlace: Decodable {
     }
     
     init(place: GMSPlace) {
-        let location = GPLocation(lat: place.coordinate.latitude, lng: place.coordinate.longitude)
+        let location = place.coordinate
         self.geometry = GPGeometry(location: location)
         self.name = place.name
         self.photos = []
@@ -48,7 +48,7 @@ struct GPPlace: Decodable {
 
 
 struct GPGeometry: Decodable {
-    let location: GPLocation
+    let location: CLLocationCoordinate2D
     
     enum CodingKeys: CodingKey {
         case location
@@ -56,12 +56,17 @@ struct GPGeometry: Decodable {
 }
 
 
-struct GPLocation: Decodable {
-    let lat: Double
-    let lng: Double
+extension CLLocationCoordinate2D: Decodable {
+    enum CodingKeys: CodingKey {
+        case lat
+        case lng
+    }
     
-    var cllocation: CLLocationCoordinate2D {
-        return CLLocationCoordinate2D(latitude: self.lat, longitude: self.lng)
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let latitude = try container.decode(CLLocationDegrees.self, forKey: .lat)
+        let longitude = try container.decode(CLLocationDegrees.self, forKey: .lng)
+        self.init(latitude: latitude, longitude: longitude)
     }
 }
 
