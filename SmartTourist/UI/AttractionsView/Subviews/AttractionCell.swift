@@ -5,13 +5,13 @@
 //  Created on 30/11/2019
 //
 
-import Foundation
 import UIKit
 import Tempura
 import PinLayout
 import DeepDiff
-import GooglePlaces
 import Cosmos
+import CoreLocation
+
 
 public protocol SizeableCell: ModellableView {
   static func size(for model: VM) -> CGSize
@@ -30,17 +30,6 @@ struct AttractionCellViewModel: ViewModel {
         if l.identifier != r.identifier {return false}
         if l.attractionName != r.attractionName {return false}
         return true
-    }
-    
-    init(place: GMSPlace, currentLocation: CLLocationCoordinate2D?) {
-        //self.place = place
-        self.identifier = place.placeID ?? UUID().description
-        self.attractionName = place.name ?? "NoName"
-        self.rating = Double(place.rating)
-        self.currentLocation = currentLocation ?? CLLocationCoordinate2D()
-        let current = CLLocation(latitude: self.currentLocation.latitude, longitude: self.currentLocation.longitude)
-        let target = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
-        self.distance = Int(current.distance(from: target).rounded())
     }
     
     init(place: GPPlace, currentLocation: CLLocationCoordinate2D) {

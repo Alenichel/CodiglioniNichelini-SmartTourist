@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import GooglePlaces
+import CoreLocation
 
 
 struct GPResponse: Decodable {
@@ -37,15 +37,6 @@ struct GPPlace: Decodable {
         enum LocationKeys: CodingKey {
             case location
         }
-    }
-    
-    init(place: GMSPlace) {
-        self.location = place.coordinate
-        self.name = place.name!
-        self.photos = []
-        self.placeID = place.placeID!
-        self.rating = Double(place.rating)
-        self.userRatingsTotal = Int(place.userRatingsTotal)
     }
     
     init(from decoder: Decoder) throws {

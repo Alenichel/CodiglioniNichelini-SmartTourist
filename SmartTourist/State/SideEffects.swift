@@ -7,7 +7,7 @@
 
 import Foundation
 import Katana
-import GooglePlaces
+import CoreLocation
 
 
 struct LoadState: SideEffect {
@@ -43,12 +43,14 @@ struct GetCurrentCity: SideEffect {
 
 
 struct GetNearestPlaces: SideEffect {
+    let location: CLLocationCoordinate2D?
+    
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
+        guard let currentLocation = self.location else { return }
         if context.getState().locationState.nearestPlacesLastUpdate.distance(to: Date()) > 30 {
             context.dispatch(SetNearestPlacesLastUpdate(lastUpdate: Date()))
-            context.dependencies.googleAPI.getNearbyAttractions().then { places in
-                let mappedPlaces = places.map { GPPlace(place: $0) }
-                context.dispatch(SetNearestPlaces(places: mappedPlaces))
+            context.dependencies.googleAPI.getNearbyPlaces(location: currentLocation).then { places in
+                context.dispatch(SetNearestPlaces(places: places))
             }.catch { error in
                 context.dispatch(SetNearestPlaces(places: []))
             }
@@ -62,7 +64,7 @@ struct GetPopularPlaces: SideEffect {
     
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
         //guard let currentCity = context.getState().locationState.currentCity else { return }
-        guard let currentCity = city else { return }
+        guard let currentCity = self.city else { return }
         if context.getState().locationState.popularPlacesLastUpdate.distance(to: Date()) > 30 {
             context.dispatch(SetPopularPlacesLastUpdate(lastUpdate: Date()))
             context.dependencies.googleAPI.getPopularPlaces(city: currentCity).then { places in

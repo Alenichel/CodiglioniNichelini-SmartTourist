@@ -8,8 +8,8 @@
 import Foundation
 import CoreLocation
 import Tempura
-import GooglePlaces
 import GoogleMaps
+
 
 class AttractionsViewController: ViewControllerWithLocalState<MapView> {
     override func viewWillAppear(_ animated: Bool) {
@@ -51,7 +51,6 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
             self.dispatch(Show(Screen.detail, animated: true, context: id))
         }
         self.rootView.listCardView.didChangeSegmentedValue = { [unowned self] index in
-            print("selectedSegmentIndex \(index)")
             self.localState.selectedSegmentIndex = index
         }
     }
@@ -64,7 +63,7 @@ extension AttractionsViewController: CLLocationManagerDelegate {
         if let location = locations.first {
             self.dispatch(SetCurrentLocation(location: location.coordinate))
             self.dispatch(GetCurrentCity())
-            self.dispatch(GetNearestPlaces())
+            self.dispatch(GetNearestPlaces(location: location.coordinate))
             //self.dispatch(GetPopularPlaces())
         }
     }
@@ -91,7 +90,7 @@ extension AttractionsViewController: RoutableWithConfiguration {
                 return vc
             }),
             .show(Screen.detail): .push({ [unowned self] context in
-                return AttractionDetailViewController(store: self.store, localState: AttractionDetailLocalState(attraction: context as! GMSPlace))
+                return AttractionDetailViewController(store: self.store, localState: AttractionDetailLocalState(attraction: context as! GPPlace))
             })
         ]
     }

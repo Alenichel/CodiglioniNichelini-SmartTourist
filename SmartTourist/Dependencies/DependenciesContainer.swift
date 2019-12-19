@@ -8,7 +8,6 @@
 import Foundation
 import Katana
 import Tempura
-import GooglePlaces
 import WikipediaKit
 
 

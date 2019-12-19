@@ -7,12 +7,12 @@
 
 import Foundation
 import UIKit
-import GooglePlaces
+
 
 extension UIImageView {
-    func setImage(metadata: GMSPlacePhotoMetadata){
-        GoogleAPI.shared.getPlacePicture(photoMetadata: metadata).then { image in
+    func setImage(metadata: GPPhoto){
+        /*GoogleAPI.shared.getPlacePicture(photoMetadata: metadata).then { image in
             self.image = image
-        }
+        }*/
     }
 }

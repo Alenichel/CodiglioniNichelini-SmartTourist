@@ -9,7 +9,6 @@ import UIKit
 import Tempura
 import PinLayout
 import GoogleMaps
-import GooglePlaces
 
 
 struct AttractionsViewModel: ViewModelWithLocalState {

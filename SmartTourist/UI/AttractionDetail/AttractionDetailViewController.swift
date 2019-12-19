@@ -8,7 +8,6 @@
 import UIKit
 import Katana
 import Tempura
-import GooglePlaces
 
 
 class AttractionDetailViewController: ViewControllerWithLocalState<AttractionDetailView> {
@@ -34,6 +33,6 @@ extension AttractionDetailViewController: RoutableWithConfiguration {
 
 
 struct AttractionDetailLocalState: LocalState {
-    var attraction: GMSPlace
+    var attraction: GPPlace
     var attractionImage: UIImage?
 }

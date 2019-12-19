@@ -7,8 +7,9 @@
 
 import UIKit
 import Tempura
-import GooglePlaces
 import PinLayout
+import CoreLocation
+
 
 struct ListCardViewModel: ViewModel/*, Equatable*/ {
     let currentLocation: CLLocationCoordinate2D?
@@ -28,7 +29,7 @@ class ListCardView: UIView, ModellableView {
     
     // MARK: - Interactions
     var animate: Interaction?
-    var didTapItem: ((GMSPlace) -> Void)?
+    var didTapItem: ((GPPlace) -> Void)?
     var didChangeSegmentedValue: ((Int) -> Void)?
         
     func setup() {

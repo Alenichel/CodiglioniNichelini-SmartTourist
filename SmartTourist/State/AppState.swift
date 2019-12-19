@@ -7,7 +7,7 @@
 
 import Foundation
 import Katana
-import GooglePlaces
+import CoreLocation
 
 
 // MARK: - State
