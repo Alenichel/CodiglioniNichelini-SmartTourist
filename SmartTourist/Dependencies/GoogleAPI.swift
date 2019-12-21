@@ -24,6 +24,19 @@ class GoogleAPI {
         case touristAttraction = "tourist_attraction"
     }
     
+    func getCityName(coordinates: CLLocationCoordinate2D) -> Promise<String> {
+        return Promise<String>(in: .background) { resolve, reject, status in
+            self.geocoder.reverseGeocodeCoordinate(coordinates) { response, error in
+                if let error = error {
+                    reject(error)
+                }
+                if let city = response?.firstResult()?.locality {
+                    resolve(city)
+                }
+            }
+        }
+    }
+    
     func getNearbyPlaces(location: CLLocationCoordinate2D) -> Promise<[GPPlace]> {
         return Promise<[GPPlace]>(in: .background) { resolve, reject, status in
             let parameters = [
@@ -51,19 +64,6 @@ class GoogleAPI {
                     guard let error = response.error else { return }
                     print(error.localizedDescription)
                     reject(error)
-                }
-            }
-        }
-    }
-    
-    func getCityName(coordinates: CLLocationCoordinate2D) -> Promise<String> {
-        return Promise<String>(in: .background) { resolve, reject, status in
-            self.geocoder.reverseGeocodeCoordinate(coordinates) { response, error in
-                if let error = error {
-                    reject(error)
-                }
-                if let city = response?.firstResult()?.locality {
-                    resolve(city)
                 }
             }
         }
