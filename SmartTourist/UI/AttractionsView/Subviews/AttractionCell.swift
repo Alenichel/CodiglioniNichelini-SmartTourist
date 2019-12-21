@@ -5,42 +5,39 @@
 //  Created on 30/11/2019
 //
 
-import Foundation
 import UIKit
 import Tempura
 import PinLayout
 import DeepDiff
-import GooglePlaces
 import Cosmos
+import CoreLocation
+
 
 public protocol SizeableCell: ModellableView {
-  static func size(for model: VM) -> CGSize
+    static func size(for model: VM) -> CGSize
 }
+
 
 // MARK: View Model
 struct AttractionCellViewModel: ViewModel {
     let attractionName: String
     let identifier: String
-    let rating: Float
+    let rating: Double
     let currentLocation: CLLocationCoordinate2D
     let distance: Int
-    let place: GMSPlace // what version to keep ? 
     
     static func == (l: AttractionCellViewModel, r: AttractionCellViewModel) -> Bool {
-        if l.identifier != r.identifier {return false}
-        if l.attractionName != r.attractionName {return false}
-        return true
+        return l.identifier == r.identifier
     }
     
-    init(place: GMSPlace, currentLocation: CLLocationCoordinate2D?) {
-        self.identifier = place.placeID ?? "0000"
-        self.attractionName = place.name ?? "NoName"
+    init(place: GPPlace, currentLocation: CLLocationCoordinate2D) {
+        self.identifier = place.placeID
+        self.attractionName = place.name
         self.rating = place.rating
-        self.currentLocation = currentLocation ?? CLLocationCoordinate2D()
-        let current = CLLocation(latitude: currentLocation!.latitude, longitude: currentLocation!.longitude)
-        let target = CLLocation(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+        self.currentLocation = currentLocation
+        let current = CLLocation(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
+        let target = CLLocation(latitude: place.location.latitude, longitude: place.location.longitude)
         self.distance = Int(current.distance(from: target).rounded())
-        self.place = place
     }
     
 }

@@ -10,11 +10,11 @@ target 'SmartTourist' do
   pod 'Tempura'
   pod 'PinLayout'
   pod 'FlexLayout'
-  pod 'GooglePlaces'
   pod 'GoogleMaps'
   pod 'DeepDiff'
   pod 'Cosmos', '~> 20.0'
   pod 'Fuse'
+  pod 'Alamofire', '~> 5.0.0-rc.3'
 
   target 'SmartTouristTests' do
     inherit! :search_paths

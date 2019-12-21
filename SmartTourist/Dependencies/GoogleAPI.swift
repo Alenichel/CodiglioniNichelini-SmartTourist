@@ -5,48 +5,53 @@
 //  Created on 24/11/2019.
 //
 
-import Foundation
+import UIKit
 import GoogleMaps
-import GooglePlaces
 import Hydra
+import Alamofire
+
 
 class GoogleAPI {
+    static let apiKey = "AIzaSyBAtMbvNlX14W5aGIEbcOLp83ZZjskfLck"
     
     static let shared = GoogleAPI()
     private init() {}
     
-    var placesClient = GMSPlacesClient.shared()
-    var geocoder = GMSGeocoder()
+    private let geocoder = GMSGeocoder()
+    private let photoCache = NSCache<GPPhoto, UIImage>()
     
     enum PlaceType: String {
         case touristAttraction = "tourist_attraction"
     }
     
-    func getNearbyPlaces() -> Promise<[GMSPlace]> {
-        return Promise<[GMSPlace]>(in: .main) { resolve, reject, status in
-            self.placesClient.currentPlace { placeLikelihoodList, error in
-                if let error = error {
+    func getNearbyPlaces(location: CLLocationCoordinate2D) -> Promise<[GPPlace]> {
+        return Promise<[GPPlace]>(in: .background) { resolve, reject, status in
+            let parameters = [
+                "language": "en",
+                "key": GoogleAPI.apiKey,
+                "location": "\(location.latitude),\(location.longitude)",
+                "radius": "\(200)",
+                "type": PlaceType.touristAttraction.rawValue
+            ]
+            AF.request("https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: parameters).responseJSON { response in
+                switch response.result {
+                case .success:
+                    guard let data = response.data else { return }
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    do {
+                        let gpResponse = try decoder.decode(GPResponse.self, from: data)
+                        let results = gpResponse.results.sorted(by: {$0.rating > $1.rating})
+                        resolve(results)
+                    } catch {
+                        print(error.localizedDescription)
+                        reject(error)
+                    }
+                case .failure:
+                    guard let error = response.error else { return }
                     print(error.localizedDescription)
                     reject(error)
                 }
-                if let placeLikelihoodList = placeLikelihoodList {
-                    let places = placeLikelihoodList.likelihoods
-                        .map({$0.place})
-                    print("Nearby places: \(places.map({$0.name ?? ""}))")
-                    resolve(places)
-                }
-            }
-        }
-    }
-    
-    func getNearbyAttractions() -> Promise<[GMSPlace]> {
-        return Promise<[GMSPlace]>(in: .background) { resolve, reject, status in
-            self.getNearbyPlaces().then { places in
-                let attractions = places.filter({$0.types?.contains(PlaceType.touristAttraction.rawValue) ?? false})
-                print("Nearby attractions: \(attractions.map({$0.name ?? ""}))")
-                resolve(attractions)
-            }.catch { error in
-                reject(error)
             }
         }
     }
@@ -64,14 +69,59 @@ class GoogleAPI {
         }
     }
     
-    func getPlacePicture(photoMetadata: GMSPlacePhotoMetadata) -> Promise<UIImage> {
-        return Promise<UIImage>(in: .background) { resolve, reject, status in
-            self.placesClient.loadPlacePhoto(photoMetadata) { photo, error in
-                if let error = error {
-                    print("Error loading photo metadata: \(error.localizedDescription)")
+    func getPopularPlaces(city: String) -> Promise<[GPPlace]> {
+        return Promise<[GPPlace]>(in: .background) { resolve, reject, status in
+            let parameters = [
+                "language": "en",
+                "key": GoogleAPI.apiKey,
+                "query": "\(city) main attractions",
+            ]
+            AF.request("https://maps.googleapis.com/maps/api/place/textsearch/json", parameters: parameters).responseJSON { response in
+                switch response.result {
+                case .success:
+                    guard let data = response.data else { return }
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    do {
+                        let gpResponse = try decoder.decode(GPResponse.self, from: data)
+                        let results = gpResponse.results.sorted(by: {$0.rating > $1.rating})
+                        resolve(results)
+                    } catch {
+                        print(error.localizedDescription)
+                        reject(error)
+                    }
+                case .failure:
+                    guard let error = response.error else { return }
+                    print(error.localizedDescription)
                     reject(error)
-                } else {
-                    resolve(photo!)
+                }
+            }
+        }
+    }
+    
+    func getPhoto(_ photo: GPPhoto) -> Promise<UIImage> {
+        return Promise<UIImage>(in: .background) { resolve, reject, status in
+            if let image = self.photoCache.object(forKey: photo) {
+                resolve(image)
+            } else {
+                let parameters = [
+                    "key": GoogleAPI.apiKey,
+                    "photoreference": photo.photoReference,
+                    "maxheight": "\(photo.height)",
+                    "maxwidth": "\(photo.width)"
+                ]
+                AF.request("https://maps.googleapis.com/maps/api/place/photo", parameters: parameters).response { response in
+                    switch response.result {
+                    case .success:
+                        guard let data = response.data else { return }
+                        guard let image = UIImage(data: data) else { return }
+                        self.photoCache.setObject(image, forKey: photo)
+                        resolve(image)
+                    case .failure:
+                        guard let error = response.error else { return }
+                        print(error.localizedDescription)
+                        reject(error)
+                    }
                 }
             }
         }

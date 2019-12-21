@@ -9,14 +9,14 @@ import UIKit
 import Katana
 import Tempura
 import PinLayout
-import GooglePlaces
 import Cosmos
+import CoreLocation
+
 
 struct AttractionDetailViewModel: ViewModelWithLocalState {
-    let attraction: GMSPlace
+    let attraction: GPPlace
     var description: String
-    let isOpen: String
-    let mainPhotoMetadata: GMSPlacePhotoMetadata
+    let photo: GPPhoto
     let nRating: String
     let wikipediaSearchTerms: String
     let currentLocation: CLLocationCoordinate2D
@@ -25,13 +25,11 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
         guard let state = state else { return nil }
         self.attraction = localState.attraction
         self.description = ""
-        self.mainPhotoMetadata = (self.attraction.photos?.first)!
-        let openStatus = localState.attraction.isOpen()
-        self.isOpen = openStatus == .open ? "Open" : (openStatus == .closed ? "Closed": "")
+        self.photo = (self.attraction.photos.first)!
         let n = localState.attraction.userRatingsTotal
         if n > 1000 { self.nRating = "\(Int(localState.attraction.userRatingsTotal / 1000))k" }
         else { self.nRating = "\(n)" }
-        self.wikipediaSearchTerms = self.attraction.name ?? ""
+        self.wikipediaSearchTerms = self.attraction.name
         self.currentLocation = state.locationState.currentLocation!
     }
 }
@@ -39,7 +37,6 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
 
 class AttractionDetailView: UIView, ViewControllerModellableView {
     var descriptionText = UITextView()
-    var openLabel = UILabel()
     var nRatingsLabel = UILabel()
     var cosmos = CosmosView(frame: .zero)
     var containerView = UIView()
@@ -51,7 +48,6 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.addSubview(self.containerView)
         self.containerView.addSubview(self.descriptionText)
         self.containerView.addSubview(self.cosmos)
-        self.containerView.addSubview(self.openLabel)
         self.containerView.addSubview(self.lineView)
         self.containerView.addSubview(self.nRatingsLabel)
     }
@@ -70,7 +66,6 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.cosmos.settings.emptyImage = UIImage(systemName: "star")?.maskWithColor(color: .orange)
         self.cosmos.settings.disablePanGestures = true
         self.containerView.backgroundColor = .systemBackground
-        self.openLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.3)
         self.nRatingsLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .bold)
         self.nRatingsLabel.textColor = .systemOrange
         self.lineView.backgroundColor = .secondaryLabel
@@ -95,11 +90,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         guard let model = self.model else { return }
         self.cosmos.rating = Double(model.attraction.rating)
         self.descriptionText.text = model.description
-        self.imageView.setImage(metadata: model.mainPhotoMetadata)
-        self.openLabel.text = model.isOpen
-        if self.openLabel.text == "Open" {
-            self.openLabel.textColor = .systemGreen
-        } else { self.openLabel.textColor = .systemRed}
+        self.imageView.setImage(model.photo)
         self.nRatingsLabel.text = model.nRating
         self.descriptionText.setText(coordinates: model.currentLocation, searchTerms: model.wikipediaSearchTerms)
         self.setNeedsLayout()

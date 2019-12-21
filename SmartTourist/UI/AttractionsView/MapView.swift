@@ -9,27 +9,23 @@ import UIKit
 import Tempura
 import PinLayout
 import GoogleMaps
-import GooglePlaces
 
 
 struct AttractionsViewModel: ViewModelWithLocalState {
-    let nearestPlaces: [GMSPlace]
+    let places: [GPPlace]
     let currentLocation: CLLocationCoordinate2D?
     let currentCity: String?
+    let cardState: CardState
     let cardPercent: Percent
     let animateCard: Bool
     let mapCentered: Bool
     
-    init(state: AppState?, localState: AttractionsLocalState) {
-        if let state = state {
-            self.nearestPlaces = state.locationState.nearestPlaces
-            self.currentLocation = state.locationState.currentLocation
-            self.currentCity = state.locationState.currentCity
-        } else {
-            self.nearestPlaces = []
-            self.currentLocation = nil
-            self.currentCity = nil
-        }
+    init?(state: AppState?, localState: AttractionsLocalState) {
+        guard let state = state else { return nil }
+        self.places = localState.selectedSegmentIndex == 0 ? state.locationState.nearestPlaces : state.locationState.popularPlaces
+        self.currentLocation = state.locationState.currentLocation
+        self.currentCity = state.locationState.currentCity
+        self.cardState = localState.cardState
         self.cardPercent = localState.cardState.rawValue%
         self.animateCard = localState.animate
         self.mapCentered = localState.mapCentered
@@ -101,7 +97,7 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Update
     func update(oldModel: AttractionsViewModel?) {
         guard let model = self.model else { return }
-        let listCardViewModel = ListCardViewModel(places: model.nearestPlaces, currentLocation: model.currentLocation)
+        let listCardViewModel = ListCardViewModel(currentLocation: model.currentLocation, places: model.places, cardState: model.cardState)
         self.listCardView.model = listCardViewModel
         self.locationButton.setImage(UIImage(systemName: model.mapCentered ? "location.fill" : "location"), for: .normal)
         if let location = model.currentLocation {

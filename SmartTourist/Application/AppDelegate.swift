@@ -8,17 +8,14 @@
 import UIKit
 import UserNotifications
 import GoogleMaps
-import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        GMSServices.provideAPIKey("AIzaSyBAtMbvNlX14W5aGIEbcOLp83ZZjskfLck")
-        GMSPlacesClient.provideAPIKey("AIzaSyBAtMbvNlX14W5aGIEbcOLp83ZZjskfLck")
+        GMSServices.provideAPIKey(GoogleAPI.apiKey)
         NotificationManager.shared.setDelegate(self)
-        //NotificationManager.shared.requestAuth()        // TODO: Move to WelcomeView
         return true
     }
 

@@ -8,8 +8,8 @@
 import Foundation
 import CoreLocation
 import Tempura
-import GooglePlaces
 import GoogleMaps
+
 
 class AttractionsViewController: ViewControllerWithLocalState<MapView> {
     override func viewWillAppear(_ animated: Bool) {
@@ -50,6 +50,9 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
         self.rootView.listCardView.didTapItem = { [unowned self] id in
             self.dispatch(Show(Screen.detail, animated: true, context: id))
         }
+        self.rootView.listCardView.didChangeSegmentedValue = { [unowned self] index in
+            self.localState.selectedSegmentIndex = index
+        }
     }
 }
 
@@ -59,8 +62,9 @@ extension AttractionsViewController: CLLocationManagerDelegate {
         print("[didUpdateLocations]: \(locations)")
         if let location = locations.first {
             self.dispatch(SetCurrentLocation(location: location.coordinate))
-            self.dispatch(GetCurrentPlace())
             self.dispatch(GetCurrentCity())
+            self.dispatch(GetNearestPlaces(location: location.coordinate))
+            //self.dispatch(GetPopularPlaces())
         }
     }
 }
@@ -86,7 +90,7 @@ extension AttractionsViewController: RoutableWithConfiguration {
                 return vc
             }),
             .show(Screen.detail): .push({ [unowned self] context in
-                return AttractionDetailViewController(store: self.store, localState: AttractionDetailLocalState(attraction: context as! GMSPlace))
+                return AttractionDetailViewController(store: self.store, localState: AttractionDetailLocalState(attraction: context as! GPPlace))
             })
         ]
     }
@@ -94,12 +98,14 @@ extension AttractionsViewController: RoutableWithConfiguration {
 
 
 struct AttractionsLocalState: LocalState {
-    enum CardState: Int {
-        case expanded = 30
-        case collapsed = 70
-    }
-    
     var cardState: CardState = .collapsed
     var animate: Bool = false
     var mapCentered: Bool = true
+    var selectedSegmentIndex: Int = 0
+}
+
+
+enum CardState: Int {
+    case expanded = 30
+    case collapsed = 70
 }

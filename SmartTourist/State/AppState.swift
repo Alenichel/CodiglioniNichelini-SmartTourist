@@ -7,7 +7,7 @@
 
 import Foundation
 import Katana
-import GooglePlaces
+import CoreLocation
 
 
 // MARK: - State
@@ -27,8 +27,18 @@ struct AppState: State, Codable {
 
 
 struct LocationState {
-    var lastUpdate: Date = Date().advanced(by: TimeInterval(-60))
     var currentLocation: CLLocationCoordinate2D?
-    var nearestPlaces: [GMSPlace] = [GMSPlace]()
+    
     var currentCity: String?
+    var currentCityLastUpdate: Date = initDate
+
+    var nearestPlaces: [GPPlace] = [GPPlace]()
+    var nearestPlacesLastUpdate: Date = initDate
+
+    var popularPlaces: [GPPlace] = [GPPlace]()
+    var popularPlacesLastUpdate: Date = initDate
+    
+    private static var initDate: Date {
+        Date().advanced(by: TimeInterval(-60))
+    }
 }

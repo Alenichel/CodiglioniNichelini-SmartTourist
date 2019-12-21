@@ -7,35 +7,7 @@
 
 import Foundation
 import Katana
-import GooglePlaces
-
-
-struct GetCurrentPlace: SideEffect {
-    func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
-        if context.getState().locationState.lastUpdate.distance(to: Date()) > 30 {       // If last update occurred more than X seconds ago
-            context.dispatch(SetLastUpdate(lastUpdate: Date()))
-            context.dependencies.googleAPI.getNearbyAttractions().then { attractions in
-                context.dispatch(SetCurrentPlace(places: attractions))
-            }.catch { error in
-                context.dispatch(SetCurrentPlace(places: []))
-            }
-        } else {
-            context.dispatch(SetCurrentPlace(places: context.getState().locationState.nearestPlaces))
-        }
-    }
-}
-
-
-struct GetCurrentCity: SideEffect {
-    func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
-        guard let coordinates = context.getState().locationState.currentLocation else { return }
-        context.dependencies.googleAPI.getCityName(coordinates: coordinates).then { city in
-            context.dispatch(SetCurrentCity(city: city))
-        }.catch { error in
-            context.dispatch(SetCurrentCity(city: nil))
-        }
-    }
-}
+import CoreLocation
 
 
 struct LoadState: SideEffect {
@@ -49,6 +21,57 @@ struct LoadState: SideEffect {
         } catch {
             print("Error while decoding JSON")
             print(error.localizedDescription)
+        }
+    }
+}
+
+
+struct GetCurrentCity: SideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
+        guard let coordinates = context.getState().locationState.currentLocation else { return }
+        if context.getState().locationState.currentCityLastUpdate.distance(to: Date()) > 30 {
+            context.dispatch(SetCurrentCityLastUpdate(lastUpdate: Date()))
+            context.dependencies.googleAPI.getCityName(coordinates: coordinates).then { city in
+                context.dispatch(SetCurrentCity(city: city))
+                context.dispatch(GetPopularPlaces(city: city))
+            }.catch { error in
+                context.dispatch(SetCurrentCity(city: nil))
+            }
+        }
+    }
+}
+
+
+struct GetNearestPlaces: SideEffect {
+    let location: CLLocationCoordinate2D?
+    
+    func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
+        guard let currentLocation = self.location else { return }
+        if context.getState().locationState.nearestPlacesLastUpdate.distance(to: Date()) > 30 {
+            context.dispatch(SetNearestPlacesLastUpdate(lastUpdate: Date()))
+            context.dependencies.googleAPI.getNearbyPlaces(location: currentLocation).then { places in
+                context.dispatch(SetNearestPlaces(places: places))
+            }.catch { error in
+                context.dispatch(SetNearestPlaces(places: []))
+            }
+        }
+    }
+}
+
+
+struct GetPopularPlaces: SideEffect {
+    let city: String?
+    
+    func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
+        //guard let currentCity = context.getState().locationState.currentCity else { return }
+        guard let currentCity = self.city else { return }
+        if context.getState().locationState.popularPlacesLastUpdate.distance(to: Date()) > 30 {
+            context.dispatch(SetPopularPlacesLastUpdate(lastUpdate: Date()))
+            context.dependencies.googleAPI.getPopularPlaces(city: currentCity).then { places in
+                context.dispatch(SetPopularPlaces(places: places))
+            }.catch { error in
+                context.dispatch(SetPopularPlaces(places: []))
+            }
         }
     }
 }
