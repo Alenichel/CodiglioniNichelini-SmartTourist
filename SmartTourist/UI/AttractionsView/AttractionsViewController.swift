@@ -98,13 +98,14 @@ extension AttractionsViewController: RoutableWithConfiguration {
 
 
 struct AttractionsLocalState: LocalState {
-    enum CardState: Int {
-        case expanded = 30
-        case collapsed = 70
-    }
-    
     var cardState: CardState = .collapsed
     var animate: Bool = false
     var mapCentered: Bool = true
     var selectedSegmentIndex: Int = 0
+}
+
+
+enum CardState: Int {
+    case expanded = 30
+    case collapsed = 70
 }

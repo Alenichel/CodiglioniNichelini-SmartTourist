@@ -11,13 +11,10 @@ import PinLayout
 import CoreLocation
 
 
-struct ListCardViewModel: ViewModel/*, Equatable*/ {
+struct ListCardViewModel: ViewModel {
     let currentLocation: CLLocationCoordinate2D?
     let places: [GPPlace]
-    
-    /*static func == (l: ListCardViewModel, r: ListCardViewModel) -> Bool {
-        return l.selectedSegmentIndex == r.selectedSegmentIndex && l.nearestPlaces == r.nearestPlaces && l.popularPlaces == r.popularPlaces
-    }*/
+    let cardState: CardState
 }
 
 
@@ -26,6 +23,7 @@ class ListCardView: UIView, ModellableView {
     var chooser = UISegmentedControl(items: ["Nearest", "Popular"])
     var scrollView = UIScrollView()
     var attractionListView: CollectionView<AttractionCell, SimpleSource<AttractionCellViewModel>>!
+    var emptyLabel = UILabel()
     
     // MARK: - Interactions
     var animate: Interaction?
@@ -33,7 +31,7 @@ class ListCardView: UIView, ModellableView {
     var didChangeSegmentedValue: ((Int) -> Void)?
         
     func setup() {
-        self.handle.setImage(UIImage(systemName: "line.horizontal.3"), for: .normal)
+        self.handle.setImage(UIImage(systemName: "chevron.compact.up"), for: .normal)
         self.handle.on(.touchUpInside) { button in
             self.animate?()
         }
@@ -63,10 +61,12 @@ class ListCardView: UIView, ModellableView {
                 cell.backgroundColor = .systemBackground
             }
         }
+        self.emptyLabel.text = "No attraction to show"
         self.scrollView.addSubview(self.attractionListView)
         self.addSubview(self.handle)
         self.addSubview(self.chooser)
         self.addSubview(self.scrollView)
+        self.addSubview(self.emptyLabel)
     }
     
     func style() {
@@ -80,25 +80,33 @@ class ListCardView: UIView, ModellableView {
         self.layer.shadowRadius = 10
         self.attractionListView.backgroundColor = .systemBackground
         self.scrollView.backgroundColor = .systemBackground
+        self.emptyLabel.textColor = .secondaryLabel
+        self.emptyLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 0.9)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         self.handle.sizeToFit()
-        //self.label.sizeToFit()
+        self.emptyLabel.sizeToFit()
         self.handle.pin.top(20).left().right()
-        //self.chooser.sizeToFit()
         self.chooser.pin.below(of: self.handle).marginTop(20).hCenter()
-        //self.label.pin.below(of: self.handle).marginTop(50).left(5%).right(5%)
-        //self.label.pin.below(of: self.handle).marginTop(50).left(5%).right(5%)
         self.scrollView.pin.below(of: self.chooser).marginTop(15).left().right().bottom()
         self.attractionListView.frame = self.scrollView.frame.bounds
+        self.emptyLabel.pin.below(of: self.chooser, aligned: .center).marginTop(30)
     }
     
     func update(oldModel: ListCardViewModel?) {
         guard let model = self.model, let currentLocation = model.currentLocation else { return }
+        if model.cardState == .collapsed {
+            self.handle.setImage(UIImage(systemName: "chevron.compact.up"), for: .normal)
+        } else {
+            self.handle.setImage(UIImage(systemName: "chevron.compact.down"), for: .normal)
+        }
         let attractions = model.places.map { AttractionCellViewModel(place: $0, currentLocation: currentLocation) }
         self.attractionListView.source = SimpleSource<AttractionCellViewModel>(attractions)
+        UIView.animate(withDuration: 0.3) {
+            self.emptyLabel.layer.opacity = Float(attractions.isEmpty ? 1.0 : 0.0)
+        }
         self.setNeedsLayout()
     }
 }

@@ -15,6 +15,7 @@ struct AttractionsViewModel: ViewModelWithLocalState {
     let places: [GPPlace]
     let currentLocation: CLLocationCoordinate2D?
     let currentCity: String?
+    let cardState: CardState
     let cardPercent: Percent
     let animateCard: Bool
     let mapCentered: Bool
@@ -24,6 +25,7 @@ struct AttractionsViewModel: ViewModelWithLocalState {
         self.places = localState.selectedSegmentIndex == 0 ? state.locationState.nearestPlaces : state.locationState.popularPlaces
         self.currentLocation = state.locationState.currentLocation
         self.currentCity = state.locationState.currentCity
+        self.cardState = localState.cardState
         self.cardPercent = localState.cardState.rawValue%
         self.animateCard = localState.animate
         self.mapCentered = localState.mapCentered
@@ -95,7 +97,7 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Update
     func update(oldModel: AttractionsViewModel?) {
         guard let model = self.model else { return }
-        let listCardViewModel = ListCardViewModel(currentLocation: model.currentLocation, places: model.places)
+        let listCardViewModel = ListCardViewModel(currentLocation: model.currentLocation, places: model.places, cardState: model.cardState)
         self.listCardView.model = listCardViewModel
         self.locationButton.setImage(UIImage(systemName: model.mapCentered ? "location.fill" : "location"), for: .normal)
         if let location = model.currentLocation {
