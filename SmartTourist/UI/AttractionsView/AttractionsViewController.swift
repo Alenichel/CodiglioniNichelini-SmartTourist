@@ -65,7 +65,20 @@ extension AttractionsViewController: CLLocationManagerDelegate {
             self.dispatch(GetCurrentCity())
             self.dispatch(GetNearestPlaces(location: location.coordinate))
             //self.dispatch(GetPopularPlaces())
+            locationBasedNotification(lastCoordinates: location.coordinate)
         }
+    }
+    
+    func locationBasedNotification(lastCoordinates: CLLocationCoordinate2D){
+        let current = CLLocation(latitude: lastCoordinates.latitude, longitude: lastCoordinates.longitude)
+        self.state.locationState.popularPlaces.forEach{place in
+            let target = CLLocation(latitude: place.location.latitude, longitude: place.location.longitude)
+            let distance = Int(current.distance(from: target).rounded())
+            if distance < 200 {
+                NotificationManager.shared.scheduleNotification(body: "You are near a top location: \(place.name)")
+            }
+        }
+        
     }
 }
 

@@ -111,8 +111,8 @@ class MapView: UIView, ViewControllerModellableView {
             if let lastBigCircle = self.lastBigCircle {
                 lastBigCircle.map = nil
             }
-            let littleCircle = GMSCircle(position: location, radius: 333)
-            let bigCircle = GMSCircle(position: location, radius: 1000)
+            let littleCircle = GMSCircle(position: location, radius: 200)
+            let bigCircle = GMSCircle(position: location, radius: 800)
             if traitCollection.userInterfaceStyle == .dark{
                 littleCircle.strokeColor = .white
                 bigCircle.strokeColor = .white
