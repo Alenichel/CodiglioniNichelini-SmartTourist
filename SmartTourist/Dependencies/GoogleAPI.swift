@@ -54,7 +54,6 @@ class GoogleAPI {
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     do {
                         let gpResponse = try decoder.decode(GPResponse.self, from: data)
-                        let results = gpResponse.results.sorted(by: {$0.rating > $1.rating})
                         resolve(results)
                     } catch {
                         print(error.localizedDescription)
