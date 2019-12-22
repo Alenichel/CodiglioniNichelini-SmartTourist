@@ -82,6 +82,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.mapView.settings.compassButton = false
         self.mapView.settings.tiltGestures = false
         self.mapView.isUserInteractionEnabled = false
+        self.mapView.loadCustomStyle()
     }
     
     override func layoutSubviews() {
