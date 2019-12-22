@@ -15,6 +15,9 @@
 		992816A823969ECC0033F43C /* WikipediaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992816A723969ECC0033F43C /* WikipediaAPI.swift */; };
 		993B35462392B9150003FD8F /* AttractionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B35452392B9150003FD8F /* AttractionCell.swift */; };
 		993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B35472392C1D00003FD8F /* AttractionFlowLayout.swift */; };
+		99C27CD323AFC37700667FB0 /* MilanTour(Fast).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CCB23AFC37700667FB0 /* MilanTour(Fast).gpx */; };
+		99C27CD423AFC37700667FB0 /* MilanTour(Cycling).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CD123AFC37700667FB0 /* MilanTour(Cycling).gpx */; };
+		99C27CD523AFC37700667FB0 /* MilanTour(Driving).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CD223AFC37700667FB0 /* MilanTour(Driving).gpx */; };
 		99E5BF6F2399C1C6005F0882 /* UITextView+setText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E5BF6E2399C1C6005F0882 /* UITextView+setText.swift */; };
 		99F5A11923995D9E0056E68D /* UIImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */; };
 		E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F5238C4AFF0052825F /* WelcomeView.swift */; };
@@ -133,6 +136,9 @@
 		992816A723969ECC0033F43C /* WikipediaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikipediaAPI.swift; sourceTree = "<group>"; };
 		993B35452392B9150003FD8F /* AttractionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionCell.swift; sourceTree = "<group>"; };
 		993B35472392C1D00003FD8F /* AttractionFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionFlowLayout.swift; sourceTree = "<group>"; };
+		99C27CCB23AFC37700667FB0 /* MilanTour(Fast).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Fast).gpx"; sourceTree = "<group>"; };
+		99C27CD123AFC37700667FB0 /* MilanTour(Cycling).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Cycling).gpx"; sourceTree = "<group>"; };
+		99C27CD223AFC37700667FB0 /* MilanTour(Driving).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Driving).gpx"; sourceTree = "<group>"; };
 		99E5BF6E2399C1C6005F0882 /* UITextView+setText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+setText.swift"; sourceTree = "<group>"; };
 		99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+setImage.swift"; sourceTree = "<group>"; };
 		AB3310E805FE2AAD225A0C8E /* Pods-SmartTourist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist.release.xcconfig"; path = "Target Support Files/Pods-SmartTourist/Pods-SmartTourist.release.xcconfig"; sourceTree = "<group>"; };
@@ -228,6 +234,9 @@
 		991F955A238EDD25002A1093 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				99C27CD123AFC37700667FB0 /* MilanTour(Cycling).gpx */,
+				99C27CD223AFC37700667FB0 /* MilanTour(Driving).gpx */,
+				99C27CCB23AFC37700667FB0 /* MilanTour(Fast).gpx */,
 				991F955B238EDD4D002A1093 /* mapStyle.json */,
 				E52E0B16238F221F00D966CF /* mapStyle.dark.json */,
 			);
@@ -596,7 +605,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99C27CD523AFC37700667FB0 /* MilanTour(Driving).gpx in Resources */,
+				99C27CD323AFC37700667FB0 /* MilanTour(Fast).gpx in Resources */,
 				991F955C238EDD4D002A1093 /* mapStyle.json in Resources */,
+				99C27CD423AFC37700667FB0 /* MilanTour(Cycling).gpx in Resources */,
 				E52E0B17238F221F00D966CF /* mapStyle.dark.json in Resources */,
 				E528FF93238972020065483B /* LaunchScreen.storyboard in Resources */,
 				E528FF90238972020065483B /* Assets.xcassets in Resources */,
