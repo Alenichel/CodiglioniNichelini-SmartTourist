@@ -47,6 +47,7 @@ class GoogleAPI {
                 "type": PlaceType.touristAttraction.rawValue
             ]
             AF.request("https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: parameters).responseJSON { response in
+                print(response.request!)
                 switch response.result {
                 case .success:
                     guard let data = response.data else { return }
@@ -54,7 +55,7 @@ class GoogleAPI {
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     do {
                         let gpResponse = try decoder.decode(GPResponse.self, from: data)
-                        resolve(results)
+                        resolve(gpResponse.results)
                     } catch {
                         print(error.localizedDescription)
                         reject(error)
@@ -77,6 +78,7 @@ class GoogleAPI {
                 "type": PlaceType.touristAttraction.rawValue
             ]
             AF.request("https://maps.googleapis.com/maps/api/place/textsearch/json", parameters: parameters).responseJSON { response in
+                print(response.request!)
                 switch response.result {
                 case .success:
                     guard let data = response.data else { return }
@@ -84,7 +86,7 @@ class GoogleAPI {
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     do {
                         let gpResponse = try decoder.decode(GPResponse.self, from: data)
-                        let results = gpResponse.results.sorted(by: {$0.rating > $1.rating})
+                        let results = gpResponse.results.sorted(by: {$0.rating! > $1.rating!})
                         resolve(results)
                     } catch {
                         print(error.localizedDescription)
@@ -111,6 +113,7 @@ class GoogleAPI {
                     "maxwidth": "\(photo.width)"
                 ]
                 AF.request("https://maps.googleapis.com/maps/api/place/photo", parameters: parameters).response { response in
+                    //print(response.request!)
                     switch response.result {
                     case .success:
                         guard let data = response.data else { return }

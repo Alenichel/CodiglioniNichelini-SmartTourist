@@ -33,7 +33,11 @@ struct AttractionCellViewModel: ViewModel {
     init(place: GPPlace, currentLocation: CLLocationCoordinate2D) {
         self.identifier = place.placeID
         self.attractionName = place.name
-        self.rating = place.rating
+        if let rating = place.rating {
+            self.rating = rating
+        } else {
+            self.rating = 0
+        }
         self.currentLocation = currentLocation
         let current = CLLocation(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
         let target = CLLocation(latitude: place.location.latitude, longitude: place.location.longitude)

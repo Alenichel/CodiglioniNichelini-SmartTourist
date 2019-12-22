@@ -21,10 +21,10 @@ struct GPResponse: Decodable {
 struct GPPlace: Decodable {
     let location: CLLocationCoordinate2D
     let name: String
-    let photos: [GPPhoto]
+    let photos: [GPPhoto]?
     let placeID: String
-    let rating: Double
-    let userRatingsTotal: Int
+    let rating: Double?
+    let userRatingsTotal: Int?
     
     enum CodingKeys: CodingKey {
         case geometry
@@ -44,10 +44,10 @@ struct GPPlace: Decodable {
         let geometryContainer = try container.nestedContainer(keyedBy: CodingKeys.LocationKeys.self, forKey: .geometry)
         self.location = try geometryContainer.decode(CLLocationCoordinate2D.self, forKey: .location)
         self.name = try container.decode(String.self, forKey: .name)
-        self.photos = try container.decode([GPPhoto].self, forKey: .photos)
+        self.photos = try container.decodeIfPresent([GPPhoto].self, forKey: .photos)
         self.placeID = try container.decode(String.self, forKey: .placeId)
-        self.rating = try container.decode(Double.self, forKey: .rating)
-        self.userRatingsTotal = try container.decode(Int.self, forKey: .userRatingsTotal)
+        self.rating = try container.decodeIfPresent(Double.self, forKey: .rating)
+        self.userRatingsTotal = try container.decodeIfPresent(Int.self, forKey: .userRatingsTotal)
     }
 }
 

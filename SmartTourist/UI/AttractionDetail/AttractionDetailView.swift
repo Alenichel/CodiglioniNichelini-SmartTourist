@@ -16,8 +16,8 @@ import CoreLocation
 struct AttractionDetailViewModel: ViewModelWithLocalState {
     let attraction: GPPlace
     var description: String
-    let photo: GPPhoto
-    let nRating: String
+    let photo: GPPhoto?
+    let nRatings: String
     let wikipediaSearchTerms: String
     let currentLocation: CLLocationCoordinate2D
     
@@ -25,10 +25,16 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
         guard let state = state else { return nil }
         self.attraction = localState.attraction
         self.description = ""
-        self.photo = (self.attraction.photos.first)!
-        let n = localState.attraction.userRatingsTotal
-        if n > 1000 { self.nRating = "\(Int(localState.attraction.userRatingsTotal / 1000))k" }
-        else { self.nRating = "\(n)" }
+        if let photos = self.attraction.photos {
+            self.photo = photos.first
+        } else {
+            self.photo = nil
+        }
+        if let nRatings = localState.attraction.userRatingsTotal {
+            self.nRatings = nRatings > 1000 ? "\(Int(nRatings / 1000))k" : "\(nRatings)"
+        } else {
+            self.nRatings = "0"
+        }
         self.wikipediaSearchTerms = self.attraction.name
         self.currentLocation = state.locationState.currentLocation!
     }
@@ -88,10 +94,14 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     
     func update(oldModel: AttractionDetailViewModel?) {
         guard let model = self.model else { return }
-        self.cosmos.rating = Double(model.attraction.rating)
+        if let rating = model.attraction.rating {
+            self.cosmos.rating = rating
+        } else {
+            self.cosmos.rating = 0
+        }
         self.descriptionText.text = model.description
         self.imageView.setImage(model.photo)
-        self.nRatingsLabel.text = model.nRating
+        self.nRatingsLabel.text = model.nRatings
         self.descriptionText.setText(coordinates: model.currentLocation, searchTerms: model.wikipediaSearchTerms)
         self.setNeedsLayout()
     }
