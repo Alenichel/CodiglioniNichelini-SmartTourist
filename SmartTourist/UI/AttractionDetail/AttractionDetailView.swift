@@ -11,7 +11,7 @@ import Tempura
 import PinLayout
 import Cosmos
 import CoreLocation
-
+import GoogleMaps
 
 struct AttractionDetailViewModel: ViewModelWithLocalState {
     let attraction: GPPlace
@@ -48,10 +48,14 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     var containerView = UIView()
     var imageView = UIImageView()
     var lineView = UIView()
+    var scrollView = UIScrollView()
+    var mapView = GMSMapView()
     
     func setup() {
-        self.addSubview(self.imageView)
-        self.addSubview(self.containerView)
+        self.addSubview(self.scrollView)
+        self.scrollView.addSubview(self.imageView)
+        self.scrollView.addSubview(self.containerView)
+        self.scrollView.addSubview(self.mapView)
         self.containerView.addSubview(self.descriptionText)
         self.containerView.addSubview(self.cosmos)
         self.containerView.addSubview(self.lineView)
@@ -75,13 +79,19 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.nRatingsLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .bold)
         self.nRatingsLabel.textColor = .systemOrange
         self.lineView.backgroundColor = .secondaryLabel
+        self.mapView.settings.compassButton = false
+        self.mapView.settings.tiltGestures = false
+        self.mapView.isUserInteractionEnabled = false
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.scrollView.pin.top(self.safeAreaInsets).bottom().horizontally()
+        let h = self.frame.height + 300 - 50
+        self.scrollView.contentSize = CGSize(width: self.frame.width, height: h)
         self.imageView.sizeToFit()
-        self.imageView.pin.top(self.safeAreaInsets).bottom(50%).left().right()
-        self.containerView.pin.horizontally().bottom().below(of: self.imageView)
+        self.imageView.pin.top().bottom(50%).left().right()
+        self.containerView.pin.horizontally().bottom(10).below(of: self.imageView)
         self.cosmos.sizeToFit()
         self.cosmos.pin.topLeft().marginHorizontal(20).marginTop(15)
         self.nRatingsLabel.sizeToFit()
@@ -89,6 +99,9 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.lineView.pin.below(of: self.cosmos).horizontally(5).height(1).marginTop(15)
         self.descriptionText.sizeToFit()
         self.descriptionText.pin.bottom().horizontally().below(of: self.lineView)
+        self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 300)
+        self.mapView.pin.horizontally(20).below(of: containerView).marginTop(5)
+ 
     }
     
     func update(oldModel: AttractionDetailViewModel?) {
@@ -102,6 +115,10 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.imageView.setImage(model.photo)
         self.nRatingsLabel.text = model.nRatings
         self.descriptionText.setText(coordinates: model.currentLocation, searchTerms: model.wikipediaSearchTerms)
+        
+        let camera = GMSCameraPosition.camera(withLatitude: (self.model?.attraction.location.latitude)!, longitude: (self.model?.attraction.location.longitude)!, zoom: 15)
+        self.mapView.animate(to: camera)
+        
         self.setNeedsLayout()
     }
 }
