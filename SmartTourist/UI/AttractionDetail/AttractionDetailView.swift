@@ -116,8 +116,13 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.nRatingsLabel.text = model.nRatings
         self.descriptionText.setText(coordinates: model.currentLocation, searchTerms: model.wikipediaSearchTerms)
         
-        let camera = GMSCameraPosition.camera(withLatitude: (self.model?.attraction.location.latitude)!, longitude: (self.model?.attraction.location.longitude)!, zoom: 15)
+        let latitude = (model.attraction.location.latitude)
+        let longitude = (model.attraction.location.longitude)
+        let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: 15)
         self.mapView.animate(to: camera)
+        
+        let marker = GMSMarker(position: model.attraction.location)
+        marker.map = self.mapView
         
         self.setNeedsLayout()
     }
