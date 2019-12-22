@@ -43,11 +43,11 @@ class GoogleAPI {
                 "language": "en",
                 "key": GoogleAPI.apiKey,
                 "location": "\(location.latitude),\(location.longitude)",
-                "radius": "\(200)",
+                //"radius": "\(200)",
+                "rankby": "distance",
                 "type": PlaceType.touristAttraction.rawValue
             ]
             AF.request("https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: parameters).responseJSON { response in
-                print(response.request!)
                 switch response.result {
                 case .success:
                     guard let data = response.data else { return }
@@ -78,7 +78,6 @@ class GoogleAPI {
                 "type": PlaceType.touristAttraction.rawValue
             ]
             AF.request("https://maps.googleapis.com/maps/api/place/textsearch/json", parameters: parameters).responseJSON { response in
-                print(response.request!)
                 switch response.result {
                 case .success:
                     guard let data = response.data else { return }
@@ -113,7 +112,6 @@ class GoogleAPI {
                     "maxwidth": "\(photo.width)"
                 ]
                 AF.request("https://maps.googleapis.com/maps/api/place/photo", parameters: parameters).response { response in
-                    //print(response.request!)
                     switch response.result {
                     case .success:
                         guard let data = response.data else { return }

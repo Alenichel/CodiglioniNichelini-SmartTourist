@@ -77,7 +77,6 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.lineView.backgroundColor = .secondaryLabel
     }
     
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         self.imageView.sizeToFit()
