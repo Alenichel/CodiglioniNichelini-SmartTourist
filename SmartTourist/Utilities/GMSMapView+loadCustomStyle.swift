@@ -1,5 +1,5 @@
 //
-//  GMSMapView + loadCustomStyle().swift
+//  GMSMapView+loadCustomStyle.swift
 //  SmartTourist
 //
 //  Created on 22/12/2019

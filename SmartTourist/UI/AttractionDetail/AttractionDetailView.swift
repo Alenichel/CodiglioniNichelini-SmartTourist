@@ -13,9 +13,10 @@ import Cosmos
 import CoreLocation
 import GoogleMaps
 
+
 struct AttractionDetailViewModel: ViewModelWithLocalState {
     let attraction: GPPlace
-    var description: String
+    var description: String?
     let photo: GPPhoto?
     let nRatings: String
     let wikipediaSearchTerms: String
@@ -80,7 +81,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.nRatingsLabel.textColor = .systemOrange
         self.lineView.backgroundColor = .secondaryLabel
         self.mapView.settings.compassButton = false
-        self.mapView.settings.tiltGestures = false
+        //ßself.mapView.settings.tiltGestures = false
         self.mapView.isUserInteractionEnabled = false
         self.mapView.loadCustomStyle()
     }
@@ -112,13 +113,15 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         } else {
             self.cosmos.rating = 0
         }
-        self.descriptionText.text = model.description
+        if model.description == nil {
+            self.descriptionText.text = model.description
+        }
         self.imageView.setImage(model.photo)
         self.nRatingsLabel.text = model.nRatings
         self.descriptionText.setText(coordinates: model.currentLocation, searchTerms: model.wikipediaSearchTerms)
         
-        let latitude = (model.attraction.location.latitude)
-        let longitude = (model.attraction.location.longitude)
+        let latitude = model.attraction.location.latitude
+        let longitude = model.attraction.location.longitude
         let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: 15)
         self.mapView.animate(to: camera)
         

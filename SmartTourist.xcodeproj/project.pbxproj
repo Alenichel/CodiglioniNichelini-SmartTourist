@@ -13,7 +13,7 @@
 		991F955C238EDD4D002A1093 /* mapStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = 991F955B238EDD4D002A1093 /* mapStyle.json */; };
 		992533C4238FF8B800EE479A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992533C3238FF8B800EE479A /* LocationManager.swift */; };
 		992816A823969ECC0033F43C /* WikipediaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992816A723969ECC0033F43C /* WikipediaAPI.swift */; };
-		9930114B23AFED3600909749 /* GMSMapView + loadCustomStyle().swift in Sources */ = {isa = PBXBuildFile; fileRef = 9930114A23AFED3600909749 /* GMSMapView + loadCustomStyle().swift */; };
+		9930114B23AFED3600909749 /* GMSMapView+loadCustomStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9930114A23AFED3600909749 /* GMSMapView+loadCustomStyle.swift */; };
 		993B35462392B9150003FD8F /* AttractionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B35452392B9150003FD8F /* AttractionCell.swift */; };
 		993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B35472392C1D00003FD8F /* AttractionFlowLayout.swift */; };
 		99C27CD323AFC37700667FB0 /* MilanTour(Fast).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CCB23AFC37700667FB0 /* MilanTour(Fast).gpx */; };
@@ -136,7 +136,7 @@
 		992533C3238FF8B800EE479A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		9928169223969DD20033F43C /* WikipediaKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WikipediaKit.xcodeproj; path = ../WikipediaKit/WikipediaKit.xcodeproj; sourceTree = "<group>"; };
 		992816A723969ECC0033F43C /* WikipediaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikipediaAPI.swift; sourceTree = "<group>"; };
-		9930114A23AFED3600909749 /* GMSMapView + loadCustomStyle().swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSMapView + loadCustomStyle().swift"; sourceTree = "<group>"; };
+		9930114A23AFED3600909749 /* GMSMapView+loadCustomStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSMapView+loadCustomStyle.swift"; sourceTree = "<group>"; };
 		993B35452392B9150003FD8F /* AttractionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionCell.swift; sourceTree = "<group>"; };
 		993B35472392C1D00003FD8F /* AttractionFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionFlowLayout.swift; sourceTree = "<group>"; };
 		99C27CCB23AFC37700667FB0 /* MilanTour(Fast).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Fast).gpx"; sourceTree = "<group>"; };
@@ -421,7 +421,7 @@
 				E5628B502394224F00A61676 /* UIImage+Color.swift */,
 				99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */,
 				99E5BF6E2399C1C6005F0882 /* UITextView+setText.swift */,
-				9930114A23AFED3600909749 /* GMSMapView + loadCustomStyle().swift */,
+				9930114A23AFED3600909749 /* GMSMapView+loadCustomStyle.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -806,7 +806,7 @@
 				E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */,
 				E57C47162392BC3A008DE784 /* RoundedButton.swift in Sources */,
 				E528FF89238971FE0065483B /* SceneDelegate.swift in Sources */,
-				9930114B23AFED3600909749 /* GMSMapView + loadCustomStyle().swift in Sources */,
+				9930114B23AFED3600909749 /* GMSMapView+loadCustomStyle.swift in Sources */,
 				E5F971612392D96F0096C296 /* ConfigurableCell.swift in Sources */,
 				E5D1474A23AB747300649C87 /* Model.swift in Sources */,
 				E5F9715E2392D96F0096C296 /* Source.swift in Sources */,

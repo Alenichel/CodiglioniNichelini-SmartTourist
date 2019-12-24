@@ -14,7 +14,7 @@ extension UITextView {
         /*WikipediaAPI.shared.getArticleNameFromNearbyArticles(coordinates: coordinates, searchTerms: searchTerms).then(WikipediaAPI.shared.search).then { description in
             self.text = description*/
         WikipediaAPI.shared.search(searchTerms: searchTerms).then { description in
-        self.text = description
+            self.text = description
         }
     }
 }
