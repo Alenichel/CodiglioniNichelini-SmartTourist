@@ -47,6 +47,8 @@
 		E57C47162392BC3A008DE784 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57C47152392BC3A008DE784 /* RoundedButton.swift */; };
 		E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */; };
 		E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA4238ADEF3008D7C86 /* SideEffects.swift */; };
+		E5AFC8A123F9B006007B9887 /* CityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */; };
+		E5AFC8A223F9B006007B9887 /* CityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFC89B23F9B006007B9887 /* CityDetailView.swift */; };
 		E5D1474A23AB747300649C87 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D1474923AB747300649C87 /* Model.swift */; };
 		E5F5BE292399112D0076665F /* WikipediaKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9928169D23969DD20033F43C /* WikipediaKit.framework */; };
 		E5F5BE2A2399112D0076665F /* WikipediaKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9928169D23969DD20033F43C /* WikipediaKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -182,6 +184,8 @@
 		E57C47152392BC3A008DE784 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateUpdaters.swift; sourceTree = "<group>"; };
 		E585FCA4238ADEF3008D7C86 /* SideEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideEffects.swift; sourceTree = "<group>"; };
+		E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityDetailViewController.swift; sourceTree = "<group>"; };
+		E5AFC89B23F9B006007B9887 /* CityDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityDetailView.swift; sourceTree = "<group>"; };
 		E5D1474923AB747300649C87 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		E5F971522392D96E0096C296 /* UIControl+TargetActionable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+TargetActionable.swift"; sourceTree = "<group>"; };
 		E5F971532392D96E0096C296 /* String+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Random.swift"; sourceTree = "<group>"; };
@@ -380,6 +384,7 @@
 				E5FDE323238B25610018D791 /* WelcomeView */,
 				E524A100238C4F950052825F /* AttractionsView */,
 				E5628B4B2393D4B900A61676 /* AttractionDetail */,
+				E5AFC89923F9B006007B9887 /* CityDetailView */,
 				E57C47172392BE83008DE784 /* Elements */,
 			);
 			path = UI;
@@ -411,6 +416,16 @@
 			);
 			path = Elements;
 			sourceTree = "<group>";
+		};
+		E5AFC89923F9B006007B9887 /* CityDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */,
+				E5AFC89B23F9B006007B9887 /* CityDetailView.swift */,
+			);
+			name = CityDetailView;
+			path = SmartTourist/UI/CityDetailView;
+			sourceTree = SOURCE_ROOT;
 		};
 		E5F971512392D96E0096C296 /* Utilities */ = {
 			isa = PBXGroup;
@@ -797,6 +812,7 @@
 				993B35462392B9150003FD8F /* AttractionCell.swift in Sources */,
 				E54E01B423996806009D0331 /* Persistable.swift in Sources */,
 				993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */,
+				E5AFC8A223F9B006007B9887 /* CityDetailView.swift in Sources */,
 				99E5BF6F2399C1C6005F0882 /* UITextView+setText.swift in Sources */,
 				E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */,
 				E528FF87238971FE0065483B /* AppDelegate.swift in Sources */,
@@ -817,6 +833,7 @@
 				E524A0F8238C4C060052825F /* WelcomeViewController.swift in Sources */,
 				E5335CFE238981D000601F02 /* AppState.swift in Sources */,
 				E5F9715F2392D96F0096C296 /* CollectionView.swift in Sources */,
+				E5AFC8A123F9B006007B9887 /* CityDetailViewController.swift in Sources */,
 				E5F971642392D96F0096C296 /* String+Height.swift in Sources */,
 				E5F971622392D96F0096C296 /* CGRect+Utils.swift in Sources */,
 				E5FDE321238B08A40018D791 /* GoogleAPI.swift in Sources */,
