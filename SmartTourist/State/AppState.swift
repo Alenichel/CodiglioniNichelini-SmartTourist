@@ -13,9 +13,10 @@ import CoreLocation
 // MARK: - State
 struct AppState: State, Codable {
     var locationState = LocationState()
+    var favorites = [String: Bool]()
     
     enum CodingKeys: CodingKey {    // Filter what properties to persist
-        
+        case favorites
     }
     
     static var persistURL: URL {

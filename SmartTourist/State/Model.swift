@@ -18,7 +18,7 @@ struct GPResponse: Decodable {
 }
 
 
-struct GPPlace: Decodable {
+struct GPPlace: Codable {
     let location: CLLocationCoordinate2D
     let name: String
     let photos: [GPPhoto]?
@@ -49,10 +49,21 @@ struct GPPlace: Decodable {
         self.rating = try container.decodeIfPresent(Double.self, forKey: .rating)
         self.userRatingsTotal = try container.decodeIfPresent(Int.self, forKey: .userRatingsTotal)
     }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        var geometryContainer = container.nestedContainer(keyedBy: CodingKeys.LocationKeys.self, forKey: .geometry)
+        try geometryContainer.encode(location, forKey: .location)
+        try container.encode(name, forKey: .name)
+        try container.encode(photos, forKey: .photos)
+        try container.encode(placeID, forKey: .placeId)
+        try container.encodeIfPresent(rating, forKey: .rating)
+        try container.encodeIfPresent(userRatingsTotal, forKey: .userRatingsTotal)
+    }
 }
 
 
-extension CLLocationCoordinate2D: Decodable {
+extension CLLocationCoordinate2D: Codable {
     enum CodingKeys: CodingKey {
         case lat
         case lng
@@ -64,10 +75,16 @@ extension CLLocationCoordinate2D: Decodable {
         let longitude = try container.decode(CLLocationDegrees.self, forKey: .lng)
         self.init(latitude: latitude, longitude: longitude)
     }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(latitude, forKey: .lat)
+        try container.encode(longitude, forKey: .lng)
+    }
 }
 
 
-class GPPhoto: Decodable {
+class GPPhoto: Codable {
     let photoReference: String
     let height: Int
     let width: Int

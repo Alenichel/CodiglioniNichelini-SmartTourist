@@ -79,11 +79,10 @@ extension AttractionsViewController: CLLocationManagerDelegate {
         self.state.locationState.popularPlaces.forEach{place in
             let target = CLLocation(latitude: place.location.latitude, longitude: place.location.longitude)
             let distance = Int(current.distance(from: target).rounded())
-            if distance < 200 {
+            if distance < notificationTriggeringDistance {
                 NotificationManager.shared.scheduleNotification(body: "You are near a top location: \(place.name)")
             }
         }
-        
     }
 }
 

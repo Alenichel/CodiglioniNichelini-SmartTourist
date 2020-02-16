@@ -24,7 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, RootInstaller {
             //DispatchableLogger.interceptor(),
             PersistorInterceptor.interceptor()
         ])
-        //store.dispatch(LoadState())
+        store.dispatch(LoadState())
         window = UIWindow(frame: UIScreen.main.bounds)
         let navigator: Navigator! = self.store!.dependencies.navigator
         navigator.start(using: self, in: self.window!, at: Screen.attractions)
