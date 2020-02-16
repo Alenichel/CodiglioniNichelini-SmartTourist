@@ -48,6 +48,11 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
             }
         }
         self.rootView.listCardView.didTapItem = { [unowned self] id in
+            if self.state.favorites.contains(id) {
+                self.dispatch(RemoveFavorite(place: id))
+            } else {
+                self.dispatch(AddFavorite(place: id))
+            }
             self.dispatch(Show(Screen.detail, animated: true, context: id))
         }
         self.rootView.listCardView.didChangeSegmentedValue = { [unowned self] index in
@@ -64,7 +69,7 @@ extension AttractionsViewController: CLLocationManagerDelegate {
             self.dispatch(SetCurrentLocation(location: location.coordinate))
             self.dispatch(GetCurrentCity())
             self.dispatch(GetNearestPlaces(location: location.coordinate))
-            //self.dispatch(GetPopularPlaces())
+            //self.dispatch(GetPopularPlaces())     / This gets called by GetCurrentCity
             locationBasedNotification(lastCoordinates: location.coordinate)
         }
     }

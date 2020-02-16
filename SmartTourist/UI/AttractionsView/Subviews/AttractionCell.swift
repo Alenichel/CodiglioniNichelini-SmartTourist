@@ -25,12 +25,13 @@ struct AttractionCellViewModel: ViewModel {
     let rating: Double
     let currentLocation: CLLocationCoordinate2D
     let distance: Int
+    let favorite: Bool
     
     static func == (l: AttractionCellViewModel, r: AttractionCellViewModel) -> Bool {
         return l.identifier == r.identifier
     }
     
-    init(place: GPPlace, currentLocation: CLLocationCoordinate2D) {
+    init(place: GPPlace, currentLocation: CLLocationCoordinate2D, favorite: Bool) {
         self.identifier = place.placeID
         self.attractionName = place.name
         if let rating = place.rating {
@@ -42,6 +43,7 @@ struct AttractionCellViewModel: ViewModel {
         let current = CLLocation(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
         let target = CLLocation(latitude: place.location.latitude, longitude: place.location.longitude)
         self.distance = Int(current.distance(from: target).rounded())
+        self.favorite = favorite
     }
     
 }
@@ -56,6 +58,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     var image = UIImageView(image: UIImage(systemName: "chevron.right"))
     var cosmos = CosmosView(frame: .zero)
     var distanceLabel = UILabel()
+    var favoriteImage = UIImageView(image: UIImage(systemName: "heart.fill"))
     
     //MARK: Init
     override init(frame: CGRect) {
@@ -75,6 +78,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         self.addSubview(self.image)
         self.addSubview(self.cosmos)
         self.addSubview(self.distanceLabel)
+        self.addSubview(self.favoriteImage)
     }
     
     //MARK: Style
@@ -90,6 +94,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         self.cosmos.settings.filledImage = UIImage(systemName: "star.fill")?.maskWithColor(color: .label)
         self.cosmos.settings.emptyImage = UIImage(systemName: "star")?.maskWithColor(color: .label)
         self.cosmos.settings.disablePanGestures = true
+        self.favoriteImage.tintColor = .systemRed
     }
     
     // MARK: Layout
@@ -99,10 +104,12 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         self.image.sizeToFit()
         self.cosmos.sizeToFit()
         self.distanceLabel.sizeToFit()
+        //self.favoriteImage.sizeToFit()
         self.nameLabel.pin.top(10).bottom(50%).left(15).right(90)
         self.cosmos.pin.top(55%).bottom().left(15)
         self.image.pin.vCenter().right(15)
         self.distanceLabel.pin.vCenter().right(35)
+        self.favoriteImage.pin.right(of: cosmos, aligned: .top).marginLeft(10).size(CGSize(width: Double(UIFont.systemFontSize) * 1.2, height: Double(UIFont.systemFontSize)))
     }
 
     static var paddingHeight: CGFloat = 10
@@ -119,6 +126,11 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     func update(oldModel: AttractionCellViewModel?) {
         guard let model = self.model else {return}
         self.nameLabel.text = model.attractionName
+        if model.favorite {
+            self.favoriteImage.alpha = 1
+        } else {
+            self.favoriteImage.alpha = 0
+        }
         self.cosmos.rating = Double(model.rating)
         self.distanceLabel.text = "\(model.distance) m"
         self.setNeedsLayout()

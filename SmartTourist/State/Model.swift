@@ -18,7 +18,7 @@ struct GPResponse: Decodable {
 }
 
 
-struct GPPlace: Codable {
+struct GPPlace: Codable, Equatable {
     let location: CLLocationCoordinate2D
     let name: String
     let photos: [GPPhoto]?
@@ -59,6 +59,10 @@ struct GPPlace: Codable {
         try container.encode(placeID, forKey: .placeId)
         try container.encodeIfPresent(rating, forKey: .rating)
         try container.encodeIfPresent(userRatingsTotal, forKey: .userRatingsTotal)
+    }
+    
+    static func == (lhs: GPPlace, rhs: GPPlace) -> Bool {
+        return lhs.placeID == rhs.placeID
     }
 }
 

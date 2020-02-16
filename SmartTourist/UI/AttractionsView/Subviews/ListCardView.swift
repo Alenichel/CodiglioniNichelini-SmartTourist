@@ -15,6 +15,7 @@ struct ListCardViewModel: ViewModel {
     let currentLocation: CLLocationCoordinate2D?
     let places: [GPPlace]
     let cardState: CardState
+    let favorites: [GPPlace]
 }
 
 
@@ -102,7 +103,7 @@ class ListCardView: UIView, ModellableView {
         } else {
             self.handle.setImage(UIImage(systemName: "chevron.compact.down"), for: .normal)
         }
-        let attractions = model.places.map { AttractionCellViewModel(place: $0, currentLocation: currentLocation) }
+        let attractions = model.places.map { AttractionCellViewModel(place: $0, currentLocation: currentLocation, favorite: model.favorites.contains($0)) }
         self.attractionListView.source = SimpleSource<AttractionCellViewModel>(attractions)
         UIView.animate(withDuration: 0.3) {
             self.emptyLabel.layer.opacity = Float(attractions.isEmpty ? 1.0 : 0.0)

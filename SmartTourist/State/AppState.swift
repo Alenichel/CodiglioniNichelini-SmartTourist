@@ -13,7 +13,7 @@ import CoreLocation
 // MARK: - State
 struct AppState: State, Codable {
     var locationState = LocationState()
-    var favorites = [String: Bool]()
+    var favorites = [GPPlace]()
     
     enum CodingKeys: CodingKey {    // Filter what properties to persist
         case favorites

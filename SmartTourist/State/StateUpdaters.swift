@@ -15,6 +15,7 @@ struct SetState: StateUpdater {
     
     func updateState(_ state: inout AppState) {
         state.locationState = self.state.locationState
+        state.favorites = self.state.favorites
     }
 }
 
@@ -78,5 +79,23 @@ struct SetPopularPlacesLastUpdate: StateUpdater {
     
     func updateState(_ state: inout AppState) {
         state.locationState.popularPlacesLastUpdate = lastUpdate
+    }
+}
+
+
+struct AddFavorite: StateUpdater, Persistable {
+    let place: GPPlace
+    
+    func updateState(_ state: inout AppState) {
+        state.favorites.append(place)
+    }
+}
+
+
+struct RemoveFavorite: StateUpdater, Persistable {
+    let place: GPPlace
+    
+    func updateState(_ state: inout AppState) {
+        state.favorites.removeAll(where: {$0 == place})
     }
 }

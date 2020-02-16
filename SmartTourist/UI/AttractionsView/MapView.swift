@@ -19,6 +19,7 @@ struct AttractionsViewModel: ViewModelWithLocalState {
     let cardPercent: Percent
     let animateCard: Bool
     let mapCentered: Bool
+    let favorites: [GPPlace]
     
     init?(state: AppState?, localState: AttractionsLocalState) {
         guard let state = state else { return nil }
@@ -29,6 +30,7 @@ struct AttractionsViewModel: ViewModelWithLocalState {
         self.cardPercent = localState.cardState.rawValue%
         self.animateCard = localState.animate
         self.mapCentered = localState.mapCentered
+        self.favorites = state.favorites
     }
 }
 
@@ -97,7 +99,7 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Update
     func update(oldModel: AttractionsViewModel?) {
         guard let model = self.model else { return }
-        let listCardViewModel = ListCardViewModel(currentLocation: model.currentLocation, places: model.places, cardState: model.cardState)
+        let listCardViewModel = ListCardViewModel(currentLocation: model.currentLocation, places: model.places, cardState: model.cardState, favorites: model.favorites)
         self.listCardView.model = listCardViewModel
         self.locationButton.setImage(UIImage(systemName: model.mapCentered ? "location.fill" : "location"), for: .normal)
         if let location = model.currentLocation {
