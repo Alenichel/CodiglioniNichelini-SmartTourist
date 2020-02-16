@@ -37,13 +37,16 @@ struct AttractionsViewModel: ViewModelWithLocalState {
 
 class MapView: UIView, ViewControllerModellableView {
     // MARK: Subviews
-    var cityNameLabel = UILabel()
+    var cityNameLabel = UIButton()
     var mapView: GMSMapView!
     var locationButton = RoundedButton()
     var lastLittleCircle: GMSCircle?
     var lastBigCircle: GMSCircle?
     var topBlurEffect = UIVisualEffectView(effect: UIBlurEffect(style: UITraitCollection.current.userInterfaceStyle == .dark ? .dark : .light))
     var listCardView = ListCardView()
+    
+    // MARK: - Interactions
+    var didTapLocationName: (() -> Void)?
     
     // MARK: Setup
     func setup() {
@@ -56,11 +59,14 @@ class MapView: UIView, ViewControllerModellableView {
         self.locationButton.on(.touchUpInside) { button in
             self.centerMap()
         }
+        self.cityNameLabel.on(.touchUpInside) { button in
+            self.didTapLocationName!()
+        }
         self.addSubview(self.mapView)
         self.addSubview(self.locationButton)
-        self.addSubview(self.cityNameLabel)
         self.addSubview(self.topBlurEffect)
         self.addSubview(self.listCardView)
+        self.addSubview(self.cityNameLabel)
         self.listCardView.setup()
         self.listCardView.style()
     }
@@ -68,7 +74,8 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Style
     func style() {
         self.backgroundColor = .systemBackground
-        self.cityNameLabel.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+        
+        self.cityNameLabel.titleLabel!.font = UIFont.systemFont(ofSize: 32, weight: .bold)
         self.locationButton.backgroundColor = .systemBackground
         self.locationButton.layer.cornerRadius = 20
         self.locationButton.layer.shadowColor = UIColor.black.cgColor
@@ -125,7 +132,7 @@ class MapView: UIView, ViewControllerModellableView {
             self.lastBigCircle = bigCircle
         }
         if let city = model.currentCity {
-            self.cityNameLabel.text = city
+            self.cityNameLabel.titleLabel!.text = city
         }
         if model.animateCard {
             UIView.animate(withDuration: 0.5) {

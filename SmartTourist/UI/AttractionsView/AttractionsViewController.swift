@@ -55,8 +55,13 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
             }
             self.dispatch(Show(Screen.detail, animated: true, context: id))
         }
+        
         self.rootView.listCardView.didChangeSegmentedValue = { [unowned self] index in
             self.localState.selectedSegmentIndex = index
+        }
+        
+        self.rootView.didTapLocationName = { 
+            self.dispatch(Show(Screen.cityDetail, animated: true, context: nil))
         }
     }
 }
@@ -108,6 +113,9 @@ extension AttractionsViewController: RoutableWithConfiguration {
             }),
             .show(Screen.detail): .push({ [unowned self] context in
                 return AttractionDetailViewController(store: self.store, localState: AttractionDetailLocalState(attraction: context as! GPPlace))
+            }),
+            .show(Screen.cityDetail): .push({ [unowned self] context in
+                return CityDetailViewController(store: self.store, localState: CityDetailLocalState())
             })
         ]
     }
