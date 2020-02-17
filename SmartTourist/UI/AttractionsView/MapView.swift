@@ -59,6 +59,8 @@ class MapView: UIView, ViewControllerModellableView {
         self.locationButton.on(.touchUpInside) { button in
             self.centerMap()
         }
+        self.cityNameLabel.frame = CGRect(x: 100, y: 100, width: 100, height: 50)
+        //.cityNameLabel.translatesAutoresizingMaskIntoConstraints = false
         self.cityNameLabel.on(.touchUpInside) { button in
             self.didTapLocationName!()
         }
@@ -74,8 +76,9 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Style
     func style() {
         self.backgroundColor = .systemBackground
-        
+        self.cityNameLabel.setTitleColor(UIColor.black, for: .normal)
         self.cityNameLabel.titleLabel!.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+        self.cityNameLabel.contentHorizontalAlignment = .left
         self.locationButton.backgroundColor = .systemBackground
         self.locationButton.layer.cornerRadius = 20
         self.locationButton.layer.shadowColor = UIColor.black.cgColor
@@ -87,7 +90,8 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Layout subviews
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.cityNameLabel.sizeToFit()
+        //self.cityNameLabel.sizeToFit()
+        self.cityNameLabel.pin.topLeft().size(50)
         self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height * 0.70)
         self.cityNameLabel.pin.top(5.5%).left(2%).right()
         self.topBlurEffect.pin.top().left().right().bottom(94.5%)
@@ -132,7 +136,7 @@ class MapView: UIView, ViewControllerModellableView {
             self.lastBigCircle = bigCircle
         }
         if let city = model.currentCity {
-            self.cityNameLabel.titleLabel!.text = city
+            self.cityNameLabel.setTitle(city, for: .normal)
         }
         if model.animateCard {
             UIView.animate(withDuration: 0.5) {
