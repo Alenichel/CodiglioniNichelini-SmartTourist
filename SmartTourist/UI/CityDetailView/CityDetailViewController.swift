@@ -12,7 +12,6 @@ import Tempura
 class CityDetailViewController: ViewControllerWithLocalState<CityDetailView> {
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.navigation.title = "City detail"
     }
     
     override func setupInteraction() {}

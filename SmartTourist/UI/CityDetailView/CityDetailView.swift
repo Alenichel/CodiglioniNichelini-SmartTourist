@@ -18,32 +18,32 @@ struct CityDetailViewModel: ViewModelWithLocalState {
     let currentCity: String
     
     init?(state: AppState?, localState: CityDetailLocalState){
-        guard let state = state else { return nil }
-        self.currentCity = state.locationState.currentCity ?? "No city"
+        guard let state = state else {  return nil }
+        self.currentCity = state.locationState.currentCity ?? "Atlantide"
     }
 }
 
 class CityDetailView: UIView, ViewControllerModellableView {
-    var placeHolderText = UITextView()
+    var placeHolderText = UILabel()
     
     func setup() {
-        self.addSubview(placeHolderText)
+        self.addSubview(self.placeHolderText)
     }
     
     func style() {
-        self.placeHolderText.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.15)
-        self.placeHolderText.isScrollEnabled = false
-        self.placeHolderText.isEditable = false
-        self.placeHolderText.textAlignment = NSTextAlignment.justified
+        self.backgroundColor = .systemBackground
+        self.placeHolderText.font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 4)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.placeHolderText.pin.all()
+        self.placeHolderText.sizeToFit()
+        self.placeHolderText.pin.topCenter().size(200)
     }
     
     func update(oldModel: CityDetailViewModel?){
-        
+        guard let model = self.model else { return }
+        self.placeHolderText.text = model.currentCity
     }
     
 }
