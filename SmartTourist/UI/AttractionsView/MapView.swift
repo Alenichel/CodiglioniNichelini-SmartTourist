@@ -29,7 +29,7 @@ struct AttractionsViewModel: ViewModelWithLocalState {
         self.cardState = localState.cardState
         self.cardPercent = localState.cardState.rawValue%
         self.animateCard = localState.animate
-        self.mapCentered = localState.mapCentered
+        self.mapCentered = state.locationState.mapCentered
         self.favorites = state.favorites
     }
 }

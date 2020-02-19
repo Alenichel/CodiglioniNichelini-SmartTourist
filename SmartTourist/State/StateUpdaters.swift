@@ -20,11 +20,29 @@ struct SetState: StateUpdater {
 }
 
 
-struct SetCurrentLocation: StateUpdater {
+struct SetActualLocation: StateUpdater {
     let location: CLLocationCoordinate2D?
     
     func updateState(_ state: inout AppState) {
-        state.locationState.currentLocation = location
+        state.locationState.actualLocation = location
+    }
+}
+
+
+struct SetMapLocation: StateUpdater {
+    let location: CLLocationCoordinate2D?
+    
+    func updateState(_ state: inout AppState) {
+        state.locationState.mapLocation = location
+    }
+}
+
+
+struct SetMapCentered: StateUpdater {
+    let value: Bool
+    
+    func updateState(_ state: inout AppState) {
+        state.locationState.mapCentered = value
     }
 }
 

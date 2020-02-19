@@ -61,13 +61,9 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
         self.rootView.didTapLocationName = { [unowned self] in
             self.dispatch(Show(Screen.cityDetail, animated: true, context: nil))
         }
-    }
-    
-    private func updateLocationInfo(_ coordinates: CLLocationCoordinate2D, throttle: Bool) {
-        self.dispatch(SetCurrentLocation(location: coordinates))
-        self.dispatch(GetCurrentCity(throttle: throttle))
-        self.dispatch(GetNearestPlaces(location: coordinates, throttle: throttle))
-        //self.dispatch(GetPopularPlaces())     / This gets called by GetCurrentCity
+        self.rootView.didTapLocationButton = { [unowned self] in
+            self.dispatch(SetMapCentered(value: true))
+        }
     }
 }
 
@@ -75,9 +71,11 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
 extension AttractionsViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("[didUpdateLocations]: \(locations)")
-        if self.localState.mapCentered {
+        if self.state.locationState.mapCentered {
             guard let location = locations.first else { return }
-            self.updateLocationInfo(location.coordinate, throttle: true)
+            self.dispatch(SetActualLocation(location: location.coordinate))
+            self.dispatch(GetCurrentCity(throttle: true))   // Also calls GetPopularPlaces
+            self.dispatch(GetNearestPlaces(location: location.coordinate, throttle: true))
             self.locationBasedNotification(lastCoordinates: location.coordinate)
         }
     }
@@ -97,11 +95,13 @@ extension AttractionsViewController: CLLocationManagerDelegate {
 
 extension AttractionsViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
-        self.localState.mapCentered = !gesture      // If the user moved the map (gesture = true), than the map is not centered anymore
+        self.dispatch(SetMapCentered(value: !gesture))      // If the user moved the map (gesture = true), than the map is not centered anymore
     }
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        self.updateLocationInfo(position.target, throttle: false)
+        self.dispatch(SetMapLocation(location: position.target))
+        self.dispatch(GetCurrentCity(throttle: false))   // Also calls GetPopularPlaces
+        self.dispatch(GetNearestPlaces(location: position.target, throttle: false))
     }
 }
 
@@ -132,7 +132,6 @@ extension AttractionsViewController: RoutableWithConfiguration {
 struct AttractionsLocalState: LocalState {
     var cardState: CardState = .collapsed
     var animate: Bool = false
-    var mapCentered: Bool = true
     var selectedSegmentIndex: Int = 0
 }
 
