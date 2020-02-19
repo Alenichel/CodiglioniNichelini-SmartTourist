@@ -42,7 +42,7 @@ class MapView: UIView, ViewControllerModellableView {
     var locationButton = RoundedButton()
     var lastLittleCircle: GMSCircle?
     var lastBigCircle: GMSCircle?
-    var locationMarker: GMSMarker!
+    var locationMarker = GMSMarker()
     var topBlurEffect = UIVisualEffectView(effect: UIBlurEffect(style: UITraitCollection.current.userInterfaceStyle == .dark ? .dark : .light))
     var listCardView = ListCardView()
     
@@ -66,7 +66,6 @@ class MapView: UIView, ViewControllerModellableView {
         self.cityNameLabel.on(.touchUpInside) { button in
             self.didTapLocationName?()
         }
-        self.locationMarker = GMSMarker()
         self.locationMarker.map = self.mapView
         self.addSubview(self.mapView)
         self.addSubview(self.locationButton)
