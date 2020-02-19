@@ -52,6 +52,7 @@ struct SetCurrentCity: StateUpdater {
     
     func updateState(_ state: inout AppState) {
         state.locationState.currentCity = city
+        state.locationState.selectedCity = city
     }
 }
 
@@ -62,6 +63,15 @@ struct SetCurrentCityLastUpdate: StateUpdater {
     func updateState(_ state: inout AppState) {
         state.locationState.currentCityLastUpdate = lastUpdate
     }
+}
+
+struct SetSelectedCity: StateUpdater {
+    let selectedCity: String?
+    
+    func updateState(_ state: inout AppState) {
+        state.locationState.selectedCity = selectedCity
+    }
+    
 }
 
 

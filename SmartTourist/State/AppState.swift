@@ -39,6 +39,7 @@ struct LocationState {
     
     var currentCity: String?
     var currentCityLastUpdate: Date = initDate
+    var selectedCity: String?
 
     var nearestPlaces: [GPPlace] = [GPPlace]()
     var nearestPlacesLastUpdate: Date = initDate
