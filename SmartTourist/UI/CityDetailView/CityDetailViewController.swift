@@ -9,13 +9,15 @@ import UIKit
 import Katana
 import Tempura
 
-class CityDetailViewController: ViewControllerWithLocalState<CityDetailView> {
+
+class CityDetailViewController: ViewController<CityDetailView> {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
     override func setupInteraction() {}
 }
+
 
 extension CityDetailViewController: RoutableWithConfiguration {
     var routeIdentifier: RouteElementIdentifier {
@@ -29,6 +31,3 @@ extension CityDetailViewController: RoutableWithConfiguration {
     }
 }
 
-struct CityDetailLocalState: LocalState {
-    
-}

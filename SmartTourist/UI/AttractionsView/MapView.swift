@@ -46,7 +46,8 @@ class MapView: UIView, ViewControllerModellableView {
     var listCardView = ListCardView()
     
     // MARK: - Interactions
-    var didTapLocationName: (() -> Void)?
+    var didTapLocationName: Interaction?
+    var didTapLocationButton: Interaction?
     
     // MARK: Setup
     func setup() {
@@ -57,12 +58,12 @@ class MapView: UIView, ViewControllerModellableView {
         self.mapView.delegate = self.viewController as? AttractionsViewController
         self.locationButton.tintColor = .label
         self.locationButton.on(.touchUpInside) { button in
+            self.didTapLocationButton?()
             self.centerMap()
         }
         self.cityNameLabel.frame = CGRect(x: 100, y: 100, width: 100, height: 50)
-        //.cityNameLabel.translatesAutoresizingMaskIntoConstraints = false
         self.cityNameLabel.on(.touchUpInside) { button in
-            self.didTapLocationName!()
+            self.didTapLocationName?()
         }
         self.addSubview(self.mapView)
         self.addSubview(self.locationButton)

@@ -14,14 +14,14 @@ import CoreLocation
 import GoogleMaps
 
 
-struct CityDetailViewModel: ViewModelWithLocalState {
+struct CityDetailViewModel: ViewModelWithState {
     let currentCity: String
     
-    init?(state: AppState?, localState: CityDetailLocalState){
-        guard let state = state else {  return nil }
+    init(state: AppState) {
         self.currentCity = state.locationState.currentCity ?? "Atlantide"
     }
 }
+
 
 class CityDetailView: UIView, ViewControllerModellableView {
     var placeHolderText = UILabel()
@@ -45,5 +45,4 @@ class CityDetailView: UIView, ViewControllerModellableView {
         guard let model = self.model else { return }
         self.placeHolderText.text = model.currentCity
     }
-    
 }

@@ -420,8 +420,8 @@
 		E5AFC89923F9B006007B9887 /* CityDetailView */ = {
 			isa = PBXGroup;
 			children = (
-				E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */,
 				E5AFC89B23F9B006007B9887 /* CityDetailView.swift */,
+				E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */,
 			);
 			name = CityDetailView;
 			path = SmartTourist/UI/CityDetailView;

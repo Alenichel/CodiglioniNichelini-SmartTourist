@@ -55,14 +55,19 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
             }
             self.dispatch(Show(Screen.detail, animated: true, context: id))
         }
-        
         self.rootView.listCardView.didChangeSegmentedValue = { [unowned self] index in
             self.localState.selectedSegmentIndex = index
         }
-        
-        self.rootView.didTapLocationName = { 
+        self.rootView.didTapLocationName = { [unowned self] in
             self.dispatch(Show(Screen.cityDetail, animated: true, context: nil))
         }
+    }
+    
+    private func updateLocationInfo(_ coordinates: CLLocationCoordinate2D, throttle: Bool) {
+        self.dispatch(SetCurrentLocation(location: coordinates))
+        self.dispatch(GetCurrentCity(throttle: throttle))
+        self.dispatch(GetNearestPlaces(location: coordinates, throttle: throttle))
+        //self.dispatch(GetPopularPlaces())     / This gets called by GetCurrentCity
     }
 }
 
@@ -70,18 +75,16 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
 extension AttractionsViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("[didUpdateLocations]: \(locations)")
-        if let location = locations.first {
-            self.dispatch(SetCurrentLocation(location: location.coordinate))
-            self.dispatch(GetCurrentCity())
-            self.dispatch(GetNearestPlaces(location: location.coordinate))
-            //self.dispatch(GetPopularPlaces())     / This gets called by GetCurrentCity
-            locationBasedNotification(lastCoordinates: location.coordinate)
+        if self.localState.mapCentered {
+            guard let location = locations.first else { return }
+            self.updateLocationInfo(location.coordinate, throttle: true)
+            self.locationBasedNotification(lastCoordinates: location.coordinate)
         }
     }
     
     func locationBasedNotification(lastCoordinates: CLLocationCoordinate2D){
         let current = CLLocation(latitude: lastCoordinates.latitude, longitude: lastCoordinates.longitude)
-        self.state.locationState.popularPlaces.forEach{place in
+        self.state.locationState.popularPlaces.forEach { place in
             let target = CLLocation(latitude: place.location.latitude, longitude: place.location.longitude)
             let distance = Int(current.distance(from: target).rounded())
             if distance < notificationTriggeringDistance {
@@ -95,6 +98,10 @@ extension AttractionsViewController: CLLocationManagerDelegate {
 extension AttractionsViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
         self.localState.mapCentered = !gesture      // If the user moved the map (gesture = true), than the map is not centered anymore
+    }
+    
+    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+        self.updateLocationInfo(position.target, throttle: false)
     }
 }
 
@@ -115,7 +122,7 @@ extension AttractionsViewController: RoutableWithConfiguration {
                 return AttractionDetailViewController(store: self.store, localState: AttractionDetailLocalState(attraction: context as! GPPlace))
             }),
             .show(Screen.cityDetail): .push({ [unowned self] context in
-                return CityDetailViewController(store: self.store, localState: CityDetailLocalState())
+                return CityDetailViewController(store: self.store)
             })
         ]
     }
