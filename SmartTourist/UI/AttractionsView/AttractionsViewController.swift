@@ -100,8 +100,10 @@ extension AttractionsViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
         self.dispatch(SetMapLocation(location: position.target))
-        self.dispatch(GetCurrentCity(throttle: false))   // Also calls GetPopularPlaces
-        self.dispatch(GetNearestPlaces(location: position.target, throttle: false))
+        if !self.state.locationState.mapCentered {
+            self.dispatch(GetCurrentCity(throttle: false))   // Also calls GetPopularPlaces
+            self.dispatch(GetNearestPlaces(location: position.target, throttle: false))
+        }
     }
     
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
