@@ -103,6 +103,10 @@ extension AttractionsViewController: GMSMapViewDelegate {
         self.dispatch(GetCurrentCity(throttle: false))   // Also calls GetPopularPlaces
         self.dispatch(GetNearestPlaces(location: position.target, throttle: false))
     }
+    
+    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
+        self.dispatch(SetMapLocation(location: position.target))
+    }
 }
 
 

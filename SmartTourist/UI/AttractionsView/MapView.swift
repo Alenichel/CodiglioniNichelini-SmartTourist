@@ -91,6 +91,7 @@ class MapView: UIView, ViewControllerModellableView {
         self.locationButton.layer.shadowRadius = 4
         self.locationMarker.icon = UIImage(systemName: "smallcircle.fill.circle")
         self.locationMarker.tracksViewChanges = true
+        self.locationMarker.opacity = 0
     }
     
     // MARK: Layout subviews
