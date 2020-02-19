@@ -10,6 +10,7 @@ import CoreLocation
 import Tempura
 import GoogleMaps
 
+var justVisitedPlaces: [GPPlace] = []
 
 class AttractionsViewController: ViewControllerWithLocalState<MapView> {
     override func viewWillAppear(_ animated: Bool) {
@@ -83,10 +84,13 @@ extension AttractionsViewController: CLLocationManagerDelegate {
     func locationBasedNotification(lastCoordinates: CLLocationCoordinate2D){
         let current = CLLocation(latitude: lastCoordinates.latitude, longitude: lastCoordinates.longitude)
         self.state.locationState.popularPlaces.forEach { place in
-            let target = CLLocation(latitude: place.location.latitude, longitude: place.location.longitude)
-            let distance = Int(current.distance(from: target).rounded())
-            if distance < notificationTriggeringDistance {
-                NotificationManager.shared.scheduleNotification(body: "You are near a top location: \(place.name)")
+            if !justVisitedPlaces.contains(place) {
+                let target = CLLocation(latitude: place.location.latitude, longitude: place.location.longitude)
+                let distance = Int(current.distance(from: target).rounded())
+                if distance < notificationTriggeringDistance {
+                    NotificationManager.shared.scheduleNotification(body: "You are near a top location: \(place.name)")
+                    justVisitedPlaces.append(place)
+                }
             }
         }
     }
