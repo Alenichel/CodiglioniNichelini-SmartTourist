@@ -42,6 +42,7 @@ class MapView: UIView, ViewControllerModellableView {
     var locationButton = RoundedButton()
     var lastLittleCircle: GMSCircle?
     var lastBigCircle: GMSCircle?
+    var locationMarker: GMSMarker!
     var topBlurEffect = UIVisualEffectView(effect: UIBlurEffect(style: UITraitCollection.current.userInterfaceStyle == .dark ? .dark : .light))
     var listCardView = ListCardView()
     
@@ -65,6 +66,8 @@ class MapView: UIView, ViewControllerModellableView {
         self.cityNameLabel.on(.touchUpInside) { button in
             self.didTapLocationName?()
         }
+        self.locationMarker = GMSMarker()
+        self.locationMarker.map = self.mapView
         self.addSubview(self.mapView)
         self.addSubview(self.locationButton)
         self.addSubview(self.topBlurEffect)
@@ -86,6 +89,8 @@ class MapView: UIView, ViewControllerModellableView {
         self.locationButton.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 1 : 0.75
         self.locationButton.layer.shadowOffset = .zero
         self.locationButton.layer.shadowRadius = 4
+        self.locationMarker.icon = UIImage(systemName: "smallcircle.fill.circle")
+        self.locationMarker.tracksViewChanges = true
     }
     
     // MARK: Layout subviews
@@ -115,9 +120,13 @@ class MapView: UIView, ViewControllerModellableView {
         self.listCardView.model = listCardViewModel
         self.locationButton.setImage(UIImage(systemName: model.mapCentered ? "location.fill" : "location"), for: .normal)
         if let location = model.currentLocation {
+            self.locationMarker.position = location
             self.mapView.isMyLocationEnabled = true
             if model.mapCentered {
+                self.locationMarker.opacity = 0
                 self.centerMap()
+            } else {
+                self.locationMarker.opacity = 1
             }
             if let lastLittleCircle = self.lastLittleCircle {
                 lastLittleCircle.map = nil

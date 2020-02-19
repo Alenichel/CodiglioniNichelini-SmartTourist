@@ -8,6 +8,6 @@
 import Foundation
 
 
-let timeBeforeNewApiCall: Double = 30   // seconds
+let apiThrottleTime: Double = 30   // seconds
 let notificationTriggeringDistance = 250    // meters
 
