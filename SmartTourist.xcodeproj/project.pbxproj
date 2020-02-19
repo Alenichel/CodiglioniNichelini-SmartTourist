@@ -367,11 +367,11 @@
 			isa = PBXGroup;
 			children = (
 				E5335CFD238981D000601F02 /* AppState.swift */,
+				E5D1474923AB747300649C87 /* Model.swift */,
 				E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */,
 				E585FCA4238ADEF3008D7C86 /* SideEffects.swift */,
 				E54E01BA23996839009D0331 /* Interceptors.swift */,
 				E54E01B323996806009D0331 /* Persistable.swift */,
-				E5D1474923AB747300649C87 /* Model.swift */,
 				E555704823F7001E0039679D /* Constants.swift */,
 			);
 			path = State;
