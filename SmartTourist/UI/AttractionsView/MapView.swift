@@ -49,7 +49,7 @@ class MapView: UIView, ViewControllerModellableView {
     var locationButton = RoundedButton()
     var littleCircle = GMSCircle()
     var bigCircle = GMSCircle()
-    var locationMarker = GMSMarker()
+    var locationMarker = GMSCircle()
     var topBlurEffect = UIVisualEffectView(effect: UIBlurEffect(style: UITraitCollection.current.userInterfaceStyle == .dark ? .dark : .light))
     var listCardView = ListCardView()
     
@@ -94,9 +94,6 @@ class MapView: UIView, ViewControllerModellableView {
         self.locationButton.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 1 : 0.75
         self.locationButton.layer.shadowOffset = .zero
         self.locationButton.layer.shadowRadius = 4
-        self.locationMarker.icon = UIImage(systemName: "smallcircle.fill.circle")
-        self.locationMarker.tracksViewChanges = true
-        self.locationMarker.opacity = 0
     }
     
     // MARK: Layout subviews
@@ -128,12 +125,15 @@ class MapView: UIView, ViewControllerModellableView {
         if let location = model.currentLocation {
             self.mapView.isMyLocationEnabled = true
             self.locationMarker.position = location
+            self.locationMarker.radius = 819200.0 * pow(2, -Double(self.mapView.camera.zoom))
             self.locationMarker.map = self.mapView
             if model.mapCentered {
-                self.locationMarker.opacity = 0
+                self.locationMarker.strokeColor = .clear
+                self.locationMarker.fillColor = .clear
                 self.centerMap()
             } else {
-                self.locationMarker.opacity = 1
+                self.locationMarker.strokeColor = .label
+                self.locationMarker.fillColor = .label
             }
             self.littleCircle.position = location
             self.littleCircle.radius = littleCircleRadius
