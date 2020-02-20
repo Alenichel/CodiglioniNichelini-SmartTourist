@@ -37,7 +37,7 @@ struct AttractionsViewModel: ViewModelWithLocalState {
 
 class MapView: UIView, ViewControllerModellableView {
     // MARK: Subviews
-    var cityNameLabel = UIButton()
+    var cityNameButton = UIButton()
     var mapView: GMSMapView!
     var locationButton = RoundedButton()
     var littleCircle = GMSCircle()
@@ -62,15 +62,15 @@ class MapView: UIView, ViewControllerModellableView {
             self.didTapLocationButton?()
             self.centerMap()
         }
-        self.cityNameLabel.frame = CGRect(x: 100, y: 100, width: 100, height: 50)
-        self.cityNameLabel.on(.touchUpInside) { button in
+        self.cityNameButton.frame = CGRect(x: 100, y: 100, width: 100, height: 50)
+        self.cityNameButton.on(.touchUpInside) { button in
             self.didTapLocationName?()
         }
         self.addSubview(self.mapView)
         self.addSubview(self.locationButton)
         self.addSubview(self.topBlurEffect)
         self.addSubview(self.listCardView)
-        self.addSubview(self.cityNameLabel)
+        self.addSubview(self.cityNameButton)
         self.listCardView.setup()
         self.listCardView.style()
     }
@@ -78,9 +78,9 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Style
     func style() {
         self.backgroundColor = .systemBackground
-        self.cityNameLabel.setTitleColor(UIColor.black, for: .normal)
-        self.cityNameLabel.titleLabel!.font = UIFont.systemFont(ofSize: 32, weight: .bold)
-        self.cityNameLabel.contentHorizontalAlignment = .left
+        self.cityNameButton.setTitleColor(.label, for: .normal)
+        self.cityNameButton.titleLabel?.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+        self.cityNameButton.contentHorizontalAlignment = .left
         self.locationButton.backgroundColor = .systemBackground
         self.locationButton.layer.cornerRadius = 20
         self.locationButton.layer.shadowColor = UIColor.black.cgColor
@@ -96,9 +96,9 @@ class MapView: UIView, ViewControllerModellableView {
     override func layoutSubviews() {
         super.layoutSubviews()
         //self.cityNameLabel.sizeToFit()
-        self.cityNameLabel.pin.topLeft().size(50)
+        self.cityNameButton.pin.topLeft().size(50)
         self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height * 0.70)
-        self.cityNameLabel.pin.top(5.5%).left(2%).right()
+        self.cityNameButton.pin.top(5.5%).left(2%).right()
         self.topBlurEffect.pin.top().left().right().bottom(94.5%)
         self.layoutCardView()
     }
@@ -138,7 +138,7 @@ class MapView: UIView, ViewControllerModellableView {
             self.bigCircle.map = self.mapView
         }
         if let city = model.currentCity {
-            self.cityNameLabel.setTitle(city, for: .normal)
+            self.cityNameButton.setTitle(city, for: .normal)
         }
         if model.animateCard {
             UIView.animate(withDuration: 0.5) {
