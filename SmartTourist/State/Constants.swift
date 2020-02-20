@@ -13,3 +13,9 @@ let notificationTriggeringDistance = 250    // meters
 let littleCircleRadius: Double = 200    // meters
 let bigCircleRadius: Double = 800   //meters
 
+
+enum SelectedPlaceList: Int {
+    case nearest = 0
+    case popular = 1
+    case favorites = 2
+}

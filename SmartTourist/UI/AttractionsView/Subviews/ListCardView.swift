@@ -21,7 +21,7 @@ struct ListCardViewModel: ViewModel {
 
 class ListCardView: UIView, ModellableView {
     var handle = UIButton(type: .system)
-    var chooser = UISegmentedControl(items: ["Nearest", "Popular"])
+    var chooser = UISegmentedControl(items: ["Nearest", "Popular", "Favorites"])
     var scrollView = UIScrollView()
     var attractionListView: CollectionView<AttractionCell, SimpleSource<AttractionCellViewModel>>!
     var emptyLabel = UILabel()

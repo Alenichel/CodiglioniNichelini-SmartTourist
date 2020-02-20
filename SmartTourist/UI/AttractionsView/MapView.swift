@@ -23,7 +23,14 @@ struct AttractionsViewModel: ViewModelWithLocalState {
     
     init?(state: AppState?, localState: AttractionsLocalState) {
         guard let state = state else { return nil }
-        self.places = localState.selectedSegmentIndex == 0 ? state.locationState.nearestPlaces : state.locationState.popularPlaces
+        switch localState.selectedSegmentIndex {
+        case .nearest:
+            self.places = state.locationState.nearestPlaces
+        case .popular:
+            self.places = state.locationState.popularPlaces
+        case .favorites:
+            self.places = state.favorites
+        }
         self.currentLocation = state.locationState.currentLocation
         self.currentCity = state.locationState.currentCity
         self.cardState = localState.cardState

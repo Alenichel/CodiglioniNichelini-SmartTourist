@@ -57,7 +57,7 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
             self.dispatch(Show(Screen.detail, animated: true, context: id))
         }
         self.rootView.listCardView.didChangeSegmentedValue = { [unowned self] index in
-            self.localState.selectedSegmentIndex = index
+            self.localState.selectedSegmentIndex = SelectedPlaceList(rawValue: index)!
         }
         self.rootView.didTapLocationName = { [unowned self] in
             self.dispatch(Show(Screen.cityDetail, animated: true, context: nil))
@@ -142,7 +142,7 @@ extension AttractionsViewController: RoutableWithConfiguration {
 struct AttractionsLocalState: LocalState {
     var cardState: CardState = .collapsed
     var animate: Bool = false
-    var selectedSegmentIndex: Int = 0
+    var selectedSegmentIndex: SelectedPlaceList = .nearest
 }
 
 
