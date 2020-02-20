@@ -71,7 +71,6 @@ struct SetSelectedCity: StateUpdater {
     func updateState(_ state: inout AppState) {
         state.locationState.selectedCity = selectedCity
     }
-    
 }
 
 

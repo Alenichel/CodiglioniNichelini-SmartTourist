@@ -39,13 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         completionHandler([.alert, .badge, .sound])
     }
     
-    // app becomes active
-    // this method is called on first launch when app was closed / killed and every time app is reopened or change status from background to foreground (ex. mobile call)
+    // App becomes active
+    // This method is called on first launch when app was closed / killed and every time app is reopened or change status from background to foreground (ex. mobile call)
     func applicationDidBecomeActive(_ application: UIApplication) {
-        justVisitedPlaces.forEach{ place in
-            justVisitedPlaces.removeFirst(justVisitedPlaces.count - 1)
-        }
-        
+        justVisitedPlaces.removeFirst(justVisitedPlaces.count - 1)
     }
 }
 
