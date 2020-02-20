@@ -135,6 +135,11 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         self.distanceLabel.text = "\(model.distance) m"
         self.setNeedsLayout()
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        self.cosmos.settings.filledImage = UIImage(systemName: "star.fill")?.maskWithColor(color: .label)
+        self.cosmos.settings.emptyImage = UIImage(systemName: "star")?.maskWithColor(color: .label)
+    }
 }
 
 
