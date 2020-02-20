@@ -40,8 +40,8 @@ class MapView: UIView, ViewControllerModellableView {
     var cityNameLabel = UIButton()
     var mapView: GMSMapView!
     var locationButton = RoundedButton()
-    var lastLittleCircle: GMSCircle?
-    var lastBigCircle: GMSCircle?
+    var littleCircle = GMSCircle()
+    var bigCircle = GMSCircle()
     var locationMarker = GMSMarker()
     var topBlurEffect = UIVisualEffectView(effect: UIBlurEffect(style: UITraitCollection.current.userInterfaceStyle == .dark ? .dark : .light))
     var listCardView = ListCardView()
@@ -66,7 +66,6 @@ class MapView: UIView, ViewControllerModellableView {
         self.cityNameLabel.on(.touchUpInside) { button in
             self.didTapLocationName?()
         }
-        self.locationMarker.map = self.mapView
         self.addSubview(self.mapView)
         self.addSubview(self.locationButton)
         self.addSubview(self.topBlurEffect)
@@ -120,30 +119,23 @@ class MapView: UIView, ViewControllerModellableView {
         self.listCardView.model = listCardViewModel
         self.locationButton.setImage(UIImage(systemName: model.mapCentered ? "location.fill" : "location"), for: .normal)
         if let location = model.currentLocation {
-            self.locationMarker.position = location
             self.mapView.isMyLocationEnabled = true
+            self.locationMarker.position = location
+            self.locationMarker.map = self.mapView
             if model.mapCentered {
                 self.locationMarker.opacity = 0
                 self.centerMap()
             } else {
                 self.locationMarker.opacity = 1
             }
-            if let lastLittleCircle = self.lastLittleCircle {
-                lastLittleCircle.map = nil
-            }
-            if let lastBigCircle = self.lastBigCircle {
-                lastBigCircle.map = nil
-            }
-            let littleCircle = GMSCircle(position: location, radius: littleCircleRadius)
-            let bigCircle = GMSCircle(position: location, radius: bigCircleRadius)
-            if traitCollection.userInterfaceStyle == .dark{
-                littleCircle.strokeColor = .white
-                bigCircle.strokeColor = .white
-            }
-            littleCircle.map = self.mapView
-            bigCircle.map = self.mapView
-            self.lastLittleCircle = littleCircle
-            self.lastBigCircle = bigCircle
+            self.littleCircle.position = location
+            self.littleCircle.radius = littleCircleRadius
+            self.bigCircle.position = location
+            self.bigCircle.radius = bigCircleRadius
+            self.littleCircle.strokeColor = .label
+            self.bigCircle.strokeColor = .label
+            self.littleCircle.map = self.mapView
+            self.bigCircle.map = self.mapView
         }
         if let city = model.currentCity {
             self.cityNameLabel.setTitle(city, for: .normal)
