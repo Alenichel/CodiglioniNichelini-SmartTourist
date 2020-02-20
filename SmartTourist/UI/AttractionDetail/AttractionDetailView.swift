@@ -20,6 +20,7 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
     let nRatings: String
     let wikipediaSearchTerms: String
     let currentLocation: CLLocationCoordinate2D
+    let favorite: Bool
     
     init?(state: AppState?, localState: AttractionDetailLocalState) {
         guard let state = state else { return nil }
@@ -36,11 +37,15 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
         }
         self.wikipediaSearchTerms = self.attraction.name
         self.currentLocation = state.locationState.currentLocation!
+        self.favorite = state.favorites.contains(attraction)
     }
 }
 
 
 class AttractionDetailView: UIView, ViewControllerModellableView {
+    private static let isFavoriteImage = UIImage(systemName: "heart.fill")
+    private static let isNotFavoriteImage = UIImage(systemName: "heart")
+    
     var descriptionText = UITextView()
     var nRatingsLabel = UILabel()
     var cosmos = CosmosView(frame: .zero)
@@ -49,6 +54,9 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     var lineView = UIView()
     var scrollView = UIScrollView()
     var mapView = GMSMapView()
+    var favoriteButton = UIBarButtonItem()
+    
+    var didTapFavoriteButton: ((GPPlace) -> Void)?
     
     func setup() {
         self.addSubview(self.scrollView)
@@ -59,6 +67,11 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.containerView.addSubview(self.lineView)
         self.containerView.addSubview(self.nRatingsLabel)
         self.containerView.addSubview(self.mapView)
+        self.navigationItem?.rightBarButtonItem = self.favoriteButton
+        self.favoriteButton.onTap { button in
+            guard let model = self.model else { return }
+            self.didTapFavoriteButton?(model.attraction)
+        }
     }
     
     func style() {
@@ -129,6 +142,12 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         
         let marker = GMSMarker(position: model.attraction.location)
         marker.map = self.mapView
+        
+        if model.favorite {
+            self.favoriteButton.image = AttractionDetailView.isFavoriteImage
+        } else {
+            self.favoriteButton.image = AttractionDetailView.isNotFavoriteImage
+        }
         
         self.setNeedsLayout()
     }

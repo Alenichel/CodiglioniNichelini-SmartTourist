@@ -15,7 +15,16 @@ class AttractionDetailViewController: ViewControllerWithLocalState<AttractionDet
         super.viewDidLoad()
         self.navigationItem.title = self.localState.attraction.name
     }
-    override func setupInteraction() {}
+    
+    override func setupInteraction() {
+        self.rootView.didTapFavoriteButton = { [unowned self] place in
+            if self.state.favorites.contains(place) {
+                self.dispatch(RemoveFavorite(place: place))
+            } else {
+                self.dispatch(AddFavorite(place: place))
+            }
+        }
+    }
 }
 
 
@@ -34,5 +43,4 @@ extension AttractionDetailViewController: RoutableWithConfiguration {
 
 struct AttractionDetailLocalState: LocalState {
     var attraction: GPPlace
-    var attractionImage: UIImage?
 }
