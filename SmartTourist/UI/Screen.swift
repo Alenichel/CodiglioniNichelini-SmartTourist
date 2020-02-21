@@ -14,4 +14,5 @@ enum Screen: String {
     case detail
     case test
     case cityDetail
+    case citySelection
 }

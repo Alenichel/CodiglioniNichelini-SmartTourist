@@ -28,6 +28,8 @@ struct CityDetailViewModel: ViewModelWithState {
 
 
 class CityDetailView: UIView, ViewControllerModellableView {
+    let icon = UIImage(systemName: "magnifyingglass")
+    
     var cityNameLabel = UILabel()
     var mapView = GMSMapView()
     var descriptionText = UITextView()
@@ -40,11 +42,11 @@ class CityDetailView: UIView, ViewControllerModellableView {
         self.addSubview(self.cityNameLabel)
         self.addSubview(descriptionText)
         
-        self.changeCityButton.title = "Change city"
+        self.changeCityButton.image = self.icon
         self.changeCityButton.style = .plain
         self.navigationItem?.rightBarButtonItem = self.changeCityButton
         self.changeCityButton.onTap { button in
-            self.didTapChangeCityButton
+            self.didTapChangeCityButton?()
         }
     }
     
