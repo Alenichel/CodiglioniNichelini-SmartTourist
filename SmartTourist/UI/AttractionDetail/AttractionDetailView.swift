@@ -108,7 +108,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.nRatingsLabel.pin.after(of: self.cosmos, aligned: .center).marginLeft(5)
         self.lineView.pin.below(of: self.cosmos).horizontally(7).height(1).marginTop(15)
         self.descriptionText.sizeToFit()
-        let textContentHeight = self.descriptionText.contentSize.height / 30
+        let textContentHeight = self.descriptionText.contentSize.height / 10
         self.descriptionText.pin.horizontally(20).below(of: self.lineView).marginTop(5).height(textContentHeight)
         self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 300)
         self.mapView.pin.horizontally(20).below(of: descriptionText).marginTop(20)
@@ -131,7 +131,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         }
         self.imageView.setImage(model.photo)
         self.nRatingsLabel.text = model.nRatings
-        self.descriptionText.setText(coordinates: model.currentLocation, searchTerms: model.wikipediaSearchTerms) {
+        self.descriptionText.setText(searchTerms: model.wikipediaSearchTerms) {
             self.setNeedsLayout()
         }
         
