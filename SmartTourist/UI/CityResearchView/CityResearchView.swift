@@ -23,17 +23,14 @@ struct CityResearchViewModel: ViewModelWithLocalState {
 }
 
 class CityResearchView: UIView, ViewControllerModellableView {
-    var searchBar = UISearchBar()
+    var resultView: UITextView?
     
     func setup() {
         self.navigationItem?.leftBarButtonItem?.title = ""
-        self.navigationItem!.titleView = searchBar
-        self.addSubview(searchBar)
     }
     
     func style(){
         self.backgroundColor = .systemBackground
-        searchBar.sizeToFit()
     }
     
     override func layoutSubviews() {
