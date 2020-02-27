@@ -283,10 +283,18 @@
 		99C26FDE24003A0900F57030 /* CityResearchView */ = {
 			isa = PBXGroup;
 			children = (
+				99C26FE82400671D00F57030 /* Subviews */,
 				99C26FE424003A4000F57030 /* CityResearchView.swift */,
 				99C26FE624003A5600F57030 /* CityResearchViewController.swift */,
 			);
 			path = CityResearchView;
+			sourceTree = "<group>";
+		};
+		99C26FE82400671D00F57030 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		E29D77648F2366C0DE89CACB /* Frameworks */ = {
@@ -1020,7 +1028,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SM32T6M59X;
+				DEVELOPMENT_TEAM = 3E65HHUN9M;
 				INFOPLIST_FILE = SmartTourist/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1040,7 +1048,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SM32T6M59X;
+				DEVELOPMENT_TEAM = 3E65HHUN9M;
 				INFOPLIST_FILE = SmartTourist/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
