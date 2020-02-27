@@ -18,14 +18,19 @@ class CityResearchViewController: ViewController<CityResearchView> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let filter = GMSAutocompleteFilter()
+        filter.type = .city
+        
         resultsViewController = GMSAutocompleteResultsViewController()
+        resultsViewController?.autocompleteFilter = filter
         resultsViewController?.delegate = self as? GMSAutocompleteResultsViewControllerDelegate
         searchController = UISearchController(searchResultsController: resultsViewController)
         searchController?.searchResultsUpdater = resultsViewController
         
-        let subView = UIView(frame: CGRect(x: 0, y: 65.0, width: 350.0, height: 45.0))
-        subView.addSubview((searchController?.searchBar)!)
-        self.rootView.addSubview(subView)
+        
+        self.rootView.subView.addSubview((searchController?.searchBar)!)
+        self.rootView.addSubview(self.rootView.subView)
         searchController?.searchBar.sizeToFit()
         searchController?.hidesNavigationBarDuringPresentation = false
 
@@ -44,9 +49,9 @@ extension CityResearchViewController: GMSAutocompleteResultsViewControllerDelega
   func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
                          didAutocompleteWith place: GMSPlace) {
     searchController?.isActive = false
-    // Do something with the selected place.
-    print("Place name: \(String(describing: place.name))")
-  }
+    self.dispatch(SetSelectedCity(selectedCity: place.name))
+    self.dispatch(Hide(Screen.citySelection))
+    }
 
   func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
                          didFailAutocompleteWithError error: Error){
@@ -56,11 +61,11 @@ extension CityResearchViewController: GMSAutocompleteResultsViewControllerDelega
 
   // Turn the network activity indicator on and off again.
   func didRequestAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
-    print("True")
+    print("Selecting")
   }
 
   func didUpdateAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
-    print("False: -> QYUUUU")
+    print("Selected")
   }
 }
 

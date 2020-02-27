@@ -24,6 +24,7 @@ struct CityResearchViewModel: ViewModelWithLocalState {
 
 class CityResearchView: UIView, ViewControllerModellableView {
     var resultView: UITextView?
+    var subView = UIView(frame: CGRect(x: 0, y: 65.0, width: 350.0, height: 45.0))
     
     func setup() {
         self.navigationItem?.leftBarButtonItem?.title = ""
@@ -31,9 +32,11 @@ class CityResearchView: UIView, ViewControllerModellableView {
     
     func style(){
         self.backgroundColor = .systemBackground
+        ////self.subView.backgroundColor = .green
     }
     
     override func layoutSubviews() {
+        //self.subView.pin.all()
         
     }
     
