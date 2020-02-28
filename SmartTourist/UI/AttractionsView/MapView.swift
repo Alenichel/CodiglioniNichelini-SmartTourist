@@ -121,7 +121,13 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Update
     func update(oldModel: AttractionsViewModel?) {
         guard let model = self.model else { return }
-        self.markerPool.setMarkers(places: model.places)
+        if self.mapView.camera.zoom >= 9 {
+            self.markerPool.setMarkers(places: model.places)
+            self.cityNameButton.isHidden = false
+        } else {
+            self.markerPool.setMarkers(places: [])
+            self.cityNameButton.isHidden = true
+        }
         let listCardViewModel = ListCardViewModel(currentLocation: model.location, places: model.places, cardState: model.cardState, favorites: model.favorites)
         self.listCardView.model = listCardViewModel
         self.locationButton.setImage(UIImage(systemName: model.mapCentered ? "location.fill" : "location"), for: .normal)

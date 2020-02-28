@@ -35,6 +35,8 @@ class CityDetailView: UIView, ViewControllerModellableView {
     var containerView = UIView()
     var lineView = UIView()
     
+    var marker = GMSMarker()
+    
     var didTapChangeCityButton: (() -> Void )?
     
     func setup() {
@@ -51,7 +53,6 @@ class CityDetailView: UIView, ViewControllerModellableView {
         self.changeCityButton.onTap { button in
             self.didTapChangeCityButton?()
         }
-        
     }
     
     func style() {
@@ -87,7 +88,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
             self.setNeedsLayout()
         }
         self.cityNameLabel.text = model.city
-        let marker = GMSMarker(position: model.location)
-        marker.map = self.mapView
+        self.marker.position = model.location
+        self.marker.map = self.mapView
     }
 }
