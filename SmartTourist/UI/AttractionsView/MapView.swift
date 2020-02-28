@@ -31,8 +31,8 @@ struct AttractionsViewModel: ViewModelWithLocalState {
         case .favorites:
             self.places = state.favorites
         }
-        self.location = state.locationState.selectedLocation ?? state.locationState.actualLocation
-        self.city = state.locationState.selectedCity ?? state.locationState.actualCity
+        self.location = state.locationState.actualLocation
+        self.city = state.locationState.actualCity
         self.cardState = localState.cardState
         self.cardPercent = localState.cardState.rawValue%
         self.animateCard = localState.animate

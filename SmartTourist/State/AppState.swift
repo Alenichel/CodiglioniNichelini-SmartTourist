@@ -38,9 +38,6 @@ struct LocationState {
         self.mapCentered ? self.actualLocation : self.mapLocation
     }
     
-    var selectedLocation: CLLocationCoordinate2D?
-    var selectedCity: String?
-    
     var nearestPlaces: [GPPlace] = [GPPlace]()
     var nearestPlacesLastUpdate: Date = initDate
 

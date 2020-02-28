@@ -15,14 +15,12 @@ import GoogleMaps
 
 
 struct CityDetailViewModel: ViewModelWithState {
-    let currentCity: String
-    let selectedCity: String
-    let geo: CLLocationCoordinate2D
+    let city: String
+    let location: CLLocationCoordinate2D
     
     init(state: AppState) {
-        self.currentCity = state.locationState.actualCity ?? "Diagon Alley"
-        self.selectedCity = state.locationState.selectedCity ?? "Atlantide"
-        self.geo = state.locationState.selectedLocation ?? state.locationState.currentLocation!
+        self.city = state.locationState.actualCity ?? "Atlantide"
+        self.location = state.locationState.actualLocation!
     }
 }
 
@@ -85,13 +83,13 @@ class CityDetailView: UIView, ViewControllerModellableView {
     
     func update(oldModel: CityDetailViewModel?){
         guard let model = self.model else { return }
-        let camera = GMSCameraPosition.camera(withTarget: model.geo, zoom: 4)
+        let camera = GMSCameraPosition.camera(withTarget: model.location, zoom: 4)
         self.mapView.camera = camera
-        self.descriptionText.setText(searchTerms: model.selectedCity) {
+        self.descriptionText.setText(searchTerms: model.city) {
             self.setNeedsLayout()
         }
-        self.cityNameLabel.text = model.selectedCity
-        let marker = GMSMarker(position: model.geo)
+        self.cityNameLabel.text = model.city
+        let marker = GMSMarker(position: model.location)
         marker.map = self.mapView
     }
 }

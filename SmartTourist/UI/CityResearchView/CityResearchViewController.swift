@@ -49,8 +49,8 @@ extension CityResearchViewController: GMSAutocompleteResultsViewControllerDelega
   func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
                          didAutocompleteWith place: GMSPlace) {
     searchController?.isActive = false
-    self.dispatch(SetSelectedCity(selectedCity: place.name))
-    self.dispatch(SetSelectedLocation(location: place.coordinate))
+    self.dispatch(SetCurrentCity(city: place.name))
+    self.dispatch(SetActualLocation(location: place.coordinate))
     self.dispatch(Hide(Screen.citySelection))
     }
 
