@@ -13,12 +13,8 @@ import CoreLocation
 import GoogleMaps
 
 struct CityResearchViewModel: ViewModelWithLocalState {
-
-    let selectedCity: String
-    
     init?(state: AppState?, localState: CityResearchLocalState) {
         guard let state = state else { return nil }
-        self.selectedCity = state.locationState.selectedCity!
     }
 }
 

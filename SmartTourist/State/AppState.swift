@@ -29,18 +29,15 @@ struct AppState: State, Codable {
 
 struct LocationState {
     var actualLocation: CLLocationCoordinate2D?
-    var mapLocation: CLLocationCoordinate2D?
+    var actualCity: String?
+    var actualCityLastUpdate: Date = initDate
     
     var mapCentered: Bool = true
-    
+    var mapLocation: CLLocationCoordinate2D?
     var currentLocation: CLLocationCoordinate2D? {
         self.mapCentered ? self.actualLocation : self.mapLocation
     }
     
-    var currentCity: String?
-    var currentCityLastUpdate: Date = initDate
-    var selectedCity: String?
-
     var nearestPlaces: [GPPlace] = [GPPlace]()
     var nearestPlacesLastUpdate: Date = initDate
 

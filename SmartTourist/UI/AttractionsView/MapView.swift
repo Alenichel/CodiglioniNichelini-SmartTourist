@@ -13,8 +13,8 @@ import GoogleMaps
 
 struct AttractionsViewModel: ViewModelWithLocalState {
     let places: [GPPlace]
-    let currentLocation: CLLocationCoordinate2D?
-    let currentCity: String?
+    let location: CLLocationCoordinate2D?
+    let city: String?
     let cardState: CardState
     let cardPercent: Percent
     let animateCard: Bool
@@ -31,8 +31,8 @@ struct AttractionsViewModel: ViewModelWithLocalState {
         case .favorites:
             self.places = state.favorites
         }
-        self.currentLocation = state.locationState.currentLocation
-        self.currentCity = state.locationState.currentCity
+        self.location = state.locationState.actualLocation
+        self.city = state.locationState.actualCity
         self.cardState = localState.cardState
         self.cardPercent = localState.cardState.rawValue%
         self.animateCard = localState.animate
@@ -122,10 +122,10 @@ class MapView: UIView, ViewControllerModellableView {
     func update(oldModel: AttractionsViewModel?) {
         guard let model = self.model else { return }
         self.markerPool.setMarkers(places: model.places)
-        let listCardViewModel = ListCardViewModel(currentLocation: model.currentLocation, places: model.places, cardState: model.cardState, favorites: model.favorites)
+        let listCardViewModel = ListCardViewModel(currentLocation: model.location, places: model.places, cardState: model.cardState, favorites: model.favorites)
         self.listCardView.model = listCardViewModel
         self.locationButton.setImage(UIImage(systemName: model.mapCentered ? "location.fill" : "location"), for: .normal)
-        if let location = model.currentLocation {
+        if let location = model.location {
             self.mapView.isMyLocationEnabled = true
             self.locationMarker.position = location
             self.locationMarker.radius = 819200.0 * pow(2, -Double(self.mapView.camera.zoom))
@@ -147,7 +147,7 @@ class MapView: UIView, ViewControllerModellableView {
             self.littleCircle.map = self.mapView
             self.bigCircle.map = self.mapView
         }
-        if let city = model.currentCity {
+        if let city = model.city {
             self.cityNameButton.setTitle(city, for: .normal)
         }
         if model.animateCard {
@@ -160,7 +160,7 @@ class MapView: UIView, ViewControllerModellableView {
     }
     
     private func centerMap() {
-        guard let model = self.model, let location = model.currentLocation else { return }
+        guard let model = self.model, let location = model.location else { return }
         let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17)
         self.mapView.animate(to: camera)
     }
