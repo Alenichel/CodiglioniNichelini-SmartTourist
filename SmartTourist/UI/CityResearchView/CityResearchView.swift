@@ -41,8 +41,7 @@ class CityResearchView: UIView, ViewControllerModellableView {
     }
     
     func update(oldModel: CityDetailViewModel?) {
-        guard let model = self.model else { return }
-        
+        guard let _ = self.model else { return }
         self.setNeedsLayout()
     }
     

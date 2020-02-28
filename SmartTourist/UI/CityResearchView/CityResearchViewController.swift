@@ -24,7 +24,7 @@ class CityResearchViewController: ViewController<CityResearchView> {
         
         resultsViewController = GMSAutocompleteResultsViewController()
         resultsViewController?.autocompleteFilter = filter
-        resultsViewController?.delegate = self as? GMSAutocompleteResultsViewControllerDelegate
+        resultsViewController?.delegate = self
         searchController = UISearchController(searchResultsController: resultsViewController)
         searchController?.searchResultsUpdater = resultsViewController
         
