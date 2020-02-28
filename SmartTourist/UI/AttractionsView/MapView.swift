@@ -152,6 +152,9 @@ class MapView: UIView, ViewControllerModellableView {
             self.bigCircle.strokeColor = .label
             self.littleCircle.map = self.mapView
             self.bigCircle.map = self.mapView
+            if self.mapView.camera.target != location {
+                self.moveMap(to: location)
+            }
         }
         if let city = model.city {
             self.cityNameButton.setTitle(city, for: .normal)
@@ -165,10 +168,14 @@ class MapView: UIView, ViewControllerModellableView {
         }
     }
     
-    private func centerMap() {
-        guard let model = self.model, let location = model.location else { return }
+    private func moveMap(to location: CLLocationCoordinate2D) {
         let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17)
         self.mapView.animate(to: camera)
+    }
+    
+    private func centerMap() {
+        guard let model = self.model, let location = model.location else { return }
+        self.moveMap(to: location)
     }
     
     private func loadMapStyle() {
