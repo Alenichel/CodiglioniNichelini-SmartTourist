@@ -1,6 +1,6 @@
 [
   {
-    "featureType": "poi.business",
+    "elementType": "labels",
     "stylers": [
       {
         "visibility": "off"
@@ -8,7 +8,15 @@
     ]
   },
   {
-    "featureType": "poi.government",
+    "featureType": "administrative",
+    "stylers": [
+      {
+        "visibility": "on"
+      }
+    ]
+  },
+  {
+    "featureType": "administrative.neighborhood",
     "stylers": [
       {
         "visibility": "off"
@@ -16,35 +24,42 @@
     ]
   },
   {
-    "featureType": "poi.medical",
+    "featureType": "landscape",
     "stylers": [
       {
-        "visibility": "off"
+        "visibility": "on"
       }
     ]
   },
   {
     "featureType": "poi.park",
-    "elementType": "labels.text",
     "stylers": [
       {
-        "visibility": "off"
+        "visibility": "simplified"
       }
     ]
   },
   {
-    "featureType": "poi.school",
+    "featureType": "road",
     "stylers": [
       {
-        "visibility": "off"
+        "visibility": "on"
       }
     ]
   },
   {
-    "featureType": "poi.sports_complex",
+    "featureType": "transit",
     "stylers": [
       {
-        "visibility": "off"
+        "visibility": "simplified"
+      }
+    ]
+  },
+  {
+    "featureType": "water",
+    "stylers": [
+      {
+        "visibility": "simplified"
       }
     ]
   }

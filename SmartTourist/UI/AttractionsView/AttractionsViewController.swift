@@ -59,6 +59,8 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
         }
         self.rootView.didTapLocationButton = { [unowned self] in
             self.dispatch(SetMapCentered(value: true))
+            self.dispatch(GetCurrentCity(throttle: false))   // Also calls GetPopularPlaces
+            self.dispatch(GetNearestPlaces(location: self.state.locationState.actualLocation, throttle: false))
         }
     }
 }
@@ -94,7 +96,7 @@ extension AttractionsViewController: CLLocationManagerDelegate {
 
 extension AttractionsViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
-        self.dispatch(SetMapCentered(value: !gesture))      // If the user moved the map (gesture = true), than the map is not centered anymore
+        if gesture { self.dispatch(SetMapCentered(value: false)) }
     }
     
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
@@ -107,6 +109,11 @@ extension AttractionsViewController: GMSMapViewDelegate {
     
     func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
         self.dispatch(SetMapLocation(location: position.target))
+    }
+    
+    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+        self.dispatch(SetMapCentered(value: false))
+        return false
     }
 }
 

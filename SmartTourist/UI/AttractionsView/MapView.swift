@@ -52,6 +52,7 @@ class MapView: UIView, ViewControllerModellableView {
     var locationMarker = GMSCircle()
     var topBlurEffect = UIVisualEffectView(effect: UIBlurEffect(style: UITraitCollection.current.userInterfaceStyle == .dark ? .dark : .light))
     var listCardView = ListCardView()
+    var markerPool: GMSMarkerPool!
     
     // MARK: - Interactions
     var didTapLocationName: Interaction?
@@ -73,6 +74,7 @@ class MapView: UIView, ViewControllerModellableView {
         self.cityNameButton.on(.touchUpInside) { button in
             self.didTapLocationName?()
         }
+        self.markerPool = GMSMarkerPool(mapView: self.mapView)
         self.addSubview(self.mapView)
         self.addSubview(self.locationButton)
         self.addSubview(self.topBlurEffect)
@@ -119,6 +121,7 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Update
     func update(oldModel: AttractionsViewModel?) {
         guard let model = self.model else { return }
+        self.markerPool.setMarkers(places: model.places)
         let listCardViewModel = ListCardViewModel(currentLocation: model.currentLocation, places: model.places, cardState: model.cardState, favorites: model.favorites)
         self.listCardView.model = listCardViewModel
         self.locationButton.setImage(UIImage(systemName: model.mapCentered ? "location.fill" : "location"), for: .normal)

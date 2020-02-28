@@ -17,6 +17,7 @@ class LocationManager {
 
     func requestAuth() {
         self.lm.requestAlwaysAuthorization()
+        // TODO: This settings should be tweaked to avoid excessive power consumption
         self.lm.desiredAccuracy = kCLLocationAccuracyBest
         self.lm.distanceFilter = 100
     }

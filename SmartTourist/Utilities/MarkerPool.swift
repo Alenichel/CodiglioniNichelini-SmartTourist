@@ -11,26 +11,42 @@ import GoogleMaps
 
 class GMSMarkerPool {
     private var pool = [GMSMarker]()
+    private var cache = [CLLocationCoordinate2D: GMSMarker]()
     private var mapView: GMSMapView
     
     init(mapView: GMSMapView) {
         self.mapView = mapView
     }
     
-    func get(position: CLLocationCoordinate2D) -> GMSMarker {
-        var marker: GMSMarker
-        if self.pool.isEmpty {
-            marker = GMSMarker(position: position)
-        } else {
-            marker = self.pool.remove(at: 0)
-            marker.position = position
+    func setMarkers(places: [GPPlace]) {
+        let coordinates = places.map { $0.location }
+        self.cache = self.cache.filter({ entry in
+            let toBeKept = coordinates.contains(entry.key)
+            if !toBeKept { entry.value.map = nil }
+            return toBeKept
+        })
+        places.forEach { place in
+            if !self.cache.keys.contains(place.location) {
+                let marker = GMSMarker(position: place.location)
+                marker.map = self.mapView
+                marker.title = place.name
+                self.cache[place.location] = marker
+            }
         }
-        marker.map = mapView
-        return marker
     }
-    
-    func put(marker: GMSMarker) {
-        marker.map = nil
-        pool.append(marker)
+}
+
+
+extension CLLocationCoordinate2D: Equatable {
+    public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+        return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
+    }
+}
+
+
+extension CLLocationCoordinate2D: Hashable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(self.latitude)
+        hasher.combine(self.longitude)
     }
 }
