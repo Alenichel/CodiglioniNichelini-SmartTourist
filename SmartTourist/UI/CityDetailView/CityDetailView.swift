@@ -20,9 +20,9 @@ struct CityDetailViewModel: ViewModelWithState {
     let geo: CLLocationCoordinate2D
     
     init(state: AppState) {
-        self.currentCity = state.locationState.currentCity ?? "Diagon Alley"
+        self.currentCity = state.locationState.actualCity ?? "Diagon Alley"
         self.selectedCity = state.locationState.selectedCity ?? "Atlantide"
-        self.geo = state.locationState.selectedLocation ?? state.locationState.actualLocation!
+        self.geo = state.locationState.selectedLocation ?? state.locationState.currentLocation!
     }
 }
 
