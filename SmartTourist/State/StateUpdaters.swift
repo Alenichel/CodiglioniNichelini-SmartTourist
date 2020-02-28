@@ -65,6 +65,14 @@ struct SetCurrentCityLastUpdate: StateUpdater {
     }
 }
 
+struct SetSelectedLocation: StateUpdater {
+    let location: CLLocationCoordinate2D?
+    
+    func updateState(_ state: inout AppState) {
+        state.locationState.selectedLocation = location
+    }
+}
+
 struct SetSelectedCity: StateUpdater {
     let selectedCity: String?
     

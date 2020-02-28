@@ -30,6 +30,7 @@ struct AppState: State, Codable {
 struct LocationState {
     var actualLocation: CLLocationCoordinate2D?
     var mapLocation: CLLocationCoordinate2D?
+    var selectedLocation: CLLocationCoordinate2D?
     
     var mapCentered: Bool = true
     
