@@ -70,7 +70,6 @@ class MapView: UIView, ViewControllerModellableView {
             self.didTapLocationButton?()
             self.centerMap()
         }
-        self.cityNameButton.frame = CGRect(x: 100, y: 100, width: 100, height: 50)
         self.cityNameButton.on(.touchUpInside) { button in
             self.didTapLocationName?()
         }
@@ -101,11 +100,10 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Layout subviews
     override func layoutSubviews() {
         super.layoutSubviews()
-        //self.cityNameLabel.sizeToFit()
-        self.cityNameButton.pin.topLeft().size(50)
+        self.cityNameButton.sizeToFit()
         self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height * 0.70)
-        self.cityNameButton.pin.top(5.5%).left(2%).right()
         self.topBlurEffect.pin.top().left().right().bottom(94.5%)
+        self.cityNameButton.pin.below(of: self.topBlurEffect).left(10)
         self.layoutCardView()
     }
     
