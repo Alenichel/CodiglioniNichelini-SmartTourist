@@ -64,6 +64,7 @@
 		E5F971632392D96F0096C296 /* UIView+Blink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9715A2392D96E0096C296 /* UIView+Blink.swift */; };
 		E5F971642392D96F0096C296 /* String+Height.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9715B2392D96E0096C296 /* String+Height.swift */; };
 		E5FDE321238B08A40018D791 /* GoogleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE320238B08A40018D791 /* GoogleAPI.swift */; };
+		E5FF041224095E7000D32EE7 /* MarkerPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF041124095E7000D32EE7 /* MarkerPool.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -201,6 +202,7 @@
 		E5F9715A2392D96E0096C296 /* UIView+Blink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Blink.swift"; sourceTree = "<group>"; };
 		E5F9715B2392D96E0096C296 /* String+Height.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Height.swift"; sourceTree = "<group>"; };
 		E5FDE320238B08A40018D791 /* GoogleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAPI.swift; sourceTree = "<group>"; };
+		E5FF041124095E7000D32EE7 /* MarkerPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerPool.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -462,6 +464,7 @@
 				99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */,
 				99E5BF6E2399C1C6005F0882 /* UITextView+setText.swift */,
 				9930114A23AFED3600909749 /* GMSMapView+loadCustomStyle.swift */,
+				E5FF041124095E7000D32EE7 /* MarkerPool.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -827,6 +830,7 @@
 				E5F9715D2392D96F0096C296 /* String+Random.swift in Sources */,
 				E5335D052389946C00601F02 /* AttractionsViewController.swift in Sources */,
 				992533C4238FF8B800EE479A /* LocationManager.swift in Sources */,
+				E5FF041224095E7000D32EE7 /* MarkerPool.swift in Sources */,
 				E553D14B23926CC600C3199C /* ListCardView.swift in Sources */,
 				E5F9715C2392D96F0096C296 /* UIControl+TargetActionable.swift in Sources */,
 				E5335D032389942D00601F02 /* MapView.swift in Sources */,
