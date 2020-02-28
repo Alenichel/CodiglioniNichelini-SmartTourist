@@ -19,8 +19,8 @@ struct CityDetailViewModel: ViewModelWithState {
     let location: CLLocationCoordinate2D
     
     init(state: AppState) {
-        self.city = state.locationState.actualCity ?? "Atlantide"
-        self.location = state.locationState.actualLocation!
+        self.city = state.locationState.currentCity!
+        self.location = state.locationState.currentLocation!
     }
 }
 
@@ -71,12 +71,10 @@ class CityDetailView: UIView, ViewControllerModellableView {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 250)
-        self.mapView.pin.horizontally(5).topCenter().marginTop(150)
+        self.mapView.pin.horizontally(5).top().marginTop(150)
         self.descriptionText.pin.horizontally(8).below(of: self.mapView).marginTop(5).bottom()
-        
         self.containerView.pin.horizontally().top(115).above(of: self.mapView)
         self.lineView.pin.top().height(1).horizontally(7)
-        
         self.cityNameLabel.sizeToFit()
         self.cityNameLabel.pin.top(self.safeAreaInsets).above(of: containerView).horizontally()
     }

@@ -1,5 +1,5 @@
 //
-//  CityResearchView.swift
+//  CitySearchView.swift
 //  SmartTourist
 //
 //  Created on 21/02/2020
@@ -12,13 +12,13 @@ import PinLayout
 import CoreLocation
 import GoogleMaps
 
-struct CityResearchViewModel: ViewModelWithLocalState {
-    init?(state: AppState?, localState: CityResearchLocalState) {
-        guard let state = state else { return nil }
-    }
+
+struct CitySearchViewModel: ViewModelWithState {
+    init(state: AppState) {}
 }
 
-class CityResearchView: UIView, ViewControllerModellableView {
+
+class CitySearchView: UIView, ViewControllerModellableView {
     var resultView: UITextView?
     var subView = UIView(frame: CGRect(x: 0, y: 65.0, width: 350.0, height: 45.0))
     
@@ -28,17 +28,14 @@ class CityResearchView: UIView, ViewControllerModellableView {
     
     func style(){
         self.backgroundColor = .systemBackground
-        ////self.subView.backgroundColor = .green
     }
     
     override func layoutSubviews() {
         //self.subView.pin.all()
-        
     }
     
-    func update(oldModel: CityDetailViewModel?) {
+    func update(oldModel: CitySearchViewModel?) {
         guard let _ = self.model else { return }
         self.setNeedsLayout()
     }
-    
 }

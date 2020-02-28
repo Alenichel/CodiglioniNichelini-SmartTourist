@@ -31,7 +31,7 @@ struct GetCurrentCity: SideEffect {
     
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
         guard let coordinates = context.getState().locationState.currentLocation else { return }
-        if !self.throttle || context.getState().locationState.actualCityLastUpdate.distance(to: Date()) > apiThrottleTime {
+        if !self.throttle || context.getState().locationState.currentCityLastUpdate.distance(to: Date()) > apiThrottleTime {
             context.dispatch(SetCurrentCityLastUpdate(lastUpdate: Date()))
             context.dependencies.googleAPI.getCityName(coordinates: coordinates).then { city in
                 context.dispatch(SetCurrentCity(city: city))

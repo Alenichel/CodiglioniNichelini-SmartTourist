@@ -17,7 +17,7 @@ class CityDetailViewController: ViewController<CityDetailView> {
     
     override func setupInteraction() {
         self.rootView.didTapChangeCityButton = {[unowned self] in
-            self.dispatch(Show(Screen.citySelection, animated: true, context: nil))
+            self.dispatch(Show(Screen.citySearch, animated: true, context: nil))
         }
         
     }
@@ -33,11 +33,10 @@ extension CityDetailViewController: RoutableWithConfiguration {
         [
             .hide(Screen.cityDetail): .pop,
             
-            .show(Screen.citySelection): .push({ [unowned self] context in
-                let vc = CityResearchViewController(store: self.store)
+            .show(Screen.citySearch): .push({ [unowned self] context in
+                let vc = CitySearchViewController(store: self.store)
                 return vc
             })
         ]
     }
 }
-

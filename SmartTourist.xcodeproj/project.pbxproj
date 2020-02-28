@@ -16,8 +16,8 @@
 		9930114B23AFED3600909749 /* GMSMapView+loadCustomStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9930114A23AFED3600909749 /* GMSMapView+loadCustomStyle.swift */; };
 		993B35462392B9150003FD8F /* AttractionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B35452392B9150003FD8F /* AttractionCell.swift */; };
 		993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B35472392C1D00003FD8F /* AttractionFlowLayout.swift */; };
-		99C26FE524003A4000F57030 /* CityResearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C26FE424003A4000F57030 /* CityResearchView.swift */; };
-		99C26FE724003A5600F57030 /* CityResearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C26FE624003A5600F57030 /* CityResearchViewController.swift */; };
+		99C26FE524003A4000F57030 /* CitySearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C26FE424003A4000F57030 /* CitySearchView.swift */; };
+		99C26FE724003A5600F57030 /* CitySearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C26FE624003A5600F57030 /* CitySearchViewController.swift */; };
 		99C27CD323AFC37700667FB0 /* MilanTour(Fast).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CCB23AFC37700667FB0 /* MilanTour(Fast).gpx */; };
 		99C27CD423AFC37700667FB0 /* MilanTour(Cycling).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CD123AFC37700667FB0 /* MilanTour(Cycling).gpx */; };
 		99C27CD523AFC37700667FB0 /* MilanTour(Driving).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CD223AFC37700667FB0 /* MilanTour(Driving).gpx */; };
@@ -145,8 +145,8 @@
 		9930114A23AFED3600909749 /* GMSMapView+loadCustomStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSMapView+loadCustomStyle.swift"; sourceTree = "<group>"; };
 		993B35452392B9150003FD8F /* AttractionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionCell.swift; sourceTree = "<group>"; };
 		993B35472392C1D00003FD8F /* AttractionFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionFlowLayout.swift; sourceTree = "<group>"; };
-		99C26FE424003A4000F57030 /* CityResearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityResearchView.swift; sourceTree = "<group>"; };
-		99C26FE624003A5600F57030 /* CityResearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityResearchViewController.swift; sourceTree = "<group>"; };
+		99C26FE424003A4000F57030 /* CitySearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchView.swift; sourceTree = "<group>"; };
+		99C26FE624003A5600F57030 /* CitySearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchViewController.swift; sourceTree = "<group>"; };
 		99C27CCB23AFC37700667FB0 /* MilanTour(Fast).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Fast).gpx"; sourceTree = "<group>"; };
 		99C27CD123AFC37700667FB0 /* MilanTour(Cycling).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Cycling).gpx"; sourceTree = "<group>"; };
 		99C27CD223AFC37700667FB0 /* MilanTour(Driving).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Driving).gpx"; sourceTree = "<group>"; };
@@ -282,13 +282,13 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
-		99C26FDE24003A0900F57030 /* CityResearchView */ = {
+		99C26FDE24003A0900F57030 /* CitySearchView */ = {
 			isa = PBXGroup;
 			children = (
-				99C26FE424003A4000F57030 /* CityResearchView.swift */,
-				99C26FE624003A5600F57030 /* CityResearchViewController.swift */,
+				99C26FE424003A4000F57030 /* CitySearchView.swift */,
+				99C26FE624003A5600F57030 /* CitySearchViewController.swift */,
 			);
-			path = CityResearchView;
+			path = CitySearchView;
 			sourceTree = "<group>";
 		};
 		E29D77648F2366C0DE89CACB /* Frameworks */ = {
@@ -395,12 +395,12 @@
 		E5335D012389941200601F02 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				99C26FDE24003A0900F57030 /* CityResearchView */,
 				E524A0FE238C4F530052825F /* Screen.swift */,
 				E5FDE323238B25610018D791 /* WelcomeView */,
 				E524A100238C4F950052825F /* AttractionsView */,
 				E5628B4B2393D4B900A61676 /* AttractionDetail */,
 				E5AFC89923F9B006007B9887 /* CityDetailView */,
+				99C26FDE24003A0900F57030 /* CitySearchView */,
 				E57C47172392BE83008DE784 /* Elements */,
 			);
 			path = UI;
@@ -832,7 +832,7 @@
 				993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */,
 				E5AFC8A223F9B006007B9887 /* CityDetailView.swift in Sources */,
 				99E5BF6F2399C1C6005F0882 /* UITextView+setText.swift in Sources */,
-				99C26FE724003A5600F57030 /* CityResearchViewController.swift in Sources */,
+				99C26FE724003A5600F57030 /* CitySearchViewController.swift in Sources */,
 				E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */,
 				E528FF87238971FE0065483B /* AppDelegate.swift in Sources */,
 				E5F971602392D96F0096C296 /* DataSource.swift in Sources */,
@@ -853,7 +853,7 @@
 				E5335CFE238981D000601F02 /* AppState.swift in Sources */,
 				E5F9715F2392D96F0096C296 /* CollectionView.swift in Sources */,
 				E5AFC8A123F9B006007B9887 /* CityDetailViewController.swift in Sources */,
-				99C26FE524003A4000F57030 /* CityResearchView.swift in Sources */,
+				99C26FE524003A4000F57030 /* CitySearchView.swift in Sources */,
 				E5F971642392D96F0096C296 /* String+Height.swift in Sources */,
 				E5F971622392D96F0096C296 /* CGRect+Utils.swift in Sources */,
 				E5FDE321238B08A40018D791 /* GoogleAPI.swift in Sources */,

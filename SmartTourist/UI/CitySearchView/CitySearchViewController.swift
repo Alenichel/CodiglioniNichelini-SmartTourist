@@ -1,18 +1,18 @@
 //
-//  CityResearchViewController.swift
+//  CitySearchViewController.swift
 //  SmartTourist
 //
 //  Created on 21/02/2020
 //
 
-import Foundation
 import CoreLocation
 import Tempura
 import GoogleMaps
 import GooglePlaces
 import UIKit
 
-class CityResearchViewController: ViewController<CityResearchView> {
+
+class CitySearchViewController: ViewController<CitySearchView> {
     var resultsViewController: GMSAutocompleteResultsViewController?
     var searchController: UISearchController?
     
@@ -40,50 +40,44 @@ class CityResearchViewController: ViewController<CityResearchView> {
     }
     
     override func setupInteraction() {}
-    
-    
 }
+
 
 // Handle the user's selection.
-extension CityResearchViewController: GMSAutocompleteResultsViewControllerDelegate {
-  func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
-                         didAutocompleteWith place: GMSPlace) {
-    searchController?.isActive = false
-    self.dispatch(SetCurrentCity(city: place.name))
-    self.dispatch(SetActualLocation(location: place.coordinate))
-    self.dispatch(Hide(Screen.citySelection))
+extension CitySearchViewController: GMSAutocompleteResultsViewControllerDelegate {
+    func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didAutocompleteWith place: GMSPlace) {
+        print("resultController")
+        searchController?.isActive = false
+        self.dispatch(SetCurrentCity(city: place.name))
+        self.dispatch(SetMapLocation(location: place.coordinate))
+        self.dispatch(SetMapCentered(value: false))
+        self.dispatch(Hide(animated: true))     // TODO: This does nothing
     }
 
-  func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
-                         didFailAutocompleteWithError error: Error){
-    // TODO: handle the error.
-    print("Error: ", error.localizedDescription)
-  }
+    func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didFailAutocompleteWithError error: Error) {
+        // TODO: handle the error.
+        print("Error: ", error.localizedDescription)
+    }
 
-  // Turn the network activity indicator on and off again.
-  func didRequestAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
-    print("Selecting")
-  }
+    // Turn the network activity indicator on and off again.
+    func didRequestAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
+        print("Selecting")
+    }
 
-  func didUpdateAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
-    print("Selected")
-  }
+    func didUpdateAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
+        print("Selected")
+    }
 }
 
-extension CityResearchViewController: RoutableWithConfiguration {
-    
+
+extension CitySearchViewController: RoutableWithConfiguration {
     var routeIdentifier: RouteElementIdentifier {
-        Screen.citySelection.rawValue
+        Screen.citySearch.rawValue
     }
     
     var navigationConfiguration: [NavigationRequest : NavigationInstruction] {
         [
-            .hide(Screen.citySelection): .pop
+            .hide(Screen.citySearch): .pop
         ]
     }
 }
-
-struct CityResearchLocalState: LocalState {
-    
-}
-
