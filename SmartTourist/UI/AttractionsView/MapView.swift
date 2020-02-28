@@ -20,6 +20,7 @@ struct AttractionsViewModel: ViewModelWithLocalState {
     let animateCard: Bool
     let mapCentered: Bool
     let favorites: [GPPlace]
+    let needToMoveMap: Bool
     
     init?(state: AppState?, localState: AttractionsLocalState) {
         guard let state = state else { return nil }
@@ -38,6 +39,7 @@ struct AttractionsViewModel: ViewModelWithLocalState {
         self.animateCard = localState.animate
         self.mapCentered = state.locationState.mapCentered
         self.favorites = state.favorites
+        self.needToMoveMap = localState.needToMoveMap
     }
 }
 
@@ -57,6 +59,7 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: - Interactions
     var didTapLocationName: Interaction?
     var didTapLocationButton: Interaction?
+    var didMoveMap: Interaction?
     
     // MARK: Setup
     func setup() {
@@ -150,8 +153,9 @@ class MapView: UIView, ViewControllerModellableView {
             self.bigCircle.strokeColor = .label
             self.littleCircle.map = self.mapView
             self.bigCircle.map = self.mapView
-            if self.mapView.camera.target != location {
+            if model.needToMoveMap {
                 self.moveMap(to: location)
+                self.didMoveMap?()
             }
         }
         if let city = model.city {

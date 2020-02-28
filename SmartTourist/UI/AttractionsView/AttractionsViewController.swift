@@ -18,6 +18,7 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
         if let navigationController = self.navigationController {
             navigationController.setNavigationBarHidden(true, animated: animated)
         }
+        self.localState.needToMoveMap = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -61,6 +62,9 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
             self.dispatch(SetMapCentered(value: true))
             self.dispatch(GetCurrentCity(throttle: false))   // Also calls GetPopularPlaces
             self.dispatch(GetNearestPlaces(location: self.state.locationState.actualLocation, throttle: false))
+        }
+        self.rootView.didMoveMap = { [unowned self] in
+            self.localState.needToMoveMap = false
         }
     }
 }
@@ -145,6 +149,7 @@ struct AttractionsLocalState: LocalState {
     var cardState: CardState = .collapsed
     var animate: Bool = false
     var selectedSegmentIndex: SelectedPlaceList = .nearest
+    var needToMoveMap: Bool = false
 }
 
 
