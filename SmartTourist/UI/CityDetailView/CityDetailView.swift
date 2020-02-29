@@ -26,18 +26,13 @@ struct CityDetailViewModel: ViewModelWithState {
 
 
 class CityDetailView: UIView, ViewControllerModellableView {
-    let icon = UIImage(systemName: "magnifyingglass")
-    
     var cityNameLabel = UILabel()
     var mapView = GMSMapView()
     var descriptionText = UITextView()
-    var changeCityButton = UIBarButtonItem()
     var containerView = UIView()
     var lineView = UIView()
     
     var marker = GMSMarker()
-    
-    var didTapChangeCityButton: (() -> Void )?
     
     func setup() {
         self.addSubview(mapView)
@@ -46,13 +41,6 @@ class CityDetailView: UIView, ViewControllerModellableView {
         
         self.addSubview(self.containerView)
         self.containerView.addSubview(self.lineView)
-        
-        self.changeCityButton.image = self.icon
-        self.changeCityButton.style = .plain
-        self.navigationItem?.rightBarButtonItem = self.changeCityButton
-        self.changeCityButton.onTap { button in
-            self.didTapChangeCityButton?()
-        }
     }
     
     func style() {
