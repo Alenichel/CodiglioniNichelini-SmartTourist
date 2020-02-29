@@ -14,6 +14,7 @@ import GoogleMaps
 struct AttractionsViewModel: ViewModelWithLocalState {
     let places: [GPPlace]
     let location: CLLocationCoordinate2D?
+    let actualLocation: CLLocationCoordinate2D?
     let city: String?
     let cardState: CardState
     let cardPercent: Percent
@@ -33,6 +34,7 @@ struct AttractionsViewModel: ViewModelWithLocalState {
             self.places = state.favorites
         }
         self.location = state.locationState.currentLocation
+        self.actualLocation = state.locationState.actualLocation
         self.city = state.locationState.currentCity
         self.cardState = localState.cardState
         self.cardPercent = localState.cardState.rawValue%
@@ -145,18 +147,20 @@ class MapView: UIView, ViewControllerModellableView {
                 self.locationMarker.strokeColor = .label
                 self.locationMarker.fillColor = .label
             }
-            self.littleCircle.position = location
+            if model.needToMoveMap {
+                self.moveMap(to: location)
+                self.didMoveMap?()
+            }
+        }
+        if let actualLocation = model.actualLocation {
+            self.littleCircle.position = actualLocation
             self.littleCircle.radius = littleCircleRadius
-            self.bigCircle.position = location
+            self.bigCircle.position = actualLocation
             self.bigCircle.radius = bigCircleRadius
             self.littleCircle.strokeColor = .label
             self.bigCircle.strokeColor = .label
             self.littleCircle.map = self.mapView
             self.bigCircle.map = self.mapView
-            if model.needToMoveMap {
-                self.moveMap(to: location)
-                self.didMoveMap?()
-            }
         }
         if let city = model.city {
             self.cityNameButton.setTitle(city, for: .normal)
