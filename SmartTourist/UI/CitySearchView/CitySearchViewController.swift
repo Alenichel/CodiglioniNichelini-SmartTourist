@@ -51,7 +51,7 @@ extension CitySearchViewController: GMSAutocompleteResultsViewControllerDelegate
         self.dispatch(SetCurrentCity(city: place.name))
         self.dispatch(SetMapLocation(location: place.coordinate))
         self.dispatch(SetMapCentered(value: false))
-        self.dispatch(Hide(animated: true))     // TODO: This does nothing
+        self.dispatch(Hide(animated: true))
     }
 
     func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didFailAutocompleteWithError error: Error) {
@@ -77,7 +77,7 @@ extension CitySearchViewController: RoutableWithConfiguration {
     
     var navigationConfiguration: [NavigationRequest : NavigationInstruction] {
         [
-            .hide(Screen.citySearch): .pop
+            .hide(Screen.citySearch): .dismissModally(behaviour: .hard)
         ]
     }
 }
