@@ -14,6 +14,7 @@ import GoogleMaps
 struct AttractionsViewModel: ViewModelWithLocalState {
     let places: [GPPlace]
     let location: CLLocationCoordinate2D?
+    let actualLocation: CLLocationCoordinate2D?
     let city: String?
     let mapCentered: Bool
     let favorites: [GPPlace]
@@ -30,10 +31,11 @@ struct AttractionsViewModel: ViewModelWithLocalState {
             self.places = state.favorites
         }
         self.location = state.locationState.currentLocation
+        self.actualLocation = state.locationState.actualLocation
         self.city = state.locationState.currentCity
         self.mapCentered = state.locationState.mapCentered
         self.favorites = state.favorites
-        self.needToMoveMap = localState.needToMoveMap
+        self.needToMoveMap = state.needToMoveMap
     }
 }
 
@@ -55,10 +57,12 @@ class MapView: UIView, ViewControllerModellableView {
     var topBlurEffect = UIVisualEffectView(effect: UIBlurEffect(style: UITraitCollection.current.userInterfaceStyle == .dark ? .dark : .light))
     var listCardView = ListCardView()
     var markerPool: GMSMarkerPool!
+    var searchButton = RoundedButton()
     
     // MARK: - Interactions
-    var didTapLocationName: Interaction?
+    var didTapCityNameButton: Interaction?
     var didTapLocationButton: Interaction?
+    var ditTapSearchButton: Interaction?
     var didMoveMap: Interaction?
     
     // Animator-related
@@ -80,15 +84,21 @@ class MapView: UIView, ViewControllerModellableView {
             self.didTapLocationButton?()
             self.centerMap()
         }
+        self.searchButton.tintColor = .label
+        self.searchButton.on(.touchUpInside) { button in
+            self.ditTapSearchButton?()
+        }
+        
         self.cityNameButton.on(.touchUpInside) { button in
-            self.didTapLocationName?()
+            self.didTapCityNameButton?()
         }
         self.markerPool = GMSMarkerPool(mapView: self.mapView)
         self.addSubview(self.mapView)
         self.addSubview(self.locationButton)
-        self.addSubview(self.topBlurEffect)
         self.addSubview(self.listCardView)
         self.addSubview(self.cityNameButton)
+        self.addSubview(self.searchButton)
+        self.addSubview(self.topBlurEffect)
         self.listCardView.setup()
         self.listCardView.style()
         self.panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan))
@@ -107,6 +117,13 @@ class MapView: UIView, ViewControllerModellableView {
         self.locationButton.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 1 : 0.75
         self.locationButton.layer.shadowOffset = .zero
         self.locationButton.layer.shadowRadius = 4
+        self.searchButton.backgroundColor = .systemBackground
+        self.searchButton.layer.cornerRadius = 20
+        self.searchButton.layer.shadowColor = UIColor.black.cgColor
+        self.searchButton.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 1 : 0.75
+        self.searchButton.layer.shadowOffset = .zero
+        self.searchButton.layer.shadowRadius = 4
+        self.searchButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
     }
     
     // MARK: Layout subviews
@@ -116,6 +133,7 @@ class MapView: UIView, ViewControllerModellableView {
         self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height * 0.70)
         self.topBlurEffect.pin.top().left().right().bottom(94.5%)
         self.cityNameButton.pin.below(of: self.topBlurEffect).left(10)
+        self.searchButton.pin.right(of: self.cityNameButton, aligned: .center).margin(2%).size(40)
         if self.firstLayout {
             self.layoutCardView(targetPercent: CardState.collapsed.rawValue%)
             self.firstLayout.toggle()
@@ -157,18 +175,20 @@ class MapView: UIView, ViewControllerModellableView {
                 self.locationMarker.strokeColor = .label
                 self.locationMarker.fillColor = .label
             }
-            self.littleCircle.position = location
+            if model.needToMoveMap {
+                self.moveMap(to: location)
+                self.didMoveMap?()
+            }
+        }
+        if let actualLocation = model.actualLocation {
+            self.littleCircle.position = actualLocation
             self.littleCircle.radius = littleCircleRadius
-            self.bigCircle.position = location
+            self.bigCircle.position = actualLocation
             self.bigCircle.radius = bigCircleRadius
             self.littleCircle.strokeColor = .label
             self.bigCircle.strokeColor = .label
             self.littleCircle.map = self.mapView
             self.bigCircle.map = self.mapView
-            if model.needToMoveMap {
-                self.moveMap(to: location)
-                self.didMoveMap?()
-            }
         }
         if let city = model.city {
             self.cityNameButton.setTitle(city, for: .normal)
