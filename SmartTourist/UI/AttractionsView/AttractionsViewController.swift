@@ -139,7 +139,7 @@ extension AttractionsViewController: RoutableWithConfiguration {
             }),
             .show(Screen.citySearch): .presentModally({ [unowned self] context in
                 let vc = CitySearchViewController(store: self.store)
-                vc.modalPresentationStyle = UIModalPresentationStyle.fullScreen
+                vc.modalPresentationStyle = .overCurrentContext
                 return vc
             }),
             .show(Screen.detail): .push({ [unowned self] context in

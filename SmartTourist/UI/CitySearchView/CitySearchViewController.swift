@@ -13,8 +13,8 @@ import UIKit
 
 
 class CitySearchViewController: ViewController<CitySearchView> {
-    var resultsViewController: GMSAutocompleteResultsViewController?
-    var searchController: UISearchController?
+    var resultsViewController: GMSAutocompleteResultsViewController!
+    var searchController: UISearchController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,23 +22,28 @@ class CitySearchViewController: ViewController<CitySearchView> {
         let filter = GMSAutocompleteFilter()
         filter.type = .city
         
-        resultsViewController = GMSAutocompleteResultsViewController()
-        resultsViewController?.autocompleteFilter = filter
-        resultsViewController?.delegate = self
-        searchController = UISearchController(searchResultsController: resultsViewController)
-        searchController?.searchResultsUpdater = resultsViewController
+        self.resultsViewController = GMSAutocompleteResultsViewController()
+        self.resultsViewController.autocompleteFilter = filter
+        self.resultsViewController.delegate = self
+        self.searchController = UISearchController(searchResultsController: self.resultsViewController)
+        self.searchController.searchResultsUpdater = self.resultsViewController
         
-        
-        self.rootView.subView.addSubview((searchController?.searchBar)!)
+        self.rootView.subView.addSubview(self.searchController.searchBar)
         self.rootView.addSubview(self.rootView.subView)
-        searchController?.searchBar.sizeToFit()
-        searchController?.searchBar.showsCancelButton = true
-        searchController?.searchBar.delegate = self
-        searchController?.hidesNavigationBarDuringPresentation = false
+        self.searchController.delegate = self
+        self.searchController.searchBar.sizeToFit()
+        self.searchController.searchBar.showsCancelButton = true
+        self.searchController.searchBar.delegate = self
+        self.searchController.hidesNavigationBarDuringPresentation = false
 
         // When UISearchController presents the results view, present it in
         // this view controller, not one further up the chain.
         definesPresentationContext = true
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.searchController.isActive = true
     }
     
     override func setupInteraction() {}
@@ -49,7 +54,7 @@ class CitySearchViewController: ViewController<CitySearchView> {
 extension CitySearchViewController: GMSAutocompleteResultsViewControllerDelegate {
     func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didAutocompleteWith place: GMSPlace) {
         print("resultController")
-        searchController?.isActive = false
+        searchController.isActive = false
         self.dispatch(SetCurrentCity(city: place.name))
         self.dispatch(SetMapLocation(location: place.coordinate))
         self.dispatch(SetMapCentered(value: false))
@@ -71,12 +76,18 @@ extension CitySearchViewController: GMSAutocompleteResultsViewControllerDelegate
     }
 }
 
+
 extension CitySearchViewController: UISearchBarDelegate {
-    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.dispatch(Hide(animated: true))
     }
-    
+}
+
+
+extension CitySearchViewController: UISearchControllerDelegate {
+    func didPresentSearchController(_ searchController: UISearchController) {
+        searchController.searchBar.becomeFirstResponder()
+    }
 }
 
 
