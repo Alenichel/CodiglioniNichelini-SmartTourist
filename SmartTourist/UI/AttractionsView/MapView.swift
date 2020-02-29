@@ -15,9 +15,6 @@ struct AttractionsViewModel: ViewModelWithLocalState {
     let places: [GPPlace]
     let location: CLLocationCoordinate2D?
     let city: String?
-    let cardState: CardState
-    let cardPercent: Percent
-    let animateCard: Bool
     let mapCentered: Bool
     let favorites: [GPPlace]
     let needToMoveMap: Bool
@@ -34,13 +31,16 @@ struct AttractionsViewModel: ViewModelWithLocalState {
         }
         self.location = state.locationState.currentLocation
         self.city = state.locationState.currentCity
-        self.cardState = localState.cardState
-        self.cardPercent = localState.cardState.rawValue%
-        self.animateCard = localState.animate
         self.mapCentered = state.locationState.mapCentered
         self.favorites = state.favorites
         self.needToMoveMap = localState.needToMoveMap
     }
+}
+
+
+enum CardState: Int {
+    case expanded = 30
+    case collapsed = 70
 }
 
 
@@ -60,6 +60,13 @@ class MapView: UIView, ViewControllerModellableView {
     var didTapLocationName: Interaction?
     var didTapLocationButton: Interaction?
     var didMoveMap: Interaction?
+    
+    // Animator-related
+    // TODO
+    private var panGestureRecognizer: UIPanGestureRecognizer!
+    private var cardState: CardState = .collapsed
+    private var animator: UIViewPropertyAnimator?
+    private var firstLayout = true
     
     // MARK: Setup
     func setup() {
@@ -84,6 +91,8 @@ class MapView: UIView, ViewControllerModellableView {
         self.addSubview(self.cityNameButton)
         self.listCardView.setup()
         self.listCardView.style()
+        self.panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan))
+        self.addGestureRecognizer(self.panGestureRecognizer)
     }
     
     // MARK: Style
@@ -107,14 +116,17 @@ class MapView: UIView, ViewControllerModellableView {
         self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height * 0.70)
         self.topBlurEffect.pin.top().left().right().bottom(94.5%)
         self.cityNameButton.pin.below(of: self.topBlurEffect).left(10)
-        self.layoutCardView()
+        if self.firstLayout {
+            self.layoutCardView(targetPercent: CardState.collapsed.rawValue%)
+            self.firstLayout.toggle()
+        }
     }
     
-    func layoutCardView() {
-        guard let model = self.model else { return }
-        self.listCardView.pin.bottom().left().right().top(model.cardPercent)
-        self.mapView.frame.size.height = model.cardPercent.of(self.frame.height)
-        let inversePercent = (100 - model.cardPercent.of(100) + 2)%
+    func layoutCardView(targetPercent: Percent) {
+        print(targetPercent)
+        self.listCardView.pin.bottom().left().right().top(targetPercent)
+        self.mapView.frame.size.height = targetPercent.of(self.frame.height)
+        let inversePercent = (100 - targetPercent.of(100) + 2)%
         self.locationButton.pin.bottom(inversePercent).right(4%).size(40)
         self.layoutIfNeeded()
     }
@@ -129,7 +141,7 @@ class MapView: UIView, ViewControllerModellableView {
             self.markerPool.setMarkers(places: [])
             self.cityNameButton.isHidden = true
         }
-        let listCardViewModel = ListCardViewModel(currentLocation: model.location, places: model.places, cardState: model.cardState, favorites: model.favorites)
+        let listCardViewModel = ListCardViewModel(currentLocation: model.location, places: model.places, favorites: model.favorites)
         self.listCardView.model = listCardViewModel
         self.locationButton.setImage(UIImage(systemName: model.mapCentered ? "location.fill" : "location"), for: .normal)
         if let location = model.location {
@@ -161,13 +173,7 @@ class MapView: UIView, ViewControllerModellableView {
         if let city = model.city {
             self.cityNameButton.setTitle(city, for: .normal)
         }
-        if model.animateCard {
-            UIView.animate(withDuration: 0.5) {
-                self.layoutCardView()
-            }
-        } else {
-            self.setNeedsLayout()
-        }
+        self.setNeedsLayout()
     }
     
     private func moveMap(to location: CLLocationCoordinate2D) {
@@ -197,5 +203,86 @@ class MapView: UIView, ViewControllerModellableView {
         super.traitCollectionDidChange(previousTraitCollection)
         self.loadMapStyle()
         self.topBlurEffect.effect = UIBlurEffect(style: UITraitCollection.current.userInterfaceStyle == .dark ? .dark : .light)
+    }
+    
+    @objc private func handlePan(_ recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+        case .began:
+            self.panningBegan()
+        case .changed:
+            let translation = recognizer.translation(in: self.superview)
+            self.panningChanged(withTranslation: translation)
+        case .ended:
+            let translation = recognizer.translation(in: self.superview)
+            let velocity = recognizer.velocity(in: self)
+            self.panningEnded(withTranslation: translation, velocity: velocity)
+        default:
+            break
+        }
+    }
+    
+    private func panningBegan() {
+        var targetPercent: Percent
+        switch self.cardState {
+        case .collapsed:
+            targetPercent = CardState.expanded.rawValue%
+        case .expanded:
+            targetPercent = CardState.collapsed.rawValue%
+        }
+        self.animator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.8, animations: {
+            self.layoutCardView(targetPercent: targetPercent)
+        })
+    }
+    
+    private func panningChanged(withTranslation translation: CGPoint) {
+        guard let animator = self.animator else { return }
+        let translatedY = self.center.y + translation.y
+        var progress: CGFloat
+        switch self.cardState {
+        case .collapsed:
+            progress = 1 - (translatedY / self.center.y)
+        case .expanded:
+            progress = (translatedY / self.center.y) - 1
+        }
+        progress = max(0.001, min(0.999, progress))
+        animator.fractionComplete = progress
+    }
+    
+    private func panningEnded(withTranslation translation: CGPoint, velocity: CGPoint) {
+        self.panGestureRecognizer.isEnabled = false
+        let screenHeight = UIScreen.main.bounds.size.height
+        switch self.cardState {
+        case .collapsed:
+            if translation.y <= -screenHeight / 3 || velocity.y <= -100 {
+                self.animator?.isReversed = false
+                self.animator?.addCompletion { [weak self] _ in
+                    self?.cardState = .expanded
+                    self?.panGestureRecognizer.isEnabled = true
+                }
+            } else {
+                self.animator?.isReversed = true
+                self.animator?.addCompletion { [weak self] _ in
+                    self?.cardState = .collapsed
+                    self?.panGestureRecognizer.isEnabled = true
+                }
+            }
+        case .expanded:
+            if translation.y >= screenHeight / 3 || velocity.y >= 100 {
+                self.animator?.isReversed = false
+                self.animator?.addCompletion { [weak self] _ in
+                    self?.cardState = .collapsed
+                    self?.panGestureRecognizer.isEnabled = true
+                }
+            } else {
+                self.animator?.isReversed = true
+                self.animator?.addCompletion { [weak self] _ in
+                    self?.cardState = .expanded
+                    self?.panGestureRecognizer.isEnabled = true
+                }
+            }
+        }
+        let velocityVector = CGVector(dx: velocity.x / 100, dy: velocity.y / 100)
+        let springParameters = UISpringTimingParameters(dampingRatio: 0.8, initialVelocity: velocityVector)
+        self.animator?.continueAnimation(withTimingParameters: springParameters, durationFactor: 1.0)
     }
 }

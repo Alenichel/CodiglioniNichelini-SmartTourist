@@ -33,7 +33,6 @@ class AnimationTestView: UIView, ViewControllerModellableView {
     
     private var panGestureRecognizer: UIPanGestureRecognizer!
     private var cardState: PlayerState = .thumbnail
-    private var originalCardViewFrame = CGRect.zero
     private var animator: UIViewPropertyAnimator?
     private var firstLayout = true
     
@@ -82,20 +81,6 @@ class AnimationTestView: UIView, ViewControllerModellableView {
         default:
             break
         }
-    }
-    
-    private func panningBeganOld() {
-        var targetFrame: CGRect
-        switch self.cardState {
-        case .thumbnail:
-            self.originalCardViewFrame = self.cardView.frame
-            targetFrame = self.frame
-        case .fullscreen:
-            targetFrame = self.originalCardViewFrame
-        }
-        self.animator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.8, animations: {
-            self.cardView.frame = targetFrame
-        })
     }
     
     private func panningBegan() {
