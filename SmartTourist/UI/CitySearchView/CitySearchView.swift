@@ -19,19 +19,23 @@ struct CitySearchViewModel: ViewModelWithState {
 
 
 class CitySearchView: UIView, ViewControllerModellableView {
-    var resultView: UITextView?
-    var subView = UIView(frame: CGRect(x: 0, y: 65.0, width: 350.0, height: 45.0))
+    //var resultView: UITextView?
+    var subView = UIView(frame: CGRect(x: 0, y: 45, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+    var transitionBlurEffect = UIVisualEffectView(effect: UIBlurEffect(style: UITraitCollection.current.userInterfaceStyle == .dark ? .dark : .light))
     
     func setup() {
         self.navigationItem?.leftBarButtonItem?.title = ""
+        self.addSubview(self.transitionBlurEffect)
     }
     
     func style(){
-        self.backgroundColor = .systemBackground
+        //self.backgroundColor = .systemBackground
+        //self.alpha = 0.90
+        self.backgroundColor = .clear
     }
     
     override func layoutSubviews() {
-        //self.subView.pin.all()
+        self.transitionBlurEffect.pin.top().left().right().bottom(90%)
     }
     
     func update(oldModel: CitySearchViewModel?) {

@@ -41,7 +41,7 @@ struct AttractionsViewModel: ViewModelWithLocalState {
         self.animateCard = localState.animate
         self.mapCentered = state.locationState.mapCentered
         self.favorites = state.favorites
-        self.needToMoveMap = localState.needToMoveMap
+        self.needToMoveMap = state.needToMoveMap
     }
 }
 
@@ -57,10 +57,12 @@ class MapView: UIView, ViewControllerModellableView {
     var topBlurEffect = UIVisualEffectView(effect: UIBlurEffect(style: UITraitCollection.current.userInterfaceStyle == .dark ? .dark : .light))
     var listCardView = ListCardView()
     var markerPool: GMSMarkerPool!
+    var searchButton = RoundedButton()
     
     // MARK: - Interactions
-    var didTapLocationName: Interaction?
+    var didTapCityNameButton: Interaction?
     var didTapLocationButton: Interaction?
+    var ditTapSearchButton: Interaction?
     var didMoveMap: Interaction?
     
     // MARK: Setup
@@ -75,15 +77,21 @@ class MapView: UIView, ViewControllerModellableView {
             self.didTapLocationButton?()
             self.centerMap()
         }
+        self.searchButton.tintColor = .label
+        self.searchButton.on(.touchUpInside) { button in
+            self.ditTapSearchButton?()
+        }
+        
         self.cityNameButton.on(.touchUpInside) { button in
-            self.didTapLocationName?()
+            self.didTapCityNameButton?()
         }
         self.markerPool = GMSMarkerPool(mapView: self.mapView)
         self.addSubview(self.mapView)
         self.addSubview(self.locationButton)
-        self.addSubview(self.topBlurEffect)
         self.addSubview(self.listCardView)
         self.addSubview(self.cityNameButton)
+        self.addSubview(self.searchButton)
+        self.addSubview(self.topBlurEffect)
         self.listCardView.setup()
         self.listCardView.style()
     }
@@ -100,6 +108,13 @@ class MapView: UIView, ViewControllerModellableView {
         self.locationButton.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 1 : 0.75
         self.locationButton.layer.shadowOffset = .zero
         self.locationButton.layer.shadowRadius = 4
+        self.searchButton.backgroundColor = .systemBackground
+        self.searchButton.layer.cornerRadius = 20
+        self.searchButton.layer.shadowColor = UIColor.black.cgColor
+        self.searchButton.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 1 : 0.75
+        self.searchButton.layer.shadowOffset = .zero
+        self.searchButton.layer.shadowRadius = 4
+        self.searchButton.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
     }
     
     // MARK: Layout subviews
@@ -109,6 +124,7 @@ class MapView: UIView, ViewControllerModellableView {
         self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height * 0.70)
         self.topBlurEffect.pin.top().left().right().bottom(94.5%)
         self.cityNameButton.pin.below(of: self.topBlurEffect).left(10)
+        self.searchButton.pin.right(of: self.cityNameButton, aligned: .center).margin(2%).size(40)
         self.layoutCardView()
     }
     

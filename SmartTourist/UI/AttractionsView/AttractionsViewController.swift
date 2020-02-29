@@ -15,13 +15,14 @@ var justVisitedPlaces: [GPPlace] = []
 class AttractionsViewController: ViewControllerWithLocalState<MapView> {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print(#function)
         if let navigationController = self.navigationController {
             navigationController.setNavigationBarHidden(true, animated: animated)
         }
-        self.localState.needToMoveMap = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        print(#function)
         super.viewWillDisappear(animated)
         if let navigationController = self.navigationController {
             navigationController.setNavigationBarHidden(false, animated: animated)
@@ -55,16 +56,19 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
         self.rootView.listCardView.didChangeSegmentedValue = { [unowned self] index in
             self.localState.selectedSegmentIndex = SelectedPlaceList(rawValue: index)!
         }
-        self.rootView.didTapLocationName = { [unowned self] in
-            self.dispatch(Show(Screen.cityDetail, animated: true, context: nil))
+        self.rootView.didTapCityNameButton = { [unowned self] in
+            self.dispatch(Show(Screen.cityDetail, animated: true))
         }
         self.rootView.didTapLocationButton = { [unowned self] in
             self.dispatch(SetMapCentered(value: true))
             self.dispatch(GetCurrentCity(throttle: false))   // Also calls GetPopularPlaces
             self.dispatch(GetNearestPlaces(location: self.state.locationState.actualLocation, throttle: false))
         }
+        self.rootView.ditTapSearchButton = { [unowned self] in
+            self.dispatch(Show(Screen.citySearch, animated: true))
+        }
         self.rootView.didMoveMap = { [unowned self] in
-            self.localState.needToMoveMap = false
+            self.dispatch(SetNeedToMoveMap(value: false))
         }
     }
 }
@@ -131,7 +135,12 @@ extension AttractionsViewController: RoutableWithConfiguration {
         [
             .show(Screen.welcome): .presentModally({ [unowned self] context in
                 let vc = WelcomeViewController(store: self.store, localState: WelcomeLocalState())
-                vc.modalPresentationStyle = .overCurrentContext
+                vc.modalPresentationStyle = .pageSheet
+                return vc
+            }),
+            .show(Screen.citySearch): .presentModally({ [unowned self] context in
+                let vc = CitySearchViewController(store: self.store)
+                vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
                 return vc
             }),
             .show(Screen.detail): .push({ [unowned self] context in
@@ -149,7 +158,6 @@ struct AttractionsLocalState: LocalState {
     var cardState: CardState = .collapsed
     var animate: Bool = false
     var selectedSegmentIndex: SelectedPlaceList = .nearest
-    var needToMoveMap: Bool = false
 }
 
 
