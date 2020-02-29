@@ -86,10 +86,10 @@ class MapView: UIView, ViewControllerModellableView {
         self.markerPool = GMSMarkerPool(mapView: self.mapView)
         self.addSubview(self.mapView)
         self.addSubview(self.locationButton)
-        self.addSubview(self.topBlurEffect)
         self.addSubview(self.listCardView)
         self.addSubview(self.cityNameButton)
         self.addSubview(self.searchButton)
+        self.addSubview(self.topBlurEffect)
         self.listCardView.setup()
         self.listCardView.style()
     }
