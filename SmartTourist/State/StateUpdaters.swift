@@ -117,3 +117,12 @@ struct RemoveFavorite: StateUpdater, Persistable {
         state.favorites.removeAll(where: {$0 == place})
     }
 }
+
+
+struct SetNeedToMoveMap: StateUpdater {
+    let value: Bool
+    
+    func updateState(_ state: inout AppState) {
+        state.needToMoveMap = value
+    }
+}

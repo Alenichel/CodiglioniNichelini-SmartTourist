@@ -15,6 +15,7 @@ import CoreLocation
 struct AppState: State, Codable {
     var locationState = LocationState()
     var favorites = [GPPlace]()
+    var needToMoveMap = false
     
     /// Used to filter what properties of the state must be persisted
     enum CodingKeys: CodingKey {

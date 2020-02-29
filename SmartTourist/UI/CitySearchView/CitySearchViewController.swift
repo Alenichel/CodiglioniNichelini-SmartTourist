@@ -58,6 +58,7 @@ extension CitySearchViewController: GMSAutocompleteResultsViewControllerDelegate
         self.dispatch(SetCurrentCity(city: place.name))
         self.dispatch(SetMapLocation(location: place.coordinate))
         self.dispatch(SetMapCentered(value: false))
+        self.dispatch(SetNeedToMoveMap(value: true))
         self.dispatch(Hide(animated: true))
     }
 

@@ -39,7 +39,7 @@ struct AttractionsViewModel: ViewModelWithLocalState {
         self.animateCard = localState.animate
         self.mapCentered = state.locationState.mapCentered
         self.favorites = state.favorites
-        self.needToMoveMap = localState.needToMoveMap
+        self.needToMoveMap = state.needToMoveMap
     }
 }
 
