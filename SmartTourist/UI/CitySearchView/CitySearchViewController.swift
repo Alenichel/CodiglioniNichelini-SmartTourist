@@ -32,6 +32,8 @@ class CitySearchViewController: ViewController<CitySearchView> {
         self.rootView.subView.addSubview((searchController?.searchBar)!)
         self.rootView.addSubview(self.rootView.subView)
         searchController?.searchBar.sizeToFit()
+        searchController?.searchBar.showsCancelButton = true
+        searchController?.searchBar.delegate = self
         searchController?.hidesNavigationBarDuringPresentation = false
 
         // When UISearchController presents the results view, present it in
@@ -67,6 +69,14 @@ extension CitySearchViewController: GMSAutocompleteResultsViewControllerDelegate
     func didUpdateAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
         print("Selected")
     }
+}
+
+extension CitySearchViewController: UISearchBarDelegate {
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.dispatch(Hide(animated: true))
+    }
+    
 }
 
 
