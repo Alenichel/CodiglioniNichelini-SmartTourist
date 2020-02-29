@@ -49,6 +49,9 @@
 		E57C47162392BC3A008DE784 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57C47152392BC3A008DE784 /* RoundedButton.swift */; };
 		E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */; };
 		E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA4238ADEF3008D7C86 /* SideEffects.swift */; };
+		E5AD2EB3240A66860012A933 /* AnimationTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD2EB2240A66860012A933 /* AnimationTestViewController.swift */; };
+		E5AD2EB5240A66980012A933 /* AnimationTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD2EB4240A66980012A933 /* AnimationTestView.swift */; };
+		E5AD2EB7240A66A40012A933 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD2EB6240A66A40012A933 /* CardView.swift */; };
 		E5AFC8A123F9B006007B9887 /* CityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */; };
 		E5AFC8A223F9B006007B9887 /* CityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFC89B23F9B006007B9887 /* CityDetailView.swift */; };
 		E5D1474A23AB747300649C87 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D1474923AB747300649C87 /* Model.swift */; };
@@ -189,6 +192,9 @@
 		E57C47152392BC3A008DE784 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateUpdaters.swift; sourceTree = "<group>"; };
 		E585FCA4238ADEF3008D7C86 /* SideEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideEffects.swift; sourceTree = "<group>"; };
+		E5AD2EB2240A66860012A933 /* AnimationTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationTestViewController.swift; sourceTree = "<group>"; };
+		E5AD2EB4240A66980012A933 /* AnimationTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationTestView.swift; sourceTree = "<group>"; };
+		E5AD2EB6240A66A40012A933 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityDetailViewController.swift; sourceTree = "<group>"; };
 		E5AFC89B23F9B006007B9887 /* CityDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityDetailView.swift; sourceTree = "<group>"; };
 		E5D1474923AB747300649C87 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -396,6 +402,7 @@
 			isa = PBXGroup;
 			children = (
 				E524A0FE238C4F530052825F /* Screen.swift */,
+				E5AD2EAC240A663C0012A933 /* AnimationTestView */,
 				E5FDE323238B25610018D791 /* WelcomeView */,
 				E524A100238C4F950052825F /* AttractionsView */,
 				E5628B4B2393D4B900A61676 /* AttractionDetail */,
@@ -431,6 +438,16 @@
 				E57C47152392BC3A008DE784 /* RoundedButton.swift */,
 			);
 			path = Elements;
+			sourceTree = "<group>";
+		};
+		E5AD2EAC240A663C0012A933 /* AnimationTestView */ = {
+			isa = PBXGroup;
+			children = (
+				E5AD2EB6240A66A40012A933 /* CardView.swift */,
+				E5AD2EB4240A66980012A933 /* AnimationTestView.swift */,
+				E5AD2EB2240A66860012A933 /* AnimationTestViewController.swift */,
+			);
+			path = AnimationTestView;
 			sourceTree = "<group>";
 		};
 		E5AFC89923F9B006007B9887 /* CityDetailView */ = {
@@ -824,6 +841,7 @@
 				992533C4238FF8B800EE479A /* LocationManager.swift in Sources */,
 				E5FF041224095E7000D32EE7 /* MarkerPool.swift in Sources */,
 				E553D14B23926CC600C3199C /* ListCardView.swift in Sources */,
+				E5AD2EB3240A66860012A933 /* AnimationTestViewController.swift in Sources */,
 				E5F9715C2392D96F0096C296 /* UIControl+TargetActionable.swift in Sources */,
 				E5335D032389942D00601F02 /* MapView.swift in Sources */,
 				E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */,
@@ -832,6 +850,7 @@
 				993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */,
 				E5AFC8A223F9B006007B9887 /* CityDetailView.swift in Sources */,
 				99E5BF6F2399C1C6005F0882 /* UITextView+setText.swift in Sources */,
+				E5AD2EB7240A66A40012A933 /* CardView.swift in Sources */,
 				99C26FE724003A5600F57030 /* CitySearchViewController.swift in Sources */,
 				E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */,
 				E528FF87238971FE0065483B /* AppDelegate.swift in Sources */,
@@ -844,6 +863,7 @@
 				E5628B4D2393D4D500A61676 /* AttractionDetailView.swift in Sources */,
 				E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */,
 				E57C47162392BC3A008DE784 /* RoundedButton.swift in Sources */,
+				E5AD2EB5240A66980012A933 /* AnimationTestView.swift in Sources */,
 				E528FF89238971FE0065483B /* SceneDelegate.swift in Sources */,
 				9930114B23AFED3600909749 /* GMSMapView+loadCustomStyle.swift in Sources */,
 				E5F971612392D96F0096C296 /* ConfigurableCell.swift in Sources */,

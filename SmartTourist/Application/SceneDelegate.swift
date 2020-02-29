@@ -27,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, RootInstaller {
         store.dispatch(LoadState())
         window = UIWindow(frame: UIScreen.main.bounds)
         let navigator: Navigator! = self.store!.dependencies.navigator
-        navigator.start(using: self, in: self.window!, at: Screen.attractions)
+        navigator.start(using: self, in: self.window!, at: Screen.test)
         window?.windowScene = windowScene
     }
     
@@ -36,6 +36,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, RootInstaller {
             let viewController = AttractionsViewController(store: self.store, localState: AttractionsLocalState())
             let navigationController = UINavigationController(rootViewController: viewController)
             self.window?.rootViewController = navigationController
+            completion()
+            return true
+        } else if identifier == Screen.test.rawValue {
+            let viewController = AnimationTestViewController(store: self.store)
+            self.window?.rootViewController = viewController
             completion()
             return true
         }
