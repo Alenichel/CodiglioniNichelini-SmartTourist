@@ -28,7 +28,7 @@ class CitySearchView: UIView, ViewControllerModellableView {
     
     func style(){
         self.backgroundColor = .systemBackground
-        self.alpha = 0.90
+        //self.alpha = 0.90
     }
     
     override func layoutSubviews() {

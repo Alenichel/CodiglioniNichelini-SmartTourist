@@ -58,7 +58,7 @@ class MapView: UIView, ViewControllerModellableView {
     var searchButton = RoundedButton()
     
     // MARK: - Interactions
-    var didTapLocationName: Interaction?
+    var didTapCityNameButton: Interaction?
     var didTapLocationButton: Interaction?
     var ditTapSearchButton: Interaction?
     var didMoveMap: Interaction?
@@ -81,7 +81,7 @@ class MapView: UIView, ViewControllerModellableView {
         }
         
         self.cityNameButton.on(.touchUpInside) { button in
-            self.didTapLocationName?()
+            self.didTapCityNameButton?()
         }
         self.markerPool = GMSMarkerPool(mapView: self.mapView)
         self.addSubview(self.mapView)

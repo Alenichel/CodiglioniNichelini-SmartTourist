@@ -55,7 +55,7 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
         self.rootView.listCardView.didChangeSegmentedValue = { [unowned self] index in
             self.localState.selectedSegmentIndex = SelectedPlaceList(rawValue: index)!
         }
-        self.rootView.didTapLocationName = { [unowned self] in
+        self.rootView.didTapCityNameButton = { [unowned self] in
             self.dispatch(Show(Screen.cityDetail, animated: true, context: nil))
         }
         self.rootView.didTapLocationButton = { [unowned self] in
@@ -139,7 +139,7 @@ extension AttractionsViewController: RoutableWithConfiguration {
             }),
             .show(Screen.citySearch): .presentModally({ [unowned self] context in
                 let vc = CitySearchViewController(store: self.store)
-                vc.modalPresentationStyle = .overCurrentContext
+                vc.modalPresentationStyle = UIModalPresentationStyle.fullScreen
                 return vc
             }),
             .show(Screen.detail): .push({ [unowned self] context in
