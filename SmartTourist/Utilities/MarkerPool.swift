@@ -28,6 +28,7 @@ class GMSMarkerPool {
         places.forEach { place in
             if !self.cache.keys.contains(place.location) {
                 let marker = GMSMarker(position: place.location)
+                marker.appearAnimation = GMSMarkerAnimation.pop
                 marker.map = self.mapView
                 marker.title = place.name
                 self.cache[place.location] = marker
