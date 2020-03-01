@@ -10,7 +10,9 @@ import CoreLocation
 import Tempura
 import GoogleMaps
 
+
 var justVisitedPlaces: [GPPlace] = []
+
 
 class AttractionsViewController: ViewControllerWithLocalState<MapView> {
     override func viewWillAppear(_ animated: Bool) {
@@ -41,7 +43,7 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
     }
     
     override func setupInteraction() {
-        self.rootView.listCardView.animate = { [unowned self] in
+        /*self.rootView.listCardView.animate = { [unowned self] in
             self.localState.animate = true
             switch self.localState.cardState {
             case .expanded:
@@ -49,7 +51,7 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
             case .collapsed:
                 self.localState.cardState = .expanded
             }
-        }
+        }*/
         self.rootView.listCardView.didTapItem = { [unowned self] id in
             self.dispatch(Show(Screen.detail, animated: true, context: id))
         }
@@ -155,13 +157,5 @@ extension AttractionsViewController: RoutableWithConfiguration {
 
 
 struct AttractionsLocalState: LocalState {
-    var cardState: CardState = .collapsed
-    var animate: Bool = false
     var selectedSegmentIndex: SelectedPlaceList = .nearest
-}
-
-
-enum CardState: Int {
-    case expanded = 30
-    case collapsed = 70
 }

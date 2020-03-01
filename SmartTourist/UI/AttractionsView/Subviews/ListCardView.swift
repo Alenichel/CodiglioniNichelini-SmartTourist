@@ -14,28 +14,22 @@ import CoreLocation
 struct ListCardViewModel: ViewModel {
     let currentLocation: CLLocationCoordinate2D?
     let places: [GPPlace]
-    let cardState: CardState
     let favorites: [GPPlace]
 }
 
 
 class ListCardView: UIView, ModellableView {
-    var handle = UIButton(type: .system)
+    var handle = UIImageView(image: UIImage(systemName: "line.horizontal.3"))
     var chooser = UISegmentedControl(items: ["Nearest", "Popular", "Favorites"])
     var scrollView = UIScrollView()
     var attractionListView: CollectionView<AttractionCell, SimpleSource<AttractionCellViewModel>>!
     var emptyLabel = UILabel()
     
     // MARK: - Interactions
-    var animate: Interaction?
     var didTapItem: ((GPPlace) -> Void)?
     var didChangeSegmentedValue: ((Int) -> Void)?
         
     func setup() {
-        self.handle.setImage(UIImage(systemName: "chevron.compact.up"), for: .normal)
-        self.handle.on(.touchUpInside) { button in
-            self.animate?()
-        }
         self.chooser.selectedSegmentIndex = 0
         self.chooser.on(.valueChanged) { control in
             self.didChangeSegmentedValue?(control.selectedSegmentIndex)
@@ -89,7 +83,7 @@ class ListCardView: UIView, ModellableView {
         super.layoutSubviews()
         self.handle.sizeToFit()
         self.emptyLabel.sizeToFit()
-        self.handle.pin.top(20).left().right()
+        self.handle.pin.topCenter(20)
         self.chooser.pin.below(of: self.handle).marginTop(20).hCenter()
         self.scrollView.pin.below(of: self.chooser).marginTop(15).left().right().bottom()
         self.attractionListView.frame = self.scrollView.frame.bounds
@@ -98,11 +92,6 @@ class ListCardView: UIView, ModellableView {
     
     func update(oldModel: ListCardViewModel?) {
         guard let model = self.model, let currentLocation = model.currentLocation else { return }
-        if model.cardState == .collapsed {
-            self.handle.setImage(UIImage(systemName: "chevron.compact.up"), for: .normal)
-        } else {
-            self.handle.setImage(UIImage(systemName: "chevron.compact.down"), for: .normal)
-        }
         let attractions = model.places.map { AttractionCellViewModel(place: $0, currentLocation: currentLocation, favorite: model.favorites.contains($0)) }
         self.attractionListView.source = SimpleSource<AttractionCellViewModel>(attractions)
         UIView.animate(withDuration: 0.3) {
