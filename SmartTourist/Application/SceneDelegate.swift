@@ -38,11 +38,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, RootInstaller {
             self.window?.rootViewController = navigationController
             completion()
             return true
-        } else if identifier == Screen.test.rawValue {
-            let viewController = AnimationTestViewController(store: self.store)
-            self.window?.rootViewController = viewController
-            completion()
-            return true
         }
         return false
     }

@@ -130,7 +130,6 @@ class MapView: UIView, ViewControllerModellableView {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.cityNameButton.sizeToFit()
-        self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height * 0.70)
         self.topBlurEffect.pin.top().left().right().bottom(94.5%)
         self.cityNameButton.pin.below(of: self.topBlurEffect).left(10)
         self.searchButton.pin.right(of: self.cityNameButton, aligned: .center).margin(2%).size(40)
@@ -141,9 +140,8 @@ class MapView: UIView, ViewControllerModellableView {
     }
     
     func layoutCardView(targetPercent: Percent) {
-        print(targetPercent)
         self.listCardView.pin.bottom().left().right().top(targetPercent)
-        self.mapView.frame.size.height = targetPercent.of(self.frame.height)
+        self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: targetPercent.of(self.frame.height))
         let inversePercent = (100 - targetPercent.of(100) + 2)%
         self.locationButton.pin.bottom(inversePercent).right(4%).size(40)
         self.layoutIfNeeded()
@@ -275,29 +273,29 @@ class MapView: UIView, ViewControllerModellableView {
         case .collapsed:
             if translation.y <= -screenHeight / 3 || velocity.y <= -100 {
                 self.animator?.isReversed = false
-                self.animator?.addCompletion { [weak self] _ in
-                    self?.cardState = .expanded
-                    self?.panGestureRecognizer.isEnabled = true
+                self.animator?.addCompletion { [unowned self] _ in
+                    self.cardState = .expanded
+                    self.panGestureRecognizer.isEnabled = true
                 }
             } else {
                 self.animator?.isReversed = true
-                self.animator?.addCompletion { [weak self] _ in
-                    self?.cardState = .collapsed
-                    self?.panGestureRecognizer.isEnabled = true
+                self.animator?.addCompletion { [unowned self] _ in
+                    self.cardState = .collapsed
+                    self.panGestureRecognizer.isEnabled = true
                 }
             }
         case .expanded:
             if translation.y >= screenHeight / 3 || velocity.y >= 100 {
                 self.animator?.isReversed = false
-                self.animator?.addCompletion { [weak self] _ in
-                    self?.cardState = .collapsed
-                    self?.panGestureRecognizer.isEnabled = true
+                self.animator?.addCompletion { [unowned self] _ in
+                    self.cardState = .collapsed
+                    self.panGestureRecognizer.isEnabled = true
                 }
             } else {
                 self.animator?.isReversed = true
-                self.animator?.addCompletion { [weak self] _ in
-                    self?.cardState = .expanded
-                    self?.panGestureRecognizer.isEnabled = true
+                self.animator?.addCompletion { [unowned self] _ in
+                    self.cardState = .expanded
+                    self.panGestureRecognizer.isEnabled = true
                 }
             }
         }
