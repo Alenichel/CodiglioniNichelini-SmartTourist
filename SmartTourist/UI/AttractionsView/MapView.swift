@@ -79,7 +79,6 @@ class MapView: UIView, ViewControllerModellableView {
         self.mapView.settings.compassButton = true
         self.mapView.settings.tiltGestures = false
         self.mapView.delegate = self.viewController as? AttractionsViewController
-        self.locationButton.tintColor = .label
         self.locationButton.on(.touchUpInside) { button in
             self.didTapLocationButton?()
             self.centerMap()
@@ -112,6 +111,7 @@ class MapView: UIView, ViewControllerModellableView {
         self.cityNameButton.titleLabel?.font = UIFont.systemFont(ofSize: 32, weight: .bold)
         self.cityNameButton.contentHorizontalAlignment = .left
         self.locationButton.backgroundColor = .systemBackground
+        self.locationButton.tintColor = .label
         self.locationButton.layer.cornerRadius = 20
         self.locationButton.layer.shadowColor = UIColor.black.cgColor
         self.locationButton.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 1 : 0.75
