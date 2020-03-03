@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             let store = (rc.topViewController as! ViewControllerWithLocalState<MapView>).store
             let placeName = userInfo["ATTRACTION_NAME"] as! String
             var place : GPPlace?
-            for p in store.state.locationState.nearestPlaces {
+            for p in store.state.locationState.popularPlaces {
                 if p.name == placeName {place = p}
             }
             let lc = AttractionDetailLocalState(attraction: place!)
