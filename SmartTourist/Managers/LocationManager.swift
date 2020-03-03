@@ -11,9 +11,12 @@ import CoreLocation
 
 class LocationManager {
     static let shared = LocationManager()
-    private init() {}
+    private var lm : CLLocationManager
     
-    private var lm = CLLocationManager()
+    private init() {
+        self.lm = CLLocationManager()
+        self.lm.allowsBackgroundLocationUpdates = true
+    }
 
     func requestAuth() {
         self.lm.requestAlwaysAuthorization()
