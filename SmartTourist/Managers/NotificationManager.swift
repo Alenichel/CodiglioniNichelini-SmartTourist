@@ -12,7 +12,9 @@ import UserNotifications
 
 class NotificationManager {
     static let shared = NotificationManager()
-    private init() {}
+    private init() {
+        self.registerActions()
+    }
         
     private let nc = UNUserNotificationCenter.current()
     private let identifier = "smart-tourist"
@@ -64,5 +66,32 @@ class NotificationManager {
         let request = UNNotificationRequest(identifier: self.identifier, content: content, trigger: trigger)
         self.nc.add(request)
     }
-        
+    
+    func registerActions() {
+        let seeMoreAction = UNNotificationAction(identifier: "VIEW_ACTION",
+                                                 title: "View",
+                                                 options: [])
+        let topAttractionCategory =
+            UNNotificationCategory(identifier: "NEARBY_TOP_ATTRACTION",
+                                   actions: [seeMoreAction],
+                                   intentIdentifiers: [],
+                                   hiddenPreviewsBodyPlaceholder: "",
+                                   options: .customDismissAction)
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.setNotificationCategories([topAttractionCategory])
+    }
+    
+    func sendNearbyTopAttractionNotification(attractionName: String) {
+        let content = UNMutableNotificationContent()
+        content.title = "Nearby Top Location"
+        content.body = "You are near a top location: \(attractionName)"
+        content.sound = UNNotificationSound.default
+        content.userInfo = ["ATTRACTION_NAME": attractionName]
+        content.categoryIdentifier = "NEARBY_TOP_ATTRACTION"
+        let date = Date() + TimeInterval(1)
+        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+        let request = UNNotificationRequest(identifier: self.identifier, content: content, trigger: trigger)
+        self.nc.add(request)
+    }
 }

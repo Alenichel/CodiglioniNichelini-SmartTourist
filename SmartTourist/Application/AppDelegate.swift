@@ -41,10 +41,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         completionHandler([.alert, .badge, .sound])
     }
     
+    func userNotificationCenter(
+      _ center: UNUserNotificationCenter,
+      didReceive response: UNNotificationResponse,
+      withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        let userInfo = response.notification.request.content.userInfo
+        if response.actionIdentifier == "VIEW_ACTION" {
+            print("----> Ciao")
+        }
+        
+      completionHandler()
+    }
+    
     // App becomes active
     // This method is called on first launch when app was closed / killed and every time app is reopened or change status from background to foreground (ex. mobile call)
     func applicationDidBecomeActive(_ application: UIApplication) {
         justVisitedPlaces.removeFirst(justVisitedPlaces.count - 1)
     }
 }
+
 
