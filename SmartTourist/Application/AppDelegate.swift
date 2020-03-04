@@ -20,7 +20,7 @@ import Tempura
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        /// Override point for customization after application launch.
+        // Override point for customization after application launch.
         GMSServices.provideAPIKey(GoogleAPI.apiKey)
         GMSPlacesClient.provideAPIKey(GoogleAPI.apiKey)
         NotificationManager.shared.setDelegate(self)
@@ -36,9 +36,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        /// Called when the user discards a scene session.
-        /// If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        /// Use this method to release any resources that were specific to the discarded scenes, as they will not return.
+        // Called when the user discards a scene session.
+        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
+        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
     
     /// This method will be called when app received push notifications in foreground
@@ -48,15 +48,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     /// This method handles notification actions when they happens in foreground.
-    func userNotificationCenter(
-      _ center: UNUserNotificationCenter,
-      didReceive response: UNNotificationResponse,
-      withCompletionHandler completionHandler: @escaping () -> Void) {
-        
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                didReceive response: UNNotificationResponse,
+                                withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-        
         switch response.actionIdentifier {
-            
         case "VIEW_ACTION":
             print("----> VIEW ACTION")
         default:
@@ -74,7 +70,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             (rc ).pushViewController(wc, animated: true)
         }
 
-      completionHandler()
+        completionHandler()
     }
     
     // App becomes active

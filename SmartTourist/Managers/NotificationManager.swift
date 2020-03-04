@@ -9,8 +9,10 @@ import Foundation
 import Hydra
 import UserNotifications
 
+
 class NotificationManager {
     static let shared = NotificationManager()
+    
     private init() {
         self.registerActions()
     }
