@@ -80,12 +80,13 @@ class NotificationManager {
         notificationCenter.setNotificationCategories([topAttractionCategory])
     }
     
-    func sendNearbyTopAttractionNotification(attractionName: String) {
+    func sendNearbyTopAttractionNotification(attractionName: String, place: GPPlaceWrapper) {
         let content = UNMutableNotificationContent()
         content.title = "Nearby Top Location"
         content.body = "You are near a top location: \(attractionName)"
         content.sound = UNNotificationSound.default
-        content.userInfo = ["ATTRACTION_NAME": attractionName]
+        content.userInfo = ["ATTRACTION_NAME": attractionName,
+                            "PLACE" : place]
         content.categoryIdentifier = "NEARBY_TOP_ATTRACTION"
         let date = Date() + TimeInterval(1)
         let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)

@@ -65,11 +65,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             let rc = window?.rootViewController as! UINavigationController
             let store = (rc.topViewController as! ViewControllerWithLocalState<MapView>).store
             let placeName = userInfo["ATTRACTION_NAME"] as! String
-            var place : GPPlace?
-            for p in store.state.locationState.popularPlaces {
+            var place = userInfo["PLACE"] as! GPPlaceWrapper
+            /*for p in store.state.locationState.popularPlaces {
                 if p.name == placeName {place = p}
-            }
-            let lc = AttractionDetailLocalState(attraction: place!)
+            }*/
+            let lc = AttractionDetailLocalState(attraction: place.place)
             let wc = AttractionDetailViewController(store: store, localState: lc)
             (rc ).pushViewController(wc, animated: true)
         }

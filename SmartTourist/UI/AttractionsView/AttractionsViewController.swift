@@ -95,7 +95,7 @@ extension AttractionsViewController: CLLocationManagerDelegate {
                 let target = CLLocation(latitude: place.location.latitude, longitude: place.location.longitude)
                 let distance = Int(current.distance(from: target).rounded())
                 if distance < notificationTriggeringDistance {
-                    NotificationManager.shared.sendNearbyTopAttractionNotification(attractionName: place.name)
+                    NotificationManager.shared.sendNearbyTopAttractionNotification(attractionName: place.name, place: GPPlaceWrapper(place))
                     justVisitedPlaces.append(place)
                 }
             }
