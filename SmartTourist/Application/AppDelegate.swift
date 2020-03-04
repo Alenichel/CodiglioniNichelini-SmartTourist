@@ -63,8 +63,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 let placeID = userInfo["PLACE_ID"] as? String {
                 let store = attractionsViewController.store
                 if let place = store.state.locationState.popularPlaces.first(where: {$0.placeID == placeID}) {
-                    store.dispatch(Hide(animated: true, atomic: true)).then {
-                        store.dispatch(Show(Screen.detail, animated: true, context: place))
+                    store.dispatch(Hide(Screen.cityDetail.rawValue, animated: true, atomic: true)).then {
+                        store.dispatch(Hide(Screen.citySearch.rawValue, animated: true, atomic: true)).then {   // This doesn't actually work
+                            store.dispatch(Hide(Screen.detail.rawValue, animated: true, atomic: true)).then {
+                                store.dispatch(Show(Screen.detail, animated: true, context: place))
+                            }
+                        }
                     }
                 }
             }
