@@ -66,14 +66,6 @@ struct GPPlace: Codable, Equatable {
     }
 }
 
-/// This must be conformed to SecureCoding
-class GPPlaceWrapper : NSObject {
-    var place: GPPlace
-    
-    init(_ place: GPPlace){
-        self.place = place
-    }
-}
 
 extension CLLocationCoordinate2D: Codable {
     enum CodingKeys: CodingKey {

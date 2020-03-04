@@ -17,14 +17,12 @@ var justVisitedPlaces: [GPPlace] = []
 class AttractionsViewController: ViewControllerWithLocalState<MapView> {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print(#function)
         if let navigationController = self.navigationController {
             navigationController.setNavigationBarHidden(true, animated: animated)
         }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        print(#function)
         super.viewWillDisappear(animated)
         if let navigationController = self.navigationController {
             navigationController.setNavigationBarHidden(false, animated: animated)
@@ -43,15 +41,6 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
     }
     
     override func setupInteraction() {
-        /*self.rootView.listCardView.animate = { [unowned self] in
-            self.localState.animate = true
-            switch self.localState.cardState {
-            case .expanded:
-                self.localState.cardState = .collapsed
-            case .collapsed:
-                self.localState.cardState = .expanded
-            }
-        }*/
         self.rootView.listCardView.didTapItem = { [unowned self] id in
             self.dispatch(Show(Screen.detail, animated: true, context: id))
         }
@@ -95,7 +84,7 @@ extension AttractionsViewController: CLLocationManagerDelegate {
                 let target = CLLocation(latitude: place.location.latitude, longitude: place.location.longitude)
                 let distance = Int(current.distance(from: target).rounded())
                 if distance < notificationTriggeringDistance {
-                    NotificationManager.shared.sendNearbyTopAttractionNotification(attractionName: place.name, place: GPPlaceWrapper(place))
+                    NotificationManager.shared.sendNearbyTopAttractionNotification(place: place)
                     justVisitedPlaces.append(place)
                 }
             }

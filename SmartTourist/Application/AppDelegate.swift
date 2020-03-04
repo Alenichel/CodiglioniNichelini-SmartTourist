@@ -57,19 +57,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             print("----> VIEW ACTION")
         default:
             print("----> DEFAULT")
-            let window = UIApplication.shared.windows.first
-            let rc = window?.rootViewController as! UINavigationController
-            let store = (rc.topViewController as! ViewControllerWithLocalState<MapView>).store
-            let placeName = userInfo["ATTRACTION_NAME"] as! String
-            var place = userInfo["PLACE"] as! GPPlaceWrapper
-            /*for p in store.state.locationState.popularPlaces {
-                if p.name == placeName {place = p}
-            }*/
-            let lc = AttractionDetailLocalState(attraction: place.place)
-            let wc = AttractionDetailViewController(store: store, localState: lc)
-            (rc ).pushViewController(wc, animated: true)
+            if let window = UIApplication.shared.windows.first,
+                let rootViewController = window.rootViewController as? UINavigationController,
+                let attractionsViewController = rootViewController.viewControllers.first as? AttractionsViewController,
+                let placeID = userInfo["PLACE_ID"] as? String {
+                let store = attractionsViewController.store
+                if let place = store.state.locationState.popularPlaces.first(where: {$0.placeID == placeID}) {
+                    //store.dispatch(Hide(Screen.detail.rawValue, animated: true, atomic: false))
+                    store.dispatch(Show(Screen.detail, animated: true, context: place))
+                }
+            }
         }
-
         completionHandler()
     }
     
