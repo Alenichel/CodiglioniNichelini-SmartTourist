@@ -11,7 +11,7 @@ import CoreLocation
 
 class LocationManager {
     static let shared = LocationManager()
-    private var lm : CLLocationManager
+    private var lm: CLLocationManager
     
     private init() {
         self.lm = CLLocationManager()
