@@ -38,6 +38,11 @@ class CitySearchView: UIView, ViewControllerModellableView {
         self.transitionBlurEffect.pin.top().left().right().bottom(90%)
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        guard let viewController = self.viewController as? CitySearchViewController else { return }
+        viewController.resultsViewController.tableCellBackgroundColor = .systemBackground
+    }
+    
     func update(oldModel: CitySearchViewModel?) {
         guard let _ = self.model else { return }
         self.setNeedsLayout()
