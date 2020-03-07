@@ -55,11 +55,15 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     var scrollView = UIScrollView()
     var mapView = GMSMapView()
     var favoriteButton = UIBarButtonItem()
+    var curtainView = UIView()
+    var activityIndicator = UIActivityIndicatorView()
     
     var didTapFavoriteButton: ((GPPlace) -> Void)?
     
     func setup() {
         self.addSubview(self.scrollView)
+        self.addSubview(self.curtainView)
+        self.curtainView.addSubview(self.activityIndicator)
         self.scrollView.addSubview(self.imageView)
         self.scrollView.addSubview(self.containerView)
         self.containerView.addSubview(self.descriptionText)
@@ -95,6 +99,8 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.mapView.settings.compassButton = false
         self.mapView.isUserInteractionEnabled = false
         self.mapView.loadCustomStyle()
+        self.curtainView.backgroundColor = .systemBackground
+        self.activityIndicator.startAnimating()
     }
     
     override func layoutSubviews() {
@@ -120,8 +126,11 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         print(mapHeight)
         let h = textContentHeight + frameHeight / 1.8 + mapHeight
         self.scrollView.contentSize = CGSize(width: self.frame.width, height: h)
+        self.curtainView.pin.all()
+        self.activityIndicator.pin.center().size(30)
     }
     
+    var allLoaded = false
     func update(oldModel: AttractionDetailViewModel?) {
         guard let model = self.model else { return }
         if let rating = model.attraction.rating {
@@ -131,8 +140,12 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         }
         self.imageView.setImage(model.photo)
         self.nRatingsLabel.text = model.nRatings
-        self.descriptionText.setText(searchTerms: model.wikipediaSearchTerms) {
-            self.setNeedsLayout()
+        
+        if !allLoaded {
+            self.descriptionText.setText(searchTerms: model.wikipediaSearchTerms) {
+                self.setNeedsLayout()
+                self.allLoaded = true
+            }
         }
         
         let latitude = model.attraction.location.latitude
@@ -147,6 +160,10 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
             self.favoriteButton.image = AttractionDetailView.isFavoriteImage
         } else {
             self.favoriteButton.image = AttractionDetailView.isNotFavoriteImage
+        }
+        
+        if allLoaded && !self.curtainView.isHidden {
+            self.curtainView.isHidden = true
         }
         
         self.setNeedsLayout()
