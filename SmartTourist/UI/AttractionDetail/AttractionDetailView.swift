@@ -46,7 +46,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     private static let isFavoriteImage = UIImage(systemName: "heart.fill")
     private static let isNotFavoriteImage = UIImage(systemName: "heart")
     
-    var descriptionText = UITextView()
+    var descriptionText = UILabel()
     var nRatingsLabel = UILabel()
     var cosmos = CosmosView(frame: .zero)
     var containerView = UIView()
@@ -76,14 +76,13 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
             guard let model = self.model else { return }
             self.didTapFavoriteButton?(model.attraction)
         }
+        self.descriptionText.numberOfLines = 0
     }
     
     func style() {
         self.backgroundColor = .systemBackground
         self.imageView.contentMode = .scaleAspectFill
         self.descriptionText.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.15)
-        self.descriptionText.isScrollEnabled = false
-        self.descriptionText.isEditable = false
         self.descriptionText.textAlignment = NSTextAlignment.justified
         self.cosmos.settings.updateOnTouch = false
         self.cosmos.settings.starSize = Double(UIFont.systemFontSize) * 1.1
@@ -114,18 +113,17 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.nRatingsLabel.pin.after(of: self.cosmos, aligned: .center).marginLeft(5)
         self.lineView.pin.below(of: self.cosmos).horizontally(7).height(1).marginTop(15)
         self.descriptionText.sizeToFit()
-        let textContentHeight = self.descriptionText.contentSize.height / 10
-        self.descriptionText.pin.horizontally(20).below(of: self.lineView).marginTop(5).height(textContentHeight)
+        if let text = self.descriptionText.text {
+            let textContentHeight = text.height(constraintedWidth: self.frame.width, font: self.descriptionText.font)
+            self.descriptionText.pin.horizontally(20).below(of: self.lineView).marginTop(5)//.height(textContentHeight)
+            let frameHeight: CGFloat = self.frame.height
+            let mapHeight: CGFloat = 300
+            let h = textContentHeight + frameHeight / 1.8 + mapHeight
+            self.scrollView.contentSize = CGSize(width: self.frame.width, height: h)
+        }
         self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 300)
         self.mapView.pin.horizontally(20).below(of: descriptionText).marginTop(20)
         self.scrollView.pin.top(self.safeAreaInsets).bottom().horizontally()
-        let frameHeight: CGFloat = self.frame.height
-        let mapHeight: CGFloat = 300
-        print(textContentHeight)
-        print(frameHeight)
-        print(mapHeight)
-        let h = textContentHeight + frameHeight / 1.8 + mapHeight
-        self.scrollView.contentSize = CGSize(width: self.frame.width, height: h)
         self.curtainView.pin.all()
         self.activityIndicator.pin.center().size(30)
     }
@@ -164,6 +162,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         
         if allLoaded && !self.curtainView.isHidden {
             self.curtainView.isHidden = true
+            self.curtainView.removeFromSuperview()
         }
         
         self.setNeedsLayout()

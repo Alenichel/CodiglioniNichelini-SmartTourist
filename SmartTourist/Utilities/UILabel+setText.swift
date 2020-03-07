@@ -1,14 +1,14 @@
 //
-//  UITextView+setText.swift
+//  UILabel+setText.swift
 //  SmartTourist
 //
-//  Created on 05/12/2019
+//  Created on 07/03/2020
 //
 
 import UIKit
 
 
-extension UITextView {
+extension UILabel {
     func setText(searchTerms: String, completion: @escaping () -> Void) {
         WikipediaAPI.shared.search(searchTerms: searchTerms).then { description in
             self.text = description
