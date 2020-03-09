@@ -134,17 +134,21 @@ class MapView: UIView, ViewControllerModellableView {
         self.cityNameButton.pin.below(of: self.topBlurEffect).left(10)
         self.searchButton.pin.right(of: self.cityNameButton, aligned: .center).margin(2%).size(40)
         if self.firstLayout {
-            self.layoutCardView(targetPercent: CardState.collapsed.rawValue%)
+            self.layoutCardView(targetPercent: CardState.collapsed.rawValue%, layoutMap: true)
             self.firstLayout.toggle()
         }
     }
     
-    func layoutCardView(targetPercent: Percent) {
+    func layoutCardView(targetPercent: Percent, layoutMap: Bool) {
         self.listCardView.pin.bottom().left().right().top(targetPercent)
-        self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: targetPercent.of(self.frame.height))
+        if layoutMap { self.layoutMapView(targetPercent: targetPercent) }
         let inversePercent = (100 - targetPercent.of(100) + 2)%
         self.locationButton.pin.bottom(inversePercent).right(4%).size(40)
         self.layoutIfNeeded()
+    }
+    
+    func layoutMapView(targetPercent: Percent) {
+        self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: targetPercent.of(self.frame.height))
     }
     
     // MARK: Update
@@ -240,15 +244,21 @@ class MapView: UIView, ViewControllerModellableView {
     }
     
     private func panningBegan() {
+        let cardState = self.cardState
         var targetPercent: Percent
-        switch self.cardState {
+        switch cardState {
         case .collapsed:
             targetPercent = CardState.expanded.rawValue%
         case .expanded:
             targetPercent = CardState.collapsed.rawValue%
         }
         self.animator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.8, animations: {
-            self.layoutCardView(targetPercent: targetPercent)
+            switch cardState {
+            case .collapsed:
+                self.layoutCardView(targetPercent: targetPercent, layoutMap: false)
+            case .expanded:
+                self.layoutCardView(targetPercent: targetPercent, layoutMap: true)
+            }
         })
     }
     
@@ -276,12 +286,14 @@ class MapView: UIView, ViewControllerModellableView {
                 self.animator?.addCompletion { [unowned self] _ in
                     self.cardState = .expanded
                     self.panGestureRecognizer.isEnabled = true
+                    self.layoutMapView(targetPercent: self.cardState.rawValue%)
                 }
             } else {
                 self.animator?.isReversed = true
                 self.animator?.addCompletion { [unowned self] _ in
                     self.cardState = .collapsed
                     self.panGestureRecognizer.isEnabled = true
+                    self.layoutMapView(targetPercent: self.cardState.rawValue%)
                 }
             }
         case .expanded:
@@ -290,12 +302,14 @@ class MapView: UIView, ViewControllerModellableView {
                 self.animator?.addCompletion { [unowned self] _ in
                     self.cardState = .collapsed
                     self.panGestureRecognizer.isEnabled = true
+                    self.layoutMapView(targetPercent: self.cardState.rawValue%)
                 }
             } else {
                 self.animator?.isReversed = true
                 self.animator?.addCompletion { [unowned self] _ in
                     self.cardState = .expanded
                     self.panGestureRecognizer.isEnabled = true
+                    self.layoutMapView(targetPercent: self.cardState.rawValue%)
                 }
             }
         }
