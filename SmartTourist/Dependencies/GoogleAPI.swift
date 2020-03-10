@@ -127,4 +127,25 @@ class GoogleAPI {
             }
         }
     }
+    
+    func buildDirectionURL(origin: CLLocationCoordinate2D?, destination: String , destinationPlaceId: String) -> URL {
+        
+        var components = URLComponents()
+        components.scheme = "https"
+        components.host = "google.com"
+        components.path = "maps/dir/?api=1"
+        
+        components.queryItems = [
+            URLQueryItem(name: "destination", value: destination),
+            URLQueryItem(name: "destination_place_id", value: destinationPlaceId),
+            URLQueryItem(name: "travelmode", value: "walking")
+        ]
+        
+        if let o = origin {
+            components.queryItems?.append(URLQueryItem(name: "origin", value: "\(o.latitude),\(o.longitude)"))
+        }
+        
+        let to_return = components.url!
+        return to_return
+    }
 }
