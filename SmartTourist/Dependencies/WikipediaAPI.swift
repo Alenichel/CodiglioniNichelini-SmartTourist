@@ -15,6 +15,7 @@ class WikipediaAPI {
     
     static let shared = WikipediaAPI()
     let language = WikipediaLanguage("en")
+    private let cache = NSCache<NSString, NSString>()
     
     private init() {
         WikipediaNetworking.appAuthorEmailForAPI = "ale.nichelg@gmail.com"
@@ -22,11 +23,19 @@ class WikipediaAPI {
     
     func search(searchTerms: String) -> Promise<String> {
         return Promise<String>(in: .background) { resolve, reject, status in
-            let _ = Wikipedia.shared.requestOptimizedSearchResults(language: self.language, term: searchTerms) { (searchResults, error) in
-            if let error = error {reject(error)}
-            if let searchResults = searchResults {
-                for articlePreview in searchResults.items { print(articlePreview.displayTitle) }
-                resolve(searchResults.items.first?.displayText ?? "No description")
+            if let description = self.cache.object(forKey: searchTerms as NSString) {
+                resolve(description as String)
+            } else {
+                let _ = Wikipedia.shared.requestOptimizedSearchResults(language: self.language, term: searchTerms) { (searchResults, error) in
+                    if let error = error {
+                        reject(error)
+                    }
+                    if let searchResults = searchResults {
+                        //for articlePreview in searchResults.items { print(articlePreview.displayTitle) }
+                        let description = searchResults.items.first?.displayText ?? "No description"
+                        self.cache.setObject(description as NSString, forKey: searchTerms as NSString)
+                        resolve(description)
+                    }
                 }
             }
         }
