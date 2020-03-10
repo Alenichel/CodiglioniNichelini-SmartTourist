@@ -67,10 +67,10 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
 
 extension AttractionsViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("[didUpdateLocations]: \(locations)")
+        guard let location = locations.first else { return }
+        print("[didUpdateLocations]: \(location)")
+        self.dispatch(SetActualLocation(location: location.coordinate))
         if self.state.locationState.mapCentered {
-            guard let location = locations.first else { return }
-            self.dispatch(SetActualLocation(location: location.coordinate))
             self.dispatch(GetCurrentCity(throttle: true))   // Also calls GetPopularPlaces
             self.dispatch(GetNearestPlaces(location: location.coordinate, throttle: true))
             self.locationBasedNotification(lastCoordinates: location.coordinate)
