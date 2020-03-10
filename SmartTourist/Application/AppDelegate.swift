@@ -24,6 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         GMSServices.provideAPIKey(GoogleAPI.apiKey)
         GMSPlacesClient.provideAPIKey(GoogleAPI.apiKey)
         NotificationManager.shared.setDelegate(self)
+        PedometerHandler.shared.startUpdates()
         return true
     }
 

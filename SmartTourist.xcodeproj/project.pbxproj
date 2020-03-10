@@ -23,6 +23,8 @@
 		99C27CD523AFC37700667FB0 /* MilanTour(Driving).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CD223AFC37700667FB0 /* MilanTour(Driving).gpx */; };
 		99C27CE723AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CE123AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx */; };
 		99E5BF6F2399C1C6005F0882 /* UITextView+setText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E5BF6E2399C1C6005F0882 /* UITextView+setText.swift */; };
+		99F36EAC2417FB4C00ACC519 /* PedometerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */; };
+		99F36EB32418037600ACC519 /* GlobalVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F36EB22418037600ACC519 /* GlobalVar.swift */; };
 		99F5A11923995D9E0056E68D /* UIImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */; };
 		E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F5238C4AFF0052825F /* WelcomeView.swift */; };
 		E524A0F8238C4C060052825F /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F7238C4C060052825F /* WelcomeViewController.swift */; };
@@ -153,6 +155,8 @@
 		99C27CD223AFC37700667FB0 /* MilanTour(Driving).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Driving).gpx"; sourceTree = "<group>"; };
 		99C27CE123AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanCityCenterTour(bycicle).gpx"; sourceTree = "<group>"; };
 		99E5BF6E2399C1C6005F0882 /* UITextView+setText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+setText.swift"; sourceTree = "<group>"; };
+		99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PedometerHandler.swift; sourceTree = "<group>"; };
+		99F36EB22418037600ACC519 /* GlobalVar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVar.swift; sourceTree = "<group>"; };
 		99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+setImage.swift"; sourceTree = "<group>"; };
 		AB3310E805FE2AAD225A0C8E /* Pods-SmartTourist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist.release.xcconfig"; path = "Target Support Files/Pods-SmartTourist/Pods-SmartTourist.release.xcconfig"; sourceTree = "<group>"; };
 		B169329D24736107D441A8F6 /* Pods-SmartTourist-SmartTouristUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist-SmartTouristUITests.release.xcconfig"; path = "Target Support Files/Pods-SmartTourist-SmartTouristUITests/Pods-SmartTourist-SmartTouristUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -376,6 +380,7 @@
 			children = (
 				992533C3238FF8B800EE479A /* LocationManager.swift */,
 				E52EECCE238EE5FE006196BA /* NotificationManager.swift */,
+				99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -390,6 +395,7 @@
 				E54E01BA23996839009D0331 /* Interceptors.swift */,
 				E54E01B323996806009D0331 /* Persistable.swift */,
 				E555704823F7001E0039679D /* Constants.swift */,
+				99F36EB22418037600ACC519 /* GlobalVar.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -820,6 +826,7 @@
 			files = (
 				E5628B4F2393D4E100A61676 /* AttractionDetailViewController.swift in Sources */,
 				E555704923F7001E0039679D /* Constants.swift in Sources */,
+				99F36EB32418037600ACC519 /* GlobalVar.swift in Sources */,
 				E5335D082389970B00601F02 /* DependenciesContainer.swift in Sources */,
 				99F5A11923995D9E0056E68D /* UIImageView+setImage.swift in Sources */,
 				E5F9715D2392D96F0096C296 /* String+Random.swift in Sources */,
@@ -828,6 +835,7 @@
 				992533C4238FF8B800EE479A /* LocationManager.swift in Sources */,
 				E5FF041224095E7000D32EE7 /* MarkerPool.swift in Sources */,
 				E553D14B23926CC600C3199C /* ListCardView.swift in Sources */,
+				99F36EAC2417FB4C00ACC519 /* PedometerHandler.swift in Sources */,
 				E5F9715C2392D96F0096C296 /* UIControl+TargetActionable.swift in Sources */,
 				E5335D032389942D00601F02 /* MapView.swift in Sources */,
 				E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */,
