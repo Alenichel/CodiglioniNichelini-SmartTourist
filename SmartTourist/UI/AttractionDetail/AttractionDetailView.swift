@@ -115,10 +115,11 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.nRatingsLabel.sizeToFit()
         self.nRatingsLabel.pin.after(of: self.cosmos, aligned: .center).marginLeft(5)
         self.lineView.pin.below(of: self.cosmos).horizontally(7).height(1).marginTop(15)
-        self.descriptionText.sizeToFit()
         if let text = self.descriptionText.text {
+            self.descriptionText.sizeToFit()
             let textContentHeight = text.height(constraintedWidth: self.frame.width, font: self.descriptionText.font)
             self.descriptionText.pin.horizontally(20).below(of: self.lineView).marginTop(5)//.height(textContentHeight)
+            self.descriptionText.sizeToFit()
             let frameHeight: CGFloat = self.frame.height
             let mapHeight: CGFloat = 300
             let h = textContentHeight + frameHeight / 1.8 + mapHeight
@@ -138,10 +139,10 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         } else {
             self.cosmos.rating = 0
         }
-        self.imageView.setImage(model.photo)
         self.nRatingsLabel.text = model.nRatings
         
         if !model.allLoaded {
+            self.imageView.setImage(model.photo)
             self.descriptionText.setText(searchTerms: model.wikipediaSearchTerms) {
                 self.didLoadEverything?()
             }

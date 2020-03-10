@@ -22,7 +22,6 @@
 		99C27CD423AFC37700667FB0 /* MilanTour(Cycling).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CD123AFC37700667FB0 /* MilanTour(Cycling).gpx */; };
 		99C27CD523AFC37700667FB0 /* MilanTour(Driving).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CD223AFC37700667FB0 /* MilanTour(Driving).gpx */; };
 		99C27CE723AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CE123AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx */; };
-		99E5BF6F2399C1C6005F0882 /* UITextView+setText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99E5BF6E2399C1C6005F0882 /* UITextView+setText.swift */; };
 		99F5A11923995D9E0056E68D /* UIImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */; };
 		E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F5238C4AFF0052825F /* WelcomeView.swift */; };
 		E524A0F8238C4C060052825F /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F7238C4C060052825F /* WelcomeViewController.swift */; };
@@ -39,6 +38,7 @@
 		E5335D032389942D00601F02 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D022389942D00601F02 /* MapView.swift */; };
 		E5335D052389946C00601F02 /* AttractionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D042389946C00601F02 /* AttractionsViewController.swift */; };
 		E5335D082389970B00601F02 /* DependenciesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D072389970B00601F02 /* DependenciesContainer.swift */; };
+		E54B9A5B2417D0F9009F8DBC /* UITextView+setText.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54B9A5A2417D0F9009F8DBC /* UITextView+setText.swift */; };
 		E54E01B423996806009D0331 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E01B323996806009D0331 /* Persistable.swift */; };
 		E54E01BB23996839009D0331 /* Interceptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E01BA23996839009D0331 /* Interceptors.swift */; };
 		E553D14B23926CC600C3199C /* ListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E553D14A23926CC600C3199C /* ListCardView.swift */; };
@@ -152,7 +152,6 @@
 		99C27CD123AFC37700667FB0 /* MilanTour(Cycling).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Cycling).gpx"; sourceTree = "<group>"; };
 		99C27CD223AFC37700667FB0 /* MilanTour(Driving).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Driving).gpx"; sourceTree = "<group>"; };
 		99C27CE123AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanCityCenterTour(bycicle).gpx"; sourceTree = "<group>"; };
-		99E5BF6E2399C1C6005F0882 /* UITextView+setText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+setText.swift"; sourceTree = "<group>"; };
 		99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+setImage.swift"; sourceTree = "<group>"; };
 		AB3310E805FE2AAD225A0C8E /* Pods-SmartTourist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist.release.xcconfig"; path = "Target Support Files/Pods-SmartTourist/Pods-SmartTourist.release.xcconfig"; sourceTree = "<group>"; };
 		B169329D24736107D441A8F6 /* Pods-SmartTourist-SmartTouristUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist-SmartTouristUITests.release.xcconfig"; path = "Target Support Files/Pods-SmartTourist-SmartTouristUITests/Pods-SmartTourist-SmartTouristUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -180,6 +179,7 @@
 		E5335D022389942D00601F02 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		E5335D042389946C00601F02 /* AttractionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionsViewController.swift; sourceTree = "<group>"; };
 		E5335D072389970B00601F02 /* DependenciesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesContainer.swift; sourceTree = "<group>"; };
+		E54B9A5A2417D0F9009F8DBC /* UITextView+setText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+setText.swift"; sourceTree = "<group>"; };
 		E54E01B323996806009D0331 /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		E54E01BA23996839009D0331 /* Interceptors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptors.swift; sourceTree = "<group>"; };
 		E553D14A23926CC600C3199C /* ListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCardView.swift; sourceTree = "<group>"; };
@@ -456,8 +456,8 @@
 				E5F9715B2392D96E0096C296 /* String+Height.swift */,
 				E5628B502394224F00A61676 /* UIImage+Color.swift */,
 				99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */,
-				99E5BF6E2399C1C6005F0882 /* UITextView+setText.swift */,
 				E592B82124140FCF00AD46F8 /* UILabel+setText.swift */,
+				E54B9A5A2417D0F9009F8DBC /* UITextView+setText.swift */,
 				9930114A23AFED3600909749 /* GMSMapView+loadCustomStyle.swift */,
 				E5FF041124095E7000D32EE7 /* MarkerPool.swift */,
 			);
@@ -835,11 +835,11 @@
 				E54E01B423996806009D0331 /* Persistable.swift in Sources */,
 				993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */,
 				E5AFC8A223F9B006007B9887 /* CityDetailView.swift in Sources */,
-				99E5BF6F2399C1C6005F0882 /* UITextView+setText.swift in Sources */,
 				99C26FE724003A5600F57030 /* CitySearchViewController.swift in Sources */,
 				E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */,
 				E528FF87238971FE0065483B /* AppDelegate.swift in Sources */,
 				E5F971602392D96F0096C296 /* DataSource.swift in Sources */,
+				E54B9A5B2417D0F9009F8DBC /* UITextView+setText.swift in Sources */,
 				E5F971632392D96F0096C296 /* UIView+Blink.swift in Sources */,
 				E52EECCF238EE5FE006196BA /* NotificationManager.swift in Sources */,
 				E524A0FF238C4F530052825F /* Screen.swift in Sources */,
