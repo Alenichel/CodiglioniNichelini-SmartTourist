@@ -155,12 +155,9 @@
 		99C27CD123AFC37700667FB0 /* MilanTour(Cycling).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Cycling).gpx"; sourceTree = "<group>"; };
 		99C27CD223AFC37700667FB0 /* MilanTour(Driving).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Driving).gpx"; sourceTree = "<group>"; };
 		99C27CE123AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanCityCenterTour(bycicle).gpx"; sourceTree = "<group>"; };
-<<<<<<< HEAD
-=======
 		99E5BF6E2399C1C6005F0882 /* UITextView+setText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+setText.swift"; sourceTree = "<group>"; };
 		99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PedometerHandler.swift; sourceTree = "<group>"; };
 		99F36EB22418037600ACC519 /* GlobalVar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVar.swift; sourceTree = "<group>"; };
->>>>>>> clickableMap
 		99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+setImage.swift"; sourceTree = "<group>"; };
 		AB3310E805FE2AAD225A0C8E /* Pods-SmartTourist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist.release.xcconfig"; path = "Target Support Files/Pods-SmartTourist/Pods-SmartTourist.release.xcconfig"; sourceTree = "<group>"; };
 		B169329D24736107D441A8F6 /* Pods-SmartTourist-SmartTouristUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist-SmartTouristUITests.release.xcconfig"; path = "Target Support Files/Pods-SmartTourist-SmartTouristUITests/Pods-SmartTourist-SmartTouristUITests.release.xcconfig"; sourceTree = "<group>"; };
