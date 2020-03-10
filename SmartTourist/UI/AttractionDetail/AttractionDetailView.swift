@@ -21,6 +21,7 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
     let wikipediaSearchTerms: String
     let currentLocation: CLLocationCoordinate2D
     let favorite: Bool
+    let allLoaded: Bool
     
     init?(state: AppState?, localState: AttractionDetailLocalState) {
         guard let state = state else { return nil }
@@ -38,6 +39,7 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
         self.wikipediaSearchTerms = self.attraction.name
         self.currentLocation = state.locationState.currentLocation!
         self.favorite = state.favorites.contains(attraction)
+        self.allLoaded = localState.allLoaded
     }
 }
 
@@ -59,6 +61,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     var activityIndicator = UIActivityIndicatorView()
     
     var didTapFavoriteButton: ((GPPlace) -> Void)?
+    var didLoadEverything: Interaction?
     
     func setup() {
         self.addSubview(self.scrollView)
@@ -128,7 +131,6 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.activityIndicator.pin.center().size(30)
     }
     
-    var allLoaded = false
     func update(oldModel: AttractionDetailViewModel?) {
         guard let model = self.model else { return }
         if let rating = model.attraction.rating {
@@ -139,10 +141,9 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.imageView.setImage(model.photo)
         self.nRatingsLabel.text = model.nRatings
         
-        if !allLoaded {
+        if !model.allLoaded {
             self.descriptionText.setText(searchTerms: model.wikipediaSearchTerms) {
-                self.setNeedsLayout()
-                self.allLoaded = true
+                self.didLoadEverything?()
             }
         }
         
@@ -160,7 +161,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
             self.favoriteButton.image = AttractionDetailView.isNotFavoriteImage
         }
         
-        if allLoaded && !self.curtainView.isHidden {
+        if model.allLoaded && !self.curtainView.isHidden {
             self.curtainView.isHidden = true
             self.curtainView.removeFromSuperview()
         }

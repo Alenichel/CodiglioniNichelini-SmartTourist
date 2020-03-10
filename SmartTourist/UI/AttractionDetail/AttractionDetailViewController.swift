@@ -24,6 +24,9 @@ class AttractionDetailViewController: ViewControllerWithLocalState<AttractionDet
                 self.dispatch(AddFavorite(place: place))
             }
         }
+        self.rootView.didLoadEverything = { [unowned self] in
+            self.localState.allLoaded = true
+        }
     }
 }
 
@@ -43,4 +46,5 @@ extension AttractionDetailViewController: RoutableWithConfiguration {
 
 struct AttractionDetailLocalState: LocalState {
     var attraction: GPPlace
+    var allLoaded: Bool = false
 }
