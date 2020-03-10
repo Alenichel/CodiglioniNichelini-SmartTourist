@@ -70,10 +70,10 @@ extension AttractionsViewController: CLLocationManagerDelegate {
         guard let location = locations.first else { return }
         print("[didUpdateLocations]: \(location)")
         self.dispatch(SetActualLocation(location: location.coordinate))
+        self.locationBasedNotification(lastCoordinates: location.coordinate)
         if self.state.locationState.mapCentered {
             self.dispatch(GetCurrentCity(throttle: true))   // Also calls GetPopularPlaces
             self.dispatch(GetNearestPlaces(location: location.coordinate, throttle: true))
-            self.locationBasedNotification(lastCoordinates: location.coordinate)
         }
     }
     
