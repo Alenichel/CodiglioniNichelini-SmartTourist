@@ -133,9 +133,10 @@ class GoogleAPI {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "google.com"
-        components.path = "maps/dir/?api=1"
+        components.path = "/maps/dir/"
         
         components.queryItems = [
+            URLQueryItem(name: "api", value: "1"),
             URLQueryItem(name: "destination", value: destination),
             URLQueryItem(name: "destination_place_id", value: destinationPlaceId),
             URLQueryItem(name: "travelmode", value: "walking")
@@ -145,7 +146,6 @@ class GoogleAPI {
             components.queryItems?.append(URLQueryItem(name: "origin", value: "\(o.latitude),\(o.longitude)"))
         }
         
-        let to_return = components.url!
-        return to_return
+        return components.url!
     }
 }
