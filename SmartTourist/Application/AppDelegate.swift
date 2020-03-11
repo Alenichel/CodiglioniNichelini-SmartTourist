@@ -65,7 +65,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             self.showDetailView(store: store, place: place)
         case "TAKE_ME_THERE_ACTION":
             guard let origin = store.state.locationState.actualLocation else { completionHandler(); return }
-            guard let url = GoogleAPI.shared.buildDirectionURL(origin: origin, destination: place.location, destinationPlaceId: placeID) else { completionHandler(); return }
+            let url = GoogleAPI.shared.buildDirectionURL(origin: origin, destination: place.location, destinationPlaceId: placeID)
             UIApplication.shared.open(url)
         default:
             self.showDetailView(store: store, place: place)
