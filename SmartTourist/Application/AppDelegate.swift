@@ -9,6 +9,7 @@ import UIKit
 import UserNotifications
 import GoogleMaps
 import GooglePlaces
+import Katana
 import Tempura
 
 /// UNUserNotificationCenterDelegate let you send notifications and handle their callback actions
@@ -60,24 +61,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let store = attractionsViewController.store
         guard let place = store.state.locationState.popularPlaces.first(where: {$0.placeID == placeID}) else { completionHandler(); return }
         switch response.actionIdentifier {
-        case "NEARBY_TOP_ATTRACTIONS":
-            store.dispatch(Hide(Screen.cityDetail.rawValue, animated: true, atomic: true)).then {
-                store.dispatch(Hide(Screen.citySearch.rawValue, animated: true, atomic: true)).then {   // This doesn't actually work
-                    store.dispatch(Hide(Screen.detail.rawValue, animated: true, atomic: true)).then {
-                        store.dispatch(Show(Screen.detail, animated: true, context: place))
-                    }
-                }
-            }
         case "VIEW_ACTION":
-            print("-----> VIEW ACTION")
+            self.showDetailView(store: store, place: place)
         case "TAKE_ME_THERE_ACTION":
             guard let origin = store.state.locationState.actualLocation else { completionHandler(); return }
             guard let url = GoogleAPI.shared.buildDirectionURL(origin: origin, destination: place.location, destinationPlaceId: placeID) else { completionHandler(); return }
             UIApplication.shared.open(url)
         default:
-            print("-----> ERROR")
+            self.showDetailView(store: store, place: place)
         }
         completionHandler()
+    }
+    
+    private func showDetailView(store: PartialStore<AppState>, place: GPPlace) {
+        store.dispatch(Hide(Screen.cityDetail.rawValue, animated: true, atomic: true)).then {
+            store.dispatch(Hide(Screen.citySearch.rawValue, animated: true, atomic: true)).then {   // This doesn't actually work
+                store.dispatch(Hide(Screen.detail.rawValue, animated: true, atomic: true)).then {
+                    store.dispatch(Show(Screen.detail, animated: true, context: place))
+                }
+            }
+        }
     }
     
     // App becomes active

@@ -74,7 +74,7 @@ class GoogleAPI {
             let parameters = [
                 "language": "en",
                 "key": GoogleAPI.apiKey,
-                "query": "\(city) main attractions",
+                "query": "\(city) top attractions",
                 "type": PlaceType.touristAttraction.rawValue
             ]
             AF.request("https://maps.googleapis.com/maps/api/place/textsearch/json", parameters: parameters).responseJSON { response in
