@@ -90,7 +90,7 @@ class NotificationManager {
         content.title = "Nearby Top Location"
         content.body = "You are near a top location: \(place.name)"
         content.sound = UNNotificationSound.default
-        content.userInfo = ["PLACE_ID": place.placeID, "COORDINATES": "\(place.location.latitude),\(place.location.longitude)"]
+        content.userInfo = ["PLACE_ID": place.placeID]
         content.categoryIdentifier = "NEARBY_TOP_ATTRACTION"
         let date = Date() + TimeInterval(1)
         let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
