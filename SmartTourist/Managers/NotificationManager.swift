@@ -72,9 +72,12 @@ class NotificationManager {
         let seeMoreAction = UNNotificationAction(identifier: "VIEW_ACTION",
                                                  title: "View",
                                                  options: [])
+        let takeMeThereAction = UNNotificationAction(identifier: "TAKE_ME_THERE_ACTION",
+                                                     title: "Take me there",
+                                                     options: [])
         let topAttractionCategory =
             UNNotificationCategory(identifier: "NEARBY_TOP_ATTRACTION",
-                                   actions: [seeMoreAction],
+                                   actions: [seeMoreAction, takeMeThereAction],
                                    intentIdentifiers: [],
                                    hiddenPreviewsBodyPlaceholder: "",
                                    options: .customDismissAction)
@@ -87,7 +90,7 @@ class NotificationManager {
         content.title = "Nearby Top Location"
         content.body = "You are near a top location: \(place.name)"
         content.sound = UNNotificationSound.default
-        content.userInfo = ["PLACE_ID": place.placeID]
+        content.userInfo = ["PLACE_ID": place.placeID, "COORDINATES": "\(place.location.latitude),\(place.location.longitude)"]
         content.categoryIdentifier = "NEARBY_TOP_ATTRACTION"
         let date = Date() + TimeInterval(1)
         let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)

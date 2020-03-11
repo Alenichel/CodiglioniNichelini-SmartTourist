@@ -53,16 +53,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-        switch response.actionIdentifier {
-        case "VIEW_ACTION":
-            print("----> VIEW ACTION")
-        default:
-            print("----> DEFAULT")
-            if let window = UIApplication.shared.windows.first,
-                let rootViewController = window.rootViewController as? UINavigationController,
-                let attractionsViewController = rootViewController.viewControllers.first as? AttractionsViewController,
-                let placeID = userInfo["PLACE_ID"] as? String {
-                let store = attractionsViewController.store
+        
+        if let window = UIApplication.shared.windows.first,
+        let rootViewController = window.rootViewController as? UINavigationController,
+        let attractionsViewController = rootViewController.viewControllers.first as? AttractionsViewController,
+        let placeID = userInfo["PLACE_ID"] as? String,
+        let destinationCoordinates = userInfo["COORDINATES"] as? String {
+            let store = attractionsViewController.store
+            
+            switch response.actionIdentifier {
+            case "TAKE_ME_THERE_ACTION":
+                print("----> TAKE_ME_THERE_ACTION")
+                let url = GoogleAPI.shared.buildDirectionURL(origin: store.state.locationState.actualLocation, destination: destinationCoordinates, destinationPlaceId: placeID)
+                UIApplication.shared.open(url)
+                break
+            case "VIEW_ACTION":
+                print("----> VIEW ACTION")
+            default:
+                print("----> DEFAULT")
                 if let place = store.state.locationState.popularPlaces.first(where: {$0.placeID == placeID}) {
                     store.dispatch(Hide(Screen.cityDetail.rawValue, animated: true, atomic: true)).then {
                         store.dispatch(Hide(Screen.citySearch.rawValue, animated: true, atomic: true)).then {   // This doesn't actually work
