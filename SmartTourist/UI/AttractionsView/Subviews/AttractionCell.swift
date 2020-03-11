@@ -45,7 +45,6 @@ struct AttractionCellViewModel: ViewModel {
         self.distance = Int(current.distance(from: target).rounded())
         self.favorite = favorite
     }
-    
 }
 
 
@@ -148,6 +147,6 @@ extension AttractionCellViewModel: DiffAware {
     var diffId: Int { return self.identifier.hashValue }
 
     static func compareContent(_ a: AttractionCellViewModel, _ b: AttractionCellViewModel) -> Bool {
-        return a.identifier == b.identifier
+        return a.identifier == b.identifier && a.favorite == b.favorite
     }
 }
