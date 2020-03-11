@@ -72,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             print("-----> VIEW ACTION")
         case "TAKE_ME_THERE_ACTION":
             guard let origin = store.state.locationState.actualLocation else { completionHandler(); return }
-            let url = GoogleAPI.shared.buildDirectionURL(origin: origin, destination: place.location, destinationPlaceId: placeID)
+            guard let url = GoogleAPI.shared.buildDirectionURL(origin: origin, destination: place.location, destinationPlaceId: placeID) else { completionHandler(); return }
             UIApplication.shared.open(url)
         default:
             print("-----> ERROR")
