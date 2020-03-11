@@ -137,9 +137,9 @@ class GoogleAPI {
             URLQueryItem(name: "api", value: "1"),
             URLQueryItem(name: "destination", value: "\(destination.latitude),\(destination.longitude)"),
             URLQueryItem(name: "destination_place_id", value: destinationPlaceId),
-            URLQueryItem(name: "travelmode", value: "walking")
+            URLQueryItem(name: "travelmode", value: "walking"),
+            URLQueryItem(name: "origin", value: "\(origin.latitude),\(origin.longitude)")
         ]
-        components.queryItems?.append(URLQueryItem(name: "origin", value: "\(origin.latitude),\(origin.longitude)"))
         return components.url!
     }
 }
