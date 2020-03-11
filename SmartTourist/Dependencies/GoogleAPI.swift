@@ -143,8 +143,8 @@ class GoogleAPI {
         return components.url!
     }
     
-    func getTravelTime(origin: CLLocationCoordinate2D, destination: CLLocationCoordinate2D) -> Promise<Any> {
-        return Promise<Any>(in: .background){ resolve, reject, status in
+    func getTravelTime(origin: CLLocationCoordinate2D, destination: CLLocationCoordinate2D) -> Promise<String> {
+        return Promise<String>(in: .background){ resolve, reject, status in
             let parameters = [
                 "language": "en",
                 "origin" : "\(origin.latitude),\(origin.longitude)",
@@ -160,7 +160,7 @@ class GoogleAPI {
                     do {
                         let response = try decoder.decode(GMDResponse.self, from: data)
                         let r = response.routes.first?.legs.first?.durationText
-                        resolve(r)
+                        resolve(r ?? "Unavailable")
                     } catch {
                         print(error.localizedDescription)
                         reject(error)

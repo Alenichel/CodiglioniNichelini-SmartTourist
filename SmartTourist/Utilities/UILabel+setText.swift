@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import GoogleMaps
 
 extension UILabel {
     func setText(searchTerms: String, completion: @escaping () -> Void) {
@@ -15,5 +15,12 @@ extension UILabel {
         }.always {
             completion()
         }
+    }
+    
+    func setText(actualLocation: CLLocationCoordinate2D, attraction: GPPlace, completion: @escaping () -> Void) {
+        GoogleAPI.shared.getTravelTime(origin:  actualLocation, destination: attraction.location).then { travelTime in
+            self.text = travelTime
+        }
+        completion()
     }
 }

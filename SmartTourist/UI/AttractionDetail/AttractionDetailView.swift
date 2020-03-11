@@ -59,9 +59,12 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     var favoriteButton = UIBarButtonItem()
     var curtainView = UIView()
     var activityIndicator = UIActivityIndicatorView()
+    var directionButton = UIButton()
+    var timeLabel = UILabel()
     
     var didTapFavoriteButton: ((GPPlace) -> Void)?
     var didLoadEverything: Interaction?
+    var didTapDirectionButton: ((GPPlace?) -> Void)?
     
     func setup() {
         self.addSubview(self.scrollView)
@@ -74,12 +77,17 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.containerView.addSubview(self.lineView)
         self.containerView.addSubview(self.nRatingsLabel)
         self.containerView.addSubview(self.mapView)
+        self.containerView.addSubview(self.directionButton)
+        self.containerView.addSubview(self.timeLabel)
         self.navigationItem?.rightBarButtonItem = self.favoriteButton
         self.favoriteButton.onTap { button in
             guard let model = self.model else { return }
             self.didTapFavoriteButton?(model.attraction)
         }
         self.descriptionText.numberOfLines = 0
+        self.directionButton.on(.touchUpInside) { button in
+            self.didTapDirectionButton?(self.model?.attraction)
+        }
     }
     
     func style() {
@@ -103,6 +111,10 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.mapView.loadCustomStyle()
         self.curtainView.backgroundColor = .systemBackground
         self.activityIndicator.startAnimating()
+        self.directionButton.setImage(UIImage(systemName: "location.north.line")!.withTintColor(.black), for: .normal)
+        self.timeLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .light)
+        self.timeLabel.textAlignment = .right
+        self.timeLabel.sizeToFit()
     }
     
     override func layoutSubviews() {
@@ -112,6 +124,8 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.containerView.pin.horizontally().bottom(10).below(of: self.imageView)
         self.cosmos.sizeToFit()
         self.cosmos.pin.topLeft().marginHorizontal(20).marginTop(15)
+        self.directionButton.pin.topRight().marginHorizontal(16).marginTop(9).size(30)
+        self.timeLabel.pin.before(of: self.directionButton, aligned: .center).size(60)
         self.nRatingsLabel.sizeToFit()
         self.nRatingsLabel.pin.after(of: self.cosmos, aligned: .center).marginLeft(5)
         self.lineView.pin.below(of: self.cosmos).horizontally(7).height(1).marginTop(15)
@@ -168,6 +182,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
             self.curtainView.removeFromSuperview()
         }
         
+        self.timeLabel.setText(actualLocation: model.currentLocation, attraction: model.attraction){}
         self.setNeedsLayout()
     }
 }

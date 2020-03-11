@@ -27,6 +27,9 @@ class AttractionDetailViewController: ViewControllerWithLocalState<AttractionDet
         self.rootView.didLoadEverything = { [unowned self] in
             self.localState.allLoaded = true
         }
+        self.rootView.didTapDirectionButton = { [unowned self] place in
+            
+        }
     }
 }
 
