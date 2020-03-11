@@ -163,6 +163,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         }
         
         if model.allLoaded && !self.curtainView.isHidden {
+            GoogleAPI.shared.getTravelTime(origin: model.currentLocation, destination: model.attraction.location).then{_ in }
             self.curtainView.isHidden = true
             self.curtainView.removeFromSuperview()
         }

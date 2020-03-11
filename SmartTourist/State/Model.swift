@@ -99,3 +99,44 @@ class GPPhoto: Codable {
         case width
     }
 }
+
+
+struct GMDLeg: Codable {
+    let durationText: String
+    let durationValue: Double
+    
+    enum CodingKeys: CodingKey {
+        case duration
+        enum DurationKeys: CodingKey {
+            case text
+            case value
+        }
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let durationContainer = try container.nestedContainer(keyedBy: CodingKeys.DurationKeys.self, forKey: .duration)
+        self.durationText = try durationContainer.decode(String.self, forKey: .text)
+        self.durationValue = try durationContainer.decode(Double.self, forKey: .value)
+    }
+    
+    func encode(to encoder: Encoder) throws {}
+}
+
+struct GMDRoute: Codable {
+    let legs: [GMDLeg]
+    
+    enum CodingKeys: CodingKey {
+        case legs
+    }
+}
+
+struct GMDResponse: Codable {
+    let routes: [GMDRoute]
+    let status: String
+    
+    enum CodingKeys: CodingKey {
+        case routes
+        case status
+    }
+}
