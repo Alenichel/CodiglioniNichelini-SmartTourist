@@ -59,7 +59,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     var favoriteButton = UIBarButtonItem()
     var curtainView = UIView()
     var activityIndicator = UIActivityIndicatorView()
-    var directionButton = UIButton()
+    var directionButton = RoundedButton()
     var timeLabel = UILabel()
     
     var didTapFavoriteButton: ((GPPlace) -> Void)?
@@ -111,7 +111,14 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.mapView.loadCustomStyle()
         self.curtainView.backgroundColor = .systemBackground
         self.activityIndicator.startAnimating()
-        self.directionButton.setImage(UIImage(systemName: "location.north.line")!.withTintColor(.black), for: .normal)
+        self.directionButton.tintColor = .label
+        self.directionButton.backgroundColor = .systemBackground
+        self.directionButton.layer.cornerRadius = 20
+        self.directionButton.layer.shadowColor = UIColor.black.cgColor
+        self.directionButton.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 1 : 0.75
+        self.directionButton.layer.shadowOffset = .zero
+        self.directionButton.layer.shadowRadius = 1
+        self.directionButton.setImage(UIImage(named: "walking_black"), for: .normal)
         self.timeLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .light)
         self.timeLabel.textAlignment = .right
         self.timeLabel.sizeToFit()
@@ -124,8 +131,8 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.containerView.pin.horizontally().bottom(10).below(of: self.imageView)
         self.cosmos.sizeToFit()
         self.cosmos.pin.topLeft().marginHorizontal(20).marginTop(15)
-        self.directionButton.pin.topRight().marginHorizontal(16).marginTop(9).size(30)
-        self.timeLabel.pin.before(of: self.directionButton, aligned: .center).size(60)
+        self.directionButton.pin.topRight().marginHorizontal(16).marginTop(7).size(35)
+        self.timeLabel.pin.before(of: self.directionButton, aligned: .center).size(60).margin(5)
         self.nRatingsLabel.sizeToFit()
         self.nRatingsLabel.pin.after(of: self.cosmos, aligned: .center).marginLeft(5)
         self.lineView.pin.below(of: self.cosmos).horizontally(7).height(1).marginTop(15)
