@@ -132,7 +132,7 @@ class GoogleAPI {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "google.com"
-        components.path = "/􀛉maps/dir/"
+        components.path = "/maps/dir/"
         components.queryItems = [
             URLQueryItem(name: "api", value: "1"),
             URLQueryItem(name: "destination", value: "\(destination.latitude),\(destination.longitude)"),

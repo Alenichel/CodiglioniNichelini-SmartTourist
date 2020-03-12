@@ -27,8 +27,9 @@ class AttractionDetailViewController: ViewControllerWithLocalState<AttractionDet
         self.rootView.didLoadEverything = { [unowned self] in
             self.localState.allLoaded = true
         }
-        self.rootView.didTapDirectionButton = { [unowned self] place in
-            
+        self.rootView.didTapDirectionButton = { [unowned self] location, place in
+            let url = GoogleAPI.shared.buildDirectionURL(origin: location!, destination: place!.location, destinationPlaceId: place!.placeID)
+            UIApplication.shared.open(url)
         }
     }
 }
