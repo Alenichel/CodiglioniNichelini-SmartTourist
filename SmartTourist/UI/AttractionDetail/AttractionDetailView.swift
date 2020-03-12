@@ -64,7 +64,8 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     
     var didTapFavoriteButton: ((GPPlace) -> Void)?
     var didLoadEverything: Interaction?
-    var didTapDirectionButton: ((GPPlace?) -> Void)?
+    var didTapDirectionButton: (( CLLocationCoordinate2D?, GPPlace?) -> Void)?
+
     
     func setup() {
         self.addSubview(self.scrollView)
@@ -86,7 +87,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         }
         self.descriptionText.numberOfLines = 0
         self.directionButton.on(.touchUpInside) { button in
-            self.didTapDirectionButton?(self.model?.attraction)
+            self.didTapDirectionButton?(self.model?.currentLocation, self.model?.attraction)
         }
     }
     
