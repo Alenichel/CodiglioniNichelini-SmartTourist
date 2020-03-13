@@ -21,6 +21,7 @@ public protocol SizeableCell: ModellableView {
 // MARK: View Model
 struct AttractionCellViewModel: ViewModel {
     let attractionName: String
+    let attractionCityName: String
     let identifier: String
     let rating: Double
     let currentLocation: CLLocationCoordinate2D
@@ -34,6 +35,7 @@ struct AttractionCellViewModel: ViewModel {
     init(place: GPPlace, currentLocation: CLLocationCoordinate2D, favorite: Bool) {
         self.identifier = place.placeID
         self.attractionName = place.name
+        self.attractionCityName = place.city ?? "Unknown city"
         if let rating = place.rating {
             self.rating = rating
         } else {
@@ -58,6 +60,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     var cosmos = CosmosView(frame: .zero)
     var distanceLabel = UILabel()
     var favoriteImage = UIImageView(image: UIImage(systemName: "heart.fill"))
+    var cityNameLabel = UILabel()
     
     //MARK: Init
     override init(frame: CGRect) {
@@ -78,6 +81,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         self.addSubview(self.cosmos)
         self.addSubview(self.distanceLabel)
         self.addSubview(self.favoriteImage)
+        self.addSubview(self.cityNameLabel)
     }
     
     //MARK: Style
@@ -94,6 +98,9 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         self.cosmos.settings.emptyImage = UIImage(systemName: "star")?.maskWithColor(color: .label)
         self.cosmos.settings.disablePanGestures = true
         self.favoriteImage.tintColor = .systemRed
+        self.cityNameLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize - 3)
+        self.cityNameLabel.textAlignment = .right
+        self.cityNameLabel.textColor = .systemGray
     }
     
     // MARK: Layout
@@ -109,6 +116,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         self.image.pin.vCenter().right(15)
         self.distanceLabel.pin.vCenter().right(35)
         self.favoriteImage.pin.right(of: cosmos, aligned: .top).marginLeft(10).size(CGSize(width: Double(UIFont.systemFontSize) * 1.2, height: Double(UIFont.systemFontSize)))
+        self.cityNameLabel.pin.after(of: self.favoriteImage, aligned: .center).size(200).marginLeft(10)
     }
 
     static var paddingHeight: CGFloat = 10
@@ -125,13 +133,24 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     func update(oldModel: AttractionCellViewModel?) {
         guard let model = self.model else {return}
         self.nameLabel.text = model.attractionName
+        self.cityNameLabel.text = model.attractionCityName
         if model.favorite {
             self.favoriteImage.alpha = 1
         } else {
             self.favoriteImage.alpha = 0
         }
         self.cosmos.rating = Double(model.rating)
-        self.distanceLabel.text = "\(model.distance) m"
+        if model.distance < 1000 {
+            self.distanceLabel.text = "\(model.distance) m"
+        }
+        else if model.distance < 10000 {
+            let km = model.distance / 1000
+            let decimal = model.distance % 1000
+            self.distanceLabel.text = "\(km).\(decimal) km"
+        }
+        else {
+            self.distanceLabel.text = "\(model.distance / 1000) km"
+        }
         self.setNeedsLayout()
     }
     
