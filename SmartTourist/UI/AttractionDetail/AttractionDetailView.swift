@@ -133,7 +133,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.cosmos.sizeToFit()
         self.cosmos.pin.topLeft().marginHorizontal(20).marginTop(15)
         self.directionButton.pin.topRight().marginHorizontal(16).marginTop(7).size(35)
-        self.timeLabel.pin.before(of: self.directionButton, aligned: .center).size(60).margin(5)
+        self.timeLabel.pin.before(of: self.directionButton, aligned: .center).size(150).margin(5)
         self.nRatingsLabel.sizeToFit()
         self.nRatingsLabel.pin.after(of: self.cosmos, aligned: .center).marginLeft(5)
         self.lineView.pin.below(of: self.cosmos).horizontally(7).height(1).marginTop(15)
@@ -191,6 +191,11 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         }
         
         self.timeLabel.setText(actualLocation: model.currentLocation, attraction: model.attraction){}
+        if self.timeLabel.text == "Unavailable" {
+            self.directionButton.isEnabled = false
+        } else {
+            self.directionButton.isEnabled = true
+        }
         self.setNeedsLayout()
     }
 }
