@@ -9,11 +9,28 @@ import Foundation
 import CoreLocation
 
 
-struct GPResponse: Decodable {
+struct GPPlaceSearchResponse: Decodable {
     let results: [GPPlace]
     
     enum CodingKeys: CodingKey {
         case results
+    }
+}
+
+struct GPPlaceDetailResponse: Decodable {
+    let result: GPPlaceDetailResultsResponse
+    
+    enum CodingKeys: CodingKey {
+        case result
+    }
+}
+
+
+struct GPPlaceDetailResultsResponse: Decodable {
+    let photos: [GPPhoto]?
+    
+    enum CodingKeys: CodingKey {
+        case photos
     }
 }
 
@@ -23,7 +40,7 @@ class GPPlace: Codable, Equatable {
     let location: CLLocationCoordinate2D
     let name: String
     var city: String?
-    let photos: [GPPhoto]?
+    var photos: [GPPhoto]?
     let rating: Double?
     let userRatingsTotal: Int?
     
@@ -51,6 +68,13 @@ class GPPlace: Codable, Equatable {
         self.rating = try container.decodeIfPresent(Double.self, forKey: .rating)
         self.userRatingsTotal = try container.decodeIfPresent(Int.self, forKey: .userRatingsTotal)
         self.city = try container.decodeIfPresent(String.self, forKey: .city)
+        GoogleAPI.shared.getPlaceDetailsPhotos(placeID: self.placeID).then { photos in
+            if self.photos != nil {
+                self.photos!.append(contentsOf: photos)
+            } else {
+                self.photos = photos
+            }
+        }
     }
     
     func encode(to encoder: Encoder) throws {

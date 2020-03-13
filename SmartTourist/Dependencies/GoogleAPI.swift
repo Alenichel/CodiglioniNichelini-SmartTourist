@@ -33,6 +33,7 @@ class GoogleAPI {
                 if let city = response?.firstResult()?.locality {
                     resolve(city)
                 }
+                reject(UnknownApiError())
             }
         }
     }
@@ -43,25 +44,25 @@ class GoogleAPI {
                 "language": "en",
                 "key": GoogleAPI.apiKey,
                 "location": "\(location.latitude),\(location.longitude)",
-                //"radius": "\(200)",
                 "rankby": "distance",
                 "type": PlaceType.touristAttraction.rawValue
             ]
             AF.request("https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: parameters).responseJSON { response in
                 switch response.result {
                 case .success:
-                    guard let data = response.data else { return }
+                    guard let data = response.data else { reject(UnknownApiError()); return }
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     do {
-                        let gpResponse = try decoder.decode(GPResponse.self, from: data)
+                        let gpResponse = try decoder.decode(GPPlaceSearchResponse.self, from: data)
                         resolve(gpResponse.results)
                     } catch {
                         print(error.localizedDescription)
                         reject(error)
                     }
+                    reject(UnknownApiError())
                 case .failure:
-                    guard let error = response.error else { return }
+                    guard let error = response.error else { reject(UnknownApiError()); return }
                     print(error.localizedDescription)
                     reject(error)
                 }
@@ -80,19 +81,59 @@ class GoogleAPI {
             AF.request("https://maps.googleapis.com/maps/api/place/textsearch/json", parameters: parameters).responseJSON { response in
                 switch response.result {
                 case .success:
-                    guard let data = response.data else { return }
+                    guard let data = response.data else { reject(UnknownApiError()); return }
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     do {
-                        let gpResponse = try decoder.decode(GPResponse.self, from: data)
+                        let gpResponse = try decoder.decode(GPPlaceSearchResponse.self, from: data)
                         let results = gpResponse.results.sorted(by: {$0.rating! > $1.rating!})
                         resolve(results)
                     } catch {
                         print(error.localizedDescription)
                         reject(error)
                     }
+                    reject(UnknownApiError())
                 case .failure:
-                    guard let error = response.error else { return }
+                    guard let error = response.error else { reject(UnknownApiError()); return }
+                    print(error.localizedDescription)
+                    reject(error)
+                }
+            }
+        }
+    }
+    
+    func getPlaceDetailsPhotos(_ place: GPPlace) -> Promise<[GPPhoto]> {
+        return self.getPlaceDetailsPhotos(placeID: place.placeID)
+    }
+    
+    func getPlaceDetailsPhotos(placeID: String) -> Promise<[GPPhoto]> {
+        return Promise<[GPPhoto]>(in: .background) { resolve, reject, status in
+            let parameters = [
+                "key": GoogleAPI.apiKey,
+                "place_id": placeID,
+                "fields": "photos"
+            ]
+            AF.request("https://maps.googleapis.com/maps/api/place/details/json", parameters: parameters).response { response in
+                switch response.result {
+                case .success:
+                    guard let data = response.data else { reject(UnknownApiError()); return }
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    do {
+                        print(placeID)
+                        let gpResponse = try decoder.decode(GPPlaceDetailResponse.self, from: data)
+                        if let photos = gpResponse.result.photos {
+                            resolve(photos)
+                        } else {
+                            reject(UnknownApiError())
+                        }
+                    } catch {
+                        print(error.localizedDescription)
+                        reject(error)
+                    }
+                    reject(UnknownApiError())
+                case .failure:
+                    guard let error = response.error else { reject(UnknownApiError()); return }
                     print(error.localizedDescription)
                     reject(error)
                 }
@@ -114,12 +155,12 @@ class GoogleAPI {
                 AF.request("https://maps.googleapis.com/maps/api/place/photo", parameters: parameters).response { response in
                     switch response.result {
                     case .success:
-                        guard let data = response.data else { return }
-                        guard let image = UIImage(data: data) else { return }
+                        guard let data = response.data else { reject(UnknownApiError()); return }
+                        guard let image = UIImage(data: data) else { reject(UnknownApiError()); return }
                         self.photoCache.setObject(image, forKey: photo)
                         resolve(image)
                     case .failure:
-                        guard let error = response.error else { return }
+                        guard let error = response.error else { reject(UnknownApiError()); return }
                         print(error.localizedDescription)
                         reject(error)
                     }
@@ -154,7 +195,7 @@ class GoogleAPI {
             AF.request("https://maps.googleapis.com/maps/api/directions/json", parameters: parameters).responseJSON { response in
                 switch response.result {
                 case .success:
-                    guard let data = response.data else {return}
+                    guard let data = response.data else { reject(UnknownApiError()); return }
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .useDefaultKeys
                     do {
@@ -166,7 +207,7 @@ class GoogleAPI {
                         reject(error)
                     }
                 case .failure:
-                    guard let error = response.error else { return }
+                    guard let error = response.error else { reject(UnknownApiError()); return }
                     print(error.localizedDescription)
                     reject(error)
                 }
@@ -174,3 +215,6 @@ class GoogleAPI {
         }
     }
 }
+
+
+class UnknownApiError: Error {}
