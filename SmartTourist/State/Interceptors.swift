@@ -23,7 +23,7 @@ struct PersistorInterceptor {
                         do {
                             let data = try encoder.encode(state)
                             try data.write(to: AppState.persistURL)
-                            print("State persisted")
+                            print("State persisted to \(AppState.persistURL)")
                         } catch {
                             print("Error while encoding JSON")
                             print(error.localizedDescription)

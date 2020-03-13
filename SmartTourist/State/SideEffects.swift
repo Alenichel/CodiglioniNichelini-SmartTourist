@@ -17,10 +17,9 @@ struct LoadState: SideEffect {
             let data = try Data(contentsOf: AppState.persistURL)
             let state = try decoder.decode(AppState.self, from: data)
             context.dispatch(SetState(state: state))
-            print("Loaded state from JSON")
+            print("Loaded state from \(AppState.persistURL)")
         } catch {
-            print("Error while decoding JSON")
-            print(error.localizedDescription)
+            print("Error while decoding JSON: \(error.localizedDescription)")
         }
     }
 }
@@ -67,7 +66,6 @@ struct GetPopularPlaces: SideEffect {
     let throttle: Bool
     
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
-        //guard let currentCity = context.getState().locationState.currentCity else { return }
         guard let currentCity = self.city else { return }
         if !self.throttle || context.getState().locationState.popularPlacesLastUpdate.distance(to: Date()) > apiThrottleTime {
             context.dispatch(SetPopularPlacesLastUpdate(lastUpdate: Date()))
@@ -77,5 +75,17 @@ struct GetPopularPlaces: SideEffect {
                 context.dispatch(SetPopularPlaces(places: []))
             }
         }
+    }
+}
+
+
+struct AddFavorite: SideEffect {
+    let place: GPPlace
+    
+    func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
+        if let city = context.getState().locationState.currentCity {
+            self.place.city = city
+        }
+        context.dispatch(AddFavoriteStateUpdater(place: self.place))
     }
 }

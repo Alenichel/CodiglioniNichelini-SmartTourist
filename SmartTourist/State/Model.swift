@@ -18,11 +18,12 @@ struct GPResponse: Decodable {
 }
 
 
-struct GPPlace: Codable, Equatable {
+class GPPlace: Codable, Equatable {
+    let placeID: String
     let location: CLLocationCoordinate2D
     let name: String
+    var city: String?
     let photos: [GPPhoto]?
-    let placeID: String
     let rating: Double?
     let userRatingsTotal: Int?
     
@@ -33,13 +34,14 @@ struct GPPlace: Codable, Equatable {
         case placeId
         case rating
         case userRatingsTotal
+        case city
         
         enum LocationKeys: CodingKey {
             case location
         }
     }
     
-    init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let geometryContainer = try container.nestedContainer(keyedBy: CodingKeys.LocationKeys.self, forKey: .geometry)
         self.location = try geometryContainer.decode(CLLocationCoordinate2D.self, forKey: .location)
@@ -48,17 +50,19 @@ struct GPPlace: Codable, Equatable {
         self.placeID = try container.decode(String.self, forKey: .placeId)
         self.rating = try container.decodeIfPresent(Double.self, forKey: .rating)
         self.userRatingsTotal = try container.decodeIfPresent(Int.self, forKey: .userRatingsTotal)
+        self.city = try container.decodeIfPresent(String.self, forKey: .city)
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         var geometryContainer = container.nestedContainer(keyedBy: CodingKeys.LocationKeys.self, forKey: .geometry)
-        try geometryContainer.encode(location, forKey: .location)
-        try container.encode(name, forKey: .name)
-        try container.encode(photos, forKey: .photos)
-        try container.encode(placeID, forKey: .placeId)
-        try container.encodeIfPresent(rating, forKey: .rating)
-        try container.encodeIfPresent(userRatingsTotal, forKey: .userRatingsTotal)
+        try geometryContainer.encode(self.location, forKey: .location)
+        try container.encode(self.name, forKey: .name)
+        try container.encode(self.photos, forKey: .photos)
+        try container.encode(self.placeID, forKey: .placeId)
+        try container.encodeIfPresent(self.rating, forKey: .rating)
+        try container.encodeIfPresent(self.userRatingsTotal, forKey: .userRatingsTotal)
+        try container.encodeIfPresent(self.city, forKey: .city)
     }
     
     static func == (lhs: GPPlace, rhs: GPPlace) -> Bool {
@@ -101,7 +105,7 @@ class GPPhoto: Codable {
 }
 
 
-struct GMDLeg: Codable {
+struct GMDLeg: Decodable {
     let durationText: String
     let durationValue: Double
     
@@ -119,11 +123,9 @@ struct GMDLeg: Codable {
         self.durationText = try durationContainer.decode(String.self, forKey: .text)
         self.durationValue = try durationContainer.decode(Double.self, forKey: .value)
     }
-    
-    func encode(to encoder: Encoder) throws {}
 }
 
-struct GMDRoute: Codable {
+struct GMDRoute: Decodable {
     let legs: [GMDLeg]
     
     enum CodingKeys: CodingKey {
@@ -131,7 +133,7 @@ struct GMDRoute: Codable {
     }
 }
 
-struct GMDResponse: Codable {
+struct GMDResponse: Decodable {
     let routes: [GMDRoute]
     let status: String
     

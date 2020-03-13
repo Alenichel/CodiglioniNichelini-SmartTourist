@@ -101,7 +101,7 @@ struct SetPopularPlacesLastUpdate: StateUpdater {
 }
 
 
-struct AddFavorite: StateUpdater, Persistable {
+struct AddFavoriteStateUpdater: StateUpdater, Persistable {
     let place: GPPlace
     
     func updateState(_ state: inout AppState) {
@@ -114,6 +114,7 @@ struct RemoveFavorite: StateUpdater, Persistable {
     let place: GPPlace
     
     func updateState(_ state: inout AppState) {
+        place.city = nil
         state.favorites.removeAll(where: {$0 == place})
     }
 }
