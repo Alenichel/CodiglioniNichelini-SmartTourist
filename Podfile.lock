@@ -12,6 +12,9 @@ PODS:
   - GooglePlaces (3.8.0):
     - GoogleMaps/Base (= 3.8.0)
   - HydraAsync (1.2.1)
+  - ImageSlideshow (1.8.3):
+    - ImageSlideshow/Core (= 1.8.3)
+  - ImageSlideshow/Core (1.8.3)
   - Katana (3.1.0):
     - HydraAsync (~> 1.2)
   - PinLayout (1.8.13)
@@ -26,6 +29,7 @@ DEPENDENCIES:
   - Fuse
   - GoogleMaps
   - GooglePlaces
+  - ImageSlideshow (~> 1.8.3)
   - Katana
   - PinLayout
   - Tempura
@@ -40,6 +44,7 @@ SPEC REPOS:
     - GoogleMaps
     - GooglePlaces
     - HydraAsync
+    - ImageSlideshow
     - Katana
     - PinLayout
     - Tempura
@@ -53,10 +58,11 @@ SPEC CHECKSUMS:
   GoogleMaps: 7c8d66d70e4e8c300f43a7219d8fdaad7b325a9a
   GooglePlaces: d5f70c3e9e427964fdeca1301a665d276ccd8754
   HydraAsync: 8f2ab62d57e140b4ca587ae0f66e1eb04e8e6965
+  ImageSlideshow: 4694d7d699a1549582e7cc631fb392d8f91630f3
   Katana: caa2adb661a386f9a993a15845841dc2c9b083aa
   PinLayout: e41a50260a76508b7a7fcee8955c76639adc69bc
   Tempura: d38c2d982864d9dbca6b11a519e8b00024d04abd
 
-PODFILE CHECKSUM: 1168d5d834d1bdd6f55a72c033c20472f3c6289c
+PODFILE CHECKSUM: 1ff6dce3f4cf39e1bb740ba0219d5ee9c6a66d16
 
-COCOAPODS: 1.8.4
+COCOAPODS: 1.9.1

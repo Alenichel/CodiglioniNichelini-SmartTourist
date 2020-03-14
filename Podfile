@@ -16,6 +16,7 @@ target 'SmartTourist' do
   pod 'Fuse'
   pod 'Alamofire', '~> 5.0.0-rc.3'
   pod 'GooglePlaces'
+  pod 'ImageSlideshow', '~> 1.8.3'
 
   target 'SmartTouristTests' do
     inherit! :search_paths
