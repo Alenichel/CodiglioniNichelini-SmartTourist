@@ -47,8 +47,7 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
 class AttractionDetailView: UIView, ViewControllerModellableView {
     private static let isFavoriteImage = UIImage(systemName: "heart.fill")
     private static let isNotFavoriteImage = UIImage(systemName: "heart")
-    private static let walkingBlackImage = UIImage(named: "walking_black")?.withRenderingMode(.alwaysOriginal)
-    private static let walkingWhiteImage = UIImage(named: "walking_white")?.withRenderingMode(.alwaysOriginal)
+    private static let walkingIconImage = UIImage(named: "walking_icon")?.withRenderingMode(.alwaysTemplate)
     
     var descriptionText = UILabel()
     var nRatingsLabel = UILabel()
@@ -121,11 +120,8 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.directionButton.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 1 : 0.75
         self.directionButton.layer.shadowOffset = .zero
         self.directionButton.layer.shadowRadius = 1
-        if UITraitCollection.current.userInterfaceStyle == .dark {
-            self.directionButton.setImage(AttractionDetailView.walkingWhiteImage, for: .normal)
-        } else {
-            self.directionButton.setImage(AttractionDetailView.walkingBlackImage, for: .normal)
-        }
+        self.directionButton.setImage(AttractionDetailView.walkingIconImage, for: .normal)
+        self.directionButton.imageEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         self.timeLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .light)
         self.timeLabel.textAlignment = .right
         self.timeLabel.sizeToFit()
@@ -158,15 +154,6 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.scrollView.pin.top(self.safeAreaInsets).bottom().horizontally()
         self.curtainView.pin.all()
         self.activityIndicator.pin.center().size(30)
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        if UITraitCollection.current.userInterfaceStyle == .dark {
-            self.directionButton.setImage(AttractionDetailView.walkingWhiteImage, for: .normal)
-        } else {
-            self.directionButton.setImage(AttractionDetailView.walkingBlackImage, for: .normal)
-        }
     }
     
     func update(oldModel: AttractionDetailViewModel?) {
