@@ -17,7 +17,7 @@ class SettingCell: UIView {
         self.backgroundColor = .secondarySystemBackground
         self.layer.cornerRadius = 12
         self.layer.shadowColor = UIColor.label.cgColor
-        self.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 1 : 0.75
+        self.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 0.5 : 0.75
         self.layer.shadowOffset = .zero
         self.layer.shadowRadius = 2
     }

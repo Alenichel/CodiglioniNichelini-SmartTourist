@@ -119,9 +119,9 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.activityIndicator.startAnimating()
         self.directionButton.tintColor = .label
         self.directionButton.backgroundColor = .systemBackground
-        self.directionButton.layer.cornerRadius = 18
-        self.directionButton.layer.shadowColor = UIColor.black.cgColor
-        self.directionButton.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 1 : 0.75
+        self.directionButton.layer.cornerRadius = 15
+        self.directionButton.layer.shadowColor = UIColor.label.cgColor
+        self.directionButton.layer.shadowOpacity = 0.75
         self.directionButton.layer.shadowOffset = .zero
         self.directionButton.layer.shadowRadius = 1
         self.directionButton.setImage(AttractionDetailView.walkingIconImage, for: .normal)
@@ -138,7 +138,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.containerView.pin.horizontally().bottom(10).below(of: self.imageSlideshow)
         self.cosmos.sizeToFit()
         self.cosmos.pin.topLeft().marginHorizontal(20).marginTop(15)
-        self.directionButton.pin.topRight().marginHorizontal(16).marginTop(7).size(35)
+        self.directionButton.pin.topRight().marginHorizontal(16).marginTop(8).size(30)
         self.timeLabel.pin.before(of: self.directionButton, aligned: .center).size(150).margin(5)
         self.nRatingsLabel.sizeToFit()
         self.nRatingsLabel.pin.after(of: self.cosmos, aligned: .center).marginLeft(5)
@@ -204,5 +204,10 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
             self.directionButton.isEnabled = true
         }
         self.setNeedsLayout()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.directionButton.layer.shadowColor = UIColor.label.cgColor
     }
 }
