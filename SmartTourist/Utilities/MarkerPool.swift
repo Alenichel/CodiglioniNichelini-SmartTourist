@@ -30,6 +30,7 @@ class GMSMarkerPool {
                 marker.appearAnimation = GMSMarkerAnimation.pop
                 marker.map = self.mapView
                 marker.title = place.name
+                marker.userData = place
                 self.cache[place.location] = marker
             }
         }

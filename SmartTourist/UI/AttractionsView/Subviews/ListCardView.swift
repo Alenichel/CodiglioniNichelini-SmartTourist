@@ -93,7 +93,7 @@ class ListCardView: UIView, ModellableView {
     
     func update(oldModel: ListCardViewModel?) {
         guard let model = self.model, let currentLocation = model.currentLocation else { return }
-        let attractions = model.places.map { AttractionCellViewModel(place: $0, currentLocation: currentLocation, favorite: model.favorites.contains($0), isInFavouriteTab: model.selectedSegmentedIndex) }
+        let attractions = model.places.map { AttractionCellViewModel(place: $0, currentLocation: currentLocation, favorite: model.favorites.contains($0), isInFavoriteTab: model.selectedSegmentedIndex == .favorites) }
         self.attractionListView.source = SimpleSource<AttractionCellViewModel>(attractions)
         UIView.animate(withDuration: 0.3) {
             self.emptyLabel.layer.opacity = Float(attractions.isEmpty ? 1.0 : 0.0)
