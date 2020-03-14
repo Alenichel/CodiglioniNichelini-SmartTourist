@@ -95,7 +95,6 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.imageSlideshow.zoomEnabled = true
         self.imageSlideshow.pageIndicator = nil
         self.imageSlideshow.contentScaleMode = .scaleAspectFill
-        self.imageSlideshow.preload = .fixed(offset: 2)
     }
     
     func style() {

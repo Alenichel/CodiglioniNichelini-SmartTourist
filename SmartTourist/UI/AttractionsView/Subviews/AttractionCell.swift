@@ -11,6 +11,7 @@ import PinLayout
 import DeepDiff
 import Cosmos
 import CoreLocation
+import MapKit
 
 
 public protocol SizeableCell: ModellableView {
@@ -53,6 +54,7 @@ struct AttractionCellViewModel: ViewModel {
 // MARK: - View
 class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     static var identifierForReuse: String = "AttractionCell"
+    static let distanceFormatter = MKDistanceFormatter()
     
     //MARK: Subviews
     var nameLabel = UILabel()
@@ -140,17 +142,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
             self.favoriteImage.alpha = 0
         }
         self.cosmos.rating = Double(model.rating)
-        if model.distance < 1000 {
-            self.distanceLabel.text = "\(model.distance) m"
-        }
-        else if model.distance < 10000 {
-            let km = model.distance / 1000
-            let decimal = model.distance % 1000
-            self.distanceLabel.text = "\(km).\(decimal) km"
-        }
-        else {
-            self.distanceLabel.text = "\(model.distance / 1000) km"
-        }
+        self.distanceLabel.text = AttractionCell.distanceFormatter.string(fromDistance: CLLocationDistance(model.distance))
         self.setNeedsLayout()
     }
     
