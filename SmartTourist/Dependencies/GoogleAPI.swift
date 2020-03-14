@@ -102,10 +102,6 @@ class GoogleAPI {
         }
     }
     
-    func getPlaceDetailsPhotos(_ place: GPPlace) -> Promise<[GPPhoto]> {
-        return self.getPlaceDetailsPhotos(placeID: place.placeID)
-    }
-    
     func getPlaceDetailsPhotos(placeID: String) -> Promise<[GPPhoto]> {
         return Promise<[GPPhoto]>(in: .background) { resolve, reject, status in
             let parameters = [
@@ -120,7 +116,6 @@ class GoogleAPI {
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     do {
-                        print(placeID)
                         let gpResponse = try decoder.decode(GPPlaceDetailResponse.self, from: data)
                         if let photos = gpResponse.result.photos {
                             resolve(photos)

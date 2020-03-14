@@ -114,12 +114,16 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.activityIndicator.startAnimating()
         self.directionButton.tintColor = .label
         self.directionButton.backgroundColor = .systemBackground
-        self.directionButton.layer.cornerRadius = 20
+        self.directionButton.layer.cornerRadius = 17
         self.directionButton.layer.shadowColor = UIColor.black.cgColor
         self.directionButton.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 1 : 0.75
         self.directionButton.layer.shadowOffset = .zero
         self.directionButton.layer.shadowRadius = 1
-        self.directionButton.setImage(UIImage(named: "walking_black"), for: .normal)
+        if UITraitCollection.current.userInterfaceStyle == .dark {
+            self.directionButton.setImage(UIImage(named: "walking_white"), for: .normal)
+        } else {
+            self.directionButton.setImage(UIImage(named: "walking_dark"), for: .normal)
+        }
         self.timeLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .light)
         self.timeLabel.textAlignment = .right
         self.timeLabel.sizeToFit()
