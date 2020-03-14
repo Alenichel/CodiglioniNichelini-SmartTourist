@@ -24,7 +24,7 @@ class WorldwideFavoritesView: UIView, ViewControllerModellableView {
     var mapView = GMSMapView(frame: .zero)
     var barView = UIView()
     var closeButton = UIButton()
-    var markerPool : GMSMarkerPool?
+    var markerPool : GMSMarkerPool!
     
     var didTapCloseButton: (()->())?
     
@@ -57,9 +57,12 @@ class WorldwideFavoritesView: UIView, ViewControllerModellableView {
     
     func update(oldModel: WorldwideFavoritesViewModel?){
         guard let model = self.model else { return }
-        if let markerPool = self.markerPool {
-            markerPool.setMarkers(places: model.favouritePlaces)
-        }
+        self.markerPool.setMarkers(places: model.favouritePlaces)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.mapView.loadCustomStyle()
     }
 }
 
