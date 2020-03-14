@@ -80,7 +80,8 @@ extension AttractionsViewController: CLLocationManagerDelegate {
         }
     }
     
-    func locationBasedNotification(lastCoordinates: CLLocationCoordinate2D){
+    func locationBasedNotification(lastCoordinates: CLLocationCoordinate2D) {
+        guard self.state.settings.notificationsEnabled else { return }
         let current = CLLocation(latitude: lastCoordinates.latitude, longitude: lastCoordinates.longitude)
         self.state.locationState.popularPlaces.forEach { place in
             if !justVisitedPlaces.contains(place) {
