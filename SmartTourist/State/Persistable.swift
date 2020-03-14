@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Katana
 
 
-protocol Persistable {}
+protocol Persistable: Dispatchable {}

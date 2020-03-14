@@ -16,6 +16,7 @@ struct SetState: StateUpdater {
     func updateState(_ state: inout AppState) {
         state.locationState = self.state.locationState
         state.favorites = self.state.favorites
+        state.settings = self.state.settings
     }
 }
 
@@ -125,5 +126,14 @@ struct SetNeedToMoveMap: StateUpdater {
     
     func updateState(_ state: inout AppState) {
         state.needToMoveMap = value
+    }
+}
+
+
+struct SetNotificationsEnabled: StateUpdater, Persistable {
+    let value: Bool
+    
+    func updateState(_ state: inout AppState) {
+        state.settings.notificationsEnabled = value
     }
 }

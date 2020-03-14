@@ -15,11 +15,13 @@ import CoreLocation
 struct AppState: State, Codable {
     var locationState = LocationState()
     var favorites = [GPPlace]()
+    var settings = Settings()
     var needToMoveMap = false
     
     /// Used to filter what properties of the state must be persisted
     enum CodingKeys: CodingKey {
         case favorites
+        case settings
     }
     
     /// The path where to persist the state
@@ -69,4 +71,9 @@ struct LocationState {
     private static var initDate: Date {
         Date().advanced(by: TimeInterval(-60))
     }
+}
+
+
+struct Settings: Codable {
+    var notificationsEnabled: Bool = false
 }

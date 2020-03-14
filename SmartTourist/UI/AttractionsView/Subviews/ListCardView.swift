@@ -59,6 +59,7 @@ class ListCardView: UIView, ModellableView {
                 cell.backgroundColor = .systemBackground
             }
         }
+        self.mapButton.isHidden = true
         self.mapButton.on(.touchUpInside) {button in
             self.didTapMapButton?()
         }

@@ -27,6 +27,10 @@
 		99F36EAC2417FB4C00ACC519 /* PedometerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */; };
 		99F36EB32418037600ACC519 /* GlobalVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F36EB22418037600ACC519 /* GlobalVar.swift */; };
 		99F5A11923995D9E0056E68D /* UIImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */; };
+		E50BC90D241D15EE005EFDCE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC90C241D15EE005EFDCE /* SettingsView.swift */; };
+		E50BC90F241D15FB005EFDCE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC90E241D15FB005EFDCE /* SettingsViewController.swift */; };
+		E50BC911241D42DF005EFDCE /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC910241D42DF005EFDCE /* SettingCell.swift */; };
+		E50BC917241D4CA3005EFDCE /* SettingBoolCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC916241D4CA3005EFDCE /* SettingBoolCell.swift */; };
 		E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F5238C4AFF0052825F /* WelcomeView.swift */; };
 		E524A0F8238C4C060052825F /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F7238C4C060052825F /* WelcomeViewController.swift */; };
 		E524A0FF238C4F530052825F /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0FE238C4F530052825F /* Screen.swift */; };
@@ -167,6 +171,10 @@
 		BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartTourist_SmartTouristUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB1F109E38A57D77901D8A65 /* Pods-SmartTouristTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTouristTests.release.xcconfig"; path = "Target Support Files/Pods-SmartTouristTests/Pods-SmartTouristTests.release.xcconfig"; sourceTree = "<group>"; };
 		D30A90CC896E2EB573AFC6C5 /* Pods-SmartTourist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist.debug.xcconfig"; path = "Target Support Files/Pods-SmartTourist/Pods-SmartTourist.debug.xcconfig"; sourceTree = "<group>"; };
+		E50BC90C241D15EE005EFDCE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		E50BC90E241D15FB005EFDCE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		E50BC910241D42DF005EFDCE /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
+		E50BC916241D4CA3005EFDCE /* SettingBoolCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingBoolCell.swift; sourceTree = "<group>"; };
 		E524A0F5238C4AFF0052825F /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		E524A0F7238C4C060052825F /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		E524A0FE238C4F530052825F /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
@@ -323,6 +331,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E50BC906241D159A005EFDCE /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				E50BC90C241D15EE005EFDCE /* SettingsView.swift */,
+				E50BC90E241D15FB005EFDCE /* SettingsViewController.swift */,
+			);
+			path = SettingsView;
+			sourceTree = "<group>";
+		};
 		E524A100238C4F950052825F /* AttractionsView */ = {
 			isa = PBXGroup;
 			children = (
@@ -419,12 +436,13 @@
 			isa = PBXGroup;
 			children = (
 				E524A0FE238C4F530052825F /* Screen.swift */,
-				99D5C9BD241CFB12008633C7 /* WorldwideView */,
 				E5FDE323238B25610018D791 /* WelcomeView */,
 				E524A100238C4F950052825F /* AttractionsView */,
 				E5628B4B2393D4B900A61676 /* AttractionDetail */,
 				E5AFC89923F9B006007B9887 /* CityDetailView */,
 				99C26FDE24003A0900F57030 /* CitySearchView */,
+				99D5C9BD241CFB12008633C7 /* WorldwideView */,
+				E50BC906241D159A005EFDCE /* SettingsView */,
 				E57C47172392BE83008DE784 /* Elements */,
 			);
 			path = UI;
@@ -453,6 +471,8 @@
 			isa = PBXGroup;
 			children = (
 				E57C47152392BC3A008DE784 /* RoundedButton.swift */,
+				E50BC910241D42DF005EFDCE /* SettingCell.swift */,
+				E50BC916241D4CA3005EFDCE /* SettingBoolCell.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -856,6 +876,7 @@
 				E5F9715C2392D96F0096C296 /* UIControl+TargetActionable.swift in Sources */,
 				E5335D032389942D00601F02 /* MapView.swift in Sources */,
 				E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */,
+				E50BC90D241D15EE005EFDCE /* SettingsView.swift in Sources */,
 				993B35462392B9150003FD8F /* AttractionCell.swift in Sources */,
 				E54E01B423996806009D0331 /* Persistable.swift in Sources */,
 				993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */,
@@ -869,10 +890,12 @@
 				E52EECCF238EE5FE006196BA /* NotificationManager.swift in Sources */,
 				E524A0FF238C4F530052825F /* Screen.swift in Sources */,
 				E5628B512394224F00A61676 /* UIImage+Color.swift in Sources */,
+				E50BC90F241D15FB005EFDCE /* SettingsViewController.swift in Sources */,
 				992816A823969ECC0033F43C /* WikipediaAPI.swift in Sources */,
 				99D5C9BF241CFB39008633C7 /* WorldwideFavoritesViewController.swift in Sources */,
 				E5628B4D2393D4D500A61676 /* AttractionDetailView.swift in Sources */,
 				E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */,
+				E50BC917241D4CA3005EFDCE /* SettingBoolCell.swift in Sources */,
 				E57C47162392BC3A008DE784 /* RoundedButton.swift in Sources */,
 				E528FF89238971FE0065483B /* SceneDelegate.swift in Sources */,
 				9930114B23AFED3600909749 /* GMSMapView+loadCustomStyle.swift in Sources */,
@@ -885,6 +908,7 @@
 				E5335CFE238981D000601F02 /* AppState.swift in Sources */,
 				E5F9715F2392D96F0096C296 /* CollectionView.swift in Sources */,
 				E5AFC8A123F9B006007B9887 /* CityDetailViewController.swift in Sources */,
+				E50BC911241D42DF005EFDCE /* SettingCell.swift in Sources */,
 				99C26FE524003A4000F57030 /* CitySearchView.swift in Sources */,
 				E5F971642392D96F0096C296 /* String+Height.swift in Sources */,
 				E5F971622392D96F0096C296 /* CGRect+Utils.swift in Sources */,

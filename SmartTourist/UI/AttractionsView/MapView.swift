@@ -196,6 +196,8 @@ class MapView: UIView, ViewControllerModellableView {
         }
         if let city = model.city {
             self.cityNameButton.setTitle(city, for: .normal)
+        } else {
+            self.cityNameButton.setTitle("SmartTourist", for: .normal)
         }
         self.setNeedsLayout()
     }

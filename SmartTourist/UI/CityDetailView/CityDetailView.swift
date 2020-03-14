@@ -29,18 +29,14 @@ class CityDetailView: UIView, ViewControllerModellableView {
     var cityNameLabel = UILabel()
     var mapView = GMSMapView()
     var descriptionText = UITextView()
-    var containerView = UIView()
     var lineView = UIView()
-    
     var marker = GMSMarker()
     
     func setup() {
         self.addSubview(mapView)
         self.addSubview(self.cityNameLabel)
         self.addSubview(descriptionText)
-        
-        self.addSubview(self.containerView)
-        self.containerView.addSubview(self.lineView)
+        self.addSubview(self.lineView)
     }
     
     func style() {
@@ -59,13 +55,12 @@ class CityDetailView: UIView, ViewControllerModellableView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 250)
-        self.mapView.pin.horizontally(5).top().marginTop(150)
-        self.descriptionText.pin.horizontally(8).below(of: self.mapView).marginTop(5).bottom()
-        self.containerView.pin.horizontally().top(115).above(of: self.mapView)
-        self.lineView.pin.top().height(1).horizontally(7)
         self.cityNameLabel.sizeToFit()
-        self.cityNameLabel.pin.top(self.safeAreaInsets).above(of: containerView).horizontally()
+        self.cityNameLabel.pin.top(self.safeAreaInsets).horizontally().marginTop(3)
+        self.lineView.pin.below(of: self.cityNameLabel).height(1).horizontally(7)
+        self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 250)
+        self.mapView.pin.below(of: self.lineView).horizontally(5).marginTop(10)
+        self.descriptionText.pin.horizontally(8).below(of: self.mapView).marginTop(5).bottom()
     }
     
     func update(oldModel: CityDetailViewModel?){
