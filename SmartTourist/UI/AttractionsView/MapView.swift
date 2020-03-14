@@ -19,10 +19,12 @@ struct AttractionsViewModel: ViewModelWithLocalState {
     let mapCentered: Bool
     let favorites: [GPPlace]
     let needToMoveMap: Bool
+    let selectedSegmentedIndex: SelectedPlaceList
     
     init?(state: AppState?, localState: AttractionsLocalState) {
         guard let state = state else { return nil }
-        switch localState.selectedSegmentIndex {
+        self.selectedSegmentedIndex = localState.selectedSegmentIndex
+        switch self.selectedSegmentedIndex {
         case .nearest:
             self.places = state.locationState.nearestPlaces
         case .popular:
@@ -161,7 +163,7 @@ class MapView: UIView, ViewControllerModellableView {
             self.markerPool.setMarkers(places: [])
             self.cityNameButton.isHidden = true
         }
-        let listCardViewModel = ListCardViewModel(currentLocation: model.location, places: model.places, favorites: model.favorites)
+        let listCardViewModel = ListCardViewModel(currentLocation: model.location, places: model.places, favorites: model.favorites, selectedSegmentedIndex: model.selectedSegmentedIndex)
         self.listCardView.model = listCardViewModel
         self.locationButton.setImage(UIImage(systemName: model.mapCentered ? "location.fill" : "location"), for: .normal)
         if let location = model.location {

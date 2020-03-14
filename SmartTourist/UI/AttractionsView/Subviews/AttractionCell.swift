@@ -28,12 +28,13 @@ struct AttractionCellViewModel: ViewModel {
     let currentLocation: CLLocationCoordinate2D
     let distance: Int
     let favorite: Bool
+    let isInFavouriteTab: SelectedPlaceList
     
     static func == (l: AttractionCellViewModel, r: AttractionCellViewModel) -> Bool {
         return l.identifier == r.identifier
     }
     
-    init(place: GPPlace, currentLocation: CLLocationCoordinate2D, favorite: Bool) {
+    init(place: GPPlace, currentLocation: CLLocationCoordinate2D, favorite: Bool, isInFavouriteTab: SelectedPlaceList) {
         self.identifier = place.placeID
         self.attractionName = place.name
         self.attractionCityName = place.city ?? "Unknown city"
@@ -47,6 +48,7 @@ struct AttractionCellViewModel: ViewModel {
         let target = CLLocation(latitude: place.location.latitude, longitude: place.location.longitude)
         self.distance = Int(current.distance(from: target).rounded())
         self.favorite = favorite
+        self.isInFavouriteTab = isInFavouriteTab
     }
 }
 
@@ -135,7 +137,9 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     func update(oldModel: AttractionCellViewModel?) {
         guard let model = self.model else {return}
         self.nameLabel.text = model.attractionName
-        self.cityNameLabel.text = model.attractionCityName
+        if model.isInFavouriteTab == .favorites {
+            self.cityNameLabel.text = model.attractionCityName
+        }
         if model.favorite {
             self.favoriteImage.alpha = 1
         } else {
@@ -158,6 +162,6 @@ extension AttractionCellViewModel: DiffAware {
     var diffId: Int { return self.identifier.hashValue }
 
     static func compareContent(_ a: AttractionCellViewModel, _ b: AttractionCellViewModel) -> Bool {
-        return a.identifier == b.identifier && a.favorite == b.favorite
+        return a.identifier == b.identifier && a.favorite == b.favorite && a.isInFavouriteTab == b.isInFavouriteTab
     }
 }
