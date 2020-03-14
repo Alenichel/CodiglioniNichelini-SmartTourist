@@ -86,6 +86,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         self.addSubview(self.distanceLabel)
         self.addSubview(self.favoriteImage)
         self.addSubview(self.cityNameLabel)
+        AttractionCell.distanceFormatter.units = .metric
     }
     
     //MARK: Style
