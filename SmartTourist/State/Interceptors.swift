@@ -19,7 +19,6 @@ struct PersistorInterceptor {
                         guard let _ = dispatchable as? Persistable else { return }
                         guard let state = context.getAnyState() as? AppState else { return }
                         let encoder = JSONEncoder()
-                        print(AppState.persistURL)
                         do {
                             let data = try encoder.encode(state)
                             try data.write(to: AppState.persistURL)
