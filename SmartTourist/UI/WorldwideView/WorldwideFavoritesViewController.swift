@@ -16,7 +16,11 @@ class WorldwideFavoritesViewController: ViewController<WorldwideFavoritesView> {
         super.viewDidLoad()
     }
     
-    override func setupInteraction() {}
+    override func setupInteraction() {
+        self.rootView.didTapCloseButton = {[unowned self] in
+            self.dispatch(Hide(animated: true))
+        }
+    }
 
 }
 
@@ -28,7 +32,7 @@ extension WorldwideFavoritesViewController: RoutableWithConfiguration {
     
     var navigationConfiguration: [NavigationRequest : NavigationInstruction] {
         [
-            .hide(Screen.worldwideFavorites): .pop
+            .hide(Screen.worldwideFavorites): .dismissModally(behaviour: .hard)
         ]
     }
 }
