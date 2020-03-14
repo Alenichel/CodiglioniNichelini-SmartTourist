@@ -12,9 +12,11 @@ import GoogleMaps
 class GMSMarkerPool {
     private var cache = [CLLocationCoordinate2D: GMSMarker]()
     private var mapView: GMSMapView
+    private var color: UIColor?
     
-    init(mapView: GMSMapView) {
+    init(mapView: GMSMapView, color: UIColor? = nil) {
         self.mapView = mapView
+        self.color = color
     }
     
     func setMarkers(places: [GPPlace]) {
@@ -31,6 +33,7 @@ class GMSMarkerPool {
                 marker.map = self.mapView
                 marker.title = place.name
                 marker.userData = place
+                marker.icon = GMSMarker.markerImage(with: self.color)
                 self.cache[place.location] = marker
             }
         }
