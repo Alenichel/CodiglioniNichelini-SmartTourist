@@ -83,9 +83,15 @@ struct AddFavorite: SideEffect {
     let place: GPPlace
     
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
-        if let city = context.getState().locationState.currentCity {
+        context.dependencies.googleAPI.getCityNameMK(coordinates: self.place.location).then { city in
             self.place.city = city
+        }.catch { error in
+            print(error.localizedDescription)
+            if let currentCity = context.getState().locationState.currentCity {
+                self.place.city = currentCity
+            }
+        }.always {
+            context.dispatch(AddFavoriteStateUpdater(place: self.place))
         }
-        context.dispatch(AddFavoriteStateUpdater(place: self.place))
     }
 }

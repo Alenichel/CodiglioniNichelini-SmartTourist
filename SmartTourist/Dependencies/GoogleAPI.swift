@@ -17,7 +17,8 @@ class GoogleAPI {
     static let shared = GoogleAPI()
     private init() {}
     
-    private let geocoder = GMSGeocoder()
+    private let gmGeocoder = GMSGeocoder()
+    private let mkGeocoder = CLGeocoder()
     private let photoCache = NSCache<GPPhoto, UIImage>()
     
     enum PlaceType: String {
@@ -26,7 +27,7 @@ class GoogleAPI {
     
     func getCityName(coordinates: CLLocationCoordinate2D) -> Promise<String> {
         return Promise<String>(in: .background) { resolve, reject, status in
-            self.geocoder.reverseGeocodeCoordinate(coordinates) { response, error in
+            self.gmGeocoder.reverseGeocodeCoordinate(coordinates) { response, error in
                 if let error = error {
                     reject(error)
                 }
@@ -35,6 +36,18 @@ class GoogleAPI {
                 }
                 reject(UnknownApiError())
             }
+        }
+    }
+    
+    func getCityNameMK(coordinates: CLLocationCoordinate2D) -> Promise<String> {
+        return Promise<String>(in: .background) { resolve, reject, status in
+            let location = CLLocation(latitude: coordinates.latitude, longitude: coordinates.longitude)
+            self.mkGeocoder.reverseGeocodeLocation(location, completionHandler: { placemarks, error in
+                if let placemark = placemarks?[0], let locality = placemark.locality {
+                    resolve(locality)
+                }
+                reject(UnknownApiError())
+            })
         }
     }
     

@@ -121,7 +121,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         self.image.pin.vCenter().right(15)
         self.distanceLabel.pin.vCenter().right(35)
         self.favoriteImage.pin.right(of: cosmos, aligned: .top).marginLeft(10).size(CGSize(width: Double(UIFont.systemFontSize) * 1.2, height: Double(UIFont.systemFontSize)))
-        self.cityNameLabel.pin.after(of: self.favoriteImage, aligned: .center).size(200).marginLeft(10)
+        self.cityNameLabel.pin.after(of: self.favoriteImage, aligned: .center).size(200).marginLeft(10).marginTop(5)
     }
 
     static var paddingHeight: CGFloat = 10
