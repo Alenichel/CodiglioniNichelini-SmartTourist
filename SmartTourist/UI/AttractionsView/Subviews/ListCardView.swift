@@ -25,10 +25,12 @@ class ListCardView: UIView, ModellableView {
     var scrollView = UIScrollView()
     var attractionListView: CollectionView<AttractionCell, SimpleSource<AttractionCellViewModel>>!
     var emptyLabel = UILabel()
+    var mapButton = UIButton()
     
     // MARK: - Interactions
     var didTapItem: ((GPPlace) -> Void)?
     var didChangeSegmentedValue: ((Int) -> Void)?
+    var didTapMapButton: Interaction?
         
     func setup() {
         self.chooser.selectedSegmentIndex = 0
@@ -57,12 +59,16 @@ class ListCardView: UIView, ModellableView {
                 cell.backgroundColor = .systemBackground
             }
         }
+        self.mapButton.on(.touchUpInside) {button in
+            self.didTapMapButton?()
+        }
         self.emptyLabel.text = "No attraction to show"
         self.scrollView.addSubview(self.attractionListView)
         self.addSubview(self.handle)
         self.addSubview(self.chooser)
         self.addSubview(self.scrollView)
         self.addSubview(self.emptyLabel)
+        self.addSubview(self.mapButton)
     }
     
     func style() {
@@ -78,6 +84,7 @@ class ListCardView: UIView, ModellableView {
         self.scrollView.backgroundColor = .systemBackground
         self.emptyLabel.textColor = .secondaryLabel
         self.emptyLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 0.9)
+        self.mapButton.setImage(UIImage(systemName: "map"), for: .normal)
     }
     
     override func layoutSubviews() {
@@ -86,6 +93,7 @@ class ListCardView: UIView, ModellableView {
         self.emptyLabel.sizeToFit()
         self.handle.pin.topCenter(20)
         self.chooser.pin.below(of: self.handle).marginTop(20).hCenter()
+        self.mapButton.pin.after(of: self.chooser, aligned: .center).size(50).marginLeft(10)
         self.scrollView.pin.below(of: self.chooser).marginTop(15).left().right().bottom()
         self.attractionListView.frame = self.scrollView.frame.bounds
         self.emptyLabel.pin.below(of: self.chooser, aligned: .center).marginTop(30)
@@ -97,6 +105,11 @@ class ListCardView: UIView, ModellableView {
         self.attractionListView.source = SimpleSource<AttractionCellViewModel>(attractions)
         UIView.animate(withDuration: 0.3) {
             self.emptyLabel.layer.opacity = Float(attractions.isEmpty ? 1.0 : 0.0)
+        }
+        if model.selectedSegmentedIndex == .favorites {
+            self.mapButton.isHidden = false
+        } else {
+            self.mapButton.isHidden = true
         }
         self.setNeedsLayout()
     }
