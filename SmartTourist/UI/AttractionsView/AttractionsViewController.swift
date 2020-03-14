@@ -114,6 +114,11 @@ extension AttractionsViewController: GMSMapViewDelegate {
         self.dispatch(SetMapCentered(value: false))
         return false
     }
+    
+    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+        let place = marker.userData as! GPPlace
+        self.dispatch(Show(Screen.detail, animated: true, context: place))
+    }
 }
 
 
