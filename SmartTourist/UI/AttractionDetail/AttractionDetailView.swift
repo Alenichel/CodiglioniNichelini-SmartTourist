@@ -154,6 +154,15 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.activityIndicator.pin.center().size(30)
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if UITraitCollection.current.userInterfaceStyle == .dark {
+            self.directionButton.setImage(UIImage(named: "walking_white"), for: .normal)
+        } else {
+            self.directionButton.setImage(UIImage(named: "walking_dark"), for: .normal)
+        }
+    }
+    
     func update(oldModel: AttractionDetailViewModel?) {
         guard let model = self.model else { return }
         if let rating = model.attraction.rating {
