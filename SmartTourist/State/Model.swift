@@ -70,7 +70,7 @@ class GPPlace: Codable, Equatable {
         self.city = try container.decodeIfPresent(String.self, forKey: .city)
         GoogleAPI.shared.getPlaceDetailsPhotos(placeID: self.placeID).then { photos in
             if self.photos != nil {
-                self.photos!.append(contentsOf: photos)
+                self.photos = Array<GPPhoto>(Set<GPPhoto>(self.photos!).union(Set<GPPhoto>(photos)))
             } else {
                 self.photos = photos
             }
@@ -116,7 +116,7 @@ extension CLLocationCoordinate2D: Codable {
 }
 
 
-class GPPhoto: Codable {
+class GPPhoto: Codable, Hashable {
     let photoReference: String
     let height: Int
     let width: Int
@@ -125,6 +125,14 @@ class GPPhoto: Codable {
         case photoReference
         case height
         case width
+    }
+    
+    static func == (lhs: GPPhoto, rhs: GPPhoto) -> Bool {
+        return lhs.photoReference == rhs.photoReference
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(self.photoReference)
     }
 }
 
