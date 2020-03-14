@@ -12,11 +12,12 @@ import PinLayout
 import Cosmos
 import CoreLocation
 import GoogleMaps
+import ImageSlideshow
 
 
 struct AttractionDetailViewModel: ViewModelWithLocalState {
     let attraction: GPPlace
-    let photo: GPPhoto?
+    let photos: [GPPhoto]
     let nRatings: String
     let wikipediaSearchTerms: String
     let currentLocation: CLLocationCoordinate2D
@@ -27,9 +28,9 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
         guard let state = state else { return nil }
         self.attraction = localState.attraction
         if let photos = self.attraction.photos {
-            self.photo = photos.first
+            self.photos = photos
         } else {
-            self.photo = nil
+            self.photos = []
         }
         if let nRatings = localState.attraction.userRatingsTotal {
             self.nRatings = nRatings > 1000 ? "\(Int(nRatings / 1000))k" : "\(nRatings)"
@@ -47,12 +48,13 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
 class AttractionDetailView: UIView, ViewControllerModellableView {
     private static let isFavoriteImage = UIImage(systemName: "heart.fill")
     private static let isNotFavoriteImage = UIImage(systemName: "heart")
+    private static let walkingIconImage = UIImage(named: "walking_icon")?.withRenderingMode(.alwaysTemplate)
     
     var descriptionText = UILabel()
     var nRatingsLabel = UILabel()
     var cosmos = CosmosView(frame: .zero)
     var containerView = UIView()
-    var imageView = UIImageView()
+    var imageSlideshow = ImageSlideshow()
     var lineView = UIView()
     var scrollView = UIScrollView()
     var mapView = GMSMapView()
@@ -71,7 +73,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.addSubview(self.scrollView)
         self.addSubview(self.curtainView)
         self.curtainView.addSubview(self.activityIndicator)
-        self.scrollView.addSubview(self.imageView)
+        self.scrollView.addSubview(self.imageSlideshow)
         self.scrollView.addSubview(self.containerView)
         self.containerView.addSubview(self.descriptionText)
         self.containerView.addSubview(self.cosmos)
@@ -89,11 +91,15 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.directionButton.on(.touchUpInside) { button in
             self.didTapDirectionButton?(self.model?.currentLocation, self.model?.attraction)
         }
+        self.imageSlideshow.slideshowInterval = 5
+        self.imageSlideshow.zoomEnabled = true
+        self.imageSlideshow.pageIndicator = nil
+        self.imageSlideshow.contentScaleMode = .scaleAspectFill
+        self.imageSlideshow.preload = .fixed(offset: 2)
     }
     
     func style() {
         self.backgroundColor = .systemBackground
-        self.imageView.contentMode = .scaleAspectFill
         self.descriptionText.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.15)
         self.descriptionText.textAlignment = NSTextAlignment.justified
         self.cosmos.settings.updateOnTouch = false
@@ -114,16 +120,13 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.activityIndicator.startAnimating()
         self.directionButton.tintColor = .label
         self.directionButton.backgroundColor = .systemBackground
-        self.directionButton.layer.cornerRadius = 17
+        self.directionButton.layer.cornerRadius = 18
         self.directionButton.layer.shadowColor = UIColor.black.cgColor
         self.directionButton.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 1 : 0.75
         self.directionButton.layer.shadowOffset = .zero
         self.directionButton.layer.shadowRadius = 1
-        if UITraitCollection.current.userInterfaceStyle == .dark {
-            self.directionButton.setImage(UIImage(named: "walking_white"), for: .normal)
-        } else {
-            self.directionButton.setImage(UIImage(named: "walking_dark"), for: .normal)
-        }
+        self.directionButton.setImage(AttractionDetailView.walkingIconImage, for: .normal)
+        self.directionButton.imageEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         self.timeLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .light)
         self.timeLabel.textAlignment = .right
         self.timeLabel.sizeToFit()
@@ -131,9 +134,9 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.imageView.sizeToFit()
-        self.imageView.pin.top().bottom(50%).left().right()
-        self.containerView.pin.horizontally().bottom(10).below(of: self.imageView)
+        self.imageSlideshow.sizeToFit()
+        self.imageSlideshow.pin.top().bottom(50%).left().right()
+        self.containerView.pin.horizontally().bottom(10).below(of: self.imageSlideshow)
         self.cosmos.sizeToFit()
         self.cosmos.pin.topLeft().marginHorizontal(20).marginTop(15)
         self.directionButton.pin.topRight().marginHorizontal(16).marginTop(7).size(35)
@@ -158,15 +161,6 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.activityIndicator.pin.center().size(30)
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        if UITraitCollection.current.userInterfaceStyle == .dark {
-            self.directionButton.setImage(UIImage(named: "walking_white"), for: .normal)
-        } else {
-            self.directionButton.setImage(UIImage(named: "walking_dark"), for: .normal)
-        }
-    }
-    
     func update(oldModel: AttractionDetailViewModel?) {
         guard let model = self.model else { return }
         if let rating = model.attraction.rating {
@@ -177,7 +171,8 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.nRatingsLabel.text = model.nRatings
         
         if !model.allLoaded {
-            self.imageView.setImage(model.photo)
+            let imagePromises = model.photos.map { GoogleAPI.shared.getPhoto($0) }
+            self.imageSlideshow.setImageInputs(imagePromises.map { PromiseImageSource($0) })
             self.descriptionText.setText(searchTerms: model.wikipediaSearchTerms) {
                 self.didLoadEverything?()
             }
