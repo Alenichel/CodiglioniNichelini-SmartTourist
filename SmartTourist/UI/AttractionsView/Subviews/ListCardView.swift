@@ -30,6 +30,7 @@ class ListCardView: UIView, ModellableView {
     // MARK: - Interactions
     var didTapItem: ((GPPlace) -> Void)?
     var didChangeSegmentedValue: ((Int) -> Void)?
+    var didTapMapButton: Interaction?
         
     func setup() {
         self.chooser.selectedSegmentIndex = 0
@@ -57,6 +58,9 @@ class ListCardView: UIView, ModellableView {
             UIView.animate(withDuration: 0.5) {
                 cell.backgroundColor = .systemBackground
             }
+        }
+        self.mapButton.on(.touchUpInside) {button in
+            self.didTapMapButton?()
         }
         self.emptyLabel.text = "No attraction to show"
         self.scrollView.addSubview(self.attractionListView)

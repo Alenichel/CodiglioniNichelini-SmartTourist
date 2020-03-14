@@ -15,4 +15,5 @@ enum Screen: String {
     case test
     case cityDetail
     case citySearch
+    case worldwideFavorites
 }

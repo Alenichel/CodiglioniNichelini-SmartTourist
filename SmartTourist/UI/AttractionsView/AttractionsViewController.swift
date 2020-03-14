@@ -61,6 +61,9 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
         self.rootView.didMoveMap = { [unowned self] in
             self.dispatch(SetNeedToMoveMap(value: false))
         }
+        self.rootView.listCardView.didTapMapButton = { [unowned self] in
+            self.dispatch(Show(Screen.worldwideFavorites, animated: true))
+        }
     }
 }
 
@@ -144,6 +147,9 @@ extension AttractionsViewController: RoutableWithConfiguration {
             }),
             .show(Screen.cityDetail): .push({ [unowned self] context in
                 return CityDetailViewController(store: self.store)
+            }),
+            .show(Screen.worldwideFavorites): .presentModally({[unowned self] context in
+                return WorldwideFavoritesViewController(store: self.store)
             })
         ]
     }

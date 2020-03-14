@@ -22,6 +22,8 @@
 		99C27CD423AFC37700667FB0 /* MilanTour(Cycling).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CD123AFC37700667FB0 /* MilanTour(Cycling).gpx */; };
 		99C27CD523AFC37700667FB0 /* MilanTour(Driving).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CD223AFC37700667FB0 /* MilanTour(Driving).gpx */; };
 		99C27CE723AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CE123AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx */; };
+		99D5C9B7241CF4D0008633C7 /* WorldwideFavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D5C9B6241CF4D0008633C7 /* WorldwideFavoritesView.swift */; };
+		99D5C9BF241CFB39008633C7 /* WorldwideFavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D5C9BE241CFB39008633C7 /* WorldwideFavoritesViewController.swift */; };
 		99F36EAC2417FB4C00ACC519 /* PedometerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */; };
 		99F36EB32418037600ACC519 /* GlobalVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F36EB22418037600ACC519 /* GlobalVar.swift */; };
 		99F5A11923995D9E0056E68D /* UIImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */; };
@@ -155,6 +157,8 @@
 		99C27CD123AFC37700667FB0 /* MilanTour(Cycling).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Cycling).gpx"; sourceTree = "<group>"; };
 		99C27CD223AFC37700667FB0 /* MilanTour(Driving).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Driving).gpx"; sourceTree = "<group>"; };
 		99C27CE123AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanCityCenterTour(bycicle).gpx"; sourceTree = "<group>"; };
+		99D5C9B6241CF4D0008633C7 /* WorldwideFavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldwideFavoritesView.swift; sourceTree = "<group>"; };
+		99D5C9BE241CFB39008633C7 /* WorldwideFavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldwideFavoritesViewController.swift; sourceTree = "<group>"; };
 		99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PedometerHandler.swift; sourceTree = "<group>"; };
 		99F36EB22418037600ACC519 /* GlobalVar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVar.swift; sourceTree = "<group>"; };
 		99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+setImage.swift"; sourceTree = "<group>"; };
@@ -299,6 +303,15 @@
 			path = CitySearchView;
 			sourceTree = "<group>";
 		};
+		99D5C9BD241CFB12008633C7 /* WorldwideView */ = {
+			isa = PBXGroup;
+			children = (
+				99D5C9B6241CF4D0008633C7 /* WorldwideFavoritesView.swift */,
+				99D5C9BE241CFB39008633C7 /* WorldwideFavoritesViewController.swift */,
+			);
+			path = WorldwideView;
+			sourceTree = "<group>";
+		};
 		E29D77648F2366C0DE89CACB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -406,6 +419,7 @@
 			isa = PBXGroup;
 			children = (
 				E524A0FE238C4F530052825F /* Screen.swift */,
+				99D5C9BD241CFB12008633C7 /* WorldwideView */,
 				E5FDE323238B25610018D791 /* WelcomeView */,
 				E524A100238C4F950052825F /* AttractionsView */,
 				E5628B4B2393D4B900A61676 /* AttractionDetail */,
@@ -856,6 +870,7 @@
 				E524A0FF238C4F530052825F /* Screen.swift in Sources */,
 				E5628B512394224F00A61676 /* UIImage+Color.swift in Sources */,
 				992816A823969ECC0033F43C /* WikipediaAPI.swift in Sources */,
+				99D5C9BF241CFB39008633C7 /* WorldwideFavoritesViewController.swift in Sources */,
 				E5628B4D2393D4D500A61676 /* AttractionDetailView.swift in Sources */,
 				E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */,
 				E57C47162392BC3A008DE784 /* RoundedButton.swift in Sources */,
@@ -865,6 +880,7 @@
 				E5D1474A23AB747300649C87 /* Model.swift in Sources */,
 				E5F9715E2392D96F0096C296 /* Source.swift in Sources */,
 				E524A0F8238C4C060052825F /* WelcomeViewController.swift in Sources */,
+				99D5C9B7241CF4D0008633C7 /* WorldwideFavoritesView.swift in Sources */,
 				E53EEA23241CDC55004CCE16 /* PromiseImageSource.swift in Sources */,
 				E5335CFE238981D000601F02 /* AppState.swift in Sources */,
 				E5F9715F2392D96F0096C296 /* CollectionView.swift in Sources */,
