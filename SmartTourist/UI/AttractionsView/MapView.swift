@@ -207,7 +207,7 @@ class MapView: UIView, ViewControllerModellableView {
     }
     
     private func moveMap(to location: CLLocationCoordinate2D) {
-        let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 17)
+        let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 15)
         self.mapView.animate(to: camera)
     }
     
