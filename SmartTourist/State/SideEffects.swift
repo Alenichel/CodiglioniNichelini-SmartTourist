@@ -52,7 +52,7 @@ struct GetNearestPlaces: SideEffect {
         if !self.throttle || context.getState().locationState.nearestPlacesLastUpdate.distance(to: Date()) > GoogleAPI.apiThrottleTime {
             context.dispatch(SetNearestPlacesLastUpdate(lastUpdate: Date()))
             context.dependencies.googleAPI.getNearbyPlaces(location: currentLocation).then { places in
-                context.dispatch(SetNearestPlaces(places: blacklist(places)))
+                context.dispatch(SetNearestPlaces(places: places.blacklisted))
             }.catch { error in
                 context.dispatch(SetNearestPlaces(places: []))
             }
@@ -70,7 +70,7 @@ struct GetPopularPlaces: SideEffect {
         if !self.throttle || context.getState().locationState.popularPlacesLastUpdate.distance(to: Date()) > GoogleAPI.apiThrottleTime {
             context.dispatch(SetPopularPlacesLastUpdate(lastUpdate: Date()))
             context.dependencies.googleAPI.getPopularPlaces(city: currentCity).then { places in
-                context.dispatch(SetPopularPlaces(places: blacklist(places)))
+                context.dispatch(SetPopularPlaces(places: places.blacklisted))
             }.catch { error in
                 context.dispatch(SetPopularPlaces(places: []))
             }
