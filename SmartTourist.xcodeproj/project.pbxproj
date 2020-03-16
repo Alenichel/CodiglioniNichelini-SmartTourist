@@ -25,7 +25,6 @@
 		99D5C9B7241CF4D0008633C7 /* WorldwideFavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D5C9B6241CF4D0008633C7 /* WorldwideFavoritesView.swift */; };
 		99D5C9BF241CFB39008633C7 /* WorldwideFavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D5C9BE241CFB39008633C7 /* WorldwideFavoritesViewController.swift */; };
 		99F36EAC2417FB4C00ACC519 /* PedometerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */; };
-		99F36EB32418037600ACC519 /* GlobalVar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F36EB22418037600ACC519 /* GlobalVar.swift */; };
 		99F5A11923995D9E0056E68D /* UIImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */; };
 		E50BC90D241D15EE005EFDCE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC90C241D15EE005EFDCE /* SettingsView.swift */; };
 		E50BC90F241D15FB005EFDCE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC90E241D15FB005EFDCE /* SettingsViewController.swift */; };
@@ -166,7 +165,6 @@
 		99D5C9B6241CF4D0008633C7 /* WorldwideFavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldwideFavoritesView.swift; sourceTree = "<group>"; };
 		99D5C9BE241CFB39008633C7 /* WorldwideFavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldwideFavoritesViewController.swift; sourceTree = "<group>"; };
 		99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PedometerHandler.swift; sourceTree = "<group>"; };
-		99F36EB22418037600ACC519 /* GlobalVar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVar.swift; sourceTree = "<group>"; };
 		99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+setImage.swift"; sourceTree = "<group>"; };
 		AB3310E805FE2AAD225A0C8E /* Pods-SmartTourist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist.release.xcconfig"; path = "Target Support Files/Pods-SmartTourist/Pods-SmartTourist.release.xcconfig"; sourceTree = "<group>"; };
 		B169329D24736107D441A8F6 /* Pods-SmartTourist-SmartTouristUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist-SmartTouristUITests.release.xcconfig"; path = "Target Support Files/Pods-SmartTourist-SmartTouristUITests/Pods-SmartTourist-SmartTouristUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -431,7 +429,6 @@
 				E54E01BA23996839009D0331 /* Interceptors.swift */,
 				E54E01B323996806009D0331 /* Persistable.swift */,
 				E555704823F7001E0039679D /* Constants.swift */,
-				99F36EB22418037600ACC519 /* GlobalVar.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -869,7 +866,6 @@
 			files = (
 				E5628B4F2393D4E100A61676 /* AttractionDetailViewController.swift in Sources */,
 				E555704923F7001E0039679D /* Constants.swift in Sources */,
-				99F36EB32418037600ACC519 /* GlobalVar.swift in Sources */,
 				E5335D082389970B00601F02 /* DependenciesContainer.swift in Sources */,
 				99F5A11923995D9E0056E68D /* UIImageView+setImage.swift in Sources */,
 				E54958FC241F5BAD00D643F1 /* SettingStringCell.swift in Sources */,

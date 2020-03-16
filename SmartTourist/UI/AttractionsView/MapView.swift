@@ -20,6 +20,8 @@ struct AttractionsViewModel: ViewModelWithLocalState {
     let favorites: [GPPlace]
     let needToMoveMap: Bool
     let selectedSegmentedIndex: SelectedPlaceList
+    let littleCircleRadius: Double
+    let bigCircleRadius: Double
     
     init?(state: AppState?, localState: AttractionsLocalState) {
         guard let state = state else { return nil }
@@ -38,6 +40,8 @@ struct AttractionsViewModel: ViewModelWithLocalState {
         self.mapCentered = state.locationState.mapCentered
         self.favorites = state.favorites
         self.needToMoveMap = state.needToMoveMap
+        self.littleCircleRadius = state.pedometerState.littleCircleRadius
+        self.bigCircleRadius = state.pedometerState.bigCircleRadius
     }
 }
 
@@ -186,9 +190,9 @@ class MapView: UIView, ViewControllerModellableView {
         }
         if let actualLocation = model.actualLocation {
             self.littleCircle.position = actualLocation
-            self.littleCircle.radius = littleCircleRadius
+            self.littleCircle.radius = model.littleCircleRadius
             self.bigCircle.position = actualLocation
-            self.bigCircle.radius = bigCircleRadius
+            self.bigCircle.radius = model.bigCircleRadius
             self.littleCircle.strokeColor = .label
             self.bigCircle.strokeColor = .label
             self.littleCircle.map = self.mapView

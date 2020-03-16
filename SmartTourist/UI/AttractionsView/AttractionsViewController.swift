@@ -38,6 +38,11 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
         } else {
             LocationManager.shared.startUpdatingLocation()
         }
+        PedometerHandler.shared.startUpdates { data, error in
+            if let data = data {
+                self.dispatch(SetPedometerAverageWalkingSpeed(newSpeed: data.averageActivePace as! Double))                
+            }
+        }
     }
     
     override func setupInteraction() {

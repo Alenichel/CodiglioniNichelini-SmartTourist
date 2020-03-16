@@ -137,3 +137,15 @@ struct SetNotificationsEnabled: StateUpdater, Persistable {
         state.settings.notificationsEnabled = value
     }
 }
+
+
+struct SetPedometerAverageWalkingSpeed: StateUpdater {
+    let newSpeed: Double
+    
+    func updateState(_ state: inout AppState) {
+        state.pedometerState.averageWalkingSpeed = self.newSpeed
+        print("New average walking speed is \(state.pedometerState.averageWalkingSpeed)")
+        print("New littleCircleRadius is \(state.pedometerState.littleCircleRadius)")
+        print("New bigCircleRadius is \(state.pedometerState.littleCircleRadius)")
+    }
+}

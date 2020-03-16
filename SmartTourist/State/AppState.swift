@@ -16,6 +16,7 @@ struct AppState: State, Codable {
     var locationState = LocationState()
     var favorites = [GPPlace]()
     var settings = Settings()
+    var pedometerState = PedometerState()
     var needToMoveMap = false
     
     /// Used to filter what properties of the state must be persisted
@@ -83,5 +84,13 @@ struct Settings: Codable {
 
 /// The part of the state cencerning pedometer results
 struct PedometerState: Codable {
+    var averageWalkingSpeed: Double = defaultAverageWalkingSpeed // m/s
     
+    var littleCircleRadius: Double {
+        self.averageWalkingSpeed * littleCircleTimeRadius
+    }   // meters
+    
+    var bigCircleRadius: Double {
+        self.averageWalkingSpeed * bigCircleTimeRadius
+    }   // meters
 }
