@@ -60,7 +60,7 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
         self.rootView.didTapLocationButton = { [unowned self] in
             self.dispatch(SetMapCentered(value: true))
             self.dispatch(GetCurrentCity(throttle: false))   // Also calls GetPopularPlaces
-            self.dispatch(GetNearestPlaces(location: self.state.locationState.actualLocation, throttle: false))
+            self.dispatch(GetNearestPlaces(throttle: false))
         }
         self.rootView.ditTapSearchButton = { [unowned self] in
             self.dispatch(Show(Screen.citySearch, animated: true))
@@ -83,7 +83,7 @@ extension AttractionsViewController: CLLocationManagerDelegate {
         self.locationBasedNotification(lastCoordinates: location.coordinate)
         if self.state.locationState.mapCentered {
             self.dispatch(GetCurrentCity(throttle: true))   // Also calls GetPopularPlaces
-            self.dispatch(GetNearestPlaces(location: location.coordinate, throttle: true))
+            self.dispatch(GetNearestPlaces(throttle: true))
         }
     }
     
@@ -113,7 +113,7 @@ extension AttractionsViewController: GMSMapViewDelegate {
         self.dispatch(SetMapLocation(location: position.target))
         if !self.state.locationState.mapCentered {
             self.dispatch(GetCurrentCity(throttle: false))   // Also calls GetPopularPlaces
-            self.dispatch(GetNearestPlaces(location: position.target, throttle: false))
+            self.dispatch(GetNearestPlaces(throttle: false))
         }
     }
     
