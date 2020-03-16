@@ -23,7 +23,7 @@ struct WorldwideFavoritesViewModel: ViewModelWithState {
 class WorldwideFavoritesView: UIView, ViewControllerModellableView {
     var mapView = GMSMapView(frame: .zero)
     var barView = UIView()
-    var closeButton = UIButton()
+    var closeButton = UIButton(type: .system)
     var markerPool : GMSMarkerPool!
     
     var didTapCloseButton: (()->())?
@@ -44,7 +44,6 @@ class WorldwideFavoritesView: UIView, ViewControllerModellableView {
         self.mapView.loadCustomStyle()
         self.closeButton.setTitle("Close", for: .normal)
         self.closeButton.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 4)
-        self.closeButton.tintColor = .systemBlue
         self.barView.backgroundColor = .systemBackground
     }
     
@@ -52,7 +51,7 @@ class WorldwideFavoritesView: UIView, ViewControllerModellableView {
         super.layoutSubviews()
         self.barView.pin.left().right().height(50)
         self.mapView.pin.below(of: barView).right().left().bottom()
-        self.closeButton.pin.topRight().size(50)
+        self.closeButton.pin.topRight(10).sizeToFit()//.marginTop(10).marginRight(10)
     }
     
     func update(oldModel: WorldwideFavoritesViewModel?){
@@ -68,8 +67,7 @@ class WorldwideFavoritesView: UIView, ViewControllerModellableView {
 
 func setMapView(map: GMSMapView,markers: [GMSMarker]) {
     var bounds = GMSCoordinateBounds()
-    for marker in markers
-    {
+    for marker in markers {
         bounds = bounds.includingCoordinate(marker.position)
     }
     let update = GMSCameraUpdate.fit(bounds, withPadding: 60)
