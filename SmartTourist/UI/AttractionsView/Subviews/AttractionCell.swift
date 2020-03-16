@@ -12,7 +12,7 @@ import DeepDiff
 import Cosmos
 import CoreLocation
 import MapKit
-
+import MarqueeLabel
 
 public protocol SizeableCell: ModellableView {
     static func size(for model: VM) -> CGSize
@@ -59,7 +59,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     static let distanceFormatter = MKDistanceFormatter()
     
     //MARK: Subviews
-    var nameLabel = UILabel()
+    var nameLabel = MarqueeLabel()
     var image = UIImageView(image: UIImage(systemName: "chevron.right"))
     var cosmos = CosmosView(frame: .zero)
     var distanceLabel = UILabel()
