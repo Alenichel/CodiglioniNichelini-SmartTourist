@@ -9,7 +9,7 @@ import UIKit
 import Tempura
 
 
-class SettingsViewController: ViewController<SettingsView> {
+class SettingsViewController: ViewControllerWithLocalState<SettingsView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Settings"
@@ -22,6 +22,9 @@ class SettingsViewController: ViewController<SettingsView> {
         self.rootView.didTapSystemSettings = {
             guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
             UIApplication.shared.open(settingsURL)
+        }
+        self.rootView.didTapDebug = {
+            self.localState.showDebug.toggle()
         }
     }
 }
@@ -37,4 +40,9 @@ extension SettingsViewController: RoutableWithConfiguration {
             .hide(Screen.settings): .pop,
         ]
     }
+}
+
+
+struct SettingsViewLocalState: LocalState {
+    var showDebug: Bool = false
 }
