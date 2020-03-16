@@ -74,6 +74,14 @@ struct LocationState {
 }
 
 
+/// The part of the state concering settings
 struct Settings: Codable {
+    /// Whether or not the app should send notifications when the user is near a top attraction
     var notificationsEnabled: Bool = false
+}
+
+
+/// The part of the state cencerning pedometer results
+struct PedometerState: Codable {
+    
 }

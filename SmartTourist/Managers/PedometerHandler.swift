@@ -17,7 +17,7 @@ class PedometerHandler {
     }
     
     func startUpdates() {
-        if !CMPedometer.isPaceAvailable() { return }
+        guard CMPedometer.isPaceAvailable() else { return }
         self.pedometer.startUpdates(from: Date(), withHandler: { data, error in
             if let data = data {
                 updateWalkingGlobalVar(data.averageActivePace as! Double)

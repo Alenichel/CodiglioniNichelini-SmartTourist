@@ -19,6 +19,10 @@ class SettingsViewController: ViewController<SettingsView> {
         self.rootView.notificationsCell.didToggle = { [unowned self] value in
             self.dispatch(SetNotificationsEnabled(value: value))
         }
+        self.rootView.didTapSystemSettings = {
+            guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
+            UIApplication.shared.open(settingsURL)
+        }
     }
 }
 
