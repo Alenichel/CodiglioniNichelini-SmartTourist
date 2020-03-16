@@ -10,6 +10,7 @@ import Katana
 import CoreLocation
 import Hydra
 
+
 struct LoadState: SideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
         let decoder = JSONDecoder()
@@ -42,6 +43,7 @@ struct GetCurrentCity: SideEffect {
     }
 }
 
+
 struct GetNearestPlaces: SideEffect {
     let throttle: Bool
     
@@ -50,10 +52,15 @@ struct GetNearestPlaces: SideEffect {
         guard let actualLocation = context.getState().locationState.actualLocation else { return }
         if !self.throttle || context.getState().locationState.nearestPlacesLastUpdate.distance(to: Date()) > GoogleAPI.apiThrottleTime {
             context.dispatch(SetNearestPlacesLastUpdate(lastUpdate: Date()))
-            let currentPlaces = try await(context.dependencies.googleAPI.getNearbyPlaces(location: currentLocation))
-            let actualPlaces = try await(context.dependencies.googleAPI.getNearbyPlaces(location: actualLocation))
-            let places = Set(currentPlaces + actualPlaces)
-            context.dispatch(SetNearestPlaces(places: Array(places).blacklisted))
+            async { _ -> [GPPlace] in
+                let currentPlaces = try await(context.dependencies.googleAPI.getNearbyPlaces(location: currentLocation))
+                let actualPlaces = try await(context.dependencies.googleAPI.getNearbyPlaces(location: actualLocation))
+                return Array(Set(currentPlaces + actualPlaces))
+            }.then { places in
+                context.dispatch(SetNearestPlaces(places: places.blacklisted))
+            }.catch{ error in
+                context.dispatch(SetNearestPlaces(places: []))
+            }
         }
     }
 }
