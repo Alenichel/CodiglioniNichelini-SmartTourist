@@ -22,6 +22,7 @@ struct SettingsViewModel: ViewModelWithState {
 class SettingsView: UIView, ViewControllerModellableView {
     var notificationsCell = SettingBoolCell()
     var systemSettingsCell = SettingStringCell()
+    var versionLabel = UILabel()
     
     var systemSettingsGestureRecognizer: UITapGestureRecognizer!
     var didTapSystemSettings: Interaction?
@@ -36,18 +37,25 @@ class SettingsView: UIView, ViewControllerModellableView {
         self.systemSettingsCell.addGestureRecognizer(self.systemSettingsGestureRecognizer)
         self.addSubview(self.notificationsCell)
         self.addSubview(self.systemSettingsCell)
+        self.addSubview(self.versionLabel)
+        if let version = Bundle.main.releaseVersionNumber, let build = Bundle.main.buildVersionNumber {
+            self.versionLabel.text = "SmartTourist \(version) (\(build))"
+        }
     }
     
     func style() {
         self.backgroundColor = .systemBackground
         self.notificationsCell.style()
         self.systemSettingsCell.style()
+        self.versionLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 0.85)
+        self.versionLabel.textColor = .secondaryLabel
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
         self.notificationsCell.pin.top(self.safeAreaInsets).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
         self.systemSettingsCell.pin.below(of: self.notificationsCell).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
+        self.versionLabel.pin.below(of: self.systemSettingsCell).marginTop(30).hCenter().sizeToFit()
     }
     
     func update(oldModel: SettingsViewModel?) {

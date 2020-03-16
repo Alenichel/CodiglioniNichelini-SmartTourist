@@ -48,6 +48,7 @@
 		E5335D082389970B00601F02 /* DependenciesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D072389970B00601F02 /* DependenciesContainer.swift */; };
 		E53EEA23241CDC55004CCE16 /* PromiseImageSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53EEA22241CDC55004CCE16 /* PromiseImageSource.swift */; };
 		E54958FC241F5BAD00D643F1 /* SettingStringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54958FB241F5BAD00D643F1 /* SettingStringCell.swift */; };
+		E5495903241F648400D643F1 /* Bundle+version+build.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5495902241F648400D643F1 /* Bundle+version+build.swift */; };
 		E54B9A5B2417D0F9009F8DBC /* UITextView+setText.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54B9A5A2417D0F9009F8DBC /* UITextView+setText.swift */; };
 		E54E01B423996806009D0331 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E01B323996806009D0331 /* Persistable.swift */; };
 		E54E01BB23996839009D0331 /* Interceptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E01BA23996839009D0331 /* Interceptors.swift */; };
@@ -199,6 +200,7 @@
 		E5335D072389970B00601F02 /* DependenciesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesContainer.swift; sourceTree = "<group>"; };
 		E53EEA22241CDC55004CCE16 /* PromiseImageSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromiseImageSource.swift; sourceTree = "<group>"; };
 		E54958FB241F5BAD00D643F1 /* SettingStringCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingStringCell.swift; sourceTree = "<group>"; };
+		E5495902241F648400D643F1 /* Bundle+version+build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+version+build.swift"; sourceTree = "<group>"; };
 		E54B9A5A2417D0F9009F8DBC /* UITextView+setText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+setText.swift"; sourceTree = "<group>"; };
 		E54E01B323996806009D0331 /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		E54E01BA23996839009D0331 /* Interceptors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptors.swift; sourceTree = "<group>"; };
@@ -504,6 +506,7 @@
 				E592B82124140FCF00AD46F8 /* UILabel+setText.swift */,
 				E54B9A5A2417D0F9009F8DBC /* UITextView+setText.swift */,
 				9930114A23AFED3600909749 /* GMSMapView+loadCustomStyle.swift */,
+				E5495902241F648400D643F1 /* Bundle+version+build.swift */,
 				E5FF041124095E7000D32EE7 /* MarkerPool.swift */,
 				E53EEA22241CDC55004CCE16 /* PromiseImageSource.swift */,
 			);
@@ -896,6 +899,7 @@
 				E5628B512394224F00A61676 /* UIImage+Color.swift in Sources */,
 				E50BC90F241D15FB005EFDCE /* SettingsViewController.swift in Sources */,
 				992816A823969ECC0033F43C /* WikipediaAPI.swift in Sources */,
+				E5495903241F648400D643F1 /* Bundle+version+build.swift in Sources */,
 				99D5C9BF241CFB39008633C7 /* WorldwideFavoritesViewController.swift in Sources */,
 				E5628B4D2393D4D500A61676 /* AttractionDetailView.swift in Sources */,
 				E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */,
