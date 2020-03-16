@@ -8,7 +8,7 @@
 import Foundation
 import Katana
 import CoreLocation
-
+import Hydra
 
 struct LoadState: SideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
@@ -42,20 +42,18 @@ struct GetCurrentCity: SideEffect {
     }
 }
 
-
 struct GetNearestPlaces: SideEffect {
-    let location: CLLocationCoordinate2D?
     let throttle: Bool
     
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
-        guard let currentLocation = self.location else { return }
+        guard let currentLocation = context.getState().locationState.currentLocation else { return }
+        guard let actualLocation = context.getState().locationState.actualLocation else { return }
         if !self.throttle || context.getState().locationState.nearestPlacesLastUpdate.distance(to: Date()) > GoogleAPI.apiThrottleTime {
             context.dispatch(SetNearestPlacesLastUpdate(lastUpdate: Date()))
-            context.dependencies.googleAPI.getNearbyPlaces(location: currentLocation).then { places in
-                context.dispatch(SetNearestPlaces(places: blacklist(places)))
-            }.catch { error in
-                context.dispatch(SetNearestPlaces(places: []))
-            }
+            let currentPlaces = try await(context.dependencies.googleAPI.getNearbyPlaces(location: currentLocation))
+            let actualPlaces = try await(context.dependencies.googleAPI.getNearbyPlaces(location: actualLocation))
+            let places = Set(currentPlaces + actualPlaces)
+            context.dispatch(SetNearestPlaces(places: blacklist(Array(places))))
         }
     }
 }
