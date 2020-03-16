@@ -52,7 +52,6 @@
 		E54E01B423996806009D0331 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E01B323996806009D0331 /* Persistable.swift */; };
 		E54E01BB23996839009D0331 /* Interceptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E01BA23996839009D0331 /* Interceptors.swift */; };
 		E553D14B23926CC600C3199C /* ListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E553D14A23926CC600C3199C /* ListCardView.swift */; };
-		E555704923F7001E0039679D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E555704823F7001E0039679D /* Constants.swift */; };
 		E5628B4D2393D4D500A61676 /* AttractionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5628B4C2393D4D500A61676 /* AttractionDetailView.swift */; };
 		E5628B4F2393D4E100A61676 /* AttractionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5628B4E2393D4E100A61676 /* AttractionDetailViewController.swift */; };
 		E5628B512394224F00A61676 /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5628B502394224F00A61676 /* UIImage+Color.swift */; };
@@ -203,7 +202,6 @@
 		E54E01B323996806009D0331 /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		E54E01BA23996839009D0331 /* Interceptors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptors.swift; sourceTree = "<group>"; };
 		E553D14A23926CC600C3199C /* ListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCardView.swift; sourceTree = "<group>"; };
-		E555704823F7001E0039679D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E5628B4C2393D4D500A61676 /* AttractionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionDetailView.swift; sourceTree = "<group>"; };
 		E5628B4E2393D4E100A61676 /* AttractionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionDetailViewController.swift; sourceTree = "<group>"; };
 		E5628B502394224F00A61676 /* UIImage+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
@@ -428,7 +426,6 @@
 				E585FCA4238ADEF3008D7C86 /* SideEffects.swift */,
 				E54E01BA23996839009D0331 /* Interceptors.swift */,
 				E54E01B323996806009D0331 /* Persistable.swift */,
-				E555704823F7001E0039679D /* Constants.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -865,7 +862,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5628B4F2393D4E100A61676 /* AttractionDetailViewController.swift in Sources */,
-				E555704923F7001E0039679D /* Constants.swift in Sources */,
 				E5335D082389970B00601F02 /* DependenciesContainer.swift in Sources */,
 				99F5A11923995D9E0056E68D /* UIImageView+setImage.swift in Sources */,
 				E54958FC241F5BAD00D643F1 /* SettingStringCell.swift in Sources */,

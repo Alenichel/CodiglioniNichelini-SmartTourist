@@ -13,6 +13,8 @@ import UserNotifications
 class NotificationManager {
     static let shared = NotificationManager()
     
+    static let notificationTriggeringDistance = 250    // meters
+    
     private init() {
         self.registerActions()
     }

@@ -94,7 +94,7 @@ extension AttractionsViewController: CLLocationManagerDelegate {
             if !justVisitedPlaces.contains(place) {
                 let target = CLLocation(latitude: place.location.latitude, longitude: place.location.longitude)
                 let distance = Int(current.distance(from: target).rounded())
-                if distance < notificationTriggeringDistance {
+                if distance < NotificationManager.notificationTriggeringDistance {
                     NotificationManager.shared.sendNearbyTopAttractionNotification(place: place)
                     justVisitedPlaces.append(place)
                 }
@@ -166,4 +166,11 @@ extension AttractionsViewController: RoutableWithConfiguration {
 
 struct AttractionsLocalState: LocalState {
     var selectedSegmentIndex: SelectedPlaceList = .nearest
+}
+
+
+enum SelectedPlaceList: Int {
+    case nearest = 0
+    case popular = 1
+    case favorites = 2
 }
