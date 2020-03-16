@@ -24,6 +24,8 @@
 		99C27CE723AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CE123AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx */; };
 		99D5C9B7241CF4D0008633C7 /* WorldwideFavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D5C9B6241CF4D0008633C7 /* WorldwideFavoritesView.swift */; };
 		99D5C9BF241CFB39008633C7 /* WorldwideFavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D5C9BE241CFB39008633C7 /* WorldwideFavoritesViewController.swift */; };
+		99EC7D66241FBC260065FDE9 /* Blacklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EC7D65241FBC260065FDE9 /* Blacklist.swift */; };
+		99EC7D6D241FC0890065FDE9 /* String+emojy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EC7D6C241FC0890065FDE9 /* String+emojy.swift */; };
 		99F36EAC2417FB4C00ACC519 /* PedometerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */; };
 		99F5A11923995D9E0056E68D /* UIImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */; };
 		E50BC90D241D15EE005EFDCE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC90C241D15EE005EFDCE /* SettingsView.swift */; };
@@ -163,6 +165,8 @@
 		99C27CE123AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanCityCenterTour(bycicle).gpx"; sourceTree = "<group>"; };
 		99D5C9B6241CF4D0008633C7 /* WorldwideFavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldwideFavoritesView.swift; sourceTree = "<group>"; };
 		99D5C9BE241CFB39008633C7 /* WorldwideFavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldwideFavoritesViewController.swift; sourceTree = "<group>"; };
+		99EC7D65241FBC260065FDE9 /* Blacklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blacklist.swift; sourceTree = "<group>"; };
+		99EC7D6C241FC0890065FDE9 /* String+emojy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+emojy.swift"; sourceTree = "<group>"; };
 		99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PedometerHandler.swift; sourceTree = "<group>"; };
 		99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+setImage.swift"; sourceTree = "<group>"; };
 		AB3310E805FE2AAD225A0C8E /* Pods-SmartTourist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist.release.xcconfig"; path = "Target Support Files/Pods-SmartTourist/Pods-SmartTourist.release.xcconfig"; sourceTree = "<group>"; };
@@ -503,6 +507,8 @@
 				E5495902241F648400D643F1 /* Bundle+version+build.swift */,
 				E5FF041124095E7000D32EE7 /* MarkerPool.swift */,
 				E53EEA22241CDC55004CCE16 /* PromiseImageSource.swift */,
+				99EC7D65241FBC260065FDE9 /* Blacklist.swift */,
+				99EC7D6C241FC0890065FDE9 /* String+emojy.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -872,6 +878,7 @@
 				E5FF041224095E7000D32EE7 /* MarkerPool.swift in Sources */,
 				E553D14B23926CC600C3199C /* ListCardView.swift in Sources */,
 				99F36EAC2417FB4C00ACC519 /* PedometerHandler.swift in Sources */,
+				99EC7D66241FBC260065FDE9 /* Blacklist.swift in Sources */,
 				E5F9715C2392D96F0096C296 /* UIControl+TargetActionable.swift in Sources */,
 				E5335D032389942D00601F02 /* MapView.swift in Sources */,
 				E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */,
@@ -912,6 +919,7 @@
 				99C26FE524003A4000F57030 /* CitySearchView.swift in Sources */,
 				E5F971642392D96F0096C296 /* String+Height.swift in Sources */,
 				E5F971622392D96F0096C296 /* CGRect+Utils.swift in Sources */,
+				99EC7D6D241FC0890065FDE9 /* String+emojy.swift in Sources */,
 				E5FDE321238B08A40018D791 /* GoogleAPI.swift in Sources */,
 				E54E01BB23996839009D0331 /* Interceptors.swift in Sources */,
 			);
