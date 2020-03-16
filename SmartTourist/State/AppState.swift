@@ -86,8 +86,8 @@ struct Settings: Codable {
 struct PedometerState {
     var averageWalkingSpeed: Double {   // m/s
         didSet {
-            self.littleCircleRadius = self.averageWalkingSpeed * littleCircleTimeRadius
-            self.bigCircleRadius = self.averageWalkingSpeed * bigCircleTimeRadius
+            self.littleCircleRadius = self.averageWalkingSpeed * PedometerHandler.littleCircleTimeRadius
+            self.bigCircleRadius = self.averageWalkingSpeed * PedometerHandler.bigCircleTimeRadius
         }
     }
     
@@ -95,8 +95,8 @@ struct PedometerState {
     var bigCircleRadius: Double     // meters
     
     init() {
-        self.averageWalkingSpeed = defaultAverageWalkingSpeed
-        self.littleCircleRadius = self.averageWalkingSpeed * littleCircleTimeRadius
-        self.bigCircleRadius = self.averageWalkingSpeed * bigCircleTimeRadius
+        self.averageWalkingSpeed = PedometerHandler.defaultAverageWalkingSpeed
+        self.littleCircleRadius = self.averageWalkingSpeed * PedometerHandler.littleCircleTimeRadius
+        self.bigCircleRadius = self.averageWalkingSpeed * PedometerHandler.bigCircleTimeRadius
     }
 }

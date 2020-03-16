@@ -10,6 +10,11 @@ import CoreMotion
 
 class PedometerHandler {
     static let shared = PedometerHandler()
+    
+    static let defaultAverageWalkingSpeed: Double = 1.34    // m/s
+    static let littleCircleTimeRadius: Double = 5*60        // seconds
+    static let bigCircleTimeRadius: Double = 15*60          // seconds
+    
     let pedometer: CMPedometer
     
     private init(){
@@ -20,13 +25,5 @@ class PedometerHandler {
         guard CMPedometer.isPaceAvailable() else { return }
         self.pedometer.stopUpdates()
         self.pedometer.startUpdates(from: Date(), withHandler: handler)
-        /*self.pedometer.startUpdates(from: Date(), withHandler: { data, error in
-            if let data = data {
-                updateWalkingGlobalVar(data.averageActivePace as! Double)
-                print("New average walking speed is \(averageWalkingSpeed)")
-                print("New littleCircleRadius is \(littleCircleRadius)")
-                print("New bigCircleRadius is \(littleCircleRadius)")
-            }
-        })*/
     }
 }
