@@ -35,7 +35,7 @@ struct GPPlaceDetailResultsResponse: Decodable {
 }
 
 
-class GPPlace: Codable, Equatable {
+class GPPlace: Codable, Equatable, Hashable {
     let placeID: String
     let location: CLLocationCoordinate2D
     let name: String
@@ -91,6 +91,10 @@ class GPPlace: Codable, Equatable {
     
     static func == (lhs: GPPlace, rhs: GPPlace) -> Bool {
         return lhs.placeID == rhs.placeID
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.placeID)
     }
 }
 
