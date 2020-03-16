@@ -10,11 +10,14 @@ import Tempura
 import PinLayout
 
 
-struct SettingsViewModel: ViewModelWithState {
+struct SettingsViewModel: ViewModelWithLocalState {
     let notificationsEnabled: Bool
+    let showDebug: Bool
     
-    init(state: AppState) {
+    init?(state: AppState?, localState: SettingsViewLocalState) {
+        guard let state = state else { return nil }
         self.notificationsEnabled = state.settings.notificationsEnabled
+        self.showDebug = localState.showDebug
     }
 }
 
@@ -24,15 +27,21 @@ class SettingsView: UIView, ViewControllerModellableView {
     var systemSettingsCell = SettingStringCell()
     var versionLabel = UILabel()
     
+    var debugGestureRecognizer: UITapGestureRecognizer!
+    var didTapDebug: Interaction?
+    
     var systemSettingsGestureRecognizer: UITapGestureRecognizer!
     var didTapSystemSettings: Interaction?
     
-    let notificationsTitle = "Notifications"
-    let notificationsSubtitle = "Enable notifications for nearest top attractions"
+    private let notificationsTitle = "Notifications"
+    private let notificationsSubtitle = "Enable notifications for nearest top attractions"
         
     func setup() {
         self.notificationsCell.setup()
         self.systemSettingsCell.setup()
+        self.debugGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleDebugTap))
+        self.debugGestureRecognizer.numberOfTapsRequired = 5
+        self.addGestureRecognizer(self.debugGestureRecognizer)
         self.systemSettingsGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleSystemSettingsTap))
         self.systemSettingsCell.addGestureRecognizer(self.systemSettingsGestureRecognizer)
         self.addSubview(self.notificationsCell)
@@ -63,6 +72,10 @@ class SettingsView: UIView, ViewControllerModellableView {
         self.notificationsCell.model = SettingBoolCellViewModel(title: self.notificationsTitle, subtitle: self.notificationsSubtitle, value: model.notificationsEnabled)
         self.systemSettingsCell.model = SettingStringCellViewModel(title: "System settings", subtitle: nil, value: nil)
         self.setNeedsLayout()
+    }
+    
+    @objc private func handleDebugTap(_ recognizer: UITapGestureRecognizer) {
+        self.didTapDebug?()
     }
     
     @objc private func handleSystemSettingsTap(_ recognizer: UITapGestureRecognizer) {
