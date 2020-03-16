@@ -83,14 +83,20 @@ struct Settings: Codable {
 
 
 /// The part of the state cencerning pedometer results
-struct PedometerState: Codable {
-    var averageWalkingSpeed: Double = defaultAverageWalkingSpeed // m/s
+struct PedometerState {
+    var averageWalkingSpeed: Double {   // m/s
+        didSet {
+            self.littleCircleRadius = self.averageWalkingSpeed * littleCircleTimeRadius
+            self.bigCircleRadius = self.averageWalkingSpeed * bigCircleTimeRadius
+        }
+    }
     
-    var littleCircleRadius: Double {
-        self.averageWalkingSpeed * littleCircleTimeRadius
-    }   // meters
+    var littleCircleRadius: Double  // meters
+    var bigCircleRadius: Double     // meters
     
-    var bigCircleRadius: Double {
-        self.averageWalkingSpeed * bigCircleTimeRadius
-    }   // meters
+    init() {
+        self.averageWalkingSpeed = defaultAverageWalkingSpeed
+        self.littleCircleRadius = self.averageWalkingSpeed * littleCircleTimeRadius
+        self.bigCircleRadius = self.averageWalkingSpeed * bigCircleTimeRadius
+    }
 }
