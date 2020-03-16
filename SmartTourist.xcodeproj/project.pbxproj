@@ -58,6 +58,7 @@
 		E57C47162392BC3A008DE784 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57C47152392BC3A008DE784 /* RoundedButton.swift */; };
 		E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */; };
 		E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA4238ADEF3008D7C86 /* SideEffects.swift */; };
+		E58CD2F3241FC6F500BA3F33 /* SettingsDebugSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58CD2F2241FC6F500BA3F33 /* SettingsDebugSubview.swift */; };
 		E592B82224140FCF00AD46F8 /* UILabel+setText.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592B82124140FCF00AD46F8 /* UILabel+setText.swift */; };
 		E5AFC8A123F9B006007B9887 /* CityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */; };
 		E5AFC8A223F9B006007B9887 /* CityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFC89B23F9B006007B9887 /* CityDetailView.swift */; };
@@ -208,6 +209,7 @@
 		E57C47152392BC3A008DE784 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateUpdaters.swift; sourceTree = "<group>"; };
 		E585FCA4238ADEF3008D7C86 /* SideEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideEffects.swift; sourceTree = "<group>"; };
+		E58CD2F2241FC6F500BA3F33 /* SettingsDebugSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDebugSubview.swift; sourceTree = "<group>"; };
 		E592B82124140FCF00AD46F8 /* UILabel+setText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+setText.swift"; sourceTree = "<group>"; };
 		E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityDetailViewController.swift; sourceTree = "<group>"; };
 		E5AFC89B23F9B006007B9887 /* CityDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityDetailView.swift; sourceTree = "<group>"; };
@@ -335,6 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				E50BC90C241D15EE005EFDCE /* SettingsView.swift */,
+				E58CD2F2241FC6F500BA3F33 /* SettingsDebugSubview.swift */,
 				E50BC90E241D15FB005EFDCE /* SettingsViewController.swift */,
 			);
 			path = SettingsView;
@@ -883,6 +886,7 @@
 				99C26FE724003A5600F57030 /* CitySearchViewController.swift in Sources */,
 				E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */,
 				E528FF87238971FE0065483B /* AppDelegate.swift in Sources */,
+				E58CD2F3241FC6F500BA3F33 /* SettingsDebugSubview.swift in Sources */,
 				E5F971602392D96F0096C296 /* DataSource.swift in Sources */,
 				E54B9A5B2417D0F9009F8DBC /* UITextView+setText.swift in Sources */,
 				E5F971632392D96F0096C296 /* UIView+Blink.swift in Sources */,
