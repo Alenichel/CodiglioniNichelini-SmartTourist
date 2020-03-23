@@ -1,5 +1,5 @@
 //
-//  String+emojy.swift
+//  String+emoji.swift
 //  SmartTourist
 //
 //  Created on 16/03/2020

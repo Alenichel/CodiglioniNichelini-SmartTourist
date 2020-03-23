@@ -106,7 +106,7 @@ struct AddFavoriteStateUpdater: StateUpdater, Persistable {
     let place: GPPlace
     
     func updateState(_ state: inout AppState) {
-        state.favorites.append(place)
+        state.favorites.sortedInsert(place)
     }
 }
 

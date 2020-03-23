@@ -12,10 +12,10 @@ import GoogleMaps
 
 
 struct WorldwideFavoritesViewModel: ViewModelWithState {
-    let favouritePlaces: [GPPlace]
+    let favorites: [GPPlace]
 
     init(state: AppState) {
-        self.favouritePlaces = state.favorites
+        self.favorites = state.favorites
     }
 }
 
@@ -56,20 +56,12 @@ class WorldwideFavoritesView: UIView, ViewControllerModellableView {
     
     func update(oldModel: WorldwideFavoritesViewModel?){
         guard let model = self.model else { return }
-        self.markerPool.setMarkers(places: model.favouritePlaces)
+        self.markerPool.setMarkers(places: model.favorites)
+        self.mapView.adaptToPlaces(model.favorites)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         self.mapView.loadCustomStyle()
     }
-}
-
-func setMapView(map: GMSMapView,markers: [GMSMarker]) {
-    var bounds = GMSCoordinateBounds()
-    for marker in markers {
-        bounds = bounds.includingCoordinate(marker.position)
-    }
-    let update = GMSCameraUpdate.fit(bounds, withPadding: 60)
-    map.animate(with: update)
 }

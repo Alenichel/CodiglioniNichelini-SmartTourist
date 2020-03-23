@@ -44,9 +44,7 @@ struct AttractionCellViewModel: ViewModel {
             self.rating = 0
         }
         self.currentLocation = currentLocation
-        let current = CLLocation(latitude: currentLocation.latitude, longitude: currentLocation.longitude)
-        let target = CLLocation(latitude: place.location.latitude, longitude: place.location.longitude)
-        self.distance = Int(current.distance(from: target).rounded())
+        self.distance = self.currentLocation.distance(from: place.location)
         self.favorite = favorite
         self.isInFavoriteTab = isInFavoriteTab
     }

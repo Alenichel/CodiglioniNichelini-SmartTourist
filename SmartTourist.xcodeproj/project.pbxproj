@@ -25,7 +25,7 @@
 		99D5C9B7241CF4D0008633C7 /* WorldwideFavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D5C9B6241CF4D0008633C7 /* WorldwideFavoritesView.swift */; };
 		99D5C9BF241CFB39008633C7 /* WorldwideFavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D5C9BE241CFB39008633C7 /* WorldwideFavoritesViewController.swift */; };
 		99EC7D66241FBC260065FDE9 /* Array+GPPlace+blacklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EC7D65241FBC260065FDE9 /* Array+GPPlace+blacklist.swift */; };
-		99EC7D6D241FC0890065FDE9 /* String+emojy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EC7D6C241FC0890065FDE9 /* String+emojy.swift */; };
+		99EC7D6D241FC0890065FDE9 /* String+emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EC7D6C241FC0890065FDE9 /* String+emoji.swift */; };
 		99F36EAC2417FB4C00ACC519 /* PedometerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */; };
 		99F5A11923995D9E0056E68D /* UIImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */; };
 		E50BC90D241D15EE005EFDCE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC90C241D15EE005EFDCE /* SettingsView.swift */; };
@@ -54,6 +54,9 @@
 		E54E01B423996806009D0331 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E01B323996806009D0331 /* Persistable.swift */; };
 		E54E01BB23996839009D0331 /* Interceptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E01BA23996839009D0331 /* Interceptors.swift */; };
 		E553D14B23926CC600C3199C /* ListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E553D14A23926CC600C3199C /* ListCardView.swift */; };
+		E56167C42428989B0064B2E8 /* GMSMapVIew+adaptToPlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56167C32428989B0064B2E8 /* GMSMapVIew+adaptToPlaces.swift */; };
+		E56167CB2428BAA40064B2E8 /* Array+sortedInsert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56167CA2428BAA40064B2E8 /* Array+sortedInsert.swift */; };
+		E56167D32428CBE90064B2E8 /* CLLocationCoordinate2D+distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56167D22428CBE90064B2E8 /* CLLocationCoordinate2D+distance.swift */; };
 		E5628B4D2393D4D500A61676 /* AttractionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5628B4C2393D4D500A61676 /* AttractionDetailView.swift */; };
 		E5628B4F2393D4E100A61676 /* AttractionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5628B4E2393D4E100A61676 /* AttractionDetailViewController.swift */; };
 		E5628B512394224F00A61676 /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5628B502394224F00A61676 /* UIImage+Color.swift */; };
@@ -167,7 +170,7 @@
 		99D5C9B6241CF4D0008633C7 /* WorldwideFavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldwideFavoritesView.swift; sourceTree = "<group>"; };
 		99D5C9BE241CFB39008633C7 /* WorldwideFavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldwideFavoritesViewController.swift; sourceTree = "<group>"; };
 		99EC7D65241FBC260065FDE9 /* Array+GPPlace+blacklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+GPPlace+blacklist.swift"; sourceTree = "<group>"; };
-		99EC7D6C241FC0890065FDE9 /* String+emojy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+emojy.swift"; sourceTree = "<group>"; };
+		99EC7D6C241FC0890065FDE9 /* String+emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+emoji.swift"; sourceTree = "<group>"; };
 		99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PedometerHandler.swift; sourceTree = "<group>"; };
 		99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+setImage.swift"; sourceTree = "<group>"; };
 		AB3310E805FE2AAD225A0C8E /* Pods-SmartTourist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist.release.xcconfig"; path = "Target Support Files/Pods-SmartTourist/Pods-SmartTourist.release.xcconfig"; sourceTree = "<group>"; };
@@ -207,6 +210,9 @@
 		E54E01B323996806009D0331 /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		E54E01BA23996839009D0331 /* Interceptors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptors.swift; sourceTree = "<group>"; };
 		E553D14A23926CC600C3199C /* ListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCardView.swift; sourceTree = "<group>"; };
+		E56167C32428989B0064B2E8 /* GMSMapVIew+adaptToPlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSMapVIew+adaptToPlaces.swift"; sourceTree = "<group>"; };
+		E56167CA2428BAA40064B2E8 /* Array+sortedInsert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+sortedInsert.swift"; sourceTree = "<group>"; };
+		E56167D22428CBE90064B2E8 /* CLLocationCoordinate2D+distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+distance.swift"; sourceTree = "<group>"; };
 		E5628B4C2393D4D500A61676 /* AttractionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionDetailView.swift; sourceTree = "<group>"; };
 		E5628B4E2393D4E100A61676 /* AttractionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionDetailViewController.swift; sourceTree = "<group>"; };
 		E5628B502394224F00A61676 /* UIImage+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
@@ -496,22 +502,25 @@
 		E5F971512392D96E0096C296 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				E5F971522392D96E0096C296 /* UIControl+TargetActionable.swift */,
-				E5F971532392D96E0096C296 /* String+Random.swift */,
 				E5F971542392D96E0096C296 /* CollectionView */,
+				99EC7D65241FBC260065FDE9 /* Array+GPPlace+blacklist.swift */,
+				E56167CA2428BAA40064B2E8 /* Array+sortedInsert.swift */,
+				E5495902241F648400D643F1 /* Bundle+version+build.swift */,
 				E5F971592392D96E0096C296 /* CGRect+Utils.swift */,
-				E5F9715A2392D96E0096C296 /* UIView+Blink.swift */,
+				E56167D22428CBE90064B2E8 /* CLLocationCoordinate2D+distance.swift */,
+				E56167C32428989B0064B2E8 /* GMSMapVIew+adaptToPlaces.swift */,
+				9930114A23AFED3600909749 /* GMSMapView+loadCustomStyle.swift */,
+				E5FF041124095E7000D32EE7 /* MarkerPool.swift */,
+				E53EEA22241CDC55004CCE16 /* PromiseImageSource.swift */,
+				99EC7D6C241FC0890065FDE9 /* String+emoji.swift */,
 				E5F9715B2392D96E0096C296 /* String+Height.swift */,
+				E5F971532392D96E0096C296 /* String+Random.swift */,
+				E5F971522392D96E0096C296 /* UIControl+TargetActionable.swift */,
 				E5628B502394224F00A61676 /* UIImage+Color.swift */,
 				99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */,
 				E592B82124140FCF00AD46F8 /* UILabel+setText.swift */,
 				E54B9A5A2417D0F9009F8DBC /* UITextView+setText.swift */,
-				9930114A23AFED3600909749 /* GMSMapView+loadCustomStyle.swift */,
-				E5495902241F648400D643F1 /* Bundle+version+build.swift */,
-				99EC7D65241FBC260065FDE9 /* Array+GPPlace+blacklist.swift */,
-				E5FF041124095E7000D32EE7 /* MarkerPool.swift */,
-				E53EEA22241CDC55004CCE16 /* PromiseImageSource.swift */,
-				99EC7D6C241FC0890065FDE9 /* String+emojy.swift */,
+				E5F9715A2392D96E0096C296 /* UIView+Blink.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -876,6 +885,8 @@
 				E54958FC241F5BAD00D643F1 /* SettingStringCell.swift in Sources */,
 				E5F9715D2392D96F0096C296 /* String+Random.swift in Sources */,
 				E5335D052389946C00601F02 /* AttractionsViewController.swift in Sources */,
+				E56167C42428989B0064B2E8 /* GMSMapVIew+adaptToPlaces.swift in Sources */,
+				E56167CB2428BAA40064B2E8 /* Array+sortedInsert.swift in Sources */,
 				E592B82224140FCF00AD46F8 /* UILabel+setText.swift in Sources */,
 				992533C4238FF8B800EE479A /* LocationManager.swift in Sources */,
 				E5FF041224095E7000D32EE7 /* MarkerPool.swift in Sources */,
@@ -892,6 +903,7 @@
 				E5AFC8A223F9B006007B9887 /* CityDetailView.swift in Sources */,
 				99C26FE724003A5600F57030 /* CitySearchViewController.swift in Sources */,
 				E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */,
+				E56167D32428CBE90064B2E8 /* CLLocationCoordinate2D+distance.swift in Sources */,
 				E528FF87238971FE0065483B /* AppDelegate.swift in Sources */,
 				E58CD2F3241FC6F500BA3F33 /* SettingsDebugSubview.swift in Sources */,
 				E5F971602392D96F0096C296 /* DataSource.swift in Sources */,
@@ -923,7 +935,7 @@
 				99C26FE524003A4000F57030 /* CitySearchView.swift in Sources */,
 				E5F971642392D96F0096C296 /* String+Height.swift in Sources */,
 				E5F971622392D96F0096C296 /* CGRect+Utils.swift in Sources */,
-				99EC7D6D241FC0890065FDE9 /* String+emojy.swift in Sources */,
+				99EC7D6D241FC0890065FDE9 /* String+emoji.swift in Sources */,
 				E5FDE321238B08A40018D791 /* GoogleAPI.swift in Sources */,
 				E54E01BB23996839009D0331 /* Interceptors.swift in Sources */,
 			);

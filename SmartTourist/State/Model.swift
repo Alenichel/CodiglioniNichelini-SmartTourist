@@ -35,7 +35,7 @@ struct GPPlaceDetailResultsResponse: Decodable {
 }
 
 
-class GPPlace: Codable, Equatable, Hashable {
+class GPPlace: Codable, Equatable, Hashable, Comparable {
     let placeID: String
     let location: CLLocationCoordinate2D
     let name: String
@@ -89,8 +89,20 @@ class GPPlace: Codable, Equatable, Hashable {
         try container.encodeIfPresent(self.city, forKey: .city)
     }
     
+    func distance(from: GPPlace) -> Int {
+        return self.location.distance(from: from.location)
+    }
+    
     static func == (lhs: GPPlace, rhs: GPPlace) -> Bool {
         return lhs.placeID == rhs.placeID
+    }
+    
+    static func < (lhs: GPPlace, rhs: GPPlace) -> Bool {
+        if let lc = lhs.city, let rc = rhs.city, lc != rc {
+            return lc < rc
+        } else {
+            return lhs.name < rhs.name
+        }
     }
     
     func hash(into hasher: inout Hasher) {

@@ -89,11 +89,9 @@ extension AttractionsViewController: CLLocationManagerDelegate {
     
     func locationBasedNotification(lastCoordinates: CLLocationCoordinate2D) {
         guard self.state.settings.notificationsEnabled else { return }
-        let current = CLLocation(latitude: lastCoordinates.latitude, longitude: lastCoordinates.longitude)
         self.state.locationState.popularPlaces.forEach { place in
             if !justVisitedPlaces.contains(place) {
-                let target = CLLocation(latitude: place.location.latitude, longitude: place.location.longitude)
-                let distance = Int(current.distance(from: target).rounded())
+                let distance = lastCoordinates.distance(from: place.location)
                 if distance < NotificationManager.notificationTriggeringDistance {
                     NotificationManager.shared.sendNearbyTopAttractionNotification(place: place)
                     justVisitedPlaces.append(place)
@@ -147,7 +145,7 @@ extension AttractionsViewController: RoutableWithConfiguration {
             }),
             .show(Screen.citySearch): .presentModally({ [unowned self] context in
                 let vc = CitySearchViewController(store: self.store)
-                vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
+                vc.modalPresentationStyle = .overCurrentContext
                 return vc
             }),
             .show(Screen.detail): .push({ [unowned self] context in
@@ -157,7 +155,9 @@ extension AttractionsViewController: RoutableWithConfiguration {
                 return CityDetailViewController(store: self.store)
             }),
             .show(Screen.worldwideFavorites): .presentModally({[unowned self] context in
-                return WorldwideFavoritesViewController(store: self.store)
+                let vc = WorldwideFavoritesViewController(store: self.store)
+                vc.modalPresentationStyle = .pageSheet
+                return vc
             })
         ]
     }
