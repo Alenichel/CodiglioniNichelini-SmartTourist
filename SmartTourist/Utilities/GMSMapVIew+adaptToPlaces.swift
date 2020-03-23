@@ -14,7 +14,7 @@ extension GMSMapView {
         let bounds = places.reduce(GMSCoordinateBounds(), { $0.includingCoordinate($1.location) })
         print(bounds.northEast)
         print(bounds.southWest)
-        self.moveCamera(GMSCameraUpdate.fit(bounds))
-        self.animate(with: GMSCameraUpdate.fit(bounds))
+        let update = GMSCameraUpdate.fit(bounds)
+        self.animate(with: update)
     }
 }
