@@ -91,7 +91,7 @@ extension AttractionsViewController: CLLocationManagerDelegate {
         guard self.state.settings.notificationsEnabled else { return }
         self.state.locationState.popularPlaces.forEach { place in
             if !justVisitedPlaces.contains(place) {
-                let distance = lastCoordinates.distance(from: place.location)
+                let distance = lastCoordinates.distance(from: place)
                 if distance < NotificationManager.notificationTriggeringDistance {
                     NotificationManager.shared.sendNearbyTopAttractionNotification(place: place)
                     justVisitedPlaces.append(place)

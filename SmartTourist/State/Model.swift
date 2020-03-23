@@ -93,6 +93,10 @@ class GPPlace: Codable, Equatable, Hashable, Comparable {
         return self.location.distance(from: from.location)
     }
     
+    func distance(from: CLLocationCoordinate2D) -> Int {
+        return self.location.distance(from: from)
+    }
+    
     static func == (lhs: GPPlace, rhs: GPPlace) -> Bool {
         return lhs.placeID == rhs.placeID
     }

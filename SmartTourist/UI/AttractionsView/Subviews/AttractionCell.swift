@@ -44,7 +44,7 @@ struct AttractionCellViewModel: ViewModel {
             self.rating = 0
         }
         self.currentLocation = currentLocation
-        self.distance = self.currentLocation.distance(from: place.location)
+        self.distance = self.currentLocation.distance(from: place)
         self.favorite = favorite
         self.isInFavoriteTab = isInFavoriteTab
     }
@@ -163,6 +163,6 @@ extension AttractionCellViewModel: DiffAware {
     var diffId: Int { return self.identifier.hashValue }
 
     static func compareContent(_ a: AttractionCellViewModel, _ b: AttractionCellViewModel) -> Bool {
-        return a.identifier == b.identifier && a.favorite == b.favorite && a.isInFavoriteTab == b.isInFavoriteTab
+        return a.identifier == b.identifier && a.favorite == b.favorite && a.isInFavoriteTab == b.isInFavoriteTab && a.distance == b.distance
     }
 }

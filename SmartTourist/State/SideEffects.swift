@@ -55,7 +55,7 @@ struct GetNearestPlaces: SideEffect {
             async { _ -> [GPPlace] in
                 let currentPlaces = try await(context.dependencies.googleAPI.getNearbyPlaces(location: currentLocation))
                 let actualPlaces = try await(context.dependencies.googleAPI.getNearbyPlaces(location: actualLocation))
-                return Array(Set(currentPlaces + actualPlaces))
+                return Array(Set(currentPlaces + actualPlaces)).sorted(by: { $0.distance(from: currentLocation) < $1.distance(from: currentLocation) })
             }.then { places in
                 context.dispatch(SetNearestPlaces(places: places.blacklisted))
             }.catch{ error in
