@@ -20,7 +20,7 @@ struct ListCardViewModel: ViewModel {
 
 
 class ListCardView: UIView, ModellableView {
-    var handle = UIImageView(image: UIImage(systemName: "line.horizontal.3"))
+    var handle = UIView()
     var chooser = UISegmentedControl(items: ["Nearest", "Popular", "Favorites"])
     var scrollView = UIScrollView()
     var attractionListView: CollectionView<AttractionCell, SimpleSource<AttractionCellViewModel>>!
@@ -75,7 +75,8 @@ class ListCardView: UIView, ModellableView {
     func style() {
         self.backgroundColor = .systemBackground
         self.chooser.apportionsSegmentWidthsByContent = true
-        self.handle.tintColor = .secondaryLabel
+        self.handle.backgroundColor = .tertiaryLabel
+        self.handle.layer.cornerRadius = 2.5
         self.layer.cornerRadius = 30
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOpacity = UITraitCollection.current.userInterfaceStyle == .dark ? 1 : 0.75
@@ -90,9 +91,8 @@ class ListCardView: UIView, ModellableView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.handle.sizeToFit()
         self.emptyLabel.sizeToFit()
-        self.handle.pin.topCenter(20)
+        self.handle.pin.top(20).hCenter().height(5).width(40)
         self.chooser.pin.below(of: self.handle).marginTop(20).hCenter()
         self.mapButton.pin.after(of: self.chooser, aligned: .center).size(50).marginLeft(10)
         self.scrollView.pin.below(of: self.chooser).marginTop(15).left().right().bottom()
