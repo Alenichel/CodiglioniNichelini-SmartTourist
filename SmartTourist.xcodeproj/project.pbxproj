@@ -47,6 +47,14 @@
 		E5335D032389942D00601F02 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D022389942D00601F02 /* MapView.swift */; };
 		E5335D052389946C00601F02 /* AttractionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D042389946C00601F02 /* AttractionsViewController.swift */; };
 		E5335D082389970B00601F02 /* DependenciesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D072389970B00601F02 /* DependenciesContainer.swift */; };
+		E53BF0BA242A747F00358E6D /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E53BF0B9242A747F00358E6D /* UserNotifications.framework */; };
+		E53BF0BC242A747F00358E6D /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E53BF0BB242A747F00358E6D /* UserNotificationsUI.framework */; };
+		E53BF0BF242A747F00358E6D /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53BF0BE242A747F00358E6D /* NotificationViewController.swift */; };
+		E53BF0C6242A747F00358E6D /* PictureNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E53BF0B8242A747F00358E6D /* PictureNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E53BF0D2242A76F900358E6D /* GoogleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE320238B08A40018D791 /* GoogleAPI.swift */; };
+		E53BF0D8242A771D00358E6D /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D1474923AB747300649C87 /* Model.swift */; };
+		E53BF0DE242A7BCA00358E6D /* CLLocationCoordinate2D+distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56167D22428CBE90064B2E8 /* CLLocationCoordinate2D+distance.swift */; };
+		E53BF0E8242A874B00358E6D /* UNNotificationAttachment+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53BF0E7242A874B00358E6D /* UNNotificationAttachment+UIImage.swift */; };
 		E53EEA23241CDC55004CCE16 /* PromiseImageSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53EEA22241CDC55004CCE16 /* PromiseImageSource.swift */; };
 		E54958FC241F5BAD00D643F1 /* SettingStringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54958FB241F5BAD00D643F1 /* SettingStringCell.swift */; };
 		E5495903241F648400D643F1 /* Bundle+version+build.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5495902241F648400D643F1 /* Bundle+version+build.swift */; };
@@ -81,6 +89,7 @@
 		E5F971642392D96F0096C296 /* String+Height.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9715B2392D96E0096C296 /* String+Height.swift */; };
 		E5FDE321238B08A40018D791 /* GoogleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE320238B08A40018D791 /* GoogleAPI.swift */; };
 		E5FF041224095E7000D32EE7 /* MarkerPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF041124095E7000D32EE7 /* MarkerPool.swift */; };
+		F7CCCDC6DA1CE201F377076A /* Pods_PictureNotification.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 365B7F51EF199C782DE088CA /* Pods_PictureNotification.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -133,9 +142,27 @@
 			remoteGlobalIDString = E528FF82238971FE0065483B;
 			remoteInfo = SmartTourist;
 		};
+		E53BF0C4242A747F00358E6D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E528FF7B238971FE0065483B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E53BF0B7242A747F00358E6D;
+			remoteInfo = PictureNotification;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		E53BF0C7242A747F00358E6D /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				E53BF0C6242A747F00358E6D /* PictureNotification.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E5F5BE2B2399112D0076665F /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -153,7 +180,10 @@
 		014CE858DC4BFB7532A5EC85 /* Pods-SmartTourist-SmartTouristUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist-SmartTouristUITests.debug.xcconfig"; path = "Target Support Files/Pods-SmartTourist-SmartTouristUITests/Pods-SmartTourist-SmartTouristUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		32CB67A9575F481AB0E739F4 /* Pods-SmartTouristTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTouristTests.debug.xcconfig"; path = "Target Support Files/Pods-SmartTouristTests/Pods-SmartTouristTests.debug.xcconfig"; sourceTree = "<group>"; };
 		32E56BB7B73B2546D81ECE2D /* Pods_SmartTouristTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartTouristTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		365B7F51EF199C782DE088CA /* Pods_PictureNotification.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PictureNotification.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A68ECEB84859705FE364757 /* Pods_SmartTourist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartTourist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		696BB0495EC0895A3D3C7B9C /* Pods-PictureNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PictureNotification.release.xcconfig"; path = "Target Support Files/Pods-PictureNotification/Pods-PictureNotification.release.xcconfig"; sourceTree = "<group>"; };
+		864666DF532B8752C2B28FD3 /* Pods-PictureNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PictureNotification.debug.xcconfig"; path = "Target Support Files/Pods-PictureNotification/Pods-PictureNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		991F955B238EDD4D002A1093 /* mapStyle.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mapStyle.json; sourceTree = "<group>"; };
 		992533C3238FF8B800EE479A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		9928169223969DD20033F43C /* WikipediaKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = WikipediaKit.xcodeproj; path = ../WikipediaKit/WikipediaKit.xcodeproj; sourceTree = "<group>"; };
@@ -203,6 +233,12 @@
 		E5335D022389942D00601F02 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		E5335D042389946C00601F02 /* AttractionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionsViewController.swift; sourceTree = "<group>"; };
 		E5335D072389970B00601F02 /* DependenciesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesContainer.swift; sourceTree = "<group>"; };
+		E53BF0B8242A747F00358E6D /* PictureNotification.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PictureNotification.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		E53BF0B9242A747F00358E6D /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		E53BF0BB242A747F00358E6D /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		E53BF0BE242A747F00358E6D /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		E53BF0C3242A747F00358E6D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E53BF0E7242A874B00358E6D /* UNNotificationAttachment+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UNNotificationAttachment+UIImage.swift"; sourceTree = "<group>"; };
 		E53EEA22241CDC55004CCE16 /* PromiseImageSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromiseImageSource.swift; sourceTree = "<group>"; };
 		E54958FB241F5BAD00D643F1 /* SettingStringCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingStringCell.swift; sourceTree = "<group>"; };
 		E5495902241F648400D643F1 /* Bundle+version+build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+version+build.swift"; sourceTree = "<group>"; };
@@ -263,6 +299,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E53BF0B5242A747F00358E6D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E53BF0BC242A747F00358E6D /* UserNotificationsUI.framework in Frameworks */,
+				E53BF0BA242A747F00358E6D /* UserNotifications.framework in Frameworks */,
+				F7CCCDC6DA1CE201F377076A /* Pods_PictureNotification.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -275,6 +321,8 @@
 				B169329D24736107D441A8F6 /* Pods-SmartTourist-SmartTouristUITests.release.xcconfig */,
 				32CB67A9575F481AB0E739F4 /* Pods-SmartTouristTests.debug.xcconfig */,
 				CB1F109E38A57D77901D8A65 /* Pods-SmartTouristTests.release.xcconfig */,
+				864666DF532B8752C2B28FD3 /* Pods-PictureNotification.debug.xcconfig */,
+				696BB0495EC0895A3D3C7B9C /* Pods-PictureNotification.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -339,6 +387,9 @@
 				4A68ECEB84859705FE364757 /* Pods_SmartTourist.framework */,
 				BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */,
 				32E56BB7B73B2546D81ECE2D /* Pods_SmartTouristTests.framework */,
+				E53BF0B9242A747F00358E6D /* UserNotifications.framework */,
+				E53BF0BB242A747F00358E6D /* UserNotificationsUI.framework */,
+				365B7F51EF199C782DE088CA /* Pods_PictureNotification.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -369,6 +420,7 @@
 				E528FF85238971FE0065483B /* SmartTourist */,
 				E528FF9C238972030065483B /* SmartTouristTests */,
 				E528FFA7238972030065483B /* SmartTouristUITests */,
+				E53BF0BD242A747F00358E6D /* PictureNotification */,
 				E528FF84238971FE0065483B /* Products */,
 				1620C8FCEA8161307483B214 /* Pods */,
 				E29D77648F2366C0DE89CACB /* Frameworks */,
@@ -381,6 +433,7 @@
 				E528FF83238971FE0065483B /* SmartTourist.app */,
 				E528FF99238972030065483B /* SmartTouristTests.xctest */,
 				E528FFA4238972030065483B /* SmartTouristUITests.xctest */,
+				E53BF0B8242A747F00358E6D /* PictureNotification.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -469,6 +522,15 @@
 			path = Dependencies;
 			sourceTree = "<group>";
 		};
+		E53BF0BD242A747F00358E6D /* PictureNotification */ = {
+			isa = PBXGroup;
+			children = (
+				E53BF0BE242A747F00358E6D /* NotificationViewController.swift */,
+				E53BF0C3242A747F00358E6D /* Info.plist */,
+			);
+			path = PictureNotification;
+			sourceTree = "<group>";
+		};
 		E5628B4B2393D4B900A61676 /* AttractionDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -521,6 +583,7 @@
 				E592B82124140FCF00AD46F8 /* UILabel+setText.swift */,
 				E54B9A5A2417D0F9009F8DBC /* UITextView+setText.swift */,
 				E5F9715A2392D96E0096C296 /* UIView+Blink.swift */,
+				E53BF0E7242A874B00358E6D /* UNNotificationAttachment+UIImage.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -568,10 +631,12 @@
 				3F36C68F5739F82D20D127AD /* [CP] Embed Pods Frameworks */,
 				572E144F9B6BBC528E666282 /* [CP] Copy Pods Resources */,
 				E5F5BE2B2399112D0076665F /* Embed Frameworks */,
+				E53BF0C7242A747F00358E6D /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E53BF0C5242A747F00358E6D /* PBXTargetDependency */,
 			);
 			name = SmartTourist;
 			productName = SmartTourist;
@@ -618,13 +683,32 @@
 			productReference = E528FFA4238972030065483B /* SmartTouristUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		E53BF0B7242A747F00358E6D /* PictureNotification */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E53BF0CF242A747F00358E6D /* Build configuration list for PBXNativeTarget "PictureNotification" */;
+			buildPhases = (
+				D5708FFD5183A33909526F80 /* [CP] Check Pods Manifest.lock */,
+				E53BF0B4242A747F00358E6D /* Sources */,
+				E53BF0B5242A747F00358E6D /* Frameworks */,
+				E53BF0B6242A747F00358E6D /* Resources */,
+				627611F45213B93AB6B4B8CD /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PictureNotification;
+			productName = PictureNotification;
+			productReference = E53BF0B8242A747F00358E6D /* PictureNotification.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		E528FF7B238971FE0065483B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1120;
+				LastSwiftUpdateCheck = 1130;
 				LastUpgradeCheck = 1120;
 				ORGANIZATIONNAME = "Fabio Codiglioni";
 				TargetAttributes = {
@@ -638,6 +722,9 @@
 					E528FFA3238972030065483B = {
 						CreatedOnToolsVersion = 11.2.1;
 						TestTargetID = E528FF82238971FE0065483B;
+					};
+					E53BF0B7242A747F00358E6D = {
+						CreatedOnToolsVersion = 11.3.1;
 					};
 				};
 			};
@@ -663,6 +750,7 @@
 				E528FF82238971FE0065483B /* SmartTourist */,
 				E528FF98238972030065483B /* SmartTouristTests */,
 				E528FFA3238972030065483B /* SmartTouristUITests */,
+				E53BF0B7242A747F00358E6D /* PictureNotification */,
 			);
 		};
 /* End PBXProject section */
@@ -729,6 +817,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		E528FFA2238972030065483B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E53BF0B6242A747F00358E6D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -855,6 +950,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SmartTourist/Pods-SmartTourist-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		627611F45213B93AB6B4B8CD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PictureNotification/Pods-PictureNotification-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PictureNotification/Pods-PictureNotification-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PictureNotification/Pods-PictureNotification-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		B934A062E9A666B18CA3ACCC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -870,6 +982,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SmartTourist-SmartTouristUITests/Pods-SmartTourist-SmartTouristUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D5708FFD5183A33909526F80 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PictureNotification-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -899,6 +1033,7 @@
 				E50BC90D241D15EE005EFDCE /* SettingsView.swift in Sources */,
 				993B35462392B9150003FD8F /* AttractionCell.swift in Sources */,
 				E54E01B423996806009D0331 /* Persistable.swift in Sources */,
+				E53BF0E8242A874B00358E6D /* UNNotificationAttachment+UIImage.swift in Sources */,
 				993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */,
 				E5AFC8A223F9B006007B9887 /* CityDetailView.swift in Sources */,
 				99C26FE724003A5600F57030 /* CitySearchViewController.swift in Sources */,
@@ -957,6 +1092,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E53BF0B4242A747F00358E6D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E53BF0DE242A7BCA00358E6D /* CLLocationCoordinate2D+distance.swift in Sources */,
+				E53BF0D8242A771D00358E6D /* Model.swift in Sources */,
+				E53BF0BF242A747F00358E6D /* NotificationViewController.swift in Sources */,
+				E53BF0D2242A76F900358E6D /* GoogleAPI.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -969,6 +1115,11 @@
 			isa = PBXTargetDependency;
 			target = E528FF82238971FE0065483B /* SmartTourist */;
 			targetProxy = E528FFA5238972030065483B /* PBXContainerItemProxy */;
+		};
+		E53BF0C5242A747F00358E6D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E53BF0B7242A747F00358E6D /* PictureNotification */;
+			targetProxy = E53BF0C4242A747F00358E6D /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1102,6 +1253,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D30A90CC896E2EB573AFC6C5 /* Pods-SmartTourist.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SM32T6M59X;
@@ -1122,6 +1274,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AB3310E805FE2AAD225A0C8E /* Pods-SmartTourist.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SM32T6M59X;
@@ -1226,6 +1379,48 @@
 			};
 			name = Release;
 		};
+		E53BF0C8242A747F00358E6D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 864666DF532B8752C2B28FD3 /* Pods-PictureNotification.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SM32T6M59X;
+				INFOPLIST_FILE = PictureNotification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.anfc.SmartTourist.PictureNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E53BF0C9242A747F00358E6D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 696BB0495EC0895A3D3C7B9C /* Pods-PictureNotification.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = SM32T6M59X;
+				INFOPLIST_FILE = PictureNotification/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.anfc.SmartTourist.PictureNotification;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1261,6 +1456,15 @@
 			buildConfigurations = (
 				E528FFB4238972030065483B /* Debug */,
 				E528FFB5238972030065483B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E53BF0CF242A747F00358E6D /* Build configuration list for PBXNativeTarget "PictureNotification" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E53BF0C8242A747F00358E6D /* Debug */,
+				E53BF0C9242A747F00358E6D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

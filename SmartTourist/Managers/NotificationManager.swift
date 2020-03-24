@@ -88,16 +88,25 @@ class NotificationManager {
     }
     
     func sendNearbyTopAttractionNotification(place: GPPlace) {
-        let content = UNMutableNotificationContent()
-        content.title = "Nearby Top Location"
-        content.body = "You are near a top location: \(place.name)"
-        content.sound = UNNotificationSound.default
-        content.userInfo = ["PLACE_ID": place.placeID]
-        content.categoryIdentifier = "NEARBY_TOP_ATTRACTION"
-        let date = Date() + TimeInterval(1)
-        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-        let request = UNNotificationRequest(identifier: self.identifier, content: content, trigger: trigger)
-        self.nc.add(request)
+        Promise<UNNotificationRequest>(in: .background) { resolve, reject, status in
+            let content = UNMutableNotificationContent()
+            content.title = "Nearby Top Location"
+            content.body = "You are near a top location: \(place.name)"
+            content.sound = UNNotificationSound.default
+            content.userInfo = ["PLACE_ID": place.placeID]
+            if let photos = place.photos, let photo = photos.first {
+                let image = try await(GoogleAPI.shared.getPhoto(photo))
+                if let attachment = UNNotificationAttachment.create(identifier: "PHOTO", image: image, options: nil) {
+                    content.attachments.append(attachment)
+                }
+            }
+            content.categoryIdentifier = "NEARBY_TOP_ATTRACTION"
+            let date = Date() + TimeInterval(1)
+            let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
+            let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
+            resolve(UNNotificationRequest(identifier: self.identifier, content: content, trigger: trigger))
+        }.then { request in
+            self.nc.add(request)
+        }
     }
 }

@@ -66,8 +66,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             guard let origin = store.state.locationState.actualLocation else { completionHandler(); return }
             let url = GoogleAPI.shared.buildDirectionURL(origin: origin, destination: place.location, destinationPlaceId: placeID)
             UIApplication.shared.open(url)
-        default:
+        case "com.apple.UNNotificationDefaultActionIdentifier":
             self.showDetailView(store: store, place: place)
+        case "com.apple.UNNotificationDismissActionIdentifier to dismiss":
+            break
+        default:
+            break
         }
         completionHandler()
     }
