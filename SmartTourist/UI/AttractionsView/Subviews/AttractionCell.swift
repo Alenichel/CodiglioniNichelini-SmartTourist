@@ -20,7 +20,7 @@ public protocol SizeableCell: ModellableView {
 
 
 // MARK: View Model
-struct AttractionCellViewModel: ViewModel {
+struct AttractionCellViewModel: ViewModel, Equatable {
     let attractionName: String
     let attractionCityName: String
     let identifier: String
@@ -78,6 +78,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     // MARK: Setup
     func setup() {
         self.distanceLabel.textAlignment = .right
+        self.nameLabel.trailingBuffer = 50
         self.addSubview(self.nameLabel)
         self.addSubview(self.image)
         self.addSubview(self.cosmos)
