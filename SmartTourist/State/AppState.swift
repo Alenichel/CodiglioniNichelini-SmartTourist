@@ -35,7 +35,7 @@ struct AppState: State, Codable {
 
 
 /// The part of the state concerning location
-struct LocationState {
+struct LocationState: Codable {
     /// The actual location of the user
     var actualLocation: CLLocationCoordinate2D?
     
@@ -83,7 +83,7 @@ struct Settings: Codable {
 
 
 /// The part of the state cencerning pedometer results
-struct PedometerState {
+struct PedometerState: Codable {
     var averageWalkingSpeed: Double {   // m/s
         didSet {
             self.littleCircleRadius = self.averageWalkingSpeed * PedometerHandler.littleCircleTimeRadius

@@ -19,12 +19,12 @@ import Tempura
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         GMSServices.provideAPIKey(GoogleAPI.apiKey)
         GMSPlacesClient.provideAPIKey(GoogleAPI.apiKey)
         NotificationManager.shared.setDelegate(self)
+        print("APP DELEGATE")
         return true
     }
 
@@ -92,5 +92,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         justVisitedPlaces.removeFirst(justVisitedPlaces.count - 1)
     }
 }
-
-
