@@ -14,6 +14,12 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
+        if WCSession.isSupported() {
+            self.session = WCSession.default
+            self.session?.delegate = self
+            self.session?.activate()
+            print("ACTIVATING SESSION...")
+        }
     }
 
     func applicationDidBecomeActive() {
@@ -29,6 +35,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         // Sent when the system needs to launch the application in the background to process tasks. Tasks arrive in a set, so loop through and process each one.
         for task in backgroundTasks {
             // Use a switch statement to check the task type
+            print(task)
             switch task {
             case let backgroundTask as WKApplicationRefreshBackgroundTask:
                 // Be sure to complete the background task once you’re done.
@@ -63,7 +70,10 @@ extension ExtensionDelegate: WCSessionDelegate {
         switch activationState {
         case .activated:
             self.session = session
+            print("SESSION ACTIVATED")
+            userData.getPlaces(type: .nearest)
         default:
+            print(activationState)
             break
         }
     }

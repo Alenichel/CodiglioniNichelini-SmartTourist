@@ -15,7 +15,7 @@ PODS:
   - ImageSlideshow (1.8.3):
     - ImageSlideshow/Core (= 1.8.3)
   - ImageSlideshow/Core (1.8.3)
-  - Katana (3.1.0):
+  - Katana (3.1.1):
     - HydraAsync (~> 1.2)
   - MarqueeLabel (4.0.2)
   - PinLayout (1.8.13)
@@ -30,7 +30,6 @@ DEPENDENCIES:
   - Fuse
   - GoogleMaps
   - GooglePlaces
-  - HydraAsync
   - ImageSlideshow (~> 1.8.3)
   - Katana
   - MarqueeLabel
@@ -63,11 +62,11 @@ SPEC CHECKSUMS:
   GooglePlaces: d5f70c3e9e427964fdeca1301a665d276ccd8754
   HydraAsync: 8f2ab62d57e140b4ca587ae0f66e1eb04e8e6965
   ImageSlideshow: 4694d7d699a1549582e7cc631fb392d8f91630f3
-  Katana: caa2adb661a386f9a993a15845841dc2c9b083aa
+  Katana: a9f2d63cc23ff9dc95ad557d7443717ef5b3201e
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   PinLayout: e41a50260a76508b7a7fcee8955c76639adc69bc
   Tempura: adc54766491f97980bcdb3dff82a92076ed825e2
 
-PODFILE CHECKSUM: 08bb431b04c232053ada7b3105633c96fc163764
+PODFILE CHECKSUM: f0228374d569b3963b3ef0732182a13a2dddc955
 
 COCOAPODS: 1.9.1

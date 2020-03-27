@@ -10,6 +10,7 @@
 		2600720118ACEE0881FCB41F /* Pods_SmartTouristTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32E56BB7B73B2546D81ECE2D /* Pods_SmartTouristTests.framework */; };
 		4DC68C698795D2E15DF07FFE /* Pods_SmartTourist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A68ECEB84859705FE364757 /* Pods_SmartTourist.framework */; };
 		5F7A4CA34DB61B8A7EBF547D /* Pods_SmartTourist_SmartTouristUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */; };
+		715830A6663ED8F1542E5BDC /* Pods_SmartTouristAppleWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7423B99FDA9559DEEF653ECC /* Pods_SmartTouristAppleWatch.framework */; };
 		991F955C238EDD4D002A1093 /* mapStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = 991F955B238EDD4D002A1093 /* mapStyle.json */; };
 		992533C4238FF8B800EE479A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992533C3238FF8B800EE479A /* LocationManager.swift */; };
 		992816A823969ECC0033F43C /* WikipediaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992816A723969ECC0033F43C /* WikipediaAPI.swift */; };
@@ -51,9 +52,6 @@
 		E53BF0BC242A747F00358E6D /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E53BF0BB242A747F00358E6D /* UserNotificationsUI.framework */; };
 		E53BF0BF242A747F00358E6D /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53BF0BE242A747F00358E6D /* NotificationViewController.swift */; };
 		E53BF0C6242A747F00358E6D /* PictureNotification.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E53BF0B8242A747F00358E6D /* PictureNotification.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E53BF0D2242A76F900358E6D /* GoogleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE320238B08A40018D791 /* GoogleAPI.swift */; };
-		E53BF0D8242A771D00358E6D /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D1474923AB747300649C87 /* Model.swift */; };
-		E53BF0DE242A7BCA00358E6D /* CLLocationCoordinate2D+distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56167D22428CBE90064B2E8 /* CLLocationCoordinate2D+distance.swift */; };
 		E53BF0E8242A874B00358E6D /* UNNotificationAttachment+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53BF0E7242A874B00358E6D /* UNNotificationAttachment+UIImage.swift */; };
 		E53EEA23241CDC55004CCE16 /* PromiseImageSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53EEA22241CDC55004CCE16 /* PromiseImageSource.swift */; };
 		E54958FC241F5BAD00D643F1 /* SettingStringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54958FB241F5BAD00D643F1 /* SettingStringCell.swift */; };
@@ -68,6 +66,15 @@
 		E5628B4D2393D4D500A61676 /* AttractionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5628B4C2393D4D500A61676 /* AttractionDetailView.swift */; };
 		E5628B4F2393D4E100A61676 /* AttractionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5628B4E2393D4E100A61676 /* AttractionDetailViewController.swift */; };
 		E5628B512394224F00A61676 /* UIImage+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5628B502394224F00A61676 /* UIImage+Color.swift */; };
+		E563DB2B242E4FF9003D5FFF /* PlaceRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E563DB2A242E4FF9003D5FFF /* PlaceRowView.swift */; };
+		E563DB32242E517C003D5FFF /* WatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E563DB31242E517C003D5FFF /* WatchModel.swift */; };
+		E563DB39242E5224003D5FFF /* CLLocationCoordinate2D+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E563DB38242E5224003D5FFF /* CLLocationCoordinate2D+Codable.swift */; };
+		E563DB3A242E522F003D5FFF /* CLLocationCoordinate2D+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E563DB38242E5224003D5FFF /* CLLocationCoordinate2D+Codable.swift */; };
+		E563DB3B242E52C4003D5FFF /* WatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E563DB31242E517C003D5FFF /* WatchModel.swift */; };
+		E563DB3C242E5394003D5FFF /* CLLocationCoordinate2D+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E563DB38242E5224003D5FFF /* CLLocationCoordinate2D+Codable.swift */; };
+		E563DB4B242E5823003D5FFF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E563DB4A242E5823003D5FFF /* ContentView.swift */; };
+		E563DB4D242E61B2003D5FFF /* AppleWatchMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E563DB4C242E61B2003D5FFF /* AppleWatchMessage.swift */; };
+		E563DB4E242E61B2003D5FFF /* AppleWatchMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E563DB4C242E61B2003D5FFF /* AppleWatchMessage.swift */; };
 		E57C47162392BC3A008DE784 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57C47152392BC3A008DE784 /* RoundedButton.swift */; };
 		E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */; };
 		E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA4238ADEF3008D7C86 /* SideEffects.swift */; };
@@ -75,7 +82,7 @@
 		E590A94B242CCA6800C0F0D5 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E590A949242CCA6800C0F0D5 /* Interface.storyboard */; };
 		E590A94D242CCA7100C0F0D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E590A94C242CCA7100C0F0D5 /* Assets.xcassets */; };
 		E590A954242CCA7100C0F0D5 /* SmartTouristAppleWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E590A953242CCA7100C0F0D5 /* SmartTouristAppleWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E590A959242CCA7100C0F0D5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590A958242CCA7100C0F0D5 /* ContentView.swift */; };
+		E590A959242CCA7100C0F0D5 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590A958242CCA7100C0F0D5 /* ListView.swift */; };
 		E590A95B242CCA7100C0F0D5 /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590A95A242CCA7100C0F0D5 /* HostingController.swift */; };
 		E590A95D242CCA7100C0F0D5 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590A95C242CCA7100C0F0D5 /* ExtensionDelegate.swift */; };
 		E590A95F242CCA7200C0F0D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E590A95E242CCA7200C0F0D5 /* Assets.xcassets */; };
@@ -228,7 +235,9 @@
 		32E56BB7B73B2546D81ECE2D /* Pods_SmartTouristTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartTouristTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		365B7F51EF199C782DE088CA /* Pods_PictureNotification.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PictureNotification.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A68ECEB84859705FE364757 /* Pods_SmartTourist.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartTourist.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		603068C865E1ECE2BF68B7E4 /* Pods-SmartTouristAppleWatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTouristAppleWatch.debug.xcconfig"; path = "Target Support Files/Pods-SmartTouristAppleWatch/Pods-SmartTouristAppleWatch.debug.xcconfig"; sourceTree = "<group>"; };
 		696BB0495EC0895A3D3C7B9C /* Pods-PictureNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PictureNotification.release.xcconfig"; path = "Target Support Files/Pods-PictureNotification/Pods-PictureNotification.release.xcconfig"; sourceTree = "<group>"; };
+		7423B99FDA9559DEEF653ECC /* Pods_SmartTouristAppleWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartTouristAppleWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		864666DF532B8752C2B28FD3 /* Pods-PictureNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PictureNotification.debug.xcconfig"; path = "Target Support Files/Pods-PictureNotification/Pods-PictureNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		991F955B238EDD4D002A1093 /* mapStyle.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mapStyle.json; sourceTree = "<group>"; };
 		992533C3238FF8B800EE479A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -249,6 +258,7 @@
 		99EC7D6C241FC0890065FDE9 /* String+emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+emoji.swift"; sourceTree = "<group>"; };
 		99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PedometerHandler.swift; sourceTree = "<group>"; };
 		99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+setImage.swift"; sourceTree = "<group>"; };
+		A280B60986322FB0AC1DA690 /* Pods-SmartTouristAppleWatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTouristAppleWatch.release.xcconfig"; path = "Target Support Files/Pods-SmartTouristAppleWatch/Pods-SmartTouristAppleWatch.release.xcconfig"; sourceTree = "<group>"; };
 		AB3310E805FE2AAD225A0C8E /* Pods-SmartTourist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist.release.xcconfig"; path = "Target Support Files/Pods-SmartTourist/Pods-SmartTourist.release.xcconfig"; sourceTree = "<group>"; };
 		B169329D24736107D441A8F6 /* Pods-SmartTourist-SmartTouristUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist-SmartTouristUITests.release.xcconfig"; path = "Target Support Files/Pods-SmartTourist-SmartTouristUITests/Pods-SmartTourist-SmartTouristUITests.release.xcconfig"; sourceTree = "<group>"; };
 		BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartTourist_SmartTouristUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -298,6 +308,11 @@
 		E5628B4C2393D4D500A61676 /* AttractionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionDetailView.swift; sourceTree = "<group>"; };
 		E5628B4E2393D4E100A61676 /* AttractionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionDetailViewController.swift; sourceTree = "<group>"; };
 		E5628B502394224F00A61676 /* UIImage+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Color.swift"; sourceTree = "<group>"; };
+		E563DB2A242E4FF9003D5FFF /* PlaceRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceRowView.swift; sourceTree = "<group>"; };
+		E563DB31242E517C003D5FFF /* WatchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchModel.swift; sourceTree = "<group>"; };
+		E563DB38242E5224003D5FFF /* CLLocationCoordinate2D+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Codable.swift"; sourceTree = "<group>"; };
+		E563DB4A242E5823003D5FFF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E563DB4C242E61B2003D5FFF /* AppleWatchMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleWatchMessage.swift; sourceTree = "<group>"; };
 		E57C47152392BC3A008DE784 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateUpdaters.swift; sourceTree = "<group>"; };
 		E585FCA4238ADEF3008D7C86 /* SideEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideEffects.swift; sourceTree = "<group>"; };
@@ -307,7 +322,7 @@
 		E590A94C242CCA7100C0F0D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E590A94E242CCA7100C0F0D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E590A953242CCA7100C0F0D5 /* SmartTouristAppleWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SmartTouristAppleWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E590A958242CCA7100C0F0D5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		E590A958242CCA7100C0F0D5 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		E590A95A242CCA7100C0F0D5 /* HostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
 		E590A95C242CCA7100C0F0D5 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		E590A95E242CCA7200C0F0D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -374,6 +389,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FFFCA17673A9518B98455FDD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				715830A6663ED8F1542E5BDC /* Pods_SmartTouristAppleWatch.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -388,6 +411,8 @@
 				CB1F109E38A57D77901D8A65 /* Pods-SmartTouristTests.release.xcconfig */,
 				864666DF532B8752C2B28FD3 /* Pods-PictureNotification.debug.xcconfig */,
 				696BB0495EC0895A3D3C7B9C /* Pods-PictureNotification.release.xcconfig */,
+				603068C865E1ECE2BF68B7E4 /* Pods-SmartTouristAppleWatch.debug.xcconfig */,
+				A280B60986322FB0AC1DA690 /* Pods-SmartTouristAppleWatch.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -455,6 +480,7 @@
 				E53BF0B9242A747F00358E6D /* UserNotifications.framework */,
 				E53BF0BB242A747F00358E6D /* UserNotificationsUI.framework */,
 				365B7F51EF199C782DE088CA /* Pods_PictureNotification.framework */,
+				7423B99FDA9559DEEF653ECC /* Pods_SmartTouristAppleWatch.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -609,6 +635,16 @@
 			path = AttractionDetail;
 			sourceTree = "<group>";
 		};
+		E563DB29242E4FE3003D5FFF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E563DB4A242E5823003D5FFF /* ContentView.swift */,
+				E590A958242CCA7100C0F0D5 /* ListView.swift */,
+				E563DB2A242E4FF9003D5FFF /* PlaceRowView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		E57C47172392BE83008DE784 /* Elements */ = {
 			isa = PBXGroup;
 			children = (
@@ -633,7 +669,9 @@
 		E590A957242CCA7100C0F0D5 /* SmartTouristAppleWatch Extension */ = {
 			isa = PBXGroup;
 			children = (
-				E590A958242CCA7100C0F0D5 /* ContentView.swift */,
+				E563DB31242E517C003D5FFF /* WatchModel.swift */,
+				E563DB4C242E61B2003D5FFF /* AppleWatchMessage.swift */,
+				E563DB29242E4FE3003D5FFF /* Views */,
 				E590A95A242CCA7100C0F0D5 /* HostingController.swift */,
 				E590A95C242CCA7100C0F0D5 /* ExtensionDelegate.swift */,
 				E590A95E242CCA7200C0F0D5 /* Assets.xcassets */,
@@ -670,6 +708,7 @@
 				E5495902241F648400D643F1 /* Bundle+version+build.swift */,
 				E5F971592392D96E0096C296 /* CGRect+Utils.swift */,
 				E56167D22428CBE90064B2E8 /* CLLocationCoordinate2D+distance.swift */,
+				E563DB38242E5224003D5FFF /* CLLocationCoordinate2D+Codable.swift */,
 				E56167C32428989B0064B2E8 /* GMSMapVIew+adaptToPlaces.swift */,
 				9930114A23AFED3600909749 /* GMSMapView+loadCustomStyle.swift */,
 				E5FF041124095E7000D32EE7 /* MarkerPool.swift */,
@@ -794,7 +833,6 @@
 				E53BF0B4242A747F00358E6D /* Sources */,
 				E53BF0B5242A747F00358E6D /* Frameworks */,
 				E53BF0B6242A747F00358E6D /* Resources */,
-				627611F45213B93AB6B4B8CD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -809,8 +847,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E590A973242CCA7200C0F0D5 /* Build configuration list for PBXNativeTarget "SmartTouristAppleWatch" */;
 			buildPhases = (
+				582E15D4988D480F4BFF1796 /* [CP] Check Pods Manifest.lock */,
 				E590A945242CCA6800C0F0D5 /* Resources */,
 				E590A96A242CCA7200C0F0D5 /* Embed App Extensions */,
+				FFFCA17673A9518B98455FDD /* Frameworks */,
+				3D36E5DAC106F60683120694 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1062,6 +1103,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		3D36E5DAC106F60683120694 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SmartTouristAppleWatch/Pods-SmartTouristAppleWatch-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SmartTouristAppleWatch/Pods-SmartTouristAppleWatch-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SmartTouristAppleWatch/Pods-SmartTouristAppleWatch-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3F36C68F5739F82D20D127AD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1113,21 +1171,26 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SmartTourist/Pods-SmartTourist-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		627611F45213B93AB6B4B8CD /* [CP] Copy Pods Resources */ = {
+		582E15D4988D480F4BFF1796 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PictureNotification/Pods-PictureNotification-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PictureNotification/Pods-PictureNotification-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SmartTouristAppleWatch-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PictureNotification/Pods-PictureNotification-resources.sh\"\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B934A062E9A666B18CA3ACCC /* [CP] Embed Pods Frameworks */ = {
@@ -1176,6 +1239,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E563DB3B242E52C4003D5FFF /* WatchModel.swift in Sources */,
 				E5628B4F2393D4E100A61676 /* AttractionDetailViewController.swift in Sources */,
 				E5335D082389970B00601F02 /* DependenciesContainer.swift in Sources */,
 				99F5A11923995D9E0056E68D /* UIImageView+setImage.swift in Sources */,
@@ -1202,10 +1266,12 @@
 				E5AFC8A223F9B006007B9887 /* CityDetailView.swift in Sources */,
 				99C26FE724003A5600F57030 /* CitySearchViewController.swift in Sources */,
 				E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */,
+				E563DB39242E5224003D5FFF /* CLLocationCoordinate2D+Codable.swift in Sources */,
 				E56167D32428CBE90064B2E8 /* CLLocationCoordinate2D+distance.swift in Sources */,
 				E528FF87238971FE0065483B /* AppDelegate.swift in Sources */,
 				E58CD2F3241FC6F500BA3F33 /* SettingsDebugSubview.swift in Sources */,
 				E5F971602392D96F0096C296 /* DataSource.swift in Sources */,
+				E563DB4D242E61B2003D5FFF /* AppleWatchMessage.swift in Sources */,
 				E54B9A5B2417D0F9009F8DBC /* UITextView+setText.swift in Sources */,
 				E5F971632392D96F0096C296 /* UIView+Blink.swift in Sources */,
 				E52EECCF238EE5FE006196BA /* NotificationManager.swift in Sources */,
@@ -1260,10 +1326,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E53BF0DE242A7BCA00358E6D /* CLLocationCoordinate2D+distance.swift in Sources */,
-				E53BF0D8242A771D00358E6D /* Model.swift in Sources */,
 				E53BF0BF242A747F00358E6D /* NotificationViewController.swift in Sources */,
-				E53BF0D2242A76F900358E6D /* GoogleAPI.swift in Sources */,
+				E563DB3C242E5394003D5FFF /* CLLocationCoordinate2D+Codable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1271,8 +1335,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E563DB4E242E61B2003D5FFF /* AppleWatchMessage.swift in Sources */,
+				E563DB32242E517C003D5FFF /* WatchModel.swift in Sources */,
 				E590A95B242CCA7100C0F0D5 /* HostingController.swift in Sources */,
-				E590A959242CCA7100C0F0D5 /* ContentView.swift in Sources */,
+				E563DB4B242E5823003D5FFF /* ContentView.swift in Sources */,
+				E563DB3A242E522F003D5FFF /* CLLocationCoordinate2D+Codable.swift in Sources */,
+				E563DB2B242E4FF9003D5FFF /* PlaceRowView.swift in Sources */,
+				E590A959242CCA7100C0F0D5 /* ListView.swift in Sources */,
 				E590A95D242CCA7100C0F0D5 /* ExtensionDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1615,6 +1684,7 @@
 		};
 		E590A968242CCA7200C0F0D5 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 603068C865E1ECE2BF68B7E4 /* Pods-SmartTouristAppleWatch.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -1634,6 +1704,7 @@
 		};
 		E590A969242CCA7200C0F0D5 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A280B60986322FB0AC1DA690 /* Pods-SmartTouristAppleWatch.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

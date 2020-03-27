@@ -24,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         GMSServices.provideAPIKey(GoogleAPI.apiKey)
         GMSPlacesClient.provideAPIKey(GoogleAPI.apiKey)
         NotificationManager.shared.setDelegate(self)
-        print("APP DELEGATE")
         return true
     }
 
