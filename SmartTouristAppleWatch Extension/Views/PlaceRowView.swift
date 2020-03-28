@@ -21,17 +21,9 @@ struct PlaceRowView: View {
             place.image?
                 .resizable()
                 .frame(width: 50, height: 50)
-            VStack(alignment: .leading) {
-                Text(place.name)
-                Text(place.city)
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
-            }
-            Spacer()
-            if place.isFavorite {
-                Image(systemName: "star.fill")
-                    .foregroundColor(.yellow)
-            }
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .padding(EdgeInsets(top: 3, leading: 0, bottom: 3, trailing: 0))
+            Text(place.name)
         }
     }
 }

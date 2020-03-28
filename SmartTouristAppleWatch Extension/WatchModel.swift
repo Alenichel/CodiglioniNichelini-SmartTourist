@@ -26,10 +26,15 @@ class UserData: ObservableObject {
         }
         let message = ["type": AppleWatchMessage.getPlaces.rawValue, "place_type": type.rawValue]
         WCSession.default.sendMessage(message, replyHandler: { response in
-            print(response)
-            guard let places = response["places"] as? [AWGPPlace] else { return }
-            DispatchQueue.main.async {
-                self.places = places
+            guard let data = response["places"] as? Data else { return }
+            let decoder = JSONDecoder()
+            do {
+                let places = try decoder.decode([AWGPPlace].self, from: data)
+                DispatchQueue.main.async {
+                    self.places = places
+                }
+            } catch {
+                print(error.localizedDescription)
             }
         }, errorHandler: { error in
             print(error.localizedDescription)
@@ -45,16 +50,10 @@ enum SelectedPlaces {
 }
 
 
-struct AWGPPlace: Identifiable {
-    var id: String { self.placeID }
-    let placeID: String
-    //let location: CLLocationCoordinate2D
+struct AWGPPlace: Identifiable, Codable {
+    let id: String
     let name: String
-    let city: String
     let photoData: Data
-    let rating: Double
-    let userRatingsTotal: Int
-    let isFavorite: Bool
     
     var image: Image? {
         guard
@@ -66,13 +65,19 @@ struct AWGPPlace: Identifiable {
 }
 
 
+struct AWGPPlaceDetail: Codable {
+    let awPlace: AWGPPlace
+    let description: String
+}
+
+
 #if DEBUG
 var userData = UserData(places: [
-    /*AWGPPlace(placeID: UUID().uuidString, location: CLLocationCoordinate2D(latitude: 0, longitude: 0), name: "Place0", city: "City0", photoData: nil, rating: nil, userRatingsTotal: nil, isFavorite: false),
-    AWGPPlace(placeID: UUID().uuidString, location: CLLocationCoordinate2D(latitude: 1, longitude: 1), name: "Place1", city: "City1", photoData: nil, rating: nil, userRatingsTotal: nil, isFavorite: true),
-    AWGPPlace(placeID: UUID().uuidString, location: CLLocationCoordinate2D(latitude: 2, longitude: 2), name: "Place2", city: "City2", photoData: nil, rating: nil, userRatingsTotal: nil, isFavorite: false),
-    AWGPPlace(placeID: UUID().uuidString, location: CLLocationCoordinate2D(latitude: 3, longitude: 3), name: "Place3", city: "City3", photoData: nil, rating: nil, userRatingsTotal: nil, isFavorite: false),
-    AWGPPlace(placeID: UUID().uuidString, location: CLLocationCoordinate2D(latitude: 4, longitude: 4), name: "Place4", city: "City4", photoData: nil, rating: nil, userRatingsTotal: nil, isFavorite: true),*/
+    AWGPPlace(id: UUID().uuidString, name: "Place1", photoData: Data()),
+    AWGPPlace(id: UUID().uuidString, name: "Place2", photoData: Data()),
+    AWGPPlace(id: UUID().uuidString, name: "Place3", photoData: Data()),
+    AWGPPlace(id: UUID().uuidString, name: "Place4", photoData: Data()),
+    AWGPPlace(id: UUID().uuidString, name: "Place5", photoData: Data()),
 ])
 #else
 var userData = UserData()

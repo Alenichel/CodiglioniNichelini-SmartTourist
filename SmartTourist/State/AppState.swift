@@ -23,6 +23,7 @@ struct AppState: State, Codable {
     enum CodingKeys: CodingKey {
         case favorites
         case settings
+        case locationState
     }
     
     /// The path where to persist the state
@@ -71,6 +72,12 @@ struct LocationState: Codable {
     /// `Date` used to initialize all the `lastUpdate` variables
     private static var initDate: Date {
         Date().advanced(by: TimeInterval(-60))
+    }
+    
+    enum CodingKeys: CodingKey {
+        case nearestPlaces
+        case popularPlaces
+        case currentCity
     }
 }
 
