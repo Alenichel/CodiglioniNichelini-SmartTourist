@@ -11,14 +11,25 @@ struct ListView: View {
     @EnvironmentObject private var userData: UserData
         
     var body: some View {
-        List {
-            ForEach(userData.places) { place in
-                PlaceRowView(place: place).environmentObject(self.userData)
+        Group {
+            if self.userData.places.isEmpty {
+                LoadingView().frame(width: 50, height: 50)
+            } else {
+                List {
+                    ForEach(userData.places) { place in
+                        NavigationLink(destination: PlaceDetailView(place: place).environmentObject(self.userData)) {
+                            PlaceRowView(place: place).environmentObject(self.userData)
+                        }
+                    }
+                }
             }
         }
         .contextMenu(menuItems: {
             Group {
                 Button(action: {
+                    DispatchQueue.main.async {
+                        self.userData.places = []
+                    }
                     self.userData.getPlaces(type: .nearest)
                 }) {
                     VStack {
@@ -27,6 +38,9 @@ struct ListView: View {
                     }
                 }
                 Button(action: {
+                    DispatchQueue.main.async {
+                        self.userData.places = []
+                    }
                     self.userData.getPlaces(type: .popular)
                 }) {
                     VStack {
@@ -35,6 +49,9 @@ struct ListView: View {
                     }
                 }
                 Button(action: {
+                    DispatchQueue.main.async {
+                        self.userData.places = []
+                    }
                     self.userData.getPlaces(type: .favorites)
                 }) {
                     VStack {

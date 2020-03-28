@@ -90,6 +90,9 @@
 		E590A966242CCA7200C0F0D5 /* SmartTouristAppleWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = E590A947242CCA6800C0F0D5 /* SmartTouristAppleWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E590A97A242CE1FD00C0F0D5 /* WCSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590A979242CE1FD00C0F0D5 /* WCSessionDelegate.swift */; };
 		E592B82224140FCF00AD46F8 /* UILabel+setText.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592B82124140FCF00AD46F8 /* UILabel+setText.swift */; };
+		E5A7B057242F93640001869A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7B056242F93640001869A /* LoadingView.swift */; };
+		E5A7B059242F960A0001869A /* PlaceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7B058242F960A0001869A /* PlaceDetailView.swift */; };
+		E5A7B064242F9C400001869A /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7B063242F9C400001869A /* CircleImage.swift */; };
 		E5AFC8A123F9B006007B9887 /* CityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */; };
 		E5AFC8A223F9B006007B9887 /* CityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFC89B23F9B006007B9887 /* CityDetailView.swift */; };
 		E5D1474A23AB747300649C87 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D1474923AB747300649C87 /* Model.swift */; };
@@ -330,6 +333,9 @@
 		E590A963242CCA7200C0F0D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E590A979242CE1FD00C0F0D5 /* WCSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCSessionDelegate.swift; sourceTree = "<group>"; };
 		E592B82124140FCF00AD46F8 /* UILabel+setText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+setText.swift"; sourceTree = "<group>"; };
+		E5A7B056242F93640001869A /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		E5A7B058242F960A0001869A /* PlaceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailView.swift; sourceTree = "<group>"; };
+		E5A7B063242F9C400001869A /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityDetailViewController.swift; sourceTree = "<group>"; };
 		E5AFC89B23F9B006007B9887 /* CityDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityDetailView.swift; sourceTree = "<group>"; };
 		E5D1474923AB747300649C87 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -638,9 +644,11 @@
 		E563DB29242E4FE3003D5FFF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E5A7B065242F9C4B0001869A /* Supporting Views */,
 				E563DB4A242E5823003D5FFF /* ContentView.swift */,
 				E590A958242CCA7100C0F0D5 /* ListView.swift */,
 				E563DB2A242E4FF9003D5FFF /* PlaceRowView.swift */,
+				E5A7B058242F960A0001869A /* PlaceDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -687,6 +695,15 @@
 				E590A961242CCA7200C0F0D5 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		E5A7B065242F9C4B0001869A /* Supporting Views */ = {
+			isa = PBXGroup;
+			children = (
+				E5A7B056242F93640001869A /* LoadingView.swift */,
+				E5A7B063242F9C400001869A /* CircleImage.swift */,
+			);
+			path = "Supporting Views";
 			sourceTree = "<group>";
 		};
 		E5AFC89923F9B006007B9887 /* CityDetailView */ = {
@@ -1340,9 +1357,12 @@
 				E590A95B242CCA7100C0F0D5 /* HostingController.swift in Sources */,
 				E563DB4B242E5823003D5FFF /* ContentView.swift in Sources */,
 				E563DB3A242E522F003D5FFF /* CLLocationCoordinate2D+Codable.swift in Sources */,
+				E5A7B059242F960A0001869A /* PlaceDetailView.swift in Sources */,
 				E563DB2B242E4FF9003D5FFF /* PlaceRowView.swift in Sources */,
 				E590A959242CCA7100C0F0D5 /* ListView.swift in Sources */,
+				E5A7B064242F9C400001869A /* CircleImage.swift in Sources */,
 				E590A95D242CCA7100C0F0D5 /* ExtensionDelegate.swift in Sources */,
+				E5A7B057242F93640001869A /* LoadingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

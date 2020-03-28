@@ -10,7 +10,7 @@ import WatchConnectivity
 import Hydra
 
 
-extension SceneDelegate: WCSessionDelegate {
+extension AppDelegate: WCSessionDelegate {
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         print(activationState)
@@ -21,7 +21,13 @@ extension SceneDelegate: WCSessionDelegate {
     func sessionDidDeactivate(_ session: WCSession) {}
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-        // TODO: Check if state is populated
+        if self.store.state.locationState.nearestPlaces.isEmpty && self.store.state.locationState.popularPlaces.isEmpty {
+            do {
+                try await(self.store.dispatch(LoadState()))
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
         guard let typeString = message["type"] as? String, let type = AppleWatchMessage(rawValue: typeString) else { return }
         var replyMessage: [String: Any] = [:]
         switch type {
@@ -32,7 +38,7 @@ extension SceneDelegate: WCSessionDelegate {
             guard
                 let placeTypeString = message["place_type"] as? String,
                 let placeType = AppleWatchMessage.PlaceType(rawValue: placeTypeString)
-                else { return }
+            else { return }
             do {
                 switch placeType {
                 case .nearest:
@@ -46,8 +52,18 @@ extension SceneDelegate: WCSessionDelegate {
                 print(error.localizedDescription)
                 replyMessage["places"] = nil
             }
-        default:
-            print("ELSE")
+        case .getDetail:
+            let allPlaces = Set<GPPlace>(self.store.state.locationState.nearestPlaces + self.store.state.locationState.popularPlaces)
+            guard
+                let placeID = message["placeID"] as? String,
+                let place = allPlaces.first(where: { $0.placeID == placeID })
+            else { return }
+            do {
+                replyMessage["place_detail"] = try await(self.encodePlaceDetail(place))
+            } catch {
+                print(error.localizedDescription)
+                replyMessage["place_detail"] = nil
+            }
         }
         replyHandler(replyMessage)
     }
@@ -57,11 +73,10 @@ extension SceneDelegate: WCSessionDelegate {
             let promises = places.filter { place in
                 guard let index = places.firstIndex(of: place) else { return false }
                 return index < 10
-            }.map { self.mapPlace($0, maxPixels: 50.0) }
-            let encoder = JSONEncoder()
+            }.map { self.mapPlace($0, maxPixels: 50) }
             do {
                 let awPlaces = try await(all(promises))
-                let data = try encoder.encode(awPlaces)
+                let data = try JSONEncoder().encode(awPlaces)
                 print("payload size = \(data.count)")
                 if data.count > 65536 {
                     print("Possible WCErrorCodePayloadTooLarge ahead")
@@ -111,5 +126,24 @@ extension SceneDelegate: WCSessionDelegate {
             let image = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options as CFDictionary)
         else { return nil }
         return UIImage(cgImage: image).jpegData(compressionQuality: 1.0)
+    }
+    
+    private func encodePlaceDetail(_ place: GPPlace) -> Promise<Data> {
+        return Promise<Data>(in: .background) { resolve, reject, status in
+            do {
+                let awPlace = try await(self.mapPlace(place, maxPixels: 150))
+                let description = try await(WikipediaAPI.shared.search(searchTerms: place.name))
+                let awPlaceDetail = AWGPPlaceDetail(awPlace: awPlace, description: description)
+                let data = try JSONEncoder().encode(awPlaceDetail)
+                print("payload size = \(data.count)")
+                if data.count > 65536 {
+                    print("Possible WCErrorCodePayloadTooLarge ahead")
+                }
+                resolve(data)
+            } catch {
+                print(error.localizedDescription)
+                reject(error)
+            }
+        }
     }
 }

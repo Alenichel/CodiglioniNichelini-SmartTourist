@@ -18,11 +18,16 @@ struct PlaceRowView: View {
     
     var body: some View {
         HStack {
-            place.image?
+            if place.image != nil {
+                CircleImage(image: place.image!)
+                    .frame(width: 50, height: 50)
+                    .padding(EdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0))
+            }
+            /*place.image?
                 .resizable()
                 .frame(width: 50, height: 50)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
-                .padding(EdgeInsets(top: 3, leading: 0, bottom: 3, trailing: 0))
+                .padding(EdgeInsets(top: 3, leading: 0, bottom: 3, trailing: 0))*/
             Text(place.name)
         }
     }
