@@ -25,7 +25,7 @@ class ListCardView: UIView, ModellableView {
     var scrollView = UIScrollView()
     var attractionListView: CollectionView<AttractionCell, SimpleSource<AttractionCellViewModel>>!
     var emptyLabel = UILabel()
-    var mapButton = UIButton()
+    var mapButton = RoundedButton()
     
     // MARK: - Interactions
     var didTapItem: ((GPPlace) -> Void)?
@@ -60,6 +60,7 @@ class ListCardView: UIView, ModellableView {
             }
         }
         self.mapButton.isHidden = true
+        self.mapButton.setImage(UIImage(systemName: "map"), for: .normal)
         self.mapButton.on(.touchUpInside) {button in
             self.didTapMapButton?()
         }
@@ -86,7 +87,8 @@ class ListCardView: UIView, ModellableView {
         self.scrollView.backgroundColor = .systemBackground
         self.emptyLabel.textColor = .secondaryLabel
         self.emptyLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 0.9)
-        self.mapButton.setImage(UIImage(systemName: "map"), for: .normal)
+        self.mapButton.backgroundColor = .secondarySystemBackground
+        self.mapButton.tintColor = .secondaryLabel
     }
     
     override func layoutSubviews() {
@@ -94,7 +96,7 @@ class ListCardView: UIView, ModellableView {
         self.emptyLabel.sizeToFit()
         self.handle.pin.top(20).hCenter().height(5).width(40)
         self.chooser.pin.below(of: self.handle).marginTop(20).hCenter()
-        self.mapButton.pin.after(of: self.chooser, aligned: .center).size(50).marginLeft(10)
+        self.mapButton.pin.after(of: self.chooser, aligned: .center).size(32).marginLeft(15)
         self.scrollView.pin.below(of: self.chooser).marginTop(15).left().right().bottom()
         self.attractionListView.frame = self.scrollView.frame.bounds
         self.emptyLabel.pin.below(of: self.chooser, aligned: .center).marginTop(30)
