@@ -11,6 +11,7 @@ import GoogleMaps
 import GooglePlaces
 import Katana
 import Tempura
+import WatchConnectivity
 
 /// UNUserNotificationCenterDelegate let you send notifications and handle their callback actions
 /// It contains two optional methods:
@@ -19,12 +20,22 @@ import Tempura
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-
+    var store: Store<AppState, DependenciesContainer>!
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         GMSServices.provideAPIKey(GoogleAPI.apiKey)
         GMSPlacesClient.provideAPIKey(GoogleAPI.apiKey)
         NotificationManager.shared.setDelegate(self)
+        self.store = Store<AppState, DependenciesContainer>(interceptors: [
+            //DispatchableLogger.interceptor(),
+            PersistorInterceptor.interceptor()
+        ])
+        self.store.dispatch(LoadState())
+        if WCSession.isSupported() {
+            WCSession.default.delegate = self
+            WCSession.default.activate()
+        }
         return true
     }
 
@@ -92,5 +103,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         justVisitedPlaces.removeFirst(justVisitedPlaces.count - 1)
     }
 }
-
-

@@ -8,7 +8,6 @@
 import UIKit
 import UserNotifications
 import UserNotificationsUI
-import Alamofire
 import PinLayout
 
 class NotificationViewController: UIViewController, UNNotificationContentExtension {

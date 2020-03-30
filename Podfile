@@ -33,7 +33,9 @@ end
 target 'PictureNotification' do
   use_frameworks!
   pod 'PinLayout'
-  pod 'HydraAsync'
+end
+
+target 'SmartTouristAppleWatch' do
+  use_frameworks!
   pod 'GoogleMaps'
-  pod 'Alamofire', '~> 5.0.0-rc.3'
 end

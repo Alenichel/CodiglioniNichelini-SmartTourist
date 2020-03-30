@@ -30,7 +30,6 @@ DEPENDENCIES:
   - Fuse
   - GoogleMaps
   - GooglePlaces
-  - HydraAsync
   - ImageSlideshow (~> 1.8.3)
   - Katana
   - MarqueeLabel
@@ -68,6 +67,6 @@ SPEC CHECKSUMS:
   PinLayout: e41a50260a76508b7a7fcee8955c76639adc69bc
   Tempura: adc54766491f97980bcdb3dff82a92076ed825e2
 
-PODFILE CHECKSUM: 08bb431b04c232053ada7b3105633c96fc163764
+PODFILE CHECKSUM: f0228374d569b3963b3ef0732182a13a2dddc955
 
 COCOAPODS: 1.9.1

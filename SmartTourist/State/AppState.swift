@@ -23,6 +23,7 @@ struct AppState: State, Codable {
     enum CodingKeys: CodingKey {
         case favorites
         case settings
+        case locationState
     }
     
     /// The path where to persist the state
@@ -35,7 +36,7 @@ struct AppState: State, Codable {
 
 
 /// The part of the state concerning location
-struct LocationState {
+struct LocationState: Codable {
     /// The actual location of the user
     var actualLocation: CLLocationCoordinate2D?
     
@@ -72,6 +73,12 @@ struct LocationState {
     private static var initDate: Date {
         Date().advanced(by: TimeInterval(-60))
     }
+    
+    enum CodingKeys: CodingKey {
+        case nearestPlaces
+        case popularPlaces
+        case currentCity
+    }
 }
 
 
@@ -83,7 +90,7 @@ struct Settings: Codable {
 
 
 /// The part of the state cencerning pedometer results
-struct PedometerState {
+struct PedometerState: Codable {
     var averageWalkingSpeed: Double {   // m/s
         didSet {
             self.littleCircleRadius = self.averageWalkingSpeed * PedometerHandler.littleCircleTimeRadius
