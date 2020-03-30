@@ -22,8 +22,7 @@ struct WorldwideFavoritesViewModel: ViewModelWithState {
 
 class WorldwideFavoritesView: UIView, ViewControllerModellableView {
     var mapView = GMSMapView(frame: .zero)
-    var barView = UIView()
-    var closeButton = UIButton(type: .system)
+    var closeButton = UIButton(type: .custom)
     var markerPool : GMSMarkerPool!
     
     var didTapCloseButton: (()->())?
@@ -32,26 +31,26 @@ class WorldwideFavoritesView: UIView, ViewControllerModellableView {
         self.markerPool = GMSMarkerPool(mapView: self.mapView)
         self.mapView.settings.compassButton = true
         self.mapView.settings.tiltGestures = false
+        self.closeButton.tintColor = .secondaryLabel
+        self.closeButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
         self.closeButton.on(.touchUpInside){ button in
             self.didTapCloseButton?()
         }
         self.addSubview(self.mapView)
-        self.addSubview(self.barView)
         self.addSubview(self.closeButton)
     }
     
     func style() {
         self.mapView.loadCustomStyle()
-        self.closeButton.setTitle("Close", for: .normal)
-        self.closeButton.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.systemFontSize + 4)
-        self.barView.backgroundColor = .systemBackground
+        self.backgroundColor = .systemBackground
+        self.closeButton.contentVerticalAlignment = .fill
+        self.closeButton.contentHorizontalAlignment = .fill
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.barView.pin.left().right().height(50)
-        self.mapView.pin.below(of: barView).right().left().bottom()
-        self.closeButton.pin.topRight(10).sizeToFit()//.marginTop(10).marginRight(10)
+        self.mapView.pin.top(50).right().left().bottom()
+        self.closeButton.pin.topRight(12.5).size(25)
     }
     
     func update(oldModel: WorldwideFavoritesViewModel?){
