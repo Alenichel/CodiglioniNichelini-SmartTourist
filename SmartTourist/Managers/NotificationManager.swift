@@ -105,7 +105,7 @@ class NotificationManager {
             let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
             let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
             resolve(UNNotificationRequest(identifier: self.identifier, content: content, trigger: trigger))
-        }.then { request in
+        }.then(in: .utility) { request in
             self.nc.add(request)
         }
     }

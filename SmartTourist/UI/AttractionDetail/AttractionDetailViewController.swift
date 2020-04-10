@@ -24,8 +24,9 @@ class AttractionDetailViewController: ViewControllerWithLocalState<AttractionDet
                 self.dispatch(AddFavorite(place: place))
             }
         }
-        self.rootView.didLoadEverything = { [unowned self] in
-            self.localState.allLoaded = true
+        self.rootView.didLoadEverything = { [weak self] in
+            guard let instance = self else { return }
+            instance.localState.allLoaded = true
         }
         self.rootView.didTapDirectionButton = { location, place in
             let url = GoogleAPI.shared.buildDirectionURL(origin: location!, destination: place!.location, destinationPlaceId: place!.placeID)

@@ -68,7 +68,7 @@ class GPPlace: Codable, Equatable, Hashable, Comparable {
         self.rating = try container.decodeIfPresent(Double.self, forKey: .rating)
         self.userRatingsTotal = try container.decodeIfPresent(Int.self, forKey: .userRatingsTotal)
         self.city = try container.decodeIfPresent(String.self, forKey: .city)
-        GoogleAPI.shared.getPlaceDetailsPhotos(placeID: self.placeID).then { photos in
+        GoogleAPI.shared.getPlaceDetailsPhotos(placeID: self.placeID).then(in: .utility) { photos in
             if self.photos != nil {
                 self.photos = Array<GPPhoto>(Set<GPPhoto>(self.photos!).union(Set<GPPhoto>(photos)))
             } else {

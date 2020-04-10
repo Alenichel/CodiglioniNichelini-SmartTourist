@@ -22,16 +22,14 @@ class PromiseImageSource: InputSource {
             imageView.image = image
             callback(image)
         } else {
-            promise.then { image in
+            promise.then(in: .utility) { image in
                 self.image = image
-            }.catch { error in
+            }.catch(in: .utility) { error in
                 print(error.localizedDescription)
                 self.image = nil
-            }.always {
-                DispatchQueue.main.async {
-                    imageView.image = self.image
-                    callback(self.image)
-                }
+            }.always(in: .main) {
+                imageView.image = self.image
+                callback(self.image)
             }
         }
     }

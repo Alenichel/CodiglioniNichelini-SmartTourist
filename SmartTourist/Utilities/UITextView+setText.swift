@@ -10,7 +10,7 @@ import UIKit
 
 extension UITextView {
     func setText(searchTerms: String, completion: @escaping () -> Void) {
-        WikipediaAPI.shared.search(searchTerms: searchTerms).then { description in
+        WikipediaAPI.shared.search(searchTerms: searchTerms).then(in: .main) { description in
             self.text = description
             completion()
         }

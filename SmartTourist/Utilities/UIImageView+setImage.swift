@@ -12,7 +12,7 @@ import UIKit
 extension UIImageView {
     func setImage(_ photo: GPPhoto?){
         guard let photo = photo else { return }
-        GoogleAPI.shared.getPhoto(photo).then { image in
+        GoogleAPI.shared.getPhoto(photo).then(in: .main) { image in
             self.image = image
         }
     }

@@ -194,7 +194,7 @@ class GoogleAPI {
     }
     
     func getTravelTime(origin: CLLocationCoordinate2D, destination: CLLocationCoordinate2D) -> Promise<String> {
-        return Promise<String>(in: .background){ resolve, reject, status in
+        return Promise<String>(in: .background) { resolve, reject, status in
             let parameters = [
                 "language": "en",
                 "origin" : "\(origin.latitude),\(origin.longitude)",
