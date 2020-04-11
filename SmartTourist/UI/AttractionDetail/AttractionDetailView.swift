@@ -172,7 +172,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         if !model.allLoaded {
             let imagePromises = model.photos.map { GoogleAPI.shared.getPhoto($0) }
             self.imageSlideshow.setImageInputs(imagePromises.map { PromiseImageSource($0) })
-            self.descriptionText.setText(searchTerms: model.wikipediaSearchTerms) {
+            self.descriptionText.setText(coordinates: model.attraction.location, searchTerms: model.wikipediaSearchTerms) {
                 self.didLoadEverything?()
             }
         }

@@ -1537,7 +1537,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SM32T6M59X;
+				DEVELOPMENT_TEAM = 3E65HHUN9M;
 				INFOPLIST_FILE = SmartTourist/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1665,7 +1665,7 @@
 			baseConfigurationReference = 864666DF532B8752C2B28FD3 /* Pods-PictureNotification.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SM32T6M59X;
+				DEVELOPMENT_TEAM = 3E65HHUN9M;
 				INFOPLIST_FILE = PictureNotification/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1709,7 +1709,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = SM32T6M59X;
+				DEVELOPMENT_TEAM = 3E65HHUN9M;
 				IBSC_MODULE = SmartTouristAppleWatch_Extension;
 				INFOPLIST_FILE = SmartTouristAppleWatch/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = com.anfc.SmartTourist.watchkitapp;
@@ -1748,7 +1748,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"SmartTouristAppleWatch Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = SM32T6M59X;
+				DEVELOPMENT_TEAM = 3E65HHUN9M;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "SmartTouristAppleWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (

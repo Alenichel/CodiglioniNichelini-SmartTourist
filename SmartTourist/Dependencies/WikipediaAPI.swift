@@ -42,28 +42,30 @@ class WikipediaAPI {
     }
     
     
-    func getArticleNameFromNearbyArticles(coordinates: CLLocationCoordinate2D, searchTerms: String) -> Promise<String> {
+    func getDescriptionFromNearbyArticles(coordinates: CLLocationCoordinate2D, searchTerms: String) -> Promise<String> {
         return Promise<String>(in: .background) { resolve, reject, status in
             let _ = Wikipedia.shared.requestNearbyResults(language: self.language, latitude: Double(coordinates.latitude), longitude: Double(coordinates.longitude), maxCount: 50) { (articlePreviews, resultsLanguage, error) in
                 guard error == nil else { return }
                 guard let articlePreviews = articlePreviews else { return }
                 
-                let fuse = Fuse()
+                let fuse = Fuse(threshold: 1)
                 
                 let titles = articlePreviews.map{article -> String in
-                    print(article.title)
+                    //print(article.title)
                     return article.title
                 }
                 let results = fuse.search(searchTerms, in: titles).sorted(by: {
-                    $0.score > $1.score
+                    $0.score < $1.score
                 })
 
-                results.forEach { item in
+                /*results.forEach { item in
                     print("index: " + String(item.index))
                     print("score: " + String(item.score))
-                }
+                }*/
                 
-                resolve(titles[results.first!.index])
+                self.search(searchTerms: titles[results.first!.index]).then(in: .utility){ description in
+                    resolve(description)
+                }
             }
         }
     }
