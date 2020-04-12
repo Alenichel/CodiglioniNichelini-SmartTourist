@@ -19,17 +19,16 @@ extension UILabel {
             self.text = description
             completion()
         }*/
-        WikipediaAPI.shared.getDescriptionFromNearbyArticles(coordinates: coordinates, searchTerms: searchTerms).then(in: .main){ description in
+        WikipediaAPI.shared.getDescriptionFromNearbyArticles(coordinates: coordinates, searchTerms: searchTerms).then(in: .main) { description in
             self.text = description
         }.always {
             completion()
         }
     }
     
-    func setText(actualLocation: CLLocationCoordinate2D, attraction: GPPlace, completion: @escaping () -> Void) {
+    func setText(actualLocation: CLLocationCoordinate2D, attraction: GPPlace) {
         GoogleAPI.shared.getTravelTime(origin:  actualLocation, destination: attraction.location).then(in: .main) { travelTime in
             self.text = travelTime
         }
-        completion()
     }
 }

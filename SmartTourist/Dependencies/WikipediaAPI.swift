@@ -45,8 +45,10 @@ class WikipediaAPI {
     func getDescriptionFromNearbyArticles(coordinates: CLLocationCoordinate2D, searchTerms: String) -> Promise<String> {
         return Promise<String>(in: .background) { resolve, reject, status in
             let _ = Wikipedia.shared.requestNearbyResults(language: self.language, latitude: Double(coordinates.latitude), longitude: Double(coordinates.longitude), maxCount: 50) { (articlePreviews, resultsLanguage, error) in
-                guard error == nil else { return }
-                guard let articlePreviews = articlePreviews else { return }
+                guard error == nil, let articlePreviews = articlePreviews else {
+                    reject(UnknownApiError())
+                    return
+                }
                 
                 let fuse = Fuse(threshold: 1)
                 
@@ -63,7 +65,7 @@ class WikipediaAPI {
                     print("score: " + String(item.score))
                 }*/
                 
-                self.search(searchTerms: titles[results.first!.index]).then(in: .utility){ description in
+                self.search(searchTerms: titles[results.first!.index]).then(in: .utility) { description in
                     resolve(description)
                 }
             }

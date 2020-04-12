@@ -197,7 +197,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
             self.curtainView.removeFromSuperview()
         }
         
-        self.timeLabel.setText(actualLocation: model.currentLocation, attraction: model.attraction){}
+        self.timeLabel.setText(actualLocation: model.currentLocation, attraction: model.attraction)
         if self.timeLabel.text == "Unavailable" {
             self.directionButton.isEnabled = false
         } else {
