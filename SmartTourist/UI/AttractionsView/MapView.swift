@@ -164,7 +164,12 @@ class MapView: UIView, ViewControllerModellableView {
         guard let model = self.model else { return }
         let listCardViewModel = ListCardViewModel(currentLocation: model.location, places: model.places, favorites: model.favorites, selectedSegmentedIndex: model.selectedSegmentedIndex)
         self.listCardView.model = listCardViewModel
-        self.locationButton.setImage(UIImage(systemName: model.mapCentered ? "location.fill" : "location"), for: .normal)
+        if model.actualLocation == nil {
+            self.locationButton.setImage(UIImage(systemName: "location"), for: .normal)
+            self.locationButton.isEnabled = false
+        } else {
+            self.locationButton.setImage(UIImage(systemName: model.mapCentered ? "location.fill" : "location"), for: .normal)
+        }
         if let location = model.location {
             self.mapView.isMyLocationEnabled = true
             self.locationMarker.position = location

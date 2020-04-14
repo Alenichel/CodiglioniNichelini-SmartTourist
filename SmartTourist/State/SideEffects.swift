@@ -49,13 +49,15 @@ struct GetNearestPlaces: SideEffect {
     
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
         guard let currentLocation = context.getState().locationState.currentLocation else { return }
-        guard let actualLocation = context.getState().locationState.actualLocation else { return }
         if !self.throttle || context.getState().locationState.nearestPlacesLastUpdate.distance(to: Date()) > GoogleAPI.apiThrottleTime {
             context.dispatch(SetNearestPlacesLastUpdate(lastUpdate: Date()))
             async(in: .background) { _ -> [GPPlace] in
-                let currentPlaces = try await(context.dependencies.googleAPI.getNearbyPlaces(location: currentLocation))
-                let actualPlaces = try await(context.dependencies.googleAPI.getNearbyPlaces(location: actualLocation))
-                return Array(Set(currentPlaces + actualPlaces)).sorted(by: { $0.distance(from: currentLocation) < $1.distance(from: currentLocation) })
+                var places = try await(context.dependencies.googleAPI.getNearbyPlaces(location: currentLocation))
+                if let actualLocation = context.getState().locationState.actualLocation {
+                    let actualPlaces = try await(context.dependencies.googleAPI.getNearbyPlaces(location: actualLocation))
+                    places = Array(Set(places + actualPlaces))
+                }
+                return places.sorted(by: { $0.distance(from: currentLocation) < $1.distance(from: currentLocation) })
             }.then(in: .utility) { places in
                 context.dispatch(SetNearestPlaces(places: places.blacklisted))
             }.catch(in: .utility) { error in
