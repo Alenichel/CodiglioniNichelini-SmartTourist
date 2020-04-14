@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSMotionUsageDescription</key>
-	<string>The app needs the user motion to offer motion-sensistive content</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -28,6 +26,8 @@
 	<string>The apps needs the user location to offer location-sensitive content.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>The apps needs the user location to offer location-sensitive content.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>The app needs the user motion to offer motion-sensistive content</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

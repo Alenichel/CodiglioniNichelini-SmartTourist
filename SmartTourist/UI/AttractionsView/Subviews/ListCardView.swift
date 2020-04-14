@@ -59,6 +59,7 @@ class ListCardView: UIView, ModellableView {
                 cell.backgroundColor = .systemBackground
             }
         }
+        self.attractionListView.isScrollEnabled = false
         self.mapButton.isHidden = true
         self.mapButton.setImage(UIImage(systemName: "map"), for: .normal)
         self.mapButton.on(.touchUpInside) {button in

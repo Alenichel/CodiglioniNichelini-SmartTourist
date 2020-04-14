@@ -72,7 +72,6 @@ class MapView: UIView, ViewControllerModellableView {
     var didMoveMap: Interaction?
     
     // Animator-related
-    // TODO
     private var panGestureRecognizer: UIPanGestureRecognizer!
     private var cardState: CardState = .collapsed
     private var animator: UIViewPropertyAnimator?
@@ -108,6 +107,7 @@ class MapView: UIView, ViewControllerModellableView {
         self.listCardView.style()
         self.panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan))
         self.addGestureRecognizer(self.panGestureRecognizer)
+        self.panGestureRecognizer.delegate = self
     }
     
     // MARK: Style
@@ -295,6 +295,7 @@ class MapView: UIView, ViewControllerModellableView {
                     self.cardState = .expanded
                     self.panGestureRecognizer.isEnabled = true
                     self.layoutMapView(targetPercent: self.cardState.rawValue%)
+                    self.listCardView.attractionListView.isScrollEnabled = true
                 }
             } else {
                 self.animator?.isReversed = true
@@ -302,6 +303,7 @@ class MapView: UIView, ViewControllerModellableView {
                     self.cardState = .collapsed
                     self.panGestureRecognizer.isEnabled = true
                     self.layoutMapView(targetPercent: self.cardState.rawValue%)
+                    self.listCardView.attractionListView.isScrollEnabled = false
                 }
             }
         case .expanded:
@@ -311,6 +313,7 @@ class MapView: UIView, ViewControllerModellableView {
                     self.cardState = .collapsed
                     self.panGestureRecognizer.isEnabled = true
                     self.layoutMapView(targetPercent: self.cardState.rawValue%)
+                    self.listCardView.attractionListView.isScrollEnabled = false
                 }
             } else {
                 self.animator?.isReversed = true
@@ -318,11 +321,30 @@ class MapView: UIView, ViewControllerModellableView {
                     self.cardState = .expanded
                     self.panGestureRecognizer.isEnabled = true
                     self.layoutMapView(targetPercent: self.cardState.rawValue%)
+                    self.listCardView.attractionListView.isScrollEnabled = true
                 }
             }
         }
         let velocityVector = CGVector(dx: velocity.x / 100, dy: velocity.y / 100)
         let springParameters = UISpringTimingParameters(dampingRatio: 0.8, initialVelocity: velocityVector)
         self.animator?.continueAnimation(withTimingParameters: springParameters, durationFactor: 1.0)
+    }
+}
+
+
+extension MapView: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if self.cardState == .collapsed {
+            self.listCardView.attractionListView.isScrollEnabled = false
+        } else {
+            let panGestureRecognizer = gestureRecognizer as! UIPanGestureRecognizer
+            if panGestureRecognizer.velocity(in: self).y > 0 && self.listCardView.attractionListView.contentOffset.y <= 0 {
+                self.listCardView.attractionListView.isScrollEnabled = false
+                return true
+            } else {
+                self.listCardView.attractionListView.isScrollEnabled = true
+            }
+        }
+        return false
     }
 }
