@@ -77,6 +77,8 @@ class MapView: UIView, ViewControllerModellableView {
     private var animator: UIViewPropertyAnimator?
     private var firstLayout = true
     
+    private static let zoomThreshold: Float = 9
+    
     // MARK: Setup
     func setup() {
         self.mapView = GMSMapView(frame: .zero)
@@ -135,9 +137,9 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Layout subviews
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.cityNameButton.sizeToFit()
         self.topBlurEffect.pin.top().left().right().bottom(94.5%)
-        self.cityNameButton.pin.below(of: self.topBlurEffect).left(10)
+        let showCityNameButton = self.mapView.camera.zoom >= MapView.zoomThreshold
+        self.cityNameButton.pin.below(of: self.topBlurEffect).left(showCityNameButton ? 10 : -20).sizeToFit()
         self.searchButton.pin.right(of: self.cityNameButton, aligned: .center).margin(2%).size(40)
         if self.firstLayout {
             self.layoutCardView(targetPercent: CardState.collapsed.rawValue%, layoutMap: true)
@@ -160,13 +162,6 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Update
     func update(oldModel: AttractionsViewModel?) {
         guard let model = self.model else { return }
-        if self.mapView.camera.zoom >= 9 {
-            self.markerPool.setMarkers(places: model.places)
-            self.cityNameButton.isHidden = false
-        } else {
-            self.markerPool.setMarkers(places: [])
-            self.cityNameButton.isHidden = true
-        }
         let listCardViewModel = ListCardViewModel(currentLocation: model.location, places: model.places, favorites: model.favorites, selectedSegmentedIndex: model.selectedSegmentedIndex)
         self.listCardView.model = listCardViewModel
         self.locationButton.setImage(UIImage(systemName: model.mapCentered ? "location.fill" : "location"), for: .normal)
@@ -198,10 +193,16 @@ class MapView: UIView, ViewControllerModellableView {
             self.littleCircle.map = self.mapView
             self.bigCircle.map = self.mapView
         }
-        if let city = model.city {
-            self.cityNameButton.setTitle(city, for: .normal)
+        if self.mapView.camera.zoom >= MapView.zoomThreshold {
+            self.markerPool.setMarkers(places: model.places)
+            if let city = model.city {
+                self.cityNameButton.setTitle(city, for: .normal)
+            } else {
+                self.cityNameButton.setTitle("SmartTourist", for: .normal)
+            }
         } else {
-            self.cityNameButton.setTitle("SmartTourist", for: .normal)
+            self.markerPool.setMarkers(places: [])
+            self.cityNameButton.setTitle(nil, for: .normal)
         }
         self.setNeedsLayout()
     }
