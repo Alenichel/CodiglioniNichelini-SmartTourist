@@ -89,6 +89,7 @@
 		E590A962242CCA7200C0F0D5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E590A961242CCA7200C0F0D5 /* Preview Assets.xcassets */; };
 		E590A966242CCA7200C0F0D5 /* SmartTouristAppleWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = E590A947242CCA6800C0F0D5 /* SmartTouristAppleWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E590A97A242CE1FD00C0F0D5 /* WCSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590A979242CE1FD00C0F0D5 /* WCSessionDelegate.swift */; };
+		E590FAE42445FCA300A3DD87 /* String+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590FAE32445FCA300A3DD87 /* String+UIImage.swift */; };
 		E592B82224140FCF00AD46F8 /* UILabel+setText.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592B82124140FCF00AD46F8 /* UILabel+setText.swift */; };
 		E5A7B057242F93640001869A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7B056242F93640001869A /* LoadingView.swift */; };
 		E5A7B059242F960A0001869A /* PlaceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7B058242F960A0001869A /* PlaceDetailView.swift */; };
@@ -294,6 +295,7 @@
 		E590A961242CCA7200C0F0D5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		E590A963242CCA7200C0F0D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E590A979242CE1FD00C0F0D5 /* WCSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCSessionDelegate.swift; sourceTree = "<group>"; };
+		E590FAE32445FCA300A3DD87 /* String+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UIImage.swift"; sourceTree = "<group>"; };
 		E592B82124140FCF00AD46F8 /* UILabel+setText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+setText.swift"; sourceTree = "<group>"; };
 		E5A7B056242F93640001869A /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		E5A7B058242F960A0001869A /* PlaceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailView.swift; sourceTree = "<group>"; };
@@ -682,6 +684,7 @@
 				99EC7D6C241FC0890065FDE9 /* String+emoji.swift */,
 				E5F9715B2392D96E0096C296 /* String+Height.swift */,
 				E5F971532392D96E0096C296 /* String+Random.swift */,
+				E590FAE32445FCA300A3DD87 /* String+UIImage.swift */,
 				E5F971522392D96E0096C296 /* UIControl+TargetActionable.swift */,
 				E5628B502394224F00A61676 /* UIImage+Color.swift */,
 				99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */,
@@ -1173,6 +1176,7 @@
 				99F5A11923995D9E0056E68D /* UIImageView+setImage.swift in Sources */,
 				E590A97A242CE1FD00C0F0D5 /* WCSessionDelegate.swift in Sources */,
 				E54958FC241F5BAD00D643F1 /* SettingStringCell.swift in Sources */,
+				E590FAE42445FCA300A3DD87 /* String+UIImage.swift in Sources */,
 				E5F9715D2392D96F0096C296 /* String+Random.swift in Sources */,
 				E5335D052389946C00601F02 /* AttractionsViewController.swift in Sources */,
 				E56167C42428989B0064B2E8 /* GMSMapVIew+adaptToPlaces.swift in Sources */,

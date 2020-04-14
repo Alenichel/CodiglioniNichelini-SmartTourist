@@ -9,6 +9,7 @@ import UIKit
 import Tempura
 import PinLayout
 import GoogleMaps
+import MapKit
 
 
 struct AttractionsViewModel: ViewModelWithLocalState {
@@ -78,6 +79,11 @@ class MapView: UIView, ViewControllerModellableView {
     private var firstLayout = true
     
     private static let zoomThreshold: Float = 9
+    private static let distanceFormatter: MKDistanceFormatter = {
+        let formatter = MKDistanceFormatter()
+        formatter.units = .metric
+        return formatter
+    }()
     
     // MARK: Setup
     func setup() {
@@ -169,6 +175,7 @@ class MapView: UIView, ViewControllerModellableView {
             self.locationButton.isEnabled = false
         } else {
             self.locationButton.setImage(UIImage(systemName: model.mapCentered ? "location.fill" : "location"), for: .normal)
+            self.locationButton.isEnabled = true
         }
         if let location = model.location {
             self.mapView.isMyLocationEnabled = true
@@ -189,14 +196,17 @@ class MapView: UIView, ViewControllerModellableView {
             }
         }
         if let actualLocation = model.actualLocation {
-            self.littleCircle.position = actualLocation
-            self.littleCircle.radius = model.littleCircleRadius
-            self.bigCircle.position = actualLocation
-            self.bigCircle.radius = model.bigCircleRadius
-            self.littleCircle.strokeColor = .label
-            self.bigCircle.strokeColor = .label
-            self.littleCircle.map = self.mapView
-            self.bigCircle.map = self.mapView
+            [self.littleCircle, self.bigCircle].forEach { circle in
+                circle.position = actualLocation
+                circle.radius = circle == self.littleCircle ? model.littleCircleRadius : model.bigCircleRadius
+                circle.strokeColor = .label
+                circle.map = self.mapView
+                let text = MapView.distanceFormatter.string(fromDistance: circle.radius)
+                let position = actualLocation.offset(circle.radius + 10)
+                let overlay = GMSGroundOverlay(position: position, icon: text.image, zoomLevel: 15)
+                overlay.bearing = 0
+                overlay.map = self.mapView
+            }
         }
         if self.mapView.camera.zoom >= MapView.zoomThreshold {
             self.markerPool.setMarkers(places: model.places)
