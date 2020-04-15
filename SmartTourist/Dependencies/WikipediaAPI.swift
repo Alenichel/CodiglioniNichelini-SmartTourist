@@ -59,6 +59,11 @@ class WikipediaAPI {
                 let results = fuse.search(searchTerms, in: titles).sorted(by: {
                     $0.score < $1.score
                 })
+                
+                guard results.count > 0 else {
+                    reject(UnknownApiError())
+                    return
+                }
 
                 /*results.forEach { item in
                     print("index: " + String(item.index))
@@ -67,6 +72,8 @@ class WikipediaAPI {
                 
                 self.search(searchTerms: titles[results.first!.index]).then(in: .utility) { description in
                     resolve(description)
+                }.catch(in: .utility) { error in
+                    reject(error)
                 }
             }
         }
