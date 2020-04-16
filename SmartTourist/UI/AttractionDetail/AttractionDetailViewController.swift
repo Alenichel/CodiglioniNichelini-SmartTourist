@@ -52,6 +52,7 @@ extension AttractionDetailViewController: RoutableWithConfiguration {
             .show(Screen.safari): .presentModally { [unowned self] context in
                 let vc = SFSafariViewController(url: context as! URL)
                 vc.delegate = self
+                vc.dismissButtonStyle = .close
                 return vc
             },
         ]
