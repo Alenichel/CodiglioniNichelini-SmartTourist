@@ -14,6 +14,7 @@ import CoreLocation
 import GoogleMaps
 import ImageSlideshow
 
+
 struct AttractionDetailViewModel: ViewModelWithLocalState {
     let attraction: GPPlace
     let photos: [GPPhoto]
@@ -72,7 +73,6 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     var didTapDirectionButton: (( CLLocationCoordinate2D?, GPPlace?) -> Void)?
     var didTapLinkButton: ((String?) -> Void)?
 
-    
     func setup() {
         self.addSubview(self.scrollView)
         self.addSubview(self.curtainView)

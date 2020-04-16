@@ -69,7 +69,6 @@ class WikipediaAPI {
                     print("index: " + String(item.index))
                     print("score: " + String(item.score))
                 }*/
-            
                 
                 self.search(searchTerms: titles[results.first!.index]).then(in: .utility) { description in
                     resolve(description)

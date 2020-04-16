@@ -79,11 +79,6 @@ class MapView: UIView, ViewControllerModellableView {
     private var firstLayout = true
     
     private static let zoomThreshold: Float = 9
-    private static let distanceFormatter: MKDistanceFormatter = {
-        let formatter = MKDistanceFormatter()
-        formatter.units = .metric
-        return formatter
-    }()
     
     // MARK: Setup
     func setup() {
@@ -201,7 +196,7 @@ class MapView: UIView, ViewControllerModellableView {
                 circle.radius = circle == self.littleCircle ? model.littleCircleRadius : model.bigCircleRadius
                 circle.strokeColor = .label
                 circle.map = self.mapView
-                let text = MapView.distanceFormatter.string(fromDistance: circle.radius)
+                let text = circle == self.littleCircle ? "5 min" : "15 min"
                 let position = actualLocation.offset(circle.radius + 10)
                 let overlay = GMSGroundOverlay(position: position, icon: text.image, zoomLevel: 15)
                 overlay.bearing = 0
