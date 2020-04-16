@@ -50,7 +50,7 @@ class WikipediaAPI {
                     return
                 }
                 
-                let fuse = Fuse(threshold: 1)
+                let fuse = Fuse(threshold: 0.5)
                 
                 let titles = articlePreviews.map{article -> String in
                     //print(article.title)
@@ -61,7 +61,7 @@ class WikipediaAPI {
                 })
                 
                 guard results.count > 0 else {
-                    reject(UnknownApiError())
+                    resolve("No description available")
                     return
                 }
 
@@ -69,10 +69,7 @@ class WikipediaAPI {
                     print("index: " + String(item.index))
                     print("score: " + String(item.score))
                 }*/
-                
-                if results.first!.score > 0.5 {
-                    resolve("No description avaiable")
-                }
+            
                 
                 self.search(searchTerms: titles[results.first!.index]).then(in: .utility) { description in
                     resolve(description)
