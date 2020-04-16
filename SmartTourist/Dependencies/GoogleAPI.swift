@@ -116,12 +116,12 @@ class GoogleAPI {
         }
     }
     
-    func getPlaceDetailsPhotos(placeID: String) -> Promise<[GPPhoto]> {
-        return Promise<[GPPhoto]>(in: .background) { resolve, reject, status in
+    func getPlaceDetails(placeID: String) -> Promise<GPPlaceDetailResultsResponse> {
+        return Promise<GPPlaceDetailResultsResponse>(in: .background) { resolve, reject, status in
             let parameters = [
                 "key": GoogleAPI.apiKey,
                 "place_id": placeID,
-                "fields": "photos"
+                "fields": "photos,website"
             ]
             AF.request("https://maps.googleapis.com/maps/api/place/details/json", parameters: parameters).response { response in
                 switch response.result {
@@ -131,11 +131,7 @@ class GoogleAPI {
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     do {
                         let gpResponse = try decoder.decode(GPPlaceDetailResponse.self, from: data)
-                        if let photos = gpResponse.result.photos {
-                            resolve(photos)
-                        } else {
-                            reject(UnknownApiError())
-                        }
+                        resolve(gpResponse.result)
                     } catch {
                         print(error.localizedDescription)
                         reject(error)

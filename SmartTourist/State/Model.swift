@@ -28,9 +28,11 @@ struct GPPlaceDetailResponse: Decodable {
 
 struct GPPlaceDetailResultsResponse: Decodable {
     let photos: [GPPhoto]?
+    let website: String?
     
     enum CodingKeys: CodingKey {
         case photos
+        case website
     }
 }
 
@@ -43,6 +45,7 @@ class GPPlace: Codable, Equatable, Hashable, Comparable {
     var photos: [GPPhoto]?
     let rating: Double?
     let userRatingsTotal: Int?
+    var website: String?
     
     enum CodingKeys: CodingKey {
         case geometry
@@ -52,6 +55,7 @@ class GPPlace: Codable, Equatable, Hashable, Comparable {
         case rating
         case userRatingsTotal
         case city
+        case website
         
         enum LocationKeys: CodingKey {
             case location
@@ -68,11 +72,15 @@ class GPPlace: Codable, Equatable, Hashable, Comparable {
         self.rating = try container.decodeIfPresent(Double.self, forKey: .rating)
         self.userRatingsTotal = try container.decodeIfPresent(Int.self, forKey: .userRatingsTotal)
         self.city = try container.decodeIfPresent(String.self, forKey: .city)
-        GoogleAPI.shared.getPlaceDetailsPhotos(placeID: self.placeID).then(in: .utility) { photos in
-            if self.photos != nil {
-                self.photos = Array<GPPhoto>(Set<GPPhoto>(self.photos!).union(Set<GPPhoto>(photos)))
-            } else {
-                self.photos = photos
+        self.website = try container.decodeIfPresent(String.self, forKey: .website)
+        if self.photos == nil || (self.photos != nil && self.photos!.count < 2) || self.website == nil {
+            GoogleAPI.shared.getPlaceDetails(placeID: self.placeID).then(in: .utility) { result in
+                if let photos = result.photos {
+                    self.photos = Array<GPPhoto>(Set<GPPhoto>(self.photos!).union(Set<GPPhoto>(photos)))
+                }
+                if let website = result.website {
+                    self.website = website
+                }
             }
         }
     }
@@ -87,6 +95,7 @@ class GPPlace: Codable, Equatable, Hashable, Comparable {
         try container.encodeIfPresent(self.rating, forKey: .rating)
         try container.encodeIfPresent(self.userRatingsTotal, forKey: .userRatingsTotal)
         try container.encodeIfPresent(self.city, forKey: .city)
+        try container.encodeIfPresent(self.website, forKey: .website)
     }
     
     func distance(from: GPPlace) -> Int {
