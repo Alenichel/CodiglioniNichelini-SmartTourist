@@ -201,7 +201,7 @@ class MapView: UIView, ViewControllerModellableView {
                 circle.radius = circle == self.littleCircle ? model.littleCircleRadius : model.bigCircleRadius
                 circle.strokeColor = .label
                 circle.map = self.mapView
-                let text = MapView.distanceFormatter.string(fromDistance: circle.radius)
+                let text = circle.isEqual(littleCircle) ? "5 minutes" : "15 minutes"
                 let position = actualLocation.offset(circle.radius + 10)
                 let overlay = GMSGroundOverlay(position: position, icon: text.image, zoomLevel: 15)
                 overlay.bearing = 0
