@@ -14,7 +14,6 @@ import CoreLocation
 import GoogleMaps
 import ImageSlideshow
 
-
 struct AttractionDetailViewModel: ViewModelWithLocalState {
     let attraction: GPPlace
     let photos: [GPPhoto]
@@ -23,6 +22,7 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
     let currentLocation: CLLocationCoordinate2D
     let favorite: Bool
     let allLoaded: Bool
+    let link: String?
     
     init?(state: AppState?, localState: AttractionDetailLocalState) {
         guard let state = state else { return nil }
@@ -41,6 +41,7 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
         self.currentLocation = state.locationState.currentLocation!
         self.favorite = state.favorites.contains(attraction)
         self.allLoaded = localState.allLoaded
+        self.link = localState.attraction.website
     }
 }
 
@@ -49,6 +50,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     private static let isFavoriteImage = UIImage(systemName: "heart.fill")
     private static let isNotFavoriteImage = UIImage(systemName: "heart")
     private static let walkingIconImage = UIImage(named: "walking_icon")?.withRenderingMode(.alwaysTemplate)
+    private static let linkImage = UIImage(systemName: "link")
     
     var descriptionText = UILabel()
     var nRatingsLabel = UILabel()
@@ -62,11 +64,13 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     var curtainView = UIView()
     var activityIndicator = UIActivityIndicatorView()
     var directionButton = RoundedButton()
+    var linkButton = RoundedButton()
     var timeLabel = UILabel()
     
     var didTapFavoriteButton: ((GPPlace) -> Void)?
     var didLoadEverything: Interaction?
     var didTapDirectionButton: (( CLLocationCoordinate2D?, GPPlace?) -> Void)?
+    var didTapLinkButton: ((String?) -> Void)?
 
     
     func setup() {
@@ -81,6 +85,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.containerView.addSubview(self.nRatingsLabel)
         self.containerView.addSubview(self.mapView)
         self.containerView.addSubview(self.directionButton)
+        self.containerView.addSubview(self.linkButton)
         self.containerView.addSubview(self.timeLabel)
         self.navigationItem?.rightBarButtonItem = self.favoriteButton
         self.favoriteButton.onTap { button in
@@ -90,6 +95,9 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.descriptionText.numberOfLines = 0
         self.directionButton.on(.touchUpInside) { button in
             self.didTapDirectionButton?(self.model?.currentLocation, self.model?.attraction)
+        }
+        self.linkButton.on(.touchUpInside) { button in
+            self.didTapLinkButton?(self.model?.link)
         }
         self.imageSlideshow.slideshowInterval = 5
         self.imageSlideshow.zoomEnabled = true
@@ -126,6 +134,15 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.directionButton.layer.shadowRadius = 1
         self.directionButton.setImage(AttractionDetailView.walkingIconImage, for: .normal)
         self.directionButton.imageEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+        self.linkButton.tintColor = .label
+        self.linkButton.backgroundColor = .systemBackground
+        self.linkButton.layer.cornerRadius = 15
+        self.linkButton.layer.shadowColor = UIColor.label.cgColor
+        self.linkButton.layer.shadowOpacity = 0.75
+        self.linkButton.layer.shadowOffset = .zero
+        self.linkButton.layer.shadowRadius = 1
+        self.linkButton.setImage(AttractionDetailView.linkImage, for: .normal)
+        self.linkButton.imageEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         self.timeLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .light)
         self.timeLabel.textAlignment = .right
         self.timeLabel.sizeToFit()
@@ -138,7 +155,12 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.containerView.pin.horizontally().bottom(10).below(of: self.imageSlideshow)
         self.cosmos.sizeToFit()
         self.cosmos.pin.topLeft().marginHorizontal(20).marginTop(15)
-        self.directionButton.pin.topRight().marginHorizontal(16).marginTop(8).size(30)
+        if (model?.link != nil){
+            self.linkButton.pin.topRight().marginHorizontal(16).marginTop(8).size(30)
+            self.directionButton.pin.left(of: self.linkButton, aligned: .center).size(30).margin(5)
+        } else {
+            self.directionButton.pin.topRight().marginHorizontal(16).marginTop(8).size(30)
+        }
         self.timeLabel.pin.before(of: self.directionButton, aligned: .center).size(150).margin(5)
         self.nRatingsLabel.sizeToFit()
         self.nRatingsLabel.pin.after(of: self.cosmos, aligned: .center).marginLeft(5)
@@ -209,5 +231,6 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         self.directionButton.layer.shadowColor = UIColor.label.cgColor
+        self.linkButton.layer.shadowColor = UIColor.label.cgColor
     }
 }

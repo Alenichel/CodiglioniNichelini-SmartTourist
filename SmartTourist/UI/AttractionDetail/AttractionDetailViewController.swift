@@ -8,7 +8,7 @@
 import UIKit
 import Katana
 import Tempura
-
+import SafariServices
 
 class AttractionDetailViewController: ViewControllerWithLocalState<AttractionDetailView> {
     override func viewDidLoad() {
@@ -32,6 +32,15 @@ class AttractionDetailViewController: ViewControllerWithLocalState<AttractionDet
             let url = GoogleAPI.shared.buildDirectionURL(origin: location!, destination: place!.location, destinationPlaceId: place!.placeID)
             UIApplication.shared.open(url)
         }
+        
+        self.rootView.didTapLinkButton = { [unowned self] attractionUrl in
+            guard let stringUrl = attractionUrl else { return }
+            guard let url = URL(string: stringUrl) else { return }
+            //UIApplication.shared.open(url)
+            let vc = SFSafariViewController(url: url)
+            vc.delegate = self
+            self.present(vc, animated: true)
+        }
     }
 }
 
@@ -48,6 +57,11 @@ extension AttractionDetailViewController: RoutableWithConfiguration {
     }
 }
 
+extension AttractionDetailViewController: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        dismiss(animated: true)
+    }
+}
 
 struct AttractionDetailLocalState: LocalState {
     var attraction: GPPlace
