@@ -70,6 +70,10 @@ class WikipediaAPI {
                     print("score: " + String(item.score))
                 }*/
                 
+                if results.first!.score > 0.5 {
+                    resolve("No description avaiable")
+                }
+                
                 self.search(searchTerms: titles[results.first!.index]).then(in: .utility) { description in
                     resolve(description)
                 }.catch(in: .utility) { error in
