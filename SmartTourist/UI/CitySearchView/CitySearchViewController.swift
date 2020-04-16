@@ -99,7 +99,7 @@ extension CitySearchViewController: RoutableWithConfiguration {
     
     var navigationConfiguration: [NavigationRequest : NavigationInstruction] {
         [
-            .hide(Screen.citySearch): .dismissModally(behaviour: .hard)
+            .hide(Screen.citySearch): .dismissModally(behaviour: .hard),
         ]
     }
 }

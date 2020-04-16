@@ -15,7 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, RootInstaller {
 
     var window: UIWindow?
     var store: Store<AppState, DependenciesContainer>? {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil}
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return nil }
         return appDelegate.store
     }
 

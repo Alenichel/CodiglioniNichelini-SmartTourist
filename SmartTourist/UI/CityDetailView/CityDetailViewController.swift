@@ -36,7 +36,7 @@ extension CityDetailViewController: RoutableWithConfiguration {
             .hide(Screen.cityDetail): .pop,
             .show(Screen.settings): .push { [unowned self] context in
                 SettingsViewController(store: self.store, localState: SettingsViewLocalState())
-            }
+            },
         ]
     }
 }
