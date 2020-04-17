@@ -74,6 +74,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
         self.cityNameLabel.text = model.city
         self.marker.position = model.location
         self.marker.map = self.mapView
-        WikipediaAPI.shared.findExactWikipediaArticleName(searchTerms: model.city).then(WikipediaAPI.shared.getWikidataId).then(in: .background) {_ in }
+        //WikipediaAPI.shared.findExactWikipediaArticleName(searchTerms: model.city).then(WikipediaAPI.shared.getWikidataId).then(in: .background) {_ in }
+        WikipediaAPI.shared.getCityDetail(CityName: model.city, WikidataId: "").then(in: .background){_ in}
     }
 }

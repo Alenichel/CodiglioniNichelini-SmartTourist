@@ -12,6 +12,26 @@ import GoogleMaps
 import Fuse
 import Alamofire
 
+
+let cityDetailsQuery = """
+SELECT DISTINCT ?city ?cityLabel ?country ?countryLabel ?population ?area ?elevation ?link ?facebookPageId ?facebookPlacesId ?instagramUsername ?twitterUsername ?image ?coatOfArmsImage ?cityFlagImage WHERE {
+  BIND( <http://www.wikidata.org/entity/Q84> as ?city ).
+  OPTIONAL {?city wdt:P17 ?country}.
+  OPTIONAL {?city wdt:P1082 ?population}.
+  OPTIONAL {?city wdt:P2046 ?area}.
+  OPTIONAL {?city wdt:P2044 ?elevation}.
+  OPTIONAL {?city wdt:P856 ?link}.
+  OPTIONAL {?city wdt:P2013 ?facebookPageId}.
+  OPTIONAL {?city wdt:P1997 ?facebookPlacesId}.
+  OPTIONAL {?city wdt:P2003 ?instagramUsername}.
+  OPTIONAL {?city wdt:P2002 ?twitterUsername}.
+  OPTIONAL {?city wdt:P18 ?image}.
+  OPTIONAL {?city wdt:P94  ?coatOfArmsImage}.
+  OPTIONAL {?city wdt:P41 ?cityFlagImage}.
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+"""
+
 class WikipediaAPI {
     
     static let shared = WikipediaAPI()
@@ -102,10 +122,10 @@ class WikipediaAPI {
             let parameters = [
                 "action" : "query",
                 "prop" : "pageprops",
-                "titles" : title,//.replacingOccurrences(of: " ", with: "_"),
+                "titles" : title,
                 "format" : "json"
             ]
-            let url = "https://en.wikipedia.org/w/api.php"//
+            let url = "https://en.wikipedia.org/w/api.php"
             AF.request(url, parameters: parameters).responseJSON{ response in
                 switch response.result {
                 case .success:
@@ -129,6 +149,34 @@ class WikipediaAPI {
                             }
                         }
                         reject(UnknownApiError())
+                    } catch let error as NSError {
+                        print("Failed to load: \(error.localizedDescription)")
+                        reject(error)
+                    }
+                case .failure:
+                    guard let error = response.error else { reject(UnknownApiError()); return }
+                    print(error.localizedDescription)
+                    reject(error)
+                }
+            }
+        }
+    }
+    
+    func getCityDetail(CityName: String, WikidataId: String) -> Promise<City> {
+        return Promise<City>(in: .background) { resolve, reject, status in
+            let parameters = [
+                "query": cityDetailsQuery,
+                "format": "json"
+            ]
+            let url = "https://query.wikidata.org/sparql"
+            AF.request(url, parameters: parameters).responseJSON{ response in
+                switch response.result {
+                case .success:
+                    guard let data = response.data else { reject(UnknownApiError()); return }
+                    do {
+                        if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                            print(json)
+                        }
                     } catch let error as NSError {
                         print("Failed to load: \(error.localizedDescription)")
                         reject(error)
