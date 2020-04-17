@@ -20,7 +20,6 @@ class NotificationManager {
     }
         
     private let nc = UNUserNotificationCenter.current()
-    private let identifier = "smart-tourist"
     
     var onPermissionGranted: (() -> Void)?
     var onPermissionDeclined: (() -> Void)?
@@ -54,20 +53,6 @@ class NotificationManager {
     
     func setDelegate(_ delegate: UNUserNotificationCenterDelegate) {
         self.nc.delegate = delegate
-    }
-    
-    func scheduleNotification(body: String) {
-        let content = UNMutableNotificationContent()
-        content.body = body
-        content.sound = UNNotificationSound.default
-        content.categoryIdentifier = self.identifier
-        let category = UNNotificationCategory(identifier: self.identifier, actions: [], intentIdentifiers: [], options: [])
-        self.nc.setNotificationCategories([category])
-        let date = Date() + TimeInterval(1)
-        let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-        let request = UNNotificationRequest(identifier: self.identifier, content: content, trigger: trigger)
-        self.nc.add(request)
     }
     
     func registerActions() {
@@ -104,7 +89,7 @@ class NotificationManager {
             let date = Date() + TimeInterval(1)
             let dateComponents = Calendar.current.dateComponents([.year, .month, .day, .hour, .minute, .second], from: date)
             let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
-            resolve(UNNotificationRequest(identifier: self.identifier, content: content, trigger: trigger))
+            resolve(UNNotificationRequest(identifier: place.placeID, content: content, trigger: trigger))
         }.then(in: .utility) { request in
             self.nc.add(request)
         }

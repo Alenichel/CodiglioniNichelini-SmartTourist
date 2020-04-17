@@ -57,7 +57,7 @@ extension WelcomeViewController: RoutableWithConfiguration {
     
     var navigationConfiguration: [NavigationRequest : NavigationInstruction] {
         [
-            .hide(Screen.welcome): .dismissModally(behaviour: .hard)
+            .hide(Screen.welcome): .dismissModally(behaviour: .hard),
         ]
     }
 }

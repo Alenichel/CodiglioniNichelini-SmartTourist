@@ -79,11 +79,6 @@ class MapView: UIView, ViewControllerModellableView {
     private var firstLayout = true
     
     private static let zoomThreshold: Float = 9
-    private static let distanceFormatter: MKDistanceFormatter = {
-        let formatter = MKDistanceFormatter()
-        formatter.units = .metric
-        return formatter
-    }()
     
     // MARK: Setup
     func setup() {

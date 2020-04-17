@@ -10,6 +10,7 @@ import Katana
 import Tempura
 import SafariServices
 
+
 class AttractionDetailViewController: ViewControllerWithLocalState<AttractionDetailView> {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,14 +33,9 @@ class AttractionDetailViewController: ViewControllerWithLocalState<AttractionDet
             let url = GoogleAPI.shared.buildDirectionURL(origin: location!, destination: place!.location, destinationPlaceId: place!.placeID)
             UIApplication.shared.open(url)
         }
-        
         self.rootView.didTapLinkButton = { [unowned self] attractionUrl in
-            guard let stringUrl = attractionUrl else { return }
-            guard let url = URL(string: stringUrl) else { return }
-            //UIApplication.shared.open(url)
-            let vc = SFSafariViewController(url: url)
-            vc.delegate = self
-            self.present(vc, animated: true)
+            guard let stringUrl = attractionUrl, let url = URL(string: stringUrl) else { return }
+            self.dispatch(Show(Screen.safari, animated: true, context: url))
         }
     }
 }
@@ -52,16 +48,24 @@ extension AttractionDetailViewController: RoutableWithConfiguration {
     
     var navigationConfiguration: [NavigationRequest : NavigationInstruction] {
         [
-            .hide(Screen.detail): .pop
+            .hide(Screen.detail): .pop,
+            .show(Screen.safari): .presentModally { [unowned self] context in
+                let vc = SFSafariViewController(url: context as! URL)
+                vc.delegate = self
+                vc.dismissButtonStyle = .close
+                return vc
+            },
         ]
     }
 }
 
+
 extension AttractionDetailViewController: SFSafariViewControllerDelegate {
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        dismiss(animated: true)
+        self.dispatch(Hide(animated: true))
     }
 }
+
 
 struct AttractionDetailLocalState: LocalState {
     var attraction: GPPlace

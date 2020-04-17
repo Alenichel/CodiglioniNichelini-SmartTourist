@@ -5,10 +5,10 @@
 //  Created on 25/11/2019
 //
 
-import Foundation
+import Tempura
 
 
-enum Screen: String {
+enum Screen: RouteElementIdentifier {
     case welcome
     case attractions
     case detail
@@ -17,4 +17,5 @@ enum Screen: String {
     case citySearch
     case worldwideFavorites
     case settings
+    case safari
 }

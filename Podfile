@@ -9,7 +9,6 @@ target 'SmartTourist' do
   pod 'Katana'
   pod 'Tempura'
   pod 'PinLayout'
-  pod 'FlexLayout'
   pod 'GoogleMaps'
   pod 'DeepDiff'
   pod 'Cosmos', '~> 20.0'
@@ -18,6 +17,7 @@ target 'SmartTourist' do
   pod 'GooglePlaces'
   pod 'ImageSlideshow', '~> 1.8.3'
   pod 'MarqueeLabel'
+  pod 'SigmaSwiftStatistics', '~> 9.0'
 
   target 'SmartTouristTests' do
     inherit! :search_paths

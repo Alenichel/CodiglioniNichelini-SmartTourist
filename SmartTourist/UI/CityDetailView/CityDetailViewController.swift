@@ -34,9 +34,9 @@ extension CityDetailViewController: RoutableWithConfiguration {
     var navigationConfiguration: [NavigationRequest : NavigationInstruction] {
         [
             .hide(Screen.cityDetail): .pop,
-            .show(Screen.settings): .push({ [unowned self] context in
-                return SettingsViewController(store: self.store, localState: SettingsViewLocalState())
-            })
+            .show(Screen.settings): .push { [unowned self] context in
+                SettingsViewController(store: self.store, localState: SettingsViewLocalState())
+            },
         ]
     }
 }

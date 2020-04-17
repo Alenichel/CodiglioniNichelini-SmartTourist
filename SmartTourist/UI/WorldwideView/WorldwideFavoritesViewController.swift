@@ -32,7 +32,7 @@ extension WorldwideFavoritesViewController: RoutableWithConfiguration {
     
     var navigationConfiguration: [NavigationRequest : NavigationInstruction] {
         [
-            .hide(Screen.worldwideFavorites): .dismissModally(behaviour: .hard)
+            .hide(Screen.worldwideFavorites): .dismissModally(behaviour: .hard),
         ]
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SigmaSwiftStatistics
 
 
 class GPPlaceFilter {
@@ -15,12 +16,16 @@ class GPPlaceFilter {
         self.places = places
     }
     
-    func nonNegativeRatings() -> GPPlaceFilter {
+    func minRatings(_ threshold: Double) -> GPPlaceFilter {
         self.places = self.places.filter { place in
             guard let rating = place.rating else { return false }
-            return rating > 0.0
+            return rating >= threshold
         }
         return self
+    }
+    
+    func nonNegativeRatings() -> GPPlaceFilter {
+        return self.minRatings(0.0)
     }
     
     func noEmojis() -> GPPlaceFilter {
@@ -29,19 +34,20 @@ class GPPlaceFilter {
     }
     
     func minTotalRatings(_ minRatingsTotal: Int) -> GPPlaceFilter {
-        self.places = self.places.filter {
-            guard let userRatingsTotal = $0.userRatingsTotal else { return false }
+        self.places = self.places.filter { place in
+            guard let userRatingsTotal = place.userRatingsTotal else { return false }
             return userRatingsTotal > minRatingsTotal
         }
         return self
     }
     
-    func minTotalRatingsNormalized(_ threshold: Double) -> GPPlaceFilter {
-        let placesWithRatings = self.places.filter { $0.userRatingsTotal != nil }
-        let userRatingsTotals = placesWithRatings.map { $0.userRatingsTotal! }
-        guard let max = userRatingsTotals.max() else { return self }
-        let minRatingsTotal = Int(Double(max) * threshold)
-        return self.minTotalRatings(minRatingsTotal)
+    func minTotalRatingsPercentile(_ alpha: Double) -> GPPlaceFilter {
+        let ratings = self.places
+            .filter { $0.userRatingsTotal != nil }
+            .map { Double($0.userRatingsTotal!) }
+        guard let percentile = Sigma.percentile(ratings, percentile: alpha) else { return self }
+        print("percentile = \(percentile)")
+        return self.minTotalRatings(Int(percentile))
     }
 }
 
@@ -49,9 +55,9 @@ class GPPlaceFilter {
 extension Array where Element: GPPlace {
     var blacklisted: [GPPlace] {
         GPPlaceFilter(self)
-            .nonNegativeRatings()
             .noEmojis()
-            //.minTotalRatings(100)
+            .minRatings(2.5)
+            .minTotalRatingsPercentile(0.05)
             .places
     }
 }

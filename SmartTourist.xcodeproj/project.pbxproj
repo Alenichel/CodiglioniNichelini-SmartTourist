@@ -96,6 +96,7 @@
 		E5A7B064242F9C400001869A /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7B063242F9C400001869A /* CircleImage.swift */; };
 		E5AFC8A123F9B006007B9887 /* CityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */; };
 		E5AFC8A223F9B006007B9887 /* CityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFC89B23F9B006007B9887 /* CityDetailView.swift */; };
+		E5C4324D2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C4324C2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift */; };
 		E5D1474A23AB747300649C87 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D1474923AB747300649C87 /* Model.swift */; };
 		E5DE62072443084800E817A6 /* WikipediaKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5DE62062443084800E817A6 /* WikipediaKit */; };
 		E5F9715C2392D96F0096C296 /* UIControl+TargetActionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F971522392D96E0096C296 /* UIControl+TargetActionable.swift */; };
@@ -302,6 +303,7 @@
 		E5A7B063242F9C400001869A /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityDetailViewController.swift; sourceTree = "<group>"; };
 		E5AFC89B23F9B006007B9887 /* CityDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityDetailView.swift; sourceTree = "<group>"; };
+		E5C4324C2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SFSafariViewController+RoutableWithConfiguration.swift"; sourceTree = "<group>"; };
 		E5D1474923AB747300649C87 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		E5F971522392D96E0096C296 /* UIControl+TargetActionable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+TargetActionable.swift"; sourceTree = "<group>"; };
 		E5F971532392D96E0096C296 /* String+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Random.swift"; sourceTree = "<group>"; };
@@ -681,6 +683,7 @@
 				9930114A23AFED3600909749 /* GMSMapView+loadCustomStyle.swift */,
 				E5FF041124095E7000D32EE7 /* MarkerPool.swift */,
 				E53EEA22241CDC55004CCE16 /* PromiseImageSource.swift */,
+				E5C4324C2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift */,
 				99EC7D6C241FC0890065FDE9 /* String+emoji.swift */,
 				E5F9715B2392D96E0096C296 /* String+Height.swift */,
 				E5F971532392D96E0096C296 /* String+Random.swift */,
@@ -1200,6 +1203,7 @@
 				E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */,
 				E563DB39242E5224003D5FFF /* CLLocationCoordinate2D+Codable.swift in Sources */,
 				E56167D32428CBE90064B2E8 /* CLLocationCoordinate2D+distance.swift in Sources */,
+				E5C4324D2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift in Sources */,
 				E528FF87238971FE0065483B /* AppDelegate.swift in Sources */,
 				E58CD2F3241FC6F500BA3F33 /* SettingsDebugSubview.swift in Sources */,
 				E5F971602392D96F0096C296 /* DataSource.swift in Sources */,

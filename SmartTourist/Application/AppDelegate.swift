@@ -88,12 +88,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     private func showDetailView(store: PartialStore<AppState>, place: GPPlace) {
-        store.dispatch(Hide(Screen.cityDetail.rawValue, animated: true, atomic: true)).then {
-            store.dispatch(Hide(Screen.citySearch.rawValue, animated: true, atomic: true)).then {   // This doesn't actually work
-                store.dispatch(Hide(Screen.detail.rawValue, animated: true, atomic: true)).then {
-                    store.dispatch(Show(Screen.detail, animated: true, context: place))
-                }
-            }
+        guard let navigationController = UIApplication.shared.windows.first?.rootViewController as? UINavigationController else { return }
+        navigationController.popToRootViewController(animated: true) {
+            store.dispatch(Show(Screen.detail, animated: true, context: place))
         }
     }
     

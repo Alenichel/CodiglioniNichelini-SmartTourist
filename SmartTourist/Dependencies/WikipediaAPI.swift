@@ -52,8 +52,8 @@ class WikipediaAPI {
                 
                 let fuse = Fuse(threshold: 0.5)
                 
-                let titles = articlePreviews.map{article -> String in
-                    //print(article.title)
+                let titles = articlePreviews.map { article -> String in
+                    //print(articlePreviews.firstIndex(of: article)!, article.title)
                     return article.title
                 }
                 let results = fuse.search(searchTerms, in: titles).sorted(by: {

@@ -138,27 +138,27 @@ extension AttractionsViewController: RoutableWithConfiguration {
     
     var navigationConfiguration: [NavigationRequest : NavigationInstruction] {
         [
-            .show(Screen.welcome): .presentModally({ [unowned self] context in
+            .show(Screen.welcome): .presentModally { [unowned self] context in
                 let vc = WelcomeViewController(store: self.store, localState: WelcomeLocalState())
                 vc.modalPresentationStyle = .pageSheet
                 return vc
-            }),
-            .show(Screen.citySearch): .presentModally({ [unowned self] context in
+            },
+            .show(Screen.citySearch): .presentModally { [unowned self] context in
                 let vc = CitySearchViewController(store: self.store)
                 vc.modalPresentationStyle = .overCurrentContext
                 return vc
-            }),
-            .show(Screen.detail): .push({ [unowned self] context in
-                return AttractionDetailViewController(store: self.store, localState: AttractionDetailLocalState(attraction: context as! GPPlace))
-            }),
-            .show(Screen.cityDetail): .push({ [unowned self] context in
-                return CityDetailViewController(store: self.store)
-            }),
-            .show(Screen.worldwideFavorites): .presentModally({[unowned self] context in
+            },
+            .show(Screen.detail): .push { [unowned self] context in
+                AttractionDetailViewController(store: self.store, localState: AttractionDetailLocalState(attraction: context as! GPPlace))
+            },
+            .show(Screen.cityDetail): .push { [unowned self] context in
+                CityDetailViewController(store: self.store)
+            },
+            .show(Screen.worldwideFavorites): .presentModally { [unowned self] context in
                 let vc = WorldwideFavoritesViewController(store: self.store)
                 vc.modalPresentationStyle = .pageSheet
                 return vc
-            })
+            },
         ]
     }
 }
