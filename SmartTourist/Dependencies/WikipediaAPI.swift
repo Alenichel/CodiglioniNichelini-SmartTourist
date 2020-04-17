@@ -162,8 +162,8 @@ class WikipediaAPI {
         }
     }
     
-    func getCityDetail(CityName: String, WikidataId: String) -> Promise<City> {
-        return Promise<City>(in: .background) { resolve, reject, status in
+    func getCityDetail(CityName: String, WikidataId: String) -> Promise<WDCity> {
+        return Promise<WDCity>(in: .background) { resolve, reject, status in
             let parameters = [
                 "query": cityDetailsQuery,
                 "format": "json"
@@ -174,9 +174,8 @@ class WikipediaAPI {
                 case .success:
                     guard let data = response.data else { reject(UnknownApiError()); return }
                     do {
-                        if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                            print(json)
-                        }
+                        let city = try JSONDecoder().decode(WDCity.self, from: data)
+                        resolve(city)
                     } catch let error as NSError {
                         print("Failed to load: \(error.localizedDescription)")
                         reject(error)

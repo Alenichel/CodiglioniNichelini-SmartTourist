@@ -5,8 +5,9 @@
 //  Created on 19/12/2019
 //
 
-import Foundation
+import UIKit
 import CoreLocation
+import Hydra
 
 
 struct GPPlaceSearchResponse: Decodable {
@@ -180,5 +181,92 @@ struct GMDResponse: Decodable {
     enum CodingKeys: CodingKey {
         case routes
         case status
+    }
+}
+
+
+class WDCity: Decodable {
+    let city: String
+    let country: String?
+    let population: Int?
+    let area: Int?
+    let elevation: Int?
+    let link: String?
+    let facebookPageId: String?
+    let facebookPlacesId: String?
+    let instagramUsername: String?
+    let twitterUsername: String?
+    let imageURL: String?
+    var image: UIImage?
+    let cityLabel: String?
+    let countryLabel: String?
+    
+    enum CodingKeys: CodingKey {
+        case results
+        
+        enum ResultsCodingKeys: CodingKey {
+            case bindings
+            
+            enum BindingsCodingKeys: CodingKey {
+                case city
+                case country
+                case population
+                case area
+                case elevation
+                case link
+                case facebookPageId
+                case facebookPlacesId
+                case instagramUsername
+                case twitterUsername
+                case image
+                case cityLabel
+                case countryLabel
+                
+                enum ValueCodingKeys: CodingKey {
+                    case value
+                }
+            }
+        }
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let rootContainer = try decoder.container(keyedBy: CodingKeys.self)
+        let resultsContainer = try rootContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.self, forKey: .results)
+        var bindingsArrayContainer = try resultsContainer.nestedUnkeyedContainer(forKey: .bindings)
+        let bindingsContainer = try bindingsArrayContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.self)
+        var container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .city)
+        self.city = try container.decode(String.self, forKey: .value)
+        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .country)
+        self.country = try container.decodeIfPresent(String.self, forKey: .value)
+        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .population)
+        self.population = try Int(container.decodeIfPresent(String.self, forKey: .value) ?? "nil")
+        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .area)
+        self.area = try Int(container.decodeIfPresent(String.self, forKey: .value) ?? "nil")
+        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .elevation)
+        self.elevation = try Int(container.decodeIfPresent(String.self, forKey: .value) ?? "nil")
+        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .link)
+        self.link = try container.decodeIfPresent(String.self, forKey: .value)
+        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .facebookPageId)
+        self.facebookPageId = try container.decodeIfPresent(String.self, forKey: .value)
+        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .facebookPlacesId)
+        self.facebookPlacesId = try container.decodeIfPresent(String.self, forKey: .value)
+        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .instagramUsername)
+        self.instagramUsername = try container.decodeIfPresent(String.self, forKey: .value)
+        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .twitterUsername)
+        self.twitterUsername = try container.decodeIfPresent(String.self, forKey: .value)
+        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .image)
+        self.imageURL = try container.decodeIfPresent(String.self, forKey: .value)
+        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .cityLabel)
+        self.cityLabel = try container.decodeIfPresent(String.self, forKey: .value)
+        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .countryLabel)
+        self.countryLabel = try container.decodeIfPresent(String.self, forKey: .value)
+        async(in: .utility) {
+            guard
+                let imageURL = self.imageURL,
+                let url = URL(string: imageURL),
+                let data = try? Data(contentsOf: url)
+            else { return }
+            self.image = UIImage(data: data)
+        }
     }
 }
