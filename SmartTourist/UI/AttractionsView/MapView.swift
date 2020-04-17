@@ -47,19 +47,13 @@ struct AttractionsViewModel: ViewModelWithLocalState {
 }
 
 
-enum CardState: Int {
-    case expanded = 30
-    case collapsed = 70
-}
-
-
 class MapView: UIView, ViewControllerModellableView {
     // MARK: Subviews
     var cityNameButton = UIButton()
     var mapView: GMSMapView!
     var locationButton = RoundedButton()
-    var littleCircle = GMSCircle()
-    var bigCircle = GMSCircle()
+    var littleCircle = MapCircle()
+    var bigCircle = MapCircle()
     var locationMarker = GMSCircle()
     var topBlurEffect = UIVisualEffectView(effect: UIBlurEffect(style: UITraitCollection.current.userInterfaceStyle == .dark ? .dark : .light))
     var listCardView = ListCardView()
@@ -191,17 +185,8 @@ class MapView: UIView, ViewControllerModellableView {
             }
         }
         if let actualLocation = model.actualLocation {
-            [self.littleCircle, self.bigCircle].forEach { circle in
-                circle.position = actualLocation
-                circle.radius = circle == self.littleCircle ? model.littleCircleRadius : model.bigCircleRadius
-                circle.strokeColor = .label
-                circle.map = self.mapView
-                let text = circle.isEqual(littleCircle) ? "5 minutes" : "15 minutes"
-                let position = actualLocation.offset(circle.radius + 10)
-                let overlay = GMSGroundOverlay(position: position, icon: text.image, zoomLevel: 15)
-                overlay.bearing = 0
-                overlay.map = self.mapView
-            }
+            self.updateCircle(self.littleCircle, actualLocation: actualLocation, radius: model.littleCircleRadius, text: "5 min")
+            self.updateCircle(self.bigCircle, actualLocation: actualLocation, radius: model.bigCircleRadius, text: "15 min")
         }
         if self.mapView.camera.zoom >= MapView.zoomThreshold {
             self.markerPool.setMarkers(places: model.places)
@@ -215,6 +200,25 @@ class MapView: UIView, ViewControllerModellableView {
             self.cityNameButton.setTitle(nil, for: .normal)
         }
         self.setNeedsLayout()
+    }
+    
+    private func updateCircle(_ mapCircle: MapCircle, actualLocation: CLLocationCoordinate2D, radius: Double, text: String) {
+        if mapCircle.circle == nil {
+            mapCircle.circle = GMSCircle()
+        }
+        mapCircle.circle!.position = actualLocation
+        mapCircle.circle!.radius = radius
+        mapCircle.circle!.strokeColor = .label
+        mapCircle.circle!.map = self.mapView
+        let position = actualLocation.offset(radius + 10)
+        if mapCircle.overlay == nil {
+            mapCircle.overlay = GMSGroundOverlay(position: position, icon: text.image, zoomLevel: 15)
+        } else {
+            mapCircle.overlay!.position = position
+            mapCircle.overlay!.icon = text.image
+        }
+        mapCircle.overlay!.bearing = 0
+        mapCircle.overlay!.map = self.mapView
     }
     
     private func moveMap(to location: CLLocationCoordinate2D) {
@@ -358,4 +362,16 @@ extension MapView: UIGestureRecognizerDelegate {
         }
         return false
     }
+}
+
+
+enum CardState: Int {
+    case expanded = 30
+    case collapsed = 70
+}
+
+
+class MapCircle {
+    var circle: GMSCircle?
+    var overlay: GMSGroundOverlay?
 }
