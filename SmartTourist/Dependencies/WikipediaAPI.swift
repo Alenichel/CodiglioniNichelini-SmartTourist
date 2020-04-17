@@ -10,6 +10,7 @@ import WikipediaKit
 import Hydra
 import GoogleMaps
 import Fuse
+import Alamofire
 
 class WikipediaAPI {
     
@@ -41,7 +42,6 @@ class WikipediaAPI {
         }
     }
     
-    
     func getDescriptionFromNearbyArticles(coordinates: CLLocationCoordinate2D, searchTerms: String) -> Promise<String> {
         return Promise<String>(in: .background) { resolve, reject, status in
             let _ = Wikipedia.shared.requestNearbyResults(language: self.language, latitude: Double(coordinates.latitude), longitude: Double(coordinates.longitude), maxCount: 50) { (articlePreviews, resultsLanguage, error) in
@@ -64,16 +64,78 @@ class WikipediaAPI {
                     resolve("No description available")
                     return
                 }
-
-                /*results.forEach { item in
-                    print("index: " + String(item.index))
-                    print("score: " + String(item.score))
-                }*/
-            
-                
+ 
                 self.search(searchTerms: titles[results.first!.index]).then(in: .utility) { description in
                     resolve(description)
                 }.catch(in: .utility) { error in
+                    reject(error)
+                }
+            }
+        }
+    }
+    
+    func findExactWikipediaArticleName(searchTerms: String) -> Promise<String> {
+        return Promise<String>(in: .background) { resolve, reject, status in
+            let _ = Wikipedia.shared.requestOptimizedSearchResults(language: self.language, term: searchTerms, maxCount: 50) { (articlePreviews, error) in
+                guard error == nil, let articlePreviews = articlePreviews else {
+                    reject(UnknownApiError())
+                    return
+                }
+                
+                let fuse = Fuse(threshold: 0.5)
+                
+                let titles = articlePreviews.items.map{article -> String in
+                    return article.title
+                }
+                
+                let results = fuse.search(searchTerms, in: titles).sorted(by: {
+                    $0.score < $1.score
+                })
+                
+                resolve(titles[results.first!.index])
+            }
+        }
+    }
+    
+    func getWikidataId(title: String) -> Promise<String> {
+        return Promise<String>(in: .background) { resolve, reject, status in
+            let parameters = [
+                "action" : "query",
+                "prop" : "pageprops",
+                "titles" : title,//.replacingOccurrences(of: " ", with: "_"),
+                "format" : "json"
+            ]
+            let url = "https://en.wikipedia.org/w/api.php"//
+            AF.request(url, parameters: parameters).responseJSON{ response in
+                switch response.result {
+                case .success:
+                    guard let data = response.data else { reject(UnknownApiError()); return }
+                    do {
+                        // make sure this JSON is in the format we expect
+                        if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                            // try to read out a string array
+                            if let query = json["query"] as? [String: Any] {
+                                if let pages = query["pages"] as? [String: Any]{
+                                    if let number = pages[pages.keys.first ?? ""] as? [String: Any]{
+                                        if let pageprops = number["pageprops"] as? [String: Any]{
+                                            if let wikidataId = pageprops["wikibase_item"] as? String{
+                                                print(wikidataId)
+                                                resolve(wikidataId)
+                                                return
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        reject(UnknownApiError())
+                    } catch let error as NSError {
+                        print("Failed to load: \(error.localizedDescription)")
+                        reject(error)
+                    }
+                case .failure:
+                    guard let error = response.error else { reject(UnknownApiError()); return }
+                    print(error.localizedDescription)
                     reject(error)
                 }
             }

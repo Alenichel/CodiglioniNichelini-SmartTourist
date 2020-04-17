@@ -17,6 +17,7 @@ import GoogleMaps
 struct CityDetailViewModel: ViewModelWithState {
     let city: String
     let location: CLLocationCoordinate2D
+    //var wikidataId: String
     
     init(state: AppState) {
         self.city = state.locationState.currentCity!
@@ -73,5 +74,6 @@ class CityDetailView: UIView, ViewControllerModellableView {
         self.cityNameLabel.text = model.city
         self.marker.position = model.location
         self.marker.map = self.mapView
+        WikipediaAPI.shared.findExactWikipediaArticleName(searchTerms: model.city).then(WikipediaAPI.shared.getWikidataId).then(in: .background) {_ in }
     }
 }
