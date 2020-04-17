@@ -74,6 +74,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     var didTapLinkButton: ((String?) -> Void)?
 
     func setup() {
+        self.scrollView.delegate = self
         self.addSubview(self.scrollView)
         self.addSubview(self.curtainView)
         self.curtainView.addSubview(self.activityIndicator)
@@ -232,5 +233,21 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         super.traitCollectionDidChange(previousTraitCollection)
         self.directionButton.layer.shadowColor = UIColor.label.cgColor
         self.linkButton.layer.shadowColor = UIColor.label.cgColor
+    }
+}
+
+
+extension AttractionDetailView: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset
+        if offset.y < 0.0 {
+            var transform = CATransform3DTranslate(CATransform3DIdentity, 0, offset.y, 0)
+            let imageHeight = self.imageSlideshow.frame.height
+            let scaleFactor = 1 + (-1 * offset.y / (imageHeight / 2))
+            transform = CATransform3DScale(transform, scaleFactor, scaleFactor, 1)
+            self.imageSlideshow.layer.transform = transform
+        } else {
+            self.imageSlideshow.layer.transform = CATransform3DIdentity
+        }
     }
 }
