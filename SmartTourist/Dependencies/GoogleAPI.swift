@@ -84,14 +84,19 @@ class GoogleAPI {
         }
     }
     
-    func getPopularPlaces(city: String) -> Promise<[GPPlace]> {
+    private func placeTextSearch(query: String, limit: Int? = nil, type: PlaceType? = nil) -> Promise<[GPPlace]> {
         return Promise<[GPPlace]>(in: .background) { resolve, reject, status in
-            let parameters = [
+            var parameters = [
                 "language": "en",
                 "key": GoogleAPI.apiKey,
-                "query": "\(city) top attractions",
-                "type": PlaceType.touristAttraction.rawValue
+                "query": query,
             ]
+            if let limit = limit {
+                parameters["limit"] = "\(limit)"
+            }
+            if let type = type {
+                parameters["type"] = type.rawValue
+            }
             AF.request("https://maps.googleapis.com/maps/api/place/textsearch/json", parameters: parameters).responseJSON { response in
                 switch response.result {
                 case .success:
@@ -114,6 +119,14 @@ class GoogleAPI {
                 }
             }
         }
+    }
+        
+    func getPopularPlaces(city: String) -> Promise<[GPPlace]> {
+        return self.placeTextSearch(query: "\(city) top attractions", type: .touristAttraction)
+    }
+    
+    func getCityPlace(city: String) -> Promise<[GPPlace]> {
+        return self.placeTextSearch(query: city, limit: 1)
     }
     
     func getPlaceDetails(placeID: String) -> Promise<GPPlaceDetailResultsResponse> {

@@ -152,7 +152,7 @@ extension AttractionsViewController: RoutableWithConfiguration {
                 AttractionDetailViewController(store: self.store, localState: AttractionDetailLocalState(attraction: context as! GPPlace))
             },
             .show(Screen.cityDetail): .push { [unowned self] context in
-                CityDetailViewController(store: self.store)
+                CityDetailViewController(store: self.store, localState: CityDetailLocalState())
             },
             .show(Screen.worldwideFavorites): .presentModally { [unowned self] context in
                 let vc = WorldwideFavoritesViewController(store: self.store)

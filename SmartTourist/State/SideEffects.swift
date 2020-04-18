@@ -102,3 +102,17 @@ struct AddFavorite: SideEffect {
         }
     }
 }
+
+
+struct GetCityDetails: SideEffect {
+    func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
+        context.dispatch(SetGPCity(city: nil))
+        context.dispatch(SetWDCity(city: nil))
+        guard let city = context.getState().locationState.currentCity else { return }
+        context.dependencies.googleAPI.getCityPlace(city: city).then(in: .utility) { places in
+            assert(places.count == 1)
+            context.dispatch(SetGPCity(city: places.first!))
+        }
+        // TODO: WikiData
+    }
+}

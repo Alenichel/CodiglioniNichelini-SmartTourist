@@ -14,14 +14,21 @@ import CoreLocation
 import GoogleMaps
 
 
-struct CityDetailViewModel: ViewModelWithState {
+struct CityDetailViewModel: ViewModelWithLocalState {
     let city: String
     let location: CLLocationCoordinate2D
+    let allLoaded: Bool
+    let gpCity: GPPlace?
+    let wdCity: WDCity?
     //var wikidataId: String
     
-    init(state: AppState) {
+    init?(state: AppState?, localState: CityDetailLocalState) {
+        guard let state = state else { return nil }
         self.city = state.locationState.currentCity!
         self.location = state.locationState.currentLocation!
+        self.allLoaded = localState.allLoaded
+        self.gpCity = state.locationState.gpCity
+        self.wdCity = state.locationState.wdCity
     }
 }
 

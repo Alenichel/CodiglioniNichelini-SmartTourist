@@ -54,6 +54,12 @@ struct LocationState: Codable {
     /// The current city displayed on the map, based on `currentLocation`
     var currentCity: String?
     
+    /// Current city details from Google Places
+    var gpCity: GPPlace?
+    
+    /// Current city details from WikiData
+    var wdCity: WDCity?
+    
     /// Last update of `currentCity`
     var currentCityLastUpdate: Date = initDate
     

@@ -10,11 +10,12 @@ import Katana
 import Tempura
 
 
-class CityDetailViewController: ViewController<CityDetailView> {
+class CityDetailViewController: ViewControllerWithLocalState<CityDetailView> {
     var settingsButton = UIBarButtonItem()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.dispatch(GetCityDetails())
         self.settingsButton.image = UIImage(systemName: "gear")
         self.settingsButton.onTap { button in
             self.dispatch(Show(Screen.settings, animated: true))
@@ -39,4 +40,9 @@ extension CityDetailViewController: RoutableWithConfiguration {
             },
         ]
     }
+}
+
+
+struct CityDetailLocalState: LocalState {
+    var allLoaded: Bool = false
 }

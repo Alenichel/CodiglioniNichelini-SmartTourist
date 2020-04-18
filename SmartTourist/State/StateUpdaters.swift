@@ -149,3 +149,21 @@ struct SetPedometerAverageWalkingSpeed: StateUpdater {
         print("New bigCircleRadius is \(state.pedometerState.littleCircleRadius)")
     }
 }
+
+
+struct SetGPCity: StateUpdater {
+    let city: GPPlace?
+    
+    func updateState(_ state: inout AppState) {
+        state.locationState.gpCity = self.city
+    }
+}
+
+
+struct SetWDCity: StateUpdater {
+    let city: WDCity?
+    
+    func updateState(_ state: inout AppState) {
+        state.locationState.wdCity = self.city
+    }
+}
