@@ -113,14 +113,13 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         self.nameLabel.sizeToFit()
         self.image.sizeToFit()
         self.cosmos.sizeToFit()
-        self.distanceLabel.sizeToFit()
-        //self.favoriteImage.sizeToFit()
         self.nameLabel.pin.top(10).bottom(50%).left(15).right(90)
         self.cosmos.pin.top(55%).bottom().left(15)
         self.image.pin.vCenter().right(15)
-        self.distanceLabel.pin.vCenter().right(35)
         self.favoriteImage.pin.right(of: cosmos, aligned: .top).marginLeft(10).size(CGSize(width: Double(UIFont.systemFontSize) * 1.2, height: Double(UIFont.systemFontSize)))
-        self.cityNameLabel.pin.after(of: self.favoriteImage, aligned: .center).size(200).marginLeft(10).marginTop(5)
+        guard let model = self.model else { return }
+        self.distanceLabel.pin.vCenter(model.isInFavoriteTab ? -8 : 0).right(35).sizeToFit()
+        self.cityNameLabel.pin.below(of: self.distanceLabel, aligned: .right).sizeToFit()
     }
 
     static var paddingHeight: CGFloat = 10

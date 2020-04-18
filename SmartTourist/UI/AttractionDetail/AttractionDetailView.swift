@@ -149,6 +149,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.timeLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .light)
         self.timeLabel.textAlignment = .right
         self.timeLabel.sizeToFit()
+        self.favoriteButton.tintColor = .systemRed
     }
     
     override func layoutSubviews() {

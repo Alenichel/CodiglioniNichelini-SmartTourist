@@ -38,6 +38,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, RootInstaller {
         if identifier == Screen.attractions.rawValue {
             let viewController = AttractionsViewController(store: store, localState: AttractionsLocalState())
             let navigationController = UINavigationController(rootViewController: viewController)
+            navigationController.navigationBar.tintColor = .label
             self.window?.rootViewController = navigationController
             completion()
             return true

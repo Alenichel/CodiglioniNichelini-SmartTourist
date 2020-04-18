@@ -101,7 +101,7 @@ struct AWGPPlaceDetail: Codable, Equatable {
 #if DEBUG
 var userData: UserData = {
     var photoData: Data
-    if let image = UIImage(named: "empire"), let data = image.jpegData(compressionQuality: 1.0) {
+    if let navigationImage = UIImage(named: "empire"), let data = navigationImage.jpegData(compressionQuality: 1.0) {
         photoData = data
     } else {
         photoData = Data()
