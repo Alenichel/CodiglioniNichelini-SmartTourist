@@ -23,12 +23,12 @@ struct WorldwideFavoritesViewModel: ViewModelWithState {
 class WorldwideFavoritesView: UIView, ViewControllerModellableView {
     var mapView = GMSMapView(frame: .zero)
     var closeButton = UIButton(type: .custom)
-    var markerPool : GMSMarkerPool!
+    var markerPool : MarkerPool!
     
     var didTapCloseButton: (()->())?
     
     func setup() {
-        self.markerPool = GMSMarkerPool(mapView: self.mapView)
+        //self.markerPool = MarkerPool(mapView: self.mapView)
         self.mapView.settings.compassButton = true
         self.mapView.settings.tiltGestures = false
         self.closeButton.tintColor = .secondaryLabel

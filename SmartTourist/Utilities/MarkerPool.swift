@@ -6,35 +6,32 @@
 //
 
 import Foundation
-import GoogleMaps
+import MapKit
+import Contacts
 
 
-class GMSMarkerPool {
-    private var cache = [CLLocationCoordinate2D: GMSMarker]()
-    private var mapView: GMSMapView
-    private var color: UIColor?
+class MarkerPool {
+    private var cache = [CLLocationCoordinate2D: MKPlacemark]()
+    private var mapView: MKMapView
     
-    init(mapView: GMSMapView, color: UIColor? = nil) {
+    init(mapView: MKMapView) {
         self.mapView = mapView
-        self.color = color
     }
     
     func setMarkers(places: [GPPlace]) {
         let coordinates = places.map { $0.location }
         self.cache = self.cache.filter { entry in
             let toBeKept = coordinates.contains(entry.key)
-            if !toBeKept { entry.value.map = nil }
+            if !toBeKept { self.mapView.removeAnnotation(entry.value) }
             return toBeKept
         }
         places.forEach { place in
             if self.cache[place.location] == nil {
-                let marker = GMSMarker(position: place.location)
-                marker.appearAnimation = GMSMarkerAnimation.pop
-                marker.map = self.mapView
-                marker.title = place.name
-                marker.userData = place
-                marker.icon = GMSMarker.markerImage(with: self.color)
-                self.cache[place.location] = marker
+                let address = [CNPostalAddressCountryKey: place.name]
+                let placemark = MKPlacemark(coordinate: place.location, addressDictionary: address)
+                self.mapView.addAnnotation(placemark)
+                //marker.userData = place
+                self.cache[place.location] = placemark
             }
         }
     }

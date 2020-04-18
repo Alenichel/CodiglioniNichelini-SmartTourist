@@ -8,7 +8,6 @@
 import UIKit
 import Tempura
 import PinLayout
-import GoogleMaps
 import MapKit
 
 
@@ -50,14 +49,14 @@ struct AttractionsViewModel: ViewModelWithLocalState {
 class MapView: UIView, ViewControllerModellableView {
     // MARK: Subviews
     var cityNameButton = UIButton()
-    var mapView: GMSMapView!
+    var mapView = MKMapView(frame: .zero)
     var locationButton = RoundedButton()
-    var littleCircle = MapCircle()
-    var bigCircle = MapCircle()
-    var locationMarker = GMSCircle()
+    //var littleCircle = MapCircle()
+    //var bigCircle = MapCircle()
+    //var locationMarker = GMSCircle()
     var topBlurEffect = UIVisualEffectView(effect: UIBlurEffect(style: UITraitCollection.current.userInterfaceStyle == .dark ? .dark : .light))
     var listCardView = ListCardView()
-    var markerPool: GMSMarkerPool!
+    var markerPool: MarkerPool!
     var searchButton = RoundedButton()
     
     // MARK: - Interactions
@@ -76,11 +75,11 @@ class MapView: UIView, ViewControllerModellableView {
     
     // MARK: Setup
     func setup() {
-        self.mapView = GMSMapView(frame: .zero)
-        self.loadMapStyle()
-        self.mapView.settings.compassButton = true
-        self.mapView.settings.tiltGestures = false
-        self.mapView.delegate = self.viewController as? AttractionsViewController
+        self.mapView.showsCompass = true
+        self.mapView.showsUserLocation = true
+        self.mapView.showsTraffic = false
+        self.mapView.pointOfInterestFilter = .init(including: [.publicTransport])
+        //self.mapView.delegate = self.viewController as? AttractionsViewController
         self.locationButton.on(.touchUpInside) { button in
             self.didTapLocationButton?()
             self.centerMap()
@@ -93,7 +92,7 @@ class MapView: UIView, ViewControllerModellableView {
         self.cityNameButton.on(.touchUpInside) { button in
             self.didTapCityNameButton?()
         }
-        self.markerPool = GMSMarkerPool(mapView: self.mapView)
+        self.markerPool = MarkerPool(mapView: self.mapView)
         self.addSubview(self.mapView)
         self.addSubview(self.locationButton)
         self.addSubview(self.listCardView)
@@ -132,19 +131,19 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Layout subviews
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.topBlurEffect.pin.top().left().right().bottom(94.5%)
-        let showCityNameButton = self.mapView.camera.zoom >= MapView.zoomThreshold
+        self.topBlurEffect.pin.top().left().right().bottom(95.5%)
+        let showCityNameButton = true // self.mapView.camera >= MapView.zoomThreshold
         self.cityNameButton.pin.below(of: self.topBlurEffect).left(showCityNameButton ? 10 : -20).sizeToFit()
         self.searchButton.pin.right(of: self.cityNameButton, aligned: .center).margin(2%).size(40)
         if self.firstLayout {
-            self.layoutCardView(targetPercent: CardState.collapsed.rawValue%, layoutMap: true)
+            self.layoutCardView(targetPercent: CardState.collapsed.rawValue%)
             self.firstLayout.toggle()
         }
     }
     
-    func layoutCardView(targetPercent: Percent, layoutMap: Bool) {
+    func layoutCardView(targetPercent: Percent) {
         self.listCardView.pin.bottom().left().right().top(targetPercent)
-        if layoutMap { self.layoutMapView(targetPercent: targetPercent) }
+        self.layoutMapView(targetPercent: targetPercent)
         let inversePercent = (100 - targetPercent.of(100) + 2)%
         self.locationButton.pin.bottom(inversePercent).right(4%).size(40)
         self.layoutIfNeeded()
@@ -167,42 +166,41 @@ class MapView: UIView, ViewControllerModellableView {
             self.locationButton.isEnabled = true
         }
         if let location = model.location {
-            self.mapView.isMyLocationEnabled = true
-            self.locationMarker.position = location
+            /*self.locationMarker.position = location
             self.locationMarker.radius = 819200.0 * pow(2, -Double(self.mapView.camera.zoom))
             self.locationMarker.map = self.mapView
             if model.mapCentered {
                 self.locationMarker.strokeColor = .clear
-                self.locationMarker.fillColor = .clear
-                self.centerMap()
-            } else {
+                self.locationMarker.fillColor = .clear*/
+            self.centerMap()
+            /*} else {
                 self.locationMarker.strokeColor = .label
                 self.locationMarker.fillColor = .label
-            }
+            }*/
             if model.needToMoveMap {
                 self.moveMap(to: location)
                 self.didMoveMap?()
             }
         }
-        if let actualLocation = model.actualLocation {
+        /*if let actualLocation = model.actualLocation {
             self.updateCircle(self.littleCircle, actualLocation: actualLocation, radius: model.littleCircleRadius, text: "5 min")
             self.updateCircle(self.bigCircle, actualLocation: actualLocation, radius: model.bigCircleRadius, text: "15 min")
-        }
-        if self.mapView.camera.zoom >= MapView.zoomThreshold {
+        }*/
+        //if self.mapView.camera.zoom >= MapView.zoomThreshold {
             self.markerPool.setMarkers(places: model.places)
             if let city = model.city {
                 self.cityNameButton.setTitle(city, for: .normal)
             } else {
                 self.cityNameButton.setTitle("SmartTourist", for: .normal)
             }
-        } else {
+        /*} else {
             self.markerPool.setMarkers(places: [])
             self.cityNameButton.setTitle(nil, for: .normal)
-        }
+        }*/
         self.setNeedsLayout()
     }
     
-    private func updateCircle(_ mapCircle: MapCircle, actualLocation: CLLocationCoordinate2D, radius: Double, text: String) {
+    /*private func updateCircle(_ mapCircle: MapCircle, actualLocation: CLLocationCoordinate2D, radius: Double, text: String) {
         if mapCircle.circle == nil {
             mapCircle.circle = GMSCircle()
         }
@@ -219,11 +217,11 @@ class MapView: UIView, ViewControllerModellableView {
         }
         mapCircle.overlay!.bearing = 0
         mapCircle.overlay!.map = self.mapView
-    }
+    }*/
     
     private func moveMap(to location: CLLocationCoordinate2D) {
-        let camera = GMSCameraPosition.camera(withLatitude: location.latitude, longitude: location.longitude, zoom: 15)
-        self.mapView.animate(to: camera)
+        let camera = MKMapCamera(lookingAtCenter: location, fromDistance: 2000, pitch: 0, heading: 0)
+        self.mapView.setCamera(camera, animated: true)
     }
     
     private func centerMap() {
@@ -231,22 +229,8 @@ class MapView: UIView, ViewControllerModellableView {
         self.moveMap(to: location)
     }
     
-    private func loadMapStyle() {
-        do {
-            let style = UITraitCollection.current.userInterfaceStyle == .dark ? "mapStyle.dark" : "mapStyle"
-            if let styleURL = Bundle.main.url(forResource: style, withExtension: "json") {
-                mapView.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
-            } else {
-                print("Unable to find style.json")
-            }
-        } catch {
-            print("One or more of the map styles failed to load. \(error)")
-        }
-    }
-    
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        self.loadMapStyle()
         self.topBlurEffect.effect = UIBlurEffect(style: UITraitCollection.current.userInterfaceStyle == .dark ? .dark : .light)
     }
     
@@ -276,12 +260,7 @@ class MapView: UIView, ViewControllerModellableView {
             targetPercent = CardState.collapsed.rawValue%
         }
         self.animator = UIViewPropertyAnimator(duration: 0.5, dampingRatio: 0.8, animations: {
-            switch cardState {
-            case .collapsed:
-                self.layoutCardView(targetPercent: targetPercent, layoutMap: false)
-            case .expanded:
-                self.layoutCardView(targetPercent: targetPercent, layoutMap: true)
-            }
+            self.layoutCardView(targetPercent: targetPercent)
         })
     }
     
@@ -371,7 +350,7 @@ enum CardState: Int {
 }
 
 
-class MapCircle {
+/*class MapCircle {
     var circle: GMSCircle?
     var overlay: GMSGroundOverlay?
-}
+}*/
