@@ -22,7 +22,7 @@ struct PersistorInterceptor {
                         do {
                             let data = try encoder.encode(state)
                             try data.write(to: AppState.persistURL)
-                            print("State persisted to \(AppState.persistURL)")
+                            print("State persisted") // to \(AppState.persistURL)")
                         } catch {
                             print("\(#function): \(error.localizedDescription)")
                         }

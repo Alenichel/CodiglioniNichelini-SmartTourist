@@ -79,7 +79,7 @@ class MapView: UIView, ViewControllerModellableView {
         self.mapView.showsUserLocation = true
         self.mapView.showsTraffic = false
         self.mapView.pointOfInterestFilter = .init(including: [.publicTransport])
-        //self.mapView.delegate = self.viewController as? AttractionsViewController
+        self.mapView.delegate = self.viewController as? AttractionsViewController
         self.locationButton.on(.touchUpInside) { button in
             self.didTapLocationButton?()
             self.centerMap()
@@ -172,7 +172,6 @@ class MapView: UIView, ViewControllerModellableView {
             if model.mapCentered {
                 self.locationMarker.strokeColor = .clear
                 self.locationMarker.fillColor = .clear*/
-            self.centerMap()
             /*} else {
                 self.locationMarker.strokeColor = .label
                 self.locationMarker.fillColor = .label
@@ -224,7 +223,7 @@ class MapView: UIView, ViewControllerModellableView {
         self.mapView.setCamera(camera, animated: true)
     }
     
-    private func centerMap() {
+    func centerMap() {
         guard let model = self.model, let location = model.location else { return }
         self.moveMap(to: location)
     }

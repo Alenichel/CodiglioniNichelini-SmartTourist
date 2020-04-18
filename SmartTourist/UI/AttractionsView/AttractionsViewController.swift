@@ -6,15 +6,16 @@
 //
 
 import Foundation
-import CoreLocation
 import Tempura
-import GoogleMaps
+import MapKit
 
 
 var justVisitedPlaces: [GPPlace] = []
 
 
 class AttractionsViewController: ViewControllerWithLocalState<MapView> {
+    var mapRendered = false
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let navigationController = self.navigationController {
@@ -58,7 +59,9 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
             self.dispatch(Show(Screen.cityDetail, animated: true))
         }
         self.rootView.didTapLocationButton = { [unowned self] in
-            self.dispatch(SetMapCentered(value: true))
+            self.dispatch(SetMapCentered(value: true)).then(in: .main) { [unowned self] in
+                self.rootView.centerMap()
+            }
             self.dispatch(GetCurrentCity(throttle: false))   // Also calls GetPopularPlaces
             self.dispatch(GetNearestPlaces(throttle: false))
         }
@@ -102,23 +105,7 @@ extension AttractionsViewController: CLLocationManagerDelegate {
 }
 
 
-extension AttractionsViewController: GMSMapViewDelegate {
-    func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
-        if gesture { self.dispatch(SetMapCentered(value: false)) }
-    }
-    
-    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        self.dispatch(SetMapLocation(location: position.target))
-        if !self.state.locationState.mapCentered {
-            self.dispatch(GetCurrentCity(throttle: false))   // Also calls GetPopularPlaces
-            self.dispatch(GetNearestPlaces(throttle: false))
-        }
-    }
-    
-    func mapView(_ mapView: GMSMapView, didChange position: GMSCameraPosition) {
-        self.dispatch(SetMapLocation(location: position.target))
-    }
-    
+/*extension AttractionsViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         self.dispatch(SetMapCentered(value: false))
         return false
@@ -127,6 +114,38 @@ extension AttractionsViewController: GMSMapViewDelegate {
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         let place = marker.userData as! GPPlace
         self.dispatch(Show(Screen.detail, animated: true, context: place))
+    }
+}*/
+
+
+extension AttractionsViewController: MKMapViewDelegate {
+    func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
+        self.mapRendered = true
+        self.rootView.centerMap()
+    }
+    
+    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+        guard self.mapRendered else { return }
+        //print("\(#function) \(mapView.centerCoordinate)")
+        self.dispatch(SetMapLocation(location: mapView.centerCoordinate))
+    }
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        guard self.mapRendered else { return }
+        //print("\(#function) animated = \(animated)")
+        self.dispatch(SetMapLocation(location: mapView.centerCoordinate))
+        if !self.state.locationState.mapCentered {
+            self.dispatch(GetCurrentCity(throttle: false))   // Also calls GetPopularPlaces
+            self.dispatch(GetNearestPlaces(throttle: false))
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+        guard self.mapRendered else { return }
+        //print("\(#function) animated = \(animated)")
+        if !animated {
+            self.dispatch(SetMapCentered(value: false))
+        }
     }
 }
 

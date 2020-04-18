@@ -18,7 +18,7 @@ struct LoadState: SideEffect {
             let data = try Data(contentsOf: AppState.persistURL)
             let state = try decoder.decode(AppState.self, from: data)
             context.dispatch(SetState(state: state))
-            print("Loaded state from \(AppState.persistURL)")
+            print("Loaded state") // from \(AppState.persistURL)")
         } catch {
             print("\(#function): \(error.localizedDescription)")
         }

@@ -74,7 +74,7 @@ class GPPlace: Codable, Equatable, Hashable, Comparable {
         self.userRatingsTotal = try container.decodeIfPresent(Int.self, forKey: .userRatingsTotal)
         self.city = try container.decodeIfPresent(String.self, forKey: .city)
         self.website = try container.decodeIfPresent(String.self, forKey: .website)
-        if self.photos == nil || (self.photos != nil && self.photos!.count < 2) || self.website == nil {
+        /*if self.photos == nil || (self.photos != nil && self.photos!.count < 2) || self.website == nil {
             GoogleAPI.shared.getPlaceDetails(placeID: self.placeID).then(in: .utility) { result in
                 if let photos = result.photos {
                     self.photos = Array<GPPhoto>(Set<GPPhoto>(self.photos!).union(Set<GPPhoto>(photos)))
@@ -83,7 +83,7 @@ class GPPlace: Codable, Equatable, Hashable, Comparable {
                     self.website = website
                 }
             }
-        }
+        }*/
     }
     
     func encode(to encoder: Encoder) throws {
