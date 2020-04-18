@@ -105,6 +105,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.imageSlideshow.zoomEnabled = true
         self.imageSlideshow.pageIndicator = nil
         self.imageSlideshow.contentScaleMode = .scaleAspectFill
+        self.scrollView.showsVerticalScrollIndicator = false
     }
     
     func style() {
@@ -176,7 +177,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
             self.descriptionText.sizeToFit()
             let frameHeight: CGFloat = self.frame.height
             let mapHeight: CGFloat = 300
-            let h = textContentHeight + frameHeight / 1.8 + mapHeight
+            let h = textContentHeight + frameHeight / 1.8 + mapHeight + 50
             self.scrollView.contentSize = CGSize(width: self.frame.width, height: h)
         }
         self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 300)

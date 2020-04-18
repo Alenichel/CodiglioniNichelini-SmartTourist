@@ -34,10 +34,11 @@ class CityDetailView: UIView, ViewControllerModellableView {
     var marker = GMSMarker()
     
     func setup() {
-        self.addSubview(mapView)
+        self.addSubview(self.mapView)
         self.addSubview(self.cityNameLabel)
-        self.addSubview(descriptionText)
+        self.addSubview(self.descriptionText)
         self.addSubview(self.lineView)
+        self.descriptionText.showsVerticalScrollIndicator = false
     }
     
     func style() {
