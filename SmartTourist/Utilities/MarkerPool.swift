@@ -11,7 +11,7 @@ import Contacts
 
 
 class MarkerPool {
-    private var cache = [CLLocationCoordinate2D: MKPlacemark]()
+    private var cache = [GPPlace: MKPlacemark]()
     private var mapView: MKMapView
     
     init(mapView: MKMapView) {
@@ -19,21 +19,26 @@ class MarkerPool {
     }
     
     func setMarkers(places: [GPPlace]) {
-        let coordinates = places.map { $0.location }
         self.cache = self.cache.filter { entry in
-            let toBeKept = coordinates.contains(entry.key)
+            let toBeKept = places.contains(entry.key)
             if !toBeKept { self.mapView.removeAnnotation(entry.value) }
             return toBeKept
         }
         places.forEach { place in
-            if self.cache[place.location] == nil {
-                let address = [CNPostalAddressCountryKey: place.name]
+            if self.cache[place] == nil {
+                let address = [CNPostalAddressCountryKey: place.name, "placeID": place.placeID]
                 let placemark = MKPlacemark(coordinate: place.location, addressDictionary: address)
                 self.mapView.addAnnotation(placemark)
                 //marker.userData = place
-                self.cache[place.location] = placemark
+                self.cache[place] = placemark
             }
         }
+    }
+    
+    func getPlace(from marker: MKPlacemark) -> GPPlace? {
+        return self.cache.keys.first(where: { place in
+            self.cache[place] == marker
+        })
     }
 }
 

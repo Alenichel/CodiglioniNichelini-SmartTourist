@@ -105,19 +105,6 @@ extension AttractionsViewController: CLLocationManagerDelegate {
 }
 
 
-/*extension AttractionsViewController: GMSMapViewDelegate {
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        self.dispatch(SetMapCentered(value: false))
-        return false
-    }
-    
-    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
-        let place = marker.userData as! GPPlace
-        self.dispatch(Show(Screen.detail, animated: true, context: place))
-    }
-}*/
-
-
 extension AttractionsViewController: MKMapViewDelegate {
     func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
         self.mapRendered = true
@@ -146,6 +133,29 @@ extension AttractionsViewController: MKMapViewDelegate {
         if !animated {
             self.dispatch(SetMapCentered(value: false))
         }
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if let _ = annotation as? MKUserLocation {
+            return nil
+        }
+        let view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "marker")
+        view.canShowCallout = true
+        let button = UIButton(type: .detailDisclosure)
+        button.tintColor = .label
+        button.sizeToFit()
+        view.rightCalloutAccessoryView = button
+        return view
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        print(#function)
+        guard let placemark = view.annotation as? MKPlacemark else { return }
+        if let title = placemark.title {
+            print("didTap \(title)")
+        }
+        guard let place = self.rootView.markerPool.getPlace(from: placemark) else { return }
+        self.dispatch(Show(Screen.detail, animated: true, context: place))
     }
 }
 
