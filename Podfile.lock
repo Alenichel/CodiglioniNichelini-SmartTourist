@@ -2,6 +2,7 @@ PODS:
   - Alamofire (5.0.5)
   - Cosmos (20.0.1)
   - DeepDiff (2.3.1)
+  - FontAwesome.swift (1.9.0)
   - Fuse (1.2.0)
   - GoogleMaps (3.8.0):
     - GoogleMaps/Maps (= 3.8.0)
@@ -26,6 +27,7 @@ DEPENDENCIES:
   - Alamofire (~> 5.0.0-rc.3)
   - Cosmos (~> 20.0)
   - DeepDiff
+  - FontAwesome.swift
   - Fuse
   - GoogleMaps
   - GooglePlaces
@@ -41,6 +43,7 @@ SPEC REPOS:
     - Alamofire
     - Cosmos
     - DeepDiff
+    - FontAwesome.swift
     - Fuse
     - GoogleMaps
     - GooglePlaces
@@ -56,6 +59,7 @@ SPEC CHECKSUMS:
   Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
   Cosmos: b47fddf2102bb48580cd3025d9ce0a5c658a65da
   DeepDiff: e5ae6c50d0321568e4508cec5930b9f10bb293fc
+  FontAwesome.swift: a403b88cec950511745ba8f2decd1b6a07346d13
   Fuse: 287bd95a5c8dbfe6c41af519eaf48856aa1a28f6
   GoogleMaps: 7c8d66d70e4e8c300f43a7219d8fdaad7b325a9a
   GooglePlaces: d5f70c3e9e427964fdeca1301a665d276ccd8754
@@ -67,6 +71,6 @@ SPEC CHECKSUMS:
   SigmaSwiftStatistics: 4ec81cd50b0f397baddba05fe88ce228a66edd8c
   Tempura: adc54766491f97980bcdb3dff82a92076ed825e2
 
-PODFILE CHECKSUM: fd725748e04cc578ffc53e9346dee8baea19c18e
+PODFILE CHECKSUM: 957a5919b50159808a9369bee8da822129ad0de4
 
 COCOAPODS: 1.9.1

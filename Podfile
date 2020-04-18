@@ -18,6 +18,7 @@ target 'SmartTourist' do
   pod 'ImageSlideshow', '~> 1.8.3'
   pod 'MarqueeLabel'
   pod 'SigmaSwiftStatistics', '~> 9.0'
+  pod 'FontAwesome.swift'
 
   target 'SmartTouristTests' do
     inherit! :search_paths

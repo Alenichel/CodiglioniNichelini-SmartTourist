@@ -57,6 +57,7 @@
 		E54958FC241F5BAD00D643F1 /* SettingStringCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54958FB241F5BAD00D643F1 /* SettingStringCell.swift */; };
 		E5495903241F648400D643F1 /* Bundle+version+build.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5495902241F648400D643F1 /* Bundle+version+build.swift */; };
 		E54B9A5B2417D0F9009F8DBC /* UITextView+setText.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54B9A5A2417D0F9009F8DBC /* UITextView+setText.swift */; };
+		E54BF857244AECAD0049D3E2 /* CGSize+init.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54BF856244AECAD0049D3E2 /* CGSize+init.swift */; };
 		E54E01B423996806009D0331 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E01B323996806009D0331 /* Persistable.swift */; };
 		E54E01BB23996839009D0331 /* Interceptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E01BA23996839009D0331 /* Interceptors.swift */; };
 		E553D14B23926CC600C3199C /* ListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E553D14A23926CC600C3199C /* ListCardView.swift */; };
@@ -266,6 +267,7 @@
 		E54958FB241F5BAD00D643F1 /* SettingStringCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingStringCell.swift; sourceTree = "<group>"; };
 		E5495902241F648400D643F1 /* Bundle+version+build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+version+build.swift"; sourceTree = "<group>"; };
 		E54B9A5A2417D0F9009F8DBC /* UITextView+setText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+setText.swift"; sourceTree = "<group>"; };
+		E54BF856244AECAD0049D3E2 /* CGSize+init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+init.swift"; sourceTree = "<group>"; };
 		E54E01B323996806009D0331 /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		E54E01BA23996839009D0331 /* Interceptors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptors.swift; sourceTree = "<group>"; };
 		E553D14A23926CC600C3199C /* ListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCardView.swift; sourceTree = "<group>"; };
@@ -695,6 +697,7 @@
 				E54B9A5A2417D0F9009F8DBC /* UITextView+setText.swift */,
 				E5F9715A2392D96E0096C296 /* UIView+Blink.swift */,
 				E53BF0E7242A874B00358E6D /* UNNotificationAttachment+UIImage.swift */,
+				E54BF856244AECAD0049D3E2 /* CGSize+init.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1179,6 +1182,7 @@
 				99F5A11923995D9E0056E68D /* UIImageView+setImage.swift in Sources */,
 				E590A97A242CE1FD00C0F0D5 /* WCSessionDelegate.swift in Sources */,
 				E54958FC241F5BAD00D643F1 /* SettingStringCell.swift in Sources */,
+				E54BF857244AECAD0049D3E2 /* CGSize+init.swift in Sources */,
 				E590FAE42445FCA300A3DD87 /* String+UIImage.swift in Sources */,
 				E5F9715D2392D96F0096C296 /* String+Random.swift in Sources */,
 				E5335D052389946C00601F02 /* AttractionsViewController.swift in Sources */,

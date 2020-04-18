@@ -46,7 +46,7 @@ class GPPlaceFilter {
             .filter { $0.userRatingsTotal != nil }
             .map { Double($0.userRatingsTotal!) }
         guard let percentile = Sigma.percentile(ratings, percentile: alpha) else { return self }
-        print("percentile = \(percentile)")
+        //print("percentile = \(percentile)")
         return self.minTotalRatings(Int(percentile))
     }
 }
