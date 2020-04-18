@@ -233,6 +233,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
+        self.directionButton.setImage(UIImage.fontAwesomeIcon(name: .shoePrints, style: .solid, textColor: .label, size: CGSize(size: 30)), for: .normal)
         self.directionButton.layer.shadowColor = UIColor.label.cgColor
         self.linkButton.layer.shadowColor = UIColor.label.cgColor
     }
