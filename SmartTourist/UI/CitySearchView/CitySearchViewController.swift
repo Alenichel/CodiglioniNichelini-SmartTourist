@@ -64,7 +64,7 @@ extension CitySearchViewController: GMSAutocompleteResultsViewControllerDelegate
 
     func resultsController(_ resultsController: GMSAutocompleteResultsViewController, didFailAutocompleteWithError error: Error) {
         // TODO: handle the error.
-        print("Error: ", error.localizedDescription)
+        print("\(#function): \(error.localizedDescription)")
     }
 
     // Turn the network activity indicator on and off again.

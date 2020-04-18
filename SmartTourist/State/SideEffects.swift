@@ -20,7 +20,7 @@ struct LoadState: SideEffect {
             context.dispatch(SetState(state: state))
             print("Loaded state from \(AppState.persistURL)")
         } catch {
-            print("Error while decoding JSON: \(error.localizedDescription)")
+            print("\(#function): \(error.localizedDescription)")
         }
     }
 }
@@ -93,7 +93,7 @@ struct AddFavorite: SideEffect {
         context.dependencies.googleAPI.getCityNameMK(coordinates: self.place.location).then(in: .utility) { city in
             self.place.city = city
         }.catch(in: .utility) { error in
-            print(error.localizedDescription)
+            print("\(#function): \(error.localizedDescription)")
             if let currentCity = context.getState().locationState.currentCity {
                 self.place.city = currentCity
             }
@@ -110,8 +110,8 @@ struct GetCityDetails: SideEffect {
         context.dispatch(SetWDCity(city: nil))
         guard let city = context.getState().locationState.currentCity else { return }
         context.dependencies.googleAPI.getCityPlace(city: city).then(in: .utility) { places in
-            assert(places.count == 1)
-            context.dispatch(SetGPCity(city: places.first!))
+            guard let place = places.first else { return }
+            context.dispatch(SetGPCity(city: place))
         }
         // TODO: WikiData
     }

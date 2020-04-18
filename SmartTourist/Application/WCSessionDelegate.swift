@@ -23,7 +23,7 @@ extension AppDelegate: WCSessionDelegate {
             do {
                 try await(self.store.dispatch(LoadState()))
             } catch {
-                print(error.localizedDescription)
+                print("\(#function): \(error.localizedDescription)")
             }
         }
         guard let typeString = message["type"] as? String, let type = AppleWatchMessage(rawValue: typeString) else { return }
@@ -47,7 +47,7 @@ extension AppDelegate: WCSessionDelegate {
                     replyMessage["places"] = try await(self.encodePlaces(self.store.state.favorites))
                 }
             } catch {
-                print(error.localizedDescription)
+                print("\(#function): \(error.localizedDescription)")
                 replyMessage["places"] = nil
             }
         case .getDetail:
@@ -59,7 +59,7 @@ extension AppDelegate: WCSessionDelegate {
             do {
                 replyMessage["place_detail"] = try await(self.encodePlaceDetail(place))
             } catch {
-                print(error.localizedDescription)
+                print("\(#function): \(error.localizedDescription)")
                 replyMessage["place_detail"] = nil
             }
         }
@@ -102,7 +102,7 @@ extension AppDelegate: WCSessionDelegate {
                 let image = try await(GoogleAPI.shared.getPhoto(photo))
                 return self.resizeImage(image, maxPixels: maxPixels)
             } catch {
-                print(error.localizedDescription)
+                print("\(#function): \(error.localizedDescription)")
                 return nil
             }
         } else {
@@ -139,7 +139,7 @@ extension AppDelegate: WCSessionDelegate {
                 }
                 resolve(data)
             } catch {
-                print(error.localizedDescription)
+                print("\(#function): \(error.localizedDescription)")
                 reject(error)
             }
         }

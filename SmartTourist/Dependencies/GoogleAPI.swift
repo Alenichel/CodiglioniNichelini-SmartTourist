@@ -71,13 +71,13 @@ class GoogleAPI {
                         let gpResponse = try decoder.decode(GPPlaceSearchResponse.self, from: data)
                         resolve(gpResponse.results)
                     } catch {
-                        print(error.localizedDescription)
+                        print("\(#function): \(error.localizedDescription)")
                         reject(error)
                     }
                     reject(UnknownApiError())
                 case .failure:
                     guard let error = response.error else { reject(UnknownApiError()); return }
-                    print(error.localizedDescription)
+                    print("\(#function): \(error.localizedDescription)")
                     reject(error)
                 }
             }
@@ -108,13 +108,13 @@ class GoogleAPI {
                         let results = gpResponse.results.sorted(by: {$0.rating! > $1.rating!})
                         resolve(results)
                     } catch {
-                        print(error.localizedDescription)
+                        print("\(#function): \(error.localizedDescription)")
                         reject(error)
                     }
                     reject(UnknownApiError())
                 case .failure:
                     guard let error = response.error else { reject(UnknownApiError()); return }
-                    print(error.localizedDescription)
+                    print("\(#function): \(error.localizedDescription)")
                     reject(error)
                 }
             }
@@ -146,13 +146,13 @@ class GoogleAPI {
                         let gpResponse = try decoder.decode(GPPlaceDetailResponse.self, from: data)
                         resolve(gpResponse.result)
                     } catch {
-                        print(error.localizedDescription)
+                        print("\(#function): \(error.localizedDescription)")
                         reject(error)
                     }
                     reject(UnknownApiError())
                 case .failure:
                     guard let error = response.error else { reject(UnknownApiError()); return }
-                    print(error.localizedDescription)
+                    print("\(#function): \(error.localizedDescription)")
                     reject(error)
                 }
             }
@@ -179,7 +179,7 @@ class GoogleAPI {
                         resolve(image)
                     case .failure:
                         guard let error = response.error else { reject(UnknownApiError()); return }
-                        print(error.localizedDescription)
+                        print("\(#function): \(error.localizedDescription)")
                         reject(error)
                     }
                 }
@@ -221,12 +221,12 @@ class GoogleAPI {
                         let r = response.routes.first?.legs.first?.durationText
                         resolve(r ?? "Unavailable")
                     } catch {
-                        print(error.localizedDescription)
+                        print("\(#function): \(error.localizedDescription)")
                         reject(error)
                     }
                 case .failure:
                     guard let error = response.error else { reject(UnknownApiError()); return }
-                    print(error.localizedDescription)
+                    print("\(#function): \(error.localizedDescription)")
                     reject(error)
                 }
             }

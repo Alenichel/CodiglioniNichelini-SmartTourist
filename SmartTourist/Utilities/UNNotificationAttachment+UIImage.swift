@@ -24,7 +24,7 @@ extension UNNotificationAttachment {
             let imageAttachment = try UNNotificationAttachment.init(identifier: imageFileIdentifier, url: fileURL, options: options)
             return imageAttachment
         } catch {
-            print(error.localizedDescription)
+            print("\(#function): \(error.localizedDescription)")
         }
         return nil
     }

@@ -25,7 +25,7 @@ class PromiseImageSource: InputSource {
             promise.then(in: .utility) { image in
                 self.image = image
             }.catch(in: .utility) { error in
-                print(error.localizedDescription)
+                print("\(#function): \(error.localizedDescription)")
                 self.image = nil
             }.always(in: .main) {
                 imageView.image = self.image

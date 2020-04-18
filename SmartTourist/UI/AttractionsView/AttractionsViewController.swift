@@ -40,7 +40,7 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
         }
         PedometerHandler.shared.startUpdates { data, error in
             if let error = error {
-                print(error.localizedDescription)
+                print("\(#function): \(error.localizedDescription)")
             } else if let data = data {
                 self.dispatch(SetPedometerAverageWalkingSpeed(newSpeed: data.averageActivePace as! Double))                
             }

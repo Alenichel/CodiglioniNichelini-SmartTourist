@@ -27,7 +27,7 @@ class NotificationManager {
     func requestAuth() {
         self.nc.requestAuthorization(options: [.alert, .badge, .sound]) { granted, error in
             if let error = error {
-                print(error.localizedDescription)
+                print("\(#function): \(error.localizedDescription)")
                 self.onPermissionDeclined?()
             }
             if granted {

@@ -24,8 +24,7 @@ struct PersistorInterceptor {
                             try data.write(to: AppState.persistURL)
                             print("State persisted to \(AppState.persistURL)")
                         } catch {
-                            print("Error while encoding JSON")
-                            print(error.localizedDescription)
+                            print("\(#function): \(error.localizedDescription)")
                         }
                     }
                 }

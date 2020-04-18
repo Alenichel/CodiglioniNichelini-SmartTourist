@@ -150,12 +150,12 @@ class WikipediaAPI {
                         }
                         reject(UnknownApiError())
                     } catch let error as NSError {
-                        print("Failed to load: \(error.localizedDescription)")
+                        print("\(#function): \(error.localizedDescription)")
                         reject(error)
                     }
                 case .failure:
                     guard let error = response.error else { reject(UnknownApiError()); return }
-                    print(error.localizedDescription)
+                    print("\(#function): \(error.localizedDescription)")
                     reject(error)
                 }
             }
@@ -177,12 +177,12 @@ class WikipediaAPI {
                         let city = try JSONDecoder().decode(WDCity.self, from: data)
                         resolve(city)
                     } catch let error as NSError {
-                        print("Failed to load: \(error.localizedDescription)")
+                        print("\(#function): \(error.localizedDescription)")
                         reject(error)
                     }
                 case .failure:
                     guard let error = response.error else { reject(UnknownApiError()); return }
-                    print(error.localizedDescription)
+                    print("\(#function): \(error.localizedDescription)")
                     reject(error)
                 }
             }
