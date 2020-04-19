@@ -72,7 +72,7 @@ class NotificationManager {
         notificationCenter.setNotificationCategories([topAttractionCategory])
     }
     
-    func sendNearbyTopAttractionNotification(place: GPPlace) {
+    func sendNearbyTopAttractionNotification(place: WDPlace) {
         Promise<UNNotificationRequest>(in: .background) { resolve, reject, status in
             let content = UNMutableNotificationContent()
             content.title = "Nearby Top Location"

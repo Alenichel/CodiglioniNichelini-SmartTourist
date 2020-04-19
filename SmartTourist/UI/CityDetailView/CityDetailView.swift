@@ -18,7 +18,7 @@ struct CityDetailViewModel: ViewModelWithLocalState {
     let city: String
     let location: CLLocationCoordinate2D
     let allLoaded: Bool
-    let gpCity: GPPlace?
+    let gpCity: WDPlace?
     let wdCity: WDCity?
     //var wikidataId: String
     

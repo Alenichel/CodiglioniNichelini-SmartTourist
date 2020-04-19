@@ -87,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         completionHandler()
     }
     
-    private func showDetailView(store: PartialStore<AppState>, place: GPPlace) {
+    private func showDetailView(store: PartialStore<AppState>, place: WDPlace) {
         guard let navigationController = UIApplication.shared.windows.first?.rootViewController as? UINavigationController else { return }
         navigationController.popToRootViewController(animated: true) {
             store.dispatch(Show(Screen.detail, animated: true, context: place))

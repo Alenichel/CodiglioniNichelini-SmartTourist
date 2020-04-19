@@ -11,7 +11,7 @@ import Hydra
 
 
 struct GPPlaceSearchResponse: Decodable {
-    let results: [GPPlace]
+    let results: [WDPlace]
     
     enum CodingKeys: CodingKey {
         case results
@@ -37,8 +37,8 @@ struct GPPlaceDetailResultsResponse: Decodable {
     }
 }
 
-
-class GPPlace: Codable, Equatable, Hashable, Comparable {
+/*
+class WDPlace: Codable, Equatable, Hashable, Comparable {
     let placeID: String
     let location: CLLocationCoordinate2D
     let name: String
@@ -99,7 +99,7 @@ class GPPlace: Codable, Equatable, Hashable, Comparable {
         try container.encodeIfPresent(self.website, forKey: .website)
     }
     
-    func distance(from: GPPlace) -> Int {
+    func distance(from: WDPlace) -> Int {
         return self.location.distance(from: from.location)
     }
     
@@ -107,11 +107,11 @@ class GPPlace: Codable, Equatable, Hashable, Comparable {
         return self.location.distance(from: from)
     }
     
-    static func == (lhs: GPPlace, rhs: GPPlace) -> Bool {
+    static func == (lhs: WDPlace, rhs: WDPlace) -> Bool {
         return lhs.placeID == rhs.placeID
     }
     
-    static func < (lhs: GPPlace, rhs: GPPlace) -> Bool {
+    static func < (lhs: WDPlace, rhs: WDPlace) -> Bool {
         if let lc = lhs.city, let rc = rhs.city, lc != rc {
             return lc < rc
         } else {
@@ -122,7 +122,7 @@ class GPPlace: Codable, Equatable, Hashable, Comparable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.placeID)
     }
-}
+}*/
 
 
 class GPPhoto: Codable, Hashable {

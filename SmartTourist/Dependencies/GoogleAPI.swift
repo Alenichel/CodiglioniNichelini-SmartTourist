@@ -52,8 +52,8 @@ class GoogleAPI {
         }
     }
     
-    func getNearbyPlaces(location: CLLocationCoordinate2D) -> Promise<[GPPlace]> {
-        return Promise<[GPPlace]>(in: .background) { resolve, reject, status in
+    func getNearbyPlaces(location: CLLocationCoordinate2D) -> Promise<[WDPlace]> {
+        return Promise<[WDPlace]>(in: .background) { resolve, reject, status in
             let parameters = [
                 "language": "en",
                 "key": GoogleAPI.apiKey,
@@ -84,8 +84,8 @@ class GoogleAPI {
         }
     }
     
-    private func placeTextSearch(query: String, limit: Int? = nil, type: PlaceType? = nil) -> Promise<[GPPlace]> {
-        return Promise<[GPPlace]>(in: .background) { resolve, reject, status in
+    private func placeTextSearch(query: String, limit: Int? = nil, type: PlaceType? = nil) -> Promise<[WDPlace]> {
+        return Promise<[WDPlace]>(in: .background) { resolve, reject, status in
             var parameters = [
                 "language": "en",
                 "key": GoogleAPI.apiKey,
@@ -121,11 +121,11 @@ class GoogleAPI {
         }
     }
         
-    func getPopularPlaces(city: String) -> Promise<[GPPlace]> {
+    func getPopularPlaces(city: String) -> Promise<[WDPlace]> {
         return self.placeTextSearch(query: "\(city) top attractions", type: .touristAttraction)
     }
     
-    func getCityPlace(city: String) -> Promise<[GPPlace]> {
+    func getCityPlace(city: String) -> Promise<[WDPlace]> {
         return self.placeTextSearch(query: city, limit: 1)
     }
     

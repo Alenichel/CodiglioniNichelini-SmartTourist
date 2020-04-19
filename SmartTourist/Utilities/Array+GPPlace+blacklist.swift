@@ -10,9 +10,9 @@ import SigmaSwiftStatistics
 
 
 class GPPlaceFilter {
-    var places: [GPPlace]
+    var places: [WDPlace]
     
-    init(_ places: [GPPlace]) {
+    init(_ places: [WDPlace]) {
         self.places = places
     }
     
@@ -52,8 +52,8 @@ class GPPlaceFilter {
 }
 
 
-extension Array where Element: GPPlace {
-    var blacklisted: [GPPlace] {
+extension Array where Element: WDPlace {
+    var blacklisted: [WDPlace] {
         GPPlaceFilter(self)
             .noEmojis()
             .minRatings(2.5)

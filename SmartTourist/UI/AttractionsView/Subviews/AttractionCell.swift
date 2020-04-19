@@ -34,7 +34,7 @@ struct AttractionCellViewModel: ViewModel, Equatable {
         return l.identifier == r.identifier
     }
     
-    init(place: GPPlace, currentLocation: CLLocationCoordinate2D, favorite: Bool, isInFavoriteTab: Bool) {
+    init(place: WDPlace, currentLocation: CLLocationCoordinate2D, favorite: Bool, isInFavoriteTab: Bool) {
         self.identifier = place.placeID
         self.attractionName = place.name
         self.attractionCityName = place.city ?? "Unknown city"

@@ -17,7 +17,7 @@ import FontAwesome_swift
 
 
 struct AttractionDetailViewModel: ViewModelWithLocalState {
-    let attraction: GPPlace
+    let attraction: WDPlace
     let photos: [GPPhoto]
     let nRatings: String
     let wikipediaSearchTerms: String
@@ -69,9 +69,9 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     var linkButton = RoundedButton()
     var timeLabel = UILabel()
     
-    var didTapFavoriteButton: ((GPPlace) -> Void)?
+    var didTapFavoriteButton: ((WDPlace) -> Void)?
     var didLoadEverything: Interaction?
-    var didTapDirectionButton: (( CLLocationCoordinate2D?, GPPlace?) -> Void)?
+    var didTapDirectionButton: (( CLLocationCoordinate2D?, WDPlace?) -> Void)?
     var didTapLinkButton: ((String?) -> Void)?
 
     func setup() {

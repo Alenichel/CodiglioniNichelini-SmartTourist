@@ -12,7 +12,7 @@ import GoogleMaps
 
 
 struct WorldwideFavoritesViewModel: ViewModelWithState {
-    let favorites: [GPPlace]
+    let favorites: [WDPlace]
 
     init(state: AppState) {
         self.favorites = state.favorites
