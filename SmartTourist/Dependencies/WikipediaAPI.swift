@@ -40,7 +40,7 @@ WHERE
   SERVICE wikibase:around {
       ?place wdt:P625 ?location .
       
-      bd:serviceParam wikibase:center "Point(9.1919555 45.4633256)"^^geo:wktLiteral .
+      bd:serviceParam wikibase:center "Point(<LONGITUDE> <LATITUDE>)"^^geo:wktLiteral .
       bd:serviceParam wikibase:radius "5" .
       bd:serviceParam wikibase:distance ?distance .
   }
@@ -250,4 +250,24 @@ class WikipediaAPI {
             }
         }
     }
+    
+    func getPhoto(imageURL: URL) -> Promise<UIImage> {
+        return Promise<UIImage>(in: .utility) { resolve, reject, status in
+            if let data = try? Data(contentsOf: imageURL){
+                if let img = UIImage(data: data) {
+                    resolve(img)
+                    return;
+                }
+                else {
+                    reject(UnknownApiError())
+                }
+            }
+            else {
+                reject(UnknownApiError())
+                return
+            }
+        }
+    }
 }
+
+

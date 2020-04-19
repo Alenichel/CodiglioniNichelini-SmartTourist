@@ -79,8 +79,9 @@ class NotificationManager {
             content.body = "You are near a top location: \(place.name)"
             content.sound = UNNotificationSound.default
             content.userInfo = ["PLACE_ID": place.placeID]
-            if let photos = place.photos, let photo = photos.first {
-                let image = try await(GoogleAPI.shared.getPhoto(photo))
+            let photos = place.photos
+            if let photo = photos.first {
+                let image = try await(WikipediaAPI.shared.getPhoto(imageURL: photo))
                 if let attachment = UNNotificationAttachment.create(identifier: "PHOTO", image: image, options: nil) {
                     content.attachments.append(attachment)
                 }

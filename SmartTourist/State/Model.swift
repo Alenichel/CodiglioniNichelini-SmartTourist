@@ -199,11 +199,10 @@ class WDPlace: Codable, Hashable, Comparable{
     var name: String
     var city: String?
     var location: CLLocationCoordinate2D
-    var imageURI: String?
     var wikipediaLink: URL?
     
     //compatibility
-    var photos: [GPPhoto]? = []
+    var photos: [URL] = []
     var rating: Double? = 3.0
     var userRatingsTotal: Int? = 1000
     var website: String? = ""
@@ -214,7 +213,7 @@ class WDPlace: Codable, Hashable, Comparable{
         case name = "placeLabel"
         case city = "cityLabel"
         case location = "location"
-        case imageURI = "image"
+        case imageURL = "image"
         case wikipediaLink = "wikipediaLink"
         
         case rating = "rating"
@@ -246,8 +245,10 @@ class WDPlace: Codable, Hashable, Comparable{
         let longitude = Double(splits[0])!
         let latitude = Double(splits[1])!
         self.location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        let imageURI = try rootContainer.decodeIfPresent(WDBinding.self, forKey: .imageURI)
-        self.imageURI = imageURI?.value
+        let imageURL = try rootContainer.decodeIfPresent(WDBinding.self, forKey: .imageURL)
+        if let ciu = imageURL?.value {
+            self.photos.append(URL(string: ciu)!)
+        }
         let wikipediaLink = try rootContainer.decodeIfPresent(WDBinding.self, forKey: .wikipediaLink)
         self.wikipediaLink = URL(string: wikipediaLink?.value ?? "")
     }
