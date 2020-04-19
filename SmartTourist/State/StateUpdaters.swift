@@ -67,7 +67,7 @@ struct SetCurrentCityLastUpdate: StateUpdater {
 
 
 struct SetNearestPlaces: StateUpdater {
-    let places: [GPPlace]
+    let places: [WDPlace]
     
     func updateState(_ state: inout AppState) {
         state.locationState.nearestPlaces = places
@@ -85,7 +85,7 @@ struct SetNearestPlacesLastUpdate: StateUpdater {
 
 
 struct SetPopularPlaces: StateUpdater {
-    let places: [GPPlace]
+    let places: [WDPlace]
     
     func updateState(_ state: inout AppState) {
         state.locationState.popularPlaces = places
@@ -103,7 +103,7 @@ struct SetPopularPlacesLastUpdate: StateUpdater {
 
 
 struct AddFavoriteStateUpdater: StateUpdater, Persistable {
-    let place: GPPlace
+    let place: WDPlace
     
     func updateState(_ state: inout AppState) {
         state.favorites.sortedInsert(place)
@@ -112,7 +112,7 @@ struct AddFavoriteStateUpdater: StateUpdater, Persistable {
 
 
 struct RemoveFavorite: StateUpdater, Persistable {
-    let place: GPPlace
+    let place: WDPlace
     
     func updateState(_ state: inout AppState) {
         place.city = nil
@@ -152,7 +152,7 @@ struct SetPedometerAverageWalkingSpeed: StateUpdater {
 
 
 struct SetGPCity: StateUpdater {
-    let city: GPPlace?
+    let city: WDPlace?
     
     func updateState(_ state: inout AppState) {
         state.locationState.gpCity = self.city

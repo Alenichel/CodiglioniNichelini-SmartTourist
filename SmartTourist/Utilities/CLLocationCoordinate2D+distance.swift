@@ -15,7 +15,7 @@ extension CLLocationCoordinate2D {
         return Int(current.distance(from: remote).rounded())
     }
     
-    func distance(from: GPPlace) -> Int {
+    func distance(from: WDPlace) -> Int {
         return self.distance(from: from.location)
     }
     

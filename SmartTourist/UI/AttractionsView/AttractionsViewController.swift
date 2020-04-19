@@ -10,7 +10,7 @@ import Tempura
 import MapKit
 
 
-var justVisitedPlaces: [GPPlace] = []
+var justVisitedPlaces: [WDPlace] = []
 
 
 class AttractionsViewController: ViewControllerWithLocalState<MapView> {
@@ -189,7 +189,7 @@ extension AttractionsViewController: RoutableWithConfiguration {
                 return vc
             },
             .show(Screen.detail): .push { [unowned self] context in
-                AttractionDetailViewController(store: self.store, localState: AttractionDetailLocalState(attraction: context as! GPPlace))
+                AttractionDetailViewController(store: self.store, localState: AttractionDetailLocalState(attraction: context as! WDPlace))
             },
             .show(Screen.cityDetail): .push { [unowned self] context in
                 CityDetailViewController(store: self.store, localState: CityDetailLocalState())

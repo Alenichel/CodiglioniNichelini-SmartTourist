@@ -10,7 +10,7 @@ import GoogleMaps
 
 
 extension GMSMapView {
-    func adaptToPlaces(_ places: [GPPlace]) {
+    func adaptToPlaces(_ places: [WDPlace]) {
         let bounds = places.reduce(GMSCoordinateBounds(), { $0.includingCoordinate($1.location) })
         print(bounds.northEast)
         print(bounds.southWest)

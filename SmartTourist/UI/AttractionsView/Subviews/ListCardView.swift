@@ -13,8 +13,8 @@ import CoreLocation
 
 struct ListCardViewModel: ViewModel {
     let currentLocation: CLLocationCoordinate2D?
-    let places: [GPPlace]
-    let favorites: [GPPlace]
+    let places: [WDPlace]
+    let favorites: [WDPlace]
     let selectedSegmentedIndex: SelectedPlaceList
 }
 
@@ -28,7 +28,7 @@ class ListCardView: UIView, ModellableView {
     var mapButton = RoundedButton()
     
     // MARK: - Interactions
-    var didTapItem: ((GPPlace) -> Void)?
+    var didTapItem: ((WDPlace) -> Void)?
     var didChangeSegmentedValue: ((Int) -> Void)?
     var didTapMapButton: Interaction?
         

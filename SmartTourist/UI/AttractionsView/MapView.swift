@@ -12,12 +12,12 @@ import MapKit
 
 
 struct AttractionsViewModel: ViewModelWithLocalState {
-    let places: [GPPlace]
+    let places: [WDPlace]
     let location: CLLocationCoordinate2D?
     let actualLocation: CLLocationCoordinate2D?
     let city: String?
     let mapCentered: Bool
-    let favorites: [GPPlace]
+    let favorites: [WDPlace]
     let needToMoveMap: Bool
     let selectedSegmentedIndex: SelectedPlaceList
     let littleCircleRadius: Double

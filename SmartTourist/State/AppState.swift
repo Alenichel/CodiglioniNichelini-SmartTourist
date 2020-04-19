@@ -14,7 +14,7 @@ import CoreLocation
 /// Main state of the app
 struct AppState: State, Codable {
     var locationState = LocationState()
-    var favorites = [GPPlace]()
+    var favorites = [WDPlace]()
     var settings = Settings()
     var pedometerState = PedometerState()
     var needToMoveMap = false
@@ -54,7 +54,7 @@ struct LocationState {
     var currentCity: String?
     
     /// Current city details from Google Places
-    var gpCity: GPPlace?
+    var gpCity: WDPlace?
     
     /// Current city details from WikiData
     var wdCity: WDCity?
@@ -63,13 +63,13 @@ struct LocationState {
     var currentCityLastUpdate: Date = initDate
     
     /// The nearest places to `currentLocation`
-    var nearestPlaces: [GPPlace] = [GPPlace]()
+    var nearestPlaces: [WDPlace] = [WDPlace]()
     
     /// The last update of `nearestPlaces`
     var nearestPlacesLastUpdate: Date = initDate
     
     /// The most popular places in `currentCity`
-    var popularPlaces: [GPPlace] = [GPPlace]()
+    var popularPlaces: [WDPlace] = [WDPlace]()
     
     /// The last update of `popularPlaces`
     var popularPlacesLastUpdate: Date = initDate

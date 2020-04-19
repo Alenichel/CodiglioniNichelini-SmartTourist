@@ -68,6 +68,6 @@ extension AttractionDetailViewController: SFSafariViewControllerDelegate {
 
 
 struct AttractionDetailLocalState: LocalState {
-    var attraction: GPPlace
+    var attraction: WDPlace
     var allLoaded: Bool = false
 }

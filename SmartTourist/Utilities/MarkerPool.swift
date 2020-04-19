@@ -11,14 +11,14 @@ import Contacts
 
 
 class MarkerPool {
-    private var cache = [GPPlace: MKPlacemark]()
+    private var cache = [WDPlace: MKPlacemark]()
     private var mapView: MKMapView
     
     init(mapView: MKMapView) {
         self.mapView = mapView
     }
     
-    func setMarkers(places: [GPPlace]) {
+    func setMarkers(places: [WDPlace]) {
         self.cache = self.cache.filter { entry in
             let toBeKept = places.contains(entry.key)
             if !toBeKept { self.mapView.removeAnnotation(entry.value) }
@@ -35,7 +35,7 @@ class MarkerPool {
         }
     }
     
-    func getPlace(from marker: MKPlacemark) -> GPPlace? {
+    func getPlace(from marker: MKPlacemark) -> WDPlace? {
         return self.cache.keys.first(where: { place in
             self.cache[place] == marker
         })

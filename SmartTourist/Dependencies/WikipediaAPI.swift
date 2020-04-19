@@ -33,33 +33,33 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
 """
 
 let nearbyPlacesQuery = """
-SELECT DISTINCT ?place ?placeLabel ?cityLabel ?location ?distance ?image ?phoneNumber ?website ?wikipediaLink ?wikimediaLink
+SELECT DISTINCT ?place ?placeLabel ?cityLabel ?location ?image ?phoneNumber ?website ?wikipediaLink ?wikimediaLink
 WHERE
 {
-SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
-SERVICE wikibase:around {
-?place wdt:P625 ?location .
-
-bd:serviceParam wikibase:center "Point(<LONGITUDE> <LATITUDE>)"^^geo:wktLiteral .
-bd:serviceParam wikibase:radius "5" .
-bd:serviceParam wikibase:distance ?distance .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+  SERVICE wikibase:around {
+      ?place wdt:P625 ?location .
+      
+      bd:serviceParam wikibase:center "Point(<LONGITUDE> <LATITUDE>)"^^geo:wktLiteral .
+      bd:serviceParam wikibase:radius "5" .
+      bd:serviceParam wikibase:distance ?distance .
+  }
+  ?place wdt:P31 ?instance .
+  {?instance wdt:P279* wd:Q27096235}
+            UNION {?instance wdt:P279* wd:Q960648} .
+  ?place wdt:P131 ?city .
+  ?city wdt:P31 wd:Q515 .
+  ?wikipediaLink schema:about ?place;
+            schema:inLanguage "en";
+            schema:isPartOf [ wikibase:wikiGroup "wikipedia" ] .
+  OPTIONAL {?wikimediaLink schema:about ?place;
+            schema:inLanguage "en";
+            schema:isPartOf <https://commons.wikimedia.org/>} .
+  OPTIONAL {?place wdt:P18 ?image } .
+  OPTIONAL {?place wdt:P1329 ?phoneNumber}.
+  OPTIONAL {?place wdt:P856 ?website} .
 }
-?place wdt:P31 ?instance .
-{?instance wdt:P279* wd:Q27096235}
-UNION {?instance wdt:P279* wd:Q960648} .
-?place wdt:P131 ?city .
-?city wdt:P31 wd:Q515 .
-?wikipediaLink schema:about ?place;
-schema:inLanguage "en";
-schema:isPartOf [ wikibase:wikiGroup "wikipedia" ] .
-OPTIONAL {?wikimediaLink schema:about ?place;
-schema:inLanguage "en";
-schema:isPartOf <https://commons.wikimedia.org/>} .
-OPTIONAL {?place wdt:P18 ?image } .
-OPTIONAL {?place wdt:P1329 ?phoneNumber}.
-OPTIONAL {?place wdt:P856 ?website} .
-}
-#GROUP BY ?place ?placeLabel ?location ?distance ?image ?wikipediaLink ?wikimediaLink
+#GROUP BY ?place ?placeLabel ?location ?image ?wikipediaLink ?wikimediaLink
 ORDER BY ASC(?distance)
 LIMIT 100
 """
@@ -250,4 +250,24 @@ class WikipediaAPI {
             }
         }
     }
+    
+    func getPhoto(imageURL: URL) -> Promise<UIImage> {
+        return Promise<UIImage>(in: .utility) { resolve, reject, status in
+            if let data = try? Data(contentsOf: imageURL){
+                if let img = UIImage(data: data) {
+                    resolve(img)
+                    return;
+                }
+                else {
+                    reject(UnknownApiError())
+                }
+            }
+            else {
+                reject(UnknownApiError())
+                return
+            }
+        }
+    }
 }
+
+

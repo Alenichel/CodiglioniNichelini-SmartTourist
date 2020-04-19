@@ -51,7 +51,7 @@ extension AppDelegate: WCSessionDelegate {
                 replyMessage["places"] = nil
             }
         case .getDetail:
-            let allPlaces = Set<GPPlace>(self.store.state.locationState.nearestPlaces + self.store.state.locationState.popularPlaces)
+            let allPlaces = Set<WDPlace>(self.store.state.locationState.nearestPlaces + self.store.state.locationState.popularPlaces)
             guard
                 let placeID = message["placeID"] as? String,
                 let place = allPlaces.first(where: { $0.placeID == placeID })
@@ -66,7 +66,7 @@ extension AppDelegate: WCSessionDelegate {
         replyHandler(replyMessage)
     }
     
-    private func encodePlaces(_ places: [GPPlace]) -> Promise<Data> {
+    private func encodePlaces(_ places: [WDPlace]) -> Promise<Data> {
         return Promise<Data>(in: .background) { resolve, reject, status in
             let promises = places.filter { place in
                 guard let index = places.firstIndex(of: place) else { return false }
@@ -86,7 +86,7 @@ extension AppDelegate: WCSessionDelegate {
         }
     }
     
-    private func mapPlace(_ place: GPPlace, maxPixels: CGFloat) -> Promise<AWGPPlace> {
+    private func mapPlace(_ place: WDPlace, maxPixels: CGFloat) -> Promise<AWGPPlace> {
         return Promise<AWGPPlace>(in: .background) { resolve, reject, status in
             let photoData = self.getPhotoData(place, maxPixels: maxPixels)
             let awPlace = AWGPPlace(id: place.placeID,
@@ -96,10 +96,10 @@ extension AppDelegate: WCSessionDelegate {
         }
     }
     
-    private func getPhotoData(_ place: GPPlace, maxPixels: CGFloat) -> Data? {
-        if let photo = place.photos?.first {
+    private func getPhotoData(_ place: WDPlace, maxPixels: CGFloat) -> Data? {
+        if let photo = place.photos.first {
             do {
-                let image = try await(GoogleAPI.shared.getPhoto(photo))
+                let image = try await(WikipediaAPI.shared.getPhoto(imageURL: photo))
                 return self.resizeImage(image, maxPixels: maxPixels)
             } catch {
                 print("\(#function): \(error.localizedDescription)")
@@ -126,7 +126,7 @@ extension AppDelegate: WCSessionDelegate {
         return UIImage(cgImage: image).jpegData(compressionQuality: 1.0)
     }
     
-    private func encodePlaceDetail(_ place: GPPlace) -> Promise<Data> {
+    private func encodePlaceDetail(_ place: WDPlace) -> Promise<Data> {
         return Promise<Data>(in: .background) { resolve, reject, status in
             do {
                 let awPlace = try await(self.mapPlace(place, maxPixels: 150))

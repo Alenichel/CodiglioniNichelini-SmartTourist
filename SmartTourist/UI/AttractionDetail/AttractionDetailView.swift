@@ -17,8 +17,8 @@ import FontAwesome_swift
 
 
 struct AttractionDetailViewModel: ViewModelWithLocalState {
-    let attraction: GPPlace
-    let photos: [GPPhoto]
+    let attraction: WDPlace
+    let photos: [URL]
     let nRatings: String
     let wikipediaSearchTerms: String
     let currentLocation: CLLocationCoordinate2D
@@ -29,11 +29,7 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
     init?(state: AppState?, localState: AttractionDetailLocalState) {
         guard let state = state else { return nil }
         self.attraction = localState.attraction
-        if let photos = self.attraction.photos {
-            self.photos = photos
-        } else {
-            self.photos = []
-        }
+        self.photos = self.attraction.photos
         if let nRatings = localState.attraction.userRatingsTotal {
             self.nRatings = nRatings > 1000 ? "\(Int(nRatings / 1000))k" : "\(nRatings)"
         } else {
@@ -69,9 +65,9 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     var linkButton = RoundedButton()
     var timeLabel = UILabel()
     
-    var didTapFavoriteButton: ((GPPlace) -> Void)?
+    var didTapFavoriteButton: ((WDPlace) -> Void)?
     var didLoadEverything: Interaction?
-    var didTapDirectionButton: (( CLLocationCoordinate2D?, GPPlace?) -> Void)?
+    var didTapDirectionButton: (( CLLocationCoordinate2D?, WDPlace?) -> Void)?
     var didTapLinkButton: ((String?) -> Void)?
 
     func setup() {
@@ -197,7 +193,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.nRatingsLabel.text = model.nRatings
         
         if !model.allLoaded {
-            let imagePromises = model.photos.map { GoogleAPI.shared.getPhoto($0) }
+            let imagePromises = model.photos.map { WikipediaAPI.shared.getPhoto(imageURL: $0) }
             self.imageSlideshow.setImageInputs(imagePromises.map { PromiseImageSource($0) })
             self.descriptionText.setText(coordinates: model.attraction.location, searchTerms: model.wikipediaSearchTerms) {
                 self.didLoadEverything?()

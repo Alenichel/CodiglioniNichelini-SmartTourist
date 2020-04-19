@@ -60,8 +60,8 @@ struct GetNearestPlaces: SideEffect {
                 }*/
                 //return places.sorted(by: { $0.distance(from: currentLocation) < $1.distance(from: currentLocation) })
                 return places
-            /*}.then(in: .utility) { places in
-                context.dispatch(SetNearestPlaces(places: places.blacklisted))*/
+            }.then(in: .utility) { places in
+                context.dispatch(SetNearestPlaces(places: places))
             }.catch(in: .utility) { error in
                 print("\(#function): \(error.localizedDescription)")
                 context.dispatch(SetNearestPlaces(places: []))
@@ -90,7 +90,7 @@ struct GetPopularPlaces: SideEffect {
 
 
 struct AddFavorite: SideEffect {
-    let place: GPPlace
+    let place: WDPlace
     
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
         context.dependencies.googleAPI.getCityNameMK(coordinates: self.place.location).then(in: .utility) { city in

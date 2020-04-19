@@ -11,7 +11,7 @@ import Hydra
 
 
 struct GPPlaceSearchResponse: Decodable {
-    let results: [GPPlace]
+    let results: [WDPlace]
     
     enum CodingKeys: CodingKey {
         case results
@@ -37,8 +37,8 @@ struct GPPlaceDetailResultsResponse: Decodable {
     }
 }
 
-
-class GPPlace: Codable, Equatable, Hashable, Comparable {
+/*
+class WDPlace: Codable, Equatable, Hashable, Comparable {
     let placeID: String
     let location: CLLocationCoordinate2D
     let name: String
@@ -99,7 +99,7 @@ class GPPlace: Codable, Equatable, Hashable, Comparable {
         try container.encodeIfPresent(self.website, forKey: .website)
     }
     
-    func distance(from: GPPlace) -> Int {
+    func distance(from: WDPlace) -> Int {
         return self.location.distance(from: from.location)
     }
     
@@ -107,11 +107,11 @@ class GPPlace: Codable, Equatable, Hashable, Comparable {
         return self.location.distance(from: from)
     }
     
-    static func == (lhs: GPPlace, rhs: GPPlace) -> Bool {
+    static func == (lhs: WDPlace, rhs: WDPlace) -> Bool {
         return lhs.placeID == rhs.placeID
     }
     
-    static func < (lhs: GPPlace, rhs: GPPlace) -> Bool {
+    static func < (lhs: WDPlace, rhs: WDPlace) -> Bool {
         if let lc = lhs.city, let rc = rhs.city, lc != rc {
             return lc < rc
         } else {
@@ -122,7 +122,7 @@ class GPPlace: Codable, Equatable, Hashable, Comparable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.placeID)
     }
-}
+}*/
 
 
 class GPPhoto: Codable, Hashable {
@@ -194,21 +194,32 @@ fileprivate struct WDBinding: Decodable {
 }
 
 
-class WDPlace: Decodable, Hashable {
-    var placeId: String
+class WDPlace: Codable, Hashable, Comparable{
+    var placeID: String
     var name: String
-    var city: String
+    var city: String?
     var location: CLLocationCoordinate2D
-    var imageURI: String?
     var wikipediaLink: URL?
+    
+    //compatibility
+    var photos: [URL] = []
+    var rating: Double? = 3.0
+    var userRatingsTotal: Int? = 1000
+    var website: String? = ""
+    
     
     enum CodingKeys: String, CodingKey {
         case placeId = "place"
         case name = "placeLabel"
         case city = "cityLabel"
         case location = "location"
-        case imageURI = "image"
+        case imageURL = "image"
         case wikipediaLink = "wikipediaLink"
+        
+        case rating = "rating"
+        case userRatingsTotal = "userRatingsTotal"
+        case website = "website"
+        case photos = "photos"
         
         enum ValueCodingKeys: CodingKey {
             case value
@@ -223,7 +234,7 @@ class WDPlace: Decodable, Hashable {
         let placeIdString = id.value
         let placeIdRange = placeIdString.range(of: #"Q[0-9]+"#, options: .regularExpression)!
         let placeIdSub = placeIdString[placeIdRange]
-        self.placeId = String(placeIdSub)
+        self.placeID = String(placeIdSub)
         let city = try rootContainer.decode(WDBinding.self, forKey: .city)
         self.city = city.value
         let location = try rootContainer.decode(WDBinding.self, forKey: .location)
@@ -234,18 +245,39 @@ class WDPlace: Decodable, Hashable {
         let longitude = Double(splits[0])!
         let latitude = Double(splits[1])!
         self.location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        let imageURI = try rootContainer.decodeIfPresent(WDBinding.self, forKey: .imageURI)
-        self.imageURI = imageURI?.value
+        let imageURL = try rootContainer.decodeIfPresent(WDBinding.self, forKey: .imageURL)
+        if let ciu = imageURL?.value {
+            self.photos.append(URL(string: ciu)!)
+        }
         let wikipediaLink = try rootContainer.decodeIfPresent(WDBinding.self, forKey: .wikipediaLink)
         self.wikipediaLink = URL(string: wikipediaLink?.value ?? "")
     }
     
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(self.name, forKey: .name)
+        try container.encode(self.photos, forKey: .photos)
+        try container.encode(self.placeID, forKey: .placeId)
+        try container.encodeIfPresent(self.rating, forKey: .rating)
+        try container.encodeIfPresent(self.userRatingsTotal, forKey: .userRatingsTotal)
+        try container.encodeIfPresent(self.city, forKey: .city)
+        try container.encodeIfPresent(self.website, forKey: .website)
+    }
+    
     func hash(into hasher: inout Hasher) {
-        hasher.combine(self.placeId)
+        hasher.combine(self.placeID)
     }
     
     static func == (lhs: WDPlace, rhs: WDPlace) -> Bool {
-        return lhs.placeId == rhs.placeId
+        return lhs.placeID == rhs.placeID
+    }
+    
+    static func < (lhs: WDPlace, rhs: WDPlace) -> Bool {
+        if let lc = lhs.city, let rc = rhs.city, lc != rc {
+            return lc < rc
+        } else {
+            return lhs.name < rhs.name
+        }
     }
 }
 
