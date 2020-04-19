@@ -18,6 +18,11 @@ class MarkerPool {
         self.mapView = mapView
     }
     
+    static func getMarker(place: WDPlace) -> MKPlacemark {
+        let address = [CNPostalAddressCountryKey: place.name, "placeID": place.placeID]
+        return MKPlacemark(coordinate: place.location, addressDictionary: address)
+    }
+    
     func setMarkers(places: [WDPlace]) {
         self.cache = self.cache.filter { entry in
             let toBeKept = places.contains(entry.key)
@@ -26,10 +31,8 @@ class MarkerPool {
         }
         places.forEach { place in
             if self.cache[place] == nil {
-                let address = [CNPostalAddressCountryKey: place.name, "placeID": place.placeID]
-                let placemark = MKPlacemark(coordinate: place.location, addressDictionary: address)
+                let placemark = MarkerPool.getMarker(place: place)
                 self.mapView.addAnnotation(placemark)
-                //marker.userData = place
                 self.cache[place] = placemark
             }
         }

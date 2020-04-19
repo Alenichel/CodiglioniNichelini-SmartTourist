@@ -11,7 +11,7 @@ import Tempura
 import PinLayout
 import Cosmos
 import CoreLocation
-import GoogleMaps
+import MapKit
 import ImageSlideshow
 import FontAwesome_swift
 
@@ -57,7 +57,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     var imageSlideshow = ImageSlideshow()
     var lineView = UIView()
     var scrollView = UIScrollView()
-    var mapView = GMSMapView()
+    var mapView = MKMapView()
     var favoriteButton = UIBarButtonItem()
     var curtainView = UIView()
     var activityIndicator = UIActivityIndicatorView()
@@ -119,9 +119,8 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.nRatingsLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .bold)
         self.nRatingsLabel.textColor = .systemOrange
         self.lineView.backgroundColor = .secondaryLabel
-        self.mapView.settings.compassButton = false
+        self.mapView.showsCompass = false
         self.mapView.isUserInteractionEnabled = false
-        self.mapView.loadCustomStyle()
         self.curtainView.backgroundColor = .systemBackground
         self.activityIndicator.startAnimating()
         self.directionButton.tintColor = .label
@@ -199,14 +198,12 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
                 self.didLoadEverything?()
             }
         }
+
+        let camera = MKMapCamera(lookingAtCenter: model.attraction.location, fromDistance: 1000, pitch: 0, heading: 0)
+        self.mapView.setCamera(camera, animated: true)
         
-        let latitude = model.attraction.location.latitude
-        let longitude = model.attraction.location.longitude
-        let camera = GMSCameraPosition.camera(withLatitude: latitude, longitude: longitude, zoom: 15)
-        self.mapView.animate(to: camera)
-        
-        let marker = GMSMarker(position: model.attraction.location)
-        marker.map = self.mapView
+        let marker = MarkerPool.getMarker(place: model.attraction)
+        self.mapView.addAnnotation(marker)
         
         if model.favorite {
             self.favoriteButton.image = AttractionDetailView.isFavoriteImage
