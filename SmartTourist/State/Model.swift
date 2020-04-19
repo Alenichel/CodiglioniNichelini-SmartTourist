@@ -235,8 +235,8 @@ class WDPlace: Codable, Hashable, Comparable{
         let placeIdRange = placeIdString.range(of: #"Q[0-9]+"#, options: .regularExpression)!
         let placeIdSub = placeIdString[placeIdRange]
         self.placeID = String(placeIdSub)
-        let city = try rootContainer.decode(WDBinding.self, forKey: .city)
-        self.city = city.value
+        //let city = try rootContainer.decode(WDBinding.self, forKey: .city)
+        //self.city = city.value
         let location = try rootContainer.decode(WDBinding.self, forKey: .location)
         let locationString = location.value
         let range = locationString.range(of: #"[-+]?(\d*\.)?\d+ [-+]?(\d*\.)?\d+"#, options: .regularExpression)!
