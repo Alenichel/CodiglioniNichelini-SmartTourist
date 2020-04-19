@@ -14,8 +14,6 @@ var justVisitedPlaces: [GPPlace] = []
 
 
 class AttractionsViewController: ViewControllerWithLocalState<MapView> {
-    var mapRendered = false
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let navigationController = self.navigationController {
@@ -59,9 +57,11 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
             self.dispatch(Show(Screen.cityDetail, animated: true))
         }
         self.rootView.didTapLocationButton = { [unowned self] in
-            self.dispatch(SetMapCentered(value: true)).then(in: .main) { [unowned self] in
-                self.rootView.centerMap()
-            }
+            self.rootView.mapView.setUserTrackingMode(.follow, animated: true)
+            self.dispatch(SetMapCentered(value: true))
+            /*self.dispatch(SetMapCentered(value: true)).then(in: .main) { [unowned self] in
+                //self.rootView.centerMap()
+            }*/
             self.dispatch(GetCurrentCity(throttle: false))   // Also calls GetPopularPlaces
             self.dispatch(GetNearestPlaces(throttle: false))
         }
@@ -84,7 +84,8 @@ extension AttractionsViewController: CLLocationManagerDelegate {
         print("[didUpdateLocations]: \(location.coordinate)")
         self.dispatch(SetActualLocation(location: location.coordinate))
         self.locationBasedNotification(lastCoordinates: location.coordinate)
-        if self.state.locationState.mapCentered {
+        if self.rootView.mapView.userTrackingMode == .follow {
+            //if self.state.locationState.mapCentered {
             self.dispatch(GetCurrentCity(throttle: true))   // Also calls GetPopularPlaces
             self.dispatch(GetNearestPlaces(throttle: true))
         }
@@ -106,46 +107,72 @@ extension AttractionsViewController: CLLocationManagerDelegate {
 
 
 extension AttractionsViewController: MKMapViewDelegate {
-    func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
-        self.mapRendered = true
-        self.rootView.centerMap()
-    }
-    
-    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+    // Called at every minimum change of the visible region
+    /*func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         guard self.mapRendered else { return }
         //print("\(#function) \(mapView.centerCoordinate)")
-        self.dispatch(SetMapLocation(location: mapView.centerCoordinate))
-    }
+        //self.dispatch(SetMapLocation(location: mapView.centerCoordinate))
+    }*/
     
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+    // Called when the region finishes changing
+    /*func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         guard self.mapRendered else { return }
-        //print("\(#function) animated = \(animated)")
-        self.dispatch(SetMapLocation(location: mapView.centerCoordinate))
-        if !self.state.locationState.mapCentered {
+        print("\(#function) animated = \(animated)")
+        /*self.dispatch(SetMapLocation(location: mapView.centerCoordinate))
+        if self.rootView.mapView.userTrackingMode == .none {
+            //if !self.state.locationState.mapCentered {
             self.dispatch(GetCurrentCity(throttle: false))   // Also calls GetPopularPlaces
             self.dispatch(GetNearestPlaces(throttle: false))
-        }
-    }
+        }*/
+    }*/
     
-    func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
+    // Called when the region begins changing
+    /*func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
         guard self.mapRendered else { return }
-        //print("\(#function) animated = \(animated)")
-        if !animated {
-            self.dispatch(SetMapCentered(value: false))
+        print("\(#function) animated = \(animated)")
+        /*if !animated {
+            self.rootView.mapView.userTrackingMode = .none
+            //self.dispatch(SetMapCentered(value: false))
+        }*/
+    }*/
+    
+    func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
+        switch mode {
+        case .follow:
+            print("Tracking mode = FOLLOW")
+        case .followWithHeading:
+            print("Tracking mode = FOLLOW WITH HEADING")
+        case .none:
+            print("Tracking mode = NONE")
+        default:
+            print("Tracking mode = DEFAULT")
         }
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if let _ = annotation as? MKUserLocation {
             return nil
+        } else if let placemark = annotation as? MKPlacemark {
+            let view = MKMarkerAnnotationView(annotation: placemark, reuseIdentifier: "marker")
+            view.canShowCallout = true
+            let button = UIButton(type: .detailDisclosure)
+            button.tintColor = .label
+            button.sizeToFit()
+            view.rightCalloutAccessoryView = button
+            return view
+        } else {
+            return nil
         }
-        let view = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "marker")
-        view.canShowCallout = true
-        let button = UIButton(type: .detailDisclosure)
-        button.tintColor = .label
-        button.sizeToFit()
-        view.rightCalloutAccessoryView = button
-        return view
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if let circle = overlay as? MKCircle {
+            let circleView = MKCircleRenderer(circle: circle)
+            circleView.strokeColor = .label
+            circleView.lineWidth = 1
+            return circleView
+        }
+        return MKOverlayRenderer(overlay: overlay)
     }
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {

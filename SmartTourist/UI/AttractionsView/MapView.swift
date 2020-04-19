@@ -51,8 +51,8 @@ class MapView: UIView, ViewControllerModellableView {
     var cityNameButton = UIButton()
     var mapView = MKMapView(frame: .zero)
     var locationButton = RoundedButton()
-    //var littleCircle = MapCircle()
-    //var bigCircle = MapCircle()
+    var littleCircle = MapCircle()
+    var bigCircle = MapCircle()
     //var locationMarker = GMSCircle()
     var topBlurEffect = UIVisualEffectView(effect: UIBlurEffect(style: UITraitCollection.current.userInterfaceStyle == .dark ? .dark : .light))
     var listCardView = ListCardView()
@@ -80,9 +80,9 @@ class MapView: UIView, ViewControllerModellableView {
         self.mapView.showsTraffic = false
         self.mapView.pointOfInterestFilter = .init(including: [.publicTransport])
         self.mapView.delegate = self.viewController as? AttractionsViewController
+        self.mapView.setUserTrackingMode(.follow, animated: true)
         self.locationButton.on(.touchUpInside) { button in
             self.didTapLocationButton?()
-            self.centerMap()
         }
         self.searchButton.tintColor = .label
         self.searchButton.on(.touchUpInside) { button in
@@ -144,7 +144,7 @@ class MapView: UIView, ViewControllerModellableView {
     func layoutCardView(targetPercent: Percent) {
         self.listCardView.pin.bottom().left().right().top(targetPercent)
         self.layoutMapView(targetPercent: targetPercent)
-        let inversePercent = (100 - targetPercent.of(100) + 2)%
+        let inversePercent = (100 - targetPercent.of(100) + 3)%
         self.locationButton.pin.bottom(inversePercent).right(4%).size(40)
         self.layoutIfNeeded()
     }
@@ -158,14 +158,21 @@ class MapView: UIView, ViewControllerModellableView {
         guard let model = self.model else { return }
         let listCardViewModel = ListCardViewModel(currentLocation: model.location, places: model.places, favorites: model.favorites, selectedSegmentedIndex: model.selectedSegmentedIndex)
         self.listCardView.model = listCardViewModel
+        self.markerPool.setMarkers(places: model.places)
+        if let city = model.city {
+            self.cityNameButton.setTitle(city, for: .normal)
+        } else {
+            self.cityNameButton.setTitle("SmartTourist", for: .normal)
+        }
         if model.actualLocation == nil {
             self.locationButton.setImage(UIImage(systemName: "location"), for: .normal)
             self.locationButton.isEnabled = false
         } else {
-            self.locationButton.setImage(UIImage(systemName: model.mapCentered ? "location.fill" : "location"), for: .normal)
+            let mapCentered = self.mapView.userTrackingMode == .follow
+            self.locationButton.setImage(UIImage(systemName: mapCentered ? "location.fill" : "location"), for: .normal)
             self.locationButton.isEnabled = true
         }
-        if let location = model.location {
+        //if let location = model.location {
             /*self.locationMarker.position = location
             self.locationMarker.radius = 819200.0 * pow(2, -Double(self.mapView.camera.zoom))
             self.locationMarker.map = self.mapView
@@ -176,22 +183,17 @@ class MapView: UIView, ViewControllerModellableView {
                 self.locationMarker.strokeColor = .label
                 self.locationMarker.fillColor = .label
             }*/
-            if model.needToMoveMap {
+            /*if model.needToMoveMap {
                 self.moveMap(to: location)
                 self.didMoveMap?()
-            }
-        }
+            }*/
+        //}
         /*if let actualLocation = model.actualLocation {
             self.updateCircle(self.littleCircle, actualLocation: actualLocation, radius: model.littleCircleRadius, text: "5 min")
             self.updateCircle(self.bigCircle, actualLocation: actualLocation, radius: model.bigCircleRadius, text: "15 min")
         }*/
         //if self.mapView.camera.zoom >= MapView.zoomThreshold {
-            self.markerPool.setMarkers(places: model.places)
-            if let city = model.city {
-                self.cityNameButton.setTitle(city, for: .normal)
-            } else {
-                self.cityNameButton.setTitle("SmartTourist", for: .normal)
-            }
+        
         /*} else {
             self.markerPool.setMarkers(places: [])
             self.cityNameButton.setTitle(nil, for: .normal)
@@ -199,14 +201,14 @@ class MapView: UIView, ViewControllerModellableView {
         self.setNeedsLayout()
     }
     
-    /*private func updateCircle(_ mapCircle: MapCircle, actualLocation: CLLocationCoordinate2D, radius: Double, text: String) {
-        if mapCircle.circle == nil {
-            mapCircle.circle = GMSCircle()
+    private func updateCircle(_ mapCircle: MapCircle, actualLocation: CLLocationCoordinate2D, radius: Double, text: String) {
+        if let circle = mapCircle.circle {
+            self.mapView.removeOverlay(circle)
         }
-        mapCircle.circle!.position = actualLocation
-        mapCircle.circle!.radius = radius
-        mapCircle.circle!.strokeColor = .label
-        mapCircle.circle!.map = self.mapView
+        let circle = MKCircle(center: actualLocation, radius: radius)
+        self.mapView.addOverlay(circle)
+        mapCircle.circle = circle
+        /*mapCircle.circle!.strokeColor = .label
         let position = actualLocation.offset(radius + 10)
         if mapCircle.overlay == nil {
             mapCircle.overlay = GMSGroundOverlay(position: position, icon: text.image, zoomLevel: 15)
@@ -215,10 +217,10 @@ class MapView: UIView, ViewControllerModellableView {
             mapCircle.overlay!.icon = text.image
         }
         mapCircle.overlay!.bearing = 0
-        mapCircle.overlay!.map = self.mapView
-    }*/
+        mapCircle.overlay!.map = self.mapView*/
+    }
     
-    private func moveMap(to location: CLLocationCoordinate2D) {
+    /*private func moveMap(to location: CLLocationCoordinate2D) {
         let camera = MKMapCamera(lookingAtCenter: location, fromDistance: 2000, pitch: 0, heading: 0)
         self.mapView.setCamera(camera, animated: true)
     }
@@ -226,7 +228,7 @@ class MapView: UIView, ViewControllerModellableView {
     func centerMap() {
         guard let model = self.model, let location = model.location else { return }
         self.moveMap(to: location)
-    }
+    }*/
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
@@ -349,7 +351,7 @@ enum CardState: Int {
 }
 
 
-/*class MapCircle {
-    var circle: GMSCircle?
-    var overlay: GMSGroundOverlay?
-}*/
+class MapCircle {
+    var circle: MKCircle?
+    //var overlay: GMSGroundOverlay?
+}

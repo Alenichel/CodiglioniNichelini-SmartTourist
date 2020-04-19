@@ -235,10 +235,8 @@ class WikipediaAPI {
                 switch response.result {
                 case .success:
                     guard let data = response.data else { reject(UnknownApiError()); return }
-                    print(String(data: data, encoding: .utf8)!)
                     do {
                         let results = try JSONDecoder().decode(WDPlaceResponse.self, from: data)
-                        print(results.places)
                         resolve(results.places)
                     } catch let error as NSError {
                         print("\(#function): \(error.localizedDescription)")
