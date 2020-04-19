@@ -33,22 +33,16 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
 """
 
 let nearbyPlacesQuery = """
-SELECT DISTINCT ?place ?placeLabel ?location ?image ?phoneNumber ?website ?wikipediaLink ?wikimediaLink
+SELECT DISTINCT ?place ?placeLabel ?location ?image ?instance ?phoneNumber ?website ?wikipediaLink ?wikimediaLink
 WHERE
 {
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
   SERVICE wikibase:around {
       ?place wdt:P625 ?location .
-      bd:serviceParam wikibase:center "Point(<LONGITUDE> <LATITUDE>)"^^geo:wktLiteral .
+      bd:serviceParam wikibase:center "Point(9.191383 45.464311)"^^geo:wktLiteral .
       bd:serviceParam wikibase:radius "1" .
   }
   ?place wdt:P31 ?instance  .
-  {
-    SELECT ?instance
-    WHERE {
-      ?instance wdt:P279* wd:Q570116 .
-    }
-  }
   ?wikipediaLink schema:about ?place;
             schema:inLanguage "en";
             schema:isPartOf [ wikibase:wikiGroup "wikipedia" ] .
@@ -59,7 +53,7 @@ WHERE
   OPTIONAL {?place wdt:P18 ?image } .
   OPTIONAL {?place wdt:P1329 ?phoneNumber}.
   OPTIONAL {?place wdt:P856 ?website} .
-}
+ }
 """
 
 class WikipediaAPI {
