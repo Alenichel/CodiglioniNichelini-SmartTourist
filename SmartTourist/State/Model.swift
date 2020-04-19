@@ -184,6 +184,70 @@ struct GMDResponse: Decodable {
     }
 }
 
+class WDPlace: Decodable {
+    var name: String
+    var city: String
+    var location: String
+    var imageUri: String
+    var wikipediaLink: URL
+    
+    enum CodingKeys: String, CodingKey {
+        case name = "placeLabel"
+        case city = "cityLabel"
+        case location = "location"
+        case imageUri = "image"
+        case wikipediaLink = "wikipediaLink"
+        
+        enum ValueCodingKeys: CodingKey {
+            case value
+        }
+    }
+    
+    required init (from decoder: Decoder) throws {
+        let rootContainer = try decoder.container(keyedBy: CodingKeys.self)
+        
+        var valueContainer = try rootContainer.nestedContainer(keyedBy: CodingKeys.ValueCodingKeys.self, forKey: .name)
+        self.name = try valueContainer.decode(String.self, forKey: .value)
+        
+        valueContainer = try rootContainer.nestedContainer(keyedBy: CodingKeys.ValueCodingKeys.self, forKey: .city)
+        self.city = try valueContainer.decode(String.self, forKey: .value)
+        
+        valueContainer = try rootContainer.nestedContainer(keyedBy: CodingKeys.ValueCodingKeys.self, forKey: .location)
+        self.location = try valueContainer.decode(String.self, forKey: .value)
+        
+        valueContainer = try rootContainer.nestedContainer(keyedBy: CodingKeys.ValueCodingKeys.self, forKey: .imageUri)
+        self.imageUri = try valueContainer.decode(String.self, forKey: .value)
+        
+        valueContainer = try rootContainer.nestedContainer(keyedBy: CodingKeys.ValueCodingKeys.self, forKey: .wikipediaLink)
+        let stringUri = try valueContainer.decode(String.self, forKey: .value)
+        self.wikipediaLink = URL(fileURLWithPath: stringUri)
+    }
+}
+
+class WDPlaceResponse: Decodable {
+    var places : [WDPlace?]
+    
+    enum RootCodingKeys: CodingKey {
+        case results
+        
+        enum ResultsCodingKeys: CodingKey {
+            case bindings
+        }
+    }
+    
+    required init(from decoder: Decoder) throws {
+        var roundPlace : WDPlace?
+        places = []
+        let rootContainer = try decoder.container(keyedBy: RootCodingKeys.self)
+        let resultsContainer = try rootContainer.nestedContainer(keyedBy: RootCodingKeys.ResultsCodingKeys.self, forKey: .results)
+        var bindingsContainer = try resultsContainer.nestedUnkeyedContainer(forKey: .bindings)
+        while !bindingsContainer.isAtEnd {
+            roundPlace = try? bindingsContainer.decode(WDPlace.self)
+            self.places.append(roundPlace)
+        }
+    }
+}
+
 
 class WDCity: Decodable {
     let city: String
@@ -231,13 +295,32 @@ class WDCity: Decodable {
     
     required init(from decoder: Decoder) throws {
         let rootContainer = try decoder.container(keyedBy: CodingKeys.self)
+        
+        
+        
+        
         let resultsContainer = try rootContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.self, forKey: .results)
+        
+        
+        
+        
+        
         var bindingsArrayContainer = try resultsContainer.nestedUnkeyedContainer(forKey: .bindings)
+        
+        
         let bindingsContainer = try bindingsArrayContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.self)
+        
+        
         var container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .city)
         self.city = try container.decode(String.self, forKey: .value)
+
         container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .country)
         self.country = try container.decodeIfPresent(String.self, forKey: .value)
+        
+        
+        
+        
+        
         container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .population)
         self.population = try Int(container.decodeIfPresent(String.self, forKey: .value) ?? "nil")
         container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .area)
