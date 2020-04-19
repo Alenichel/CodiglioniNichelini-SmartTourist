@@ -184,18 +184,28 @@ struct GMDResponse: Decodable {
     }
 }
 
+
+fileprivate struct WDBinding: Decodable {
+    let value: String
+    
+    enum CodingKeys: CodingKey {
+        case value
+    }
+}
+
+
 class WDPlace: Decodable {
     var name: String
     var city: String
     var location: CLLocationCoordinate2D
-    var imageUri: String
-    var wikipediaLink: URL
+    var imageURI: String?
+    var wikipediaLink: URL?
     
     enum CodingKeys: String, CodingKey {
         case name = "placeLabel"
         case city = "cityLabel"
         case location = "location"
-        case imageUri = "image"
+        case imageURI = "image"
         case wikipediaLink = "wikipediaLink"
         
         enum ValueCodingKeys: CodingKey {
@@ -205,36 +215,28 @@ class WDPlace: Decodable {
     
     required init (from decoder: Decoder) throws {
         let rootContainer = try decoder.container(keyedBy: CodingKeys.self)
-        
-        var valueContainer = try rootContainer.nestedContainer(keyedBy: CodingKeys.ValueCodingKeys.self, forKey: .name)
-        self.name = try valueContainer.decode(String.self, forKey: .value)
-        
-        valueContainer = try rootContainer.nestedContainer(keyedBy: CodingKeys.ValueCodingKeys.self, forKey: .city)
-        self.city = try valueContainer.decode(String.self, forKey: .value)
-        
-        valueContainer = try rootContainer.nestedContainer(keyedBy: CodingKeys.ValueCodingKeys.self, forKey: .location)
-        let locationString = try valueContainer.decode(String.self, forKey: .value)
-        let longitudeStart = locationString.index(locationString.firstIndex(of: "(")!, offsetBy: 1)
-        let longitudeEnd = locationString.index(locationString.firstIndex(of: " ")!, offsetBy: -1)
-        let latitudeStart = locationString.index(locationString.firstIndex(of: " ")!, offsetBy: 1)
-        let latitudeEnd = locationString.index(locationString.firstIndex(of: ")")!, offsetBy: -1)
-        let longitude = locationString[latitudeStart...latitudeEnd]
-        let latitude = locationString[longitudeStart...longitudeEnd]
-        self.location = CLLocationCoordinate2D()
-        self.location.latitude = Double(latitude) ?? 0.0
-        self.location.longitude = Double(longitude) ?? 0.0
-        
-        valueContainer = try rootContainer.nestedContainer(keyedBy: CodingKeys.ValueCodingKeys.self, forKey: .imageUri)
-        self.imageUri = try valueContainer.decode(String.self, forKey: .value)
-        
-        valueContainer = try rootContainer.nestedContainer(keyedBy: CodingKeys.ValueCodingKeys.self, forKey: .wikipediaLink)
-        let stringUri = try valueContainer.decode(String.self, forKey: .value)
-        self.wikipediaLink = URL(fileURLWithPath: stringUri)
+        let name = try rootContainer.decode(WDBinding.self, forKey: .name)
+        self.name = name.value
+        let city = try rootContainer.decode(WDBinding.self, forKey: .city)
+        self.city = city.value
+        let location = try rootContainer.decode(WDBinding.self, forKey: .location)
+        let locationString = location.value
+        let range = locationString.range(of: #"[-+]?(\d*\.)?\d+ [-+]?(\d*\.)?\d+"#, options: .regularExpression)!
+        let substring = locationString[range]
+        let splits = substring.split(separator: " ")
+        let longitude = Double(splits[0])!
+        let latitude = Double(splits[1])!
+        self.location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        let imageURI = try rootContainer.decodeIfPresent(WDBinding.self, forKey: .imageURI)
+        self.imageURI = imageURI?.value
+        let wikipediaLink = try rootContainer.decodeIfPresent(WDBinding.self, forKey: .wikipediaLink)
+        self.wikipediaLink = URL(string: wikipediaLink?.value ?? "")
     }
 }
 
+
 class WDPlaceResponse: Decodable {
-    var places : [WDPlace?]
+    var places : [WDPlace]
     
     enum RootCodingKeys: CodingKey {
         case results
@@ -245,14 +247,13 @@ class WDPlaceResponse: Decodable {
     }
     
     required init(from decoder: Decoder) throws {
-        var roundPlace : WDPlace?
         places = []
         let rootContainer = try decoder.container(keyedBy: RootCodingKeys.self)
         let resultsContainer = try rootContainer.nestedContainer(keyedBy: RootCodingKeys.ResultsCodingKeys.self, forKey: .results)
         var bindingsContainer = try resultsContainer.nestedUnkeyedContainer(forKey: .bindings)
         while !bindingsContainer.isAtEnd {
-            roundPlace = try? bindingsContainer.decode(WDPlace.self)
-            self.places.append(roundPlace)
+            let place = try bindingsContainer.decode(WDPlace.self)
+            self.places.append(place)
         }
     }
 }
@@ -307,32 +308,32 @@ class WDCity: Decodable {
         let resultsContainer = try rootContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.self, forKey: .results)
         var bindingsArrayContainer = try resultsContainer.nestedUnkeyedContainer(forKey: .bindings)
         let bindingsContainer = try bindingsArrayContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.self)
-        var container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .city)
-        self.city = try container.decode(String.self, forKey: .value)
-        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .country)
-        self.country = try container.decodeIfPresent(String.self, forKey: .value)
-        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .population)
-        self.population = try Int(container.decodeIfPresent(String.self, forKey: .value) ?? "nil")
-        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .area)
-        self.area = try Int(container.decodeIfPresent(String.self, forKey: .value) ?? "nil")
-        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .elevation)
-        self.elevation = try Int(container.decodeIfPresent(String.self, forKey: .value) ?? "nil")
-        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .link)
-        self.link = try container.decodeIfPresent(String.self, forKey: .value)
-        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .facebookPageId)
-        self.facebookPageId = try container.decodeIfPresent(String.self, forKey: .value)
-        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .facebookPlacesId)
-        self.facebookPlacesId = try container.decodeIfPresent(String.self, forKey: .value)
-        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .instagramUsername)
-        self.instagramUsername = try container.decodeIfPresent(String.self, forKey: .value)
-        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .twitterUsername)
-        self.twitterUsername = try container.decodeIfPresent(String.self, forKey: .value)
-        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .image)
-        self.imageURL = try container.decodeIfPresent(String.self, forKey: .value)
-        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .cityLabel)
-        self.cityLabel = try container.decodeIfPresent(String.self, forKey: .value)
-        container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .countryLabel)
-        self.countryLabel = try container.decodeIfPresent(String.self, forKey: .value)
+        let city = try bindingsContainer.decode(WDBinding.self, forKey: .city)
+        self.city = city.value
+        let country = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .country)
+        self.country = country?.value
+        let population = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .population)
+        self.population = Int(population?.value ?? "nil")
+        let area = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .area)
+        self.area = Int(area?.value ?? "nil")
+        let elevation = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .elevation)
+        self.elevation = Int(elevation?.value ?? "nil")
+        let link = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .link)
+        self.link = link?.value
+        let facebookPageId = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .facebookPageId)
+        self.facebookPageId = facebookPageId?.value
+        let facebookPlacesId = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .facebookPlacesId)
+        self.facebookPlacesId = facebookPlacesId?.value
+        let instagramUsername = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .instagramUsername)
+        self.instagramUsername = instagramUsername?.value
+        let twitterUsername = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .twitterUsername)
+        self.twitterUsername = twitterUsername?.value
+        let imageURL = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .image)
+        self.imageURL = imageURL?.value
+        let cityLabel = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .cityLabel)
+        self.cityLabel = cityLabel?.value
+        let countryLabel = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .countryLabel)
+        self.countryLabel = countryLabel?.value
         async(in: .utility) {
             guard
                 let imageURL = self.imageURL,

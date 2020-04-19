@@ -61,7 +61,7 @@ class GoogleAPI {
                 "rankby": "distance",
                 "type": PlaceType.touristAttraction.rawValue
             ]
-            AF.request("https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: parameters).responseJSON { response in
+            AF.request("https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                 switch response.result {
                 case .success:
                     guard let data = response.data else { reject(UnknownApiError()); return }
@@ -97,7 +97,7 @@ class GoogleAPI {
             if let type = type {
                 parameters["type"] = type.rawValue
             }
-            AF.request("https://maps.googleapis.com/maps/api/place/textsearch/json", parameters: parameters).responseJSON { response in
+            AF.request("https://maps.googleapis.com/maps/api/place/textsearch/json", parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                 switch response.result {
                 case .success:
                     guard let data = response.data else { reject(UnknownApiError()); return }
@@ -210,7 +210,7 @@ class GoogleAPI {
                 "destination" : "\(destination.latitude),\(destination.longitude)",
                 "key": GoogleAPI.apiKey
             ]
-            AF.request("https://maps.googleapis.com/maps/api/directions/json", parameters: parameters).responseJSON { response in
+            AF.request("https://maps.googleapis.com/maps/api/directions/json", parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                 switch response.result {
                 case .success:
                     guard let data = response.data else { reject(UnknownApiError()); return }

@@ -15,7 +15,7 @@ import MapKit
 
 let cityDetailsQuery = """
 SELECT DISTINCT ?city ?cityLabel ?country ?countryLabel ?population ?area ?elevation ?link ?facebookPageId ?facebookPlacesId ?instagramUsername ?twitterUsername ?image ?coatOfArmsImage ?cityFlagImage WHERE {
-BIND( <http://www.wikidata.org/entity/Q84> as ?city ).
+BIND( <http://www.wikidata.org/entity/Q60> as ?city ).
 OPTIONAL {?city wdt:P17 ?country}.
 OPTIONAL {?city wdt:P1082 ?population}.
 OPTIONAL {?city wdt:P2046 ?area}.
@@ -81,6 +81,7 @@ class WikipediaAPI {
             } else {
                 let _ = Wikipedia.shared.requestOptimizedSearchResults(language: self.language, term: searchTerms) { (searchResults, error) in
                     if let error = error {
+                        print("\(#function): \(error.localizedDescription)")
                         reject(error)
                     }
                     if let searchResults = searchResults {
@@ -120,6 +121,7 @@ class WikipediaAPI {
                 self.search(searchTerms: titles[results.first!.index]).then(in: .utility) { description in
                     resolve(description)
                 }.catch(in: .utility) { error in
+                    print("\(#function): \(error.localizedDescription)")
                     reject(error)
                 }
             }
@@ -158,7 +160,7 @@ class WikipediaAPI {
                 "format" : "json"
             ]
             let url = "https://en.wikipedia.org/w/api.php"
-            AF.request(url, parameters: parameters).responseJSON{ response in
+            AF.request(url, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                 switch response.result {
                 case .success:
                     guard let data = response.data else { reject(UnknownApiError()); return }
@@ -201,7 +203,7 @@ class WikipediaAPI {
                 "format": "json"
             ]
             let url = "https://query.wikidata.org/sparql"
-            AF.request(url, parameters: parameters).responseJSON{ response in
+            AF.request(url, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                 switch response.result {
                 case .success:
                     guard let data = response.data else { reject(UnknownApiError()); return }
@@ -221,22 +223,21 @@ class WikipediaAPI {
         }
     }
     
-    func getNearbyPlaces(location: CLLocationCoordinate2D) -> Promise<[WDPlace?]> {
-        return Promise<[WDPlace?]>(in: .background) { resolve, reject, status in
+    func getNearbyPlaces(location: CLLocationCoordinate2D) -> Promise<[WDPlace]> {
+        return Promise<[WDPlace]>(in: .background) { resolve, reject, status in
             let parameters = [
                 "query": nearbyPlacesQuery.replacingOccurrences(of: "<LATITUDE>", with: String(location.latitude))
                     .replacingOccurrences(of: "<LONGITUDE>", with: String(location.longitude)),
                 "format": "json"
             ]
             let url = "https://query.wikidata.org/sparql"
-            AF.request(url, parameters: parameters).responseJSON { response in
+            AF.request(url, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                 switch response.result {
                 case .success:
                     guard let data = response.data else { reject(UnknownApiError()); return }
-                    let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    print(String(data: data, encoding: .utf8)!)
                     do {
-                        let results = try decoder.decode(WDPlaceResponse.self, from: data)
+                        let results = try JSONDecoder().decode(WDPlaceResponse.self, from: data)
                         print(results.places)
                         resolve(results.places)
                     } catch let error as NSError {

@@ -51,7 +51,7 @@ struct GetNearestPlaces: SideEffect {
         guard let currentLocation = context.getState().locationState.currentLocation else { return }
         if !self.throttle || context.getState().locationState.nearestPlacesLastUpdate.distance(to: Date()) > GoogleAPI.apiThrottleTime {
             context.dispatch(SetNearestPlacesLastUpdate(lastUpdate: Date()))
-            async(in: .background) { _ -> [WDPlace?] in
+            async(in: .background) { _ -> [WDPlace] in
                 let places = try await(context.dependencies.wikiAPI.getNearbyPlaces(location: currentLocation))
                 //var places = try await(context.dependencies.googleAPI.getNearbyPlaces(location: currentLocation))
                 /*if let actualLocation = context.getState().locationState.actualLocation {
@@ -63,6 +63,7 @@ struct GetNearestPlaces: SideEffect {
             /*}.then(in: .utility) { places in
                 context.dispatch(SetNearestPlaces(places: places.blacklisted))*/
             }.catch(in: .utility) { error in
+                print("\(#function): \(error.localizedDescription)")
                 context.dispatch(SetNearestPlaces(places: []))
             }
         }
