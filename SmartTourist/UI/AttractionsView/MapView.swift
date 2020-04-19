@@ -53,7 +53,6 @@ class MapView: UIView, ViewControllerModellableView {
     var locationButton = RoundedButton()
     var littleCircle = MapCircle()
     var bigCircle = MapCircle()
-    //var locationMarker = GMSCircle()
     var topBlurEffect = UIVisualEffectView(effect: UIBlurEffect(style: UITraitCollection.current.userInterfaceStyle == .dark ? .dark : .light))
     var listCardView = ListCardView()
     var markerPool: MarkerPool!
@@ -71,7 +70,7 @@ class MapView: UIView, ViewControllerModellableView {
     private var animator: UIViewPropertyAnimator?
     private var firstLayout = true
     
-    private static let zoomThreshold: Float = 9
+    private static let altitudeThreshold: Double = 50000
     
     // MARK: Images
     private static let locationFillImage = UIImage(systemName: "location.fill")
@@ -162,12 +161,6 @@ class MapView: UIView, ViewControllerModellableView {
         guard let model = self.model else { return }
         let listCardViewModel = ListCardViewModel(currentLocation: model.location, places: model.places, favorites: model.favorites, selectedSegmentedIndex: model.selectedSegmentedIndex)
         self.listCardView.model = listCardViewModel
-        self.markerPool.setMarkers(places: model.places)
-        if let city = model.city {
-            self.cityNameButton.setTitle(city, for: .normal)
-        } else {
-            self.cityNameButton.setTitle("SmartTourist", for: .normal)
-        }
         if model.actualLocation == nil {
             self.locationButton.setImage(MapView.locationImage, for: .normal)
             self.locationButton.isEnabled = false
@@ -175,32 +168,26 @@ class MapView: UIView, ViewControllerModellableView {
             self.locationButton.setImage(model.mapCentered ? MapView.locationFillImage : MapView.locationImage, for: .normal)
             self.locationButton.isEnabled = true
         }
-        //if let location = model.location {
-            /*self.locationMarker.position = location
-            self.locationMarker.radius = 819200.0 * pow(2, -Double(self.mapView.camera.zoom))
-            self.locationMarker.map = self.mapView
-            if model.mapCentered {
-                self.locationMarker.strokeColor = .clear
-                self.locationMarker.fillColor = .clear*/
-            /*} else {
-                self.locationMarker.strokeColor = .label
-                self.locationMarker.fillColor = .label
-            }*/
-            /*if model.needToMoveMap {
-                self.moveMap(to: location)
-                self.didMoveMap?()
-            }*/
-        //}
-        /*if let actualLocation = model.actualLocation {
+        if let location = model.location, model.needToMoveMap {
+            self.moveMap(to: location)
+            self.didMoveMap?()
+        }
+        if let actualLocation = model.actualLocation {
             self.updateCircle(self.littleCircle, actualLocation: actualLocation, radius: model.littleCircleRadius, text: "5 min")
             self.updateCircle(self.bigCircle, actualLocation: actualLocation, radius: model.bigCircleRadius, text: "15 min")
-        }*/
-        //if self.mapView.camera.zoom >= MapView.zoomThreshold {
-        
-        /*} else {
+        }
+        print("altitude = \(self.mapView.camera.altitude)")
+        if model.mapCentered || self.mapView.camera.altitude <= MapView.altitudeThreshold {
+            self.markerPool.setMarkers(places: model.places)
+            if let city = model.city {
+                self.cityNameButton.setTitle(city, for: .normal)
+            } else {
+                self.cityNameButton.setTitle("SmartTourist", for: .normal)
+            }
+        } else {
             self.markerPool.setMarkers(places: [])
             self.cityNameButton.setTitle(nil, for: .normal)
-        }*/
+        }
         self.setNeedsLayout()
     }
     
@@ -223,15 +210,10 @@ class MapView: UIView, ViewControllerModellableView {
         mapCircle.overlay!.map = self.mapView*/
     }
     
-    /*private func moveMap(to location: CLLocationCoordinate2D) {
+    private func moveMap(to location: CLLocationCoordinate2D) {
         let camera = MKMapCamera(lookingAtCenter: location, fromDistance: 2000, pitch: 0, heading: 0)
         self.mapView.setCamera(camera, animated: true)
     }
-    
-    func centerMap() {
-        guard let model = self.model, let location = model.location else { return }
-        self.moveMap(to: location)
-    }*/
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
