@@ -53,9 +53,6 @@ struct LocationState {
     /// The current city displayed on the map, based on `currentLocation`
     var currentCity: String?
     
-    /// Current city details from Google Places
-    var gpCity: WDPlace?
-    
     /// Current city details from WikiData
     var wdCity: WDCity?
     

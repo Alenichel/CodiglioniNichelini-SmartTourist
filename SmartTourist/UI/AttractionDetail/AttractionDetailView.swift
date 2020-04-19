@@ -71,6 +71,8 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     var didTapLinkButton: ((String?) -> Void)?
 
     func setup() {
+        self.mapView.showsTraffic = false
+        self.mapView.pointOfInterestFilter = .init(including: [.publicTransport])
         self.scrollView.delegate = self
         self.addSubview(self.scrollView)
         self.addSubview(self.curtainView)

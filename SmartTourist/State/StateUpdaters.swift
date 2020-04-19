@@ -151,15 +151,6 @@ struct SetPedometerAverageWalkingSpeed: StateUpdater {
 }
 
 
-struct SetGPCity: StateUpdater {
-    let city: WDPlace?
-    
-    func updateState(_ state: inout AppState) {
-        state.locationState.gpCity = self.city
-    }
-}
-
-
 struct SetWDCity: StateUpdater {
     let city: WDCity?
     

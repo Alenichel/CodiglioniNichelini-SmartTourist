@@ -11,36 +11,32 @@ import Tempura
 import PinLayout
 import Cosmos
 import CoreLocation
-import GoogleMaps
+import MapKit
 
 
 struct CityDetailViewModel: ViewModelWithLocalState {
     let city: String
     let location: CLLocationCoordinate2D
     let allLoaded: Bool
-    let gpCity: WDPlace?
-    let wdCity: WDCity?
-    //var wikidataId: String
     
     init?(state: AppState?, localState: CityDetailLocalState) {
         guard let state = state else { return nil }
         self.city = state.locationState.currentCity!
         self.location = state.locationState.currentLocation!
         self.allLoaded = localState.allLoaded
-        self.gpCity = state.locationState.gpCity
-        self.wdCity = state.locationState.wdCity
     }
 }
 
 
 class CityDetailView: UIView, ViewControllerModellableView {
     var cityNameLabel = UILabel()
-    var mapView = GMSMapView()
+    var mapView = MKMapView()
     var descriptionText = UITextView()
     var lineView = UIView()
-    var marker = GMSMarker()
     
     func setup() {
+        self.mapView.showsTraffic = false
+        self.mapView.pointOfInterestFilter = .init(including: [.publicTransport])
         self.addSubview(self.mapView)
         self.addSubview(self.cityNameLabel)
         self.addSubview(self.descriptionText)
@@ -53,9 +49,8 @@ class CityDetailView: UIView, ViewControllerModellableView {
         self.cityNameLabel.font = UIFont.systemFont(ofSize: 32, weight: .bold)
         self.cityNameLabel.textAlignment = .center
         self.cityNameLabel.layer.cornerRadius = 20
-        self.mapView.settings.compassButton = false
+        self.mapView.showsCompass = false
         self.mapView.isUserInteractionEnabled = false
-        self.mapView.loadCustomStyle()
         self.descriptionText.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.15)
         self.descriptionText.isEditable = false
         self.descriptionText.textAlignment = NSTextAlignment.justified
@@ -74,14 +69,14 @@ class CityDetailView: UIView, ViewControllerModellableView {
     
     func update(oldModel: CityDetailViewModel?){
         guard let model = self.model else { return }
-        let camera = GMSCameraPosition.camera(withTarget: model.location, zoom: 4)
-        self.mapView.camera = camera
+        let camera = MKMapCamera(lookingAtCenter: model.location, fromDistance: 1000, pitch: 0, heading: 0)
+        self.mapView.setCamera(camera, animated: true)
         self.descriptionText.setText(searchTerms: model.city) {
             self.setNeedsLayout()
         }
         self.cityNameLabel.text = model.city
-        self.marker.position = model.location
-        self.marker.map = self.mapView
+        let marker = MarkerPool.getMarker(location: model.location, text: model.city)
+        self.mapView.addAnnotation(marker)
         //WikipediaAPI.shared.findExactWikipediaArticleName(searchTerms: model.city).then(WikipediaAPI.shared.getWikidataId).then(in: .background) {_ in }
         WikipediaAPI.shared.getCityDetail(CityName: model.city, WikidataId: "").then(in: .background){_ in}
     }
