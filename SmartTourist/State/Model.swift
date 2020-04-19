@@ -194,7 +194,8 @@ fileprivate struct WDBinding: Decodable {
 }
 
 
-class WDPlace: Decodable {
+class WDPlace: Decodable, Hashable {
+    var placeId: String
     var name: String
     var city: String
     var location: CLLocationCoordinate2D
@@ -202,6 +203,7 @@ class WDPlace: Decodable {
     var wikipediaLink: URL?
     
     enum CodingKeys: String, CodingKey {
+        case placeId = "place"
         case name = "placeLabel"
         case city = "cityLabel"
         case location = "location"
@@ -217,6 +219,11 @@ class WDPlace: Decodable {
         let rootContainer = try decoder.container(keyedBy: CodingKeys.self)
         let name = try rootContainer.decode(WDBinding.self, forKey: .name)
         self.name = name.value
+        let id = try rootContainer.decode(WDBinding.self, forKey: .placeId)
+        let placeIdString = id.value
+        let placeIdRange = placeIdString.range(of: #"Q[0-9]+"#, options: .regularExpression)!
+        let placeIdSub = placeIdString[placeIdRange]
+        self.placeId = String(placeIdSub)
         let city = try rootContainer.decode(WDBinding.self, forKey: .city)
         self.city = city.value
         let location = try rootContainer.decode(WDBinding.self, forKey: .location)
@@ -231,6 +238,14 @@ class WDPlace: Decodable {
         self.imageURI = imageURI?.value
         let wikipediaLink = try rootContainer.decodeIfPresent(WDBinding.self, forKey: .wikipediaLink)
         self.wikipediaLink = URL(string: wikipediaLink?.value ?? "")
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.placeId)
+    }
+    
+    static func == (lhs: WDPlace, rhs: WDPlace) -> Bool {
+        return lhs.placeId == rhs.placeId
     }
 }
 
