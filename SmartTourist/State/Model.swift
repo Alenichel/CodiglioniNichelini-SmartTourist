@@ -194,13 +194,19 @@ fileprivate struct WDBinding: Decodable {
 }
 
 
-class WDPlace: Decodable, Hashable {
+class WDPlace: Codable, Hashable {
     var placeId: String
     var name: String
     var city: String
     var location: CLLocationCoordinate2D
     var imageURI: String?
     var wikipediaLink: URL?
+    
+    //compatibility
+    var photos: [GPPhoto] = []
+    var rating: Double = 3.0
+    var userRatingsTotal: Int = 1000
+    var website: String = ""
     
     enum CodingKeys: String, CodingKey {
         case placeId = "place"
