@@ -14,6 +14,8 @@ var justVisitedPlaces: [GPPlace] = []
 
 
 class AttractionsViewController: ViewControllerWithLocalState<MapView> {
+    var mapLoaded = false
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let navigationController = self.navigationController {
@@ -102,6 +104,13 @@ extension AttractionsViewController: CLLocationManagerDelegate {
 
 
 extension AttractionsViewController: MKMapViewDelegate {
+    func mapViewDidFinishRenderingMap(_ mapView: MKMapView, fullyRendered: Bool) {
+        if !self.mapLoaded {
+            mapView.setUserTrackingMode(.follow, animated: true)
+            self.mapLoaded = true
+        }
+    }
+    
     // Called at every minimum change of the visible region
     func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
         self.dispatch(SetMapLocation(location: mapView.centerCoordinate))
