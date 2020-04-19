@@ -58,10 +58,6 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
         }
         self.rootView.didTapLocationButton = { [unowned self] in
             self.rootView.mapView.setUserTrackingMode(.follow, animated: true)
-            self.dispatch(SetMapCentered(value: true))
-            /*self.dispatch(SetMapCentered(value: true)).then(in: .main) { [unowned self] in
-                //self.rootView.centerMap()
-            }*/
             self.dispatch(GetCurrentCity(throttle: false))   // Also calls GetPopularPlaces
             self.dispatch(GetNearestPlaces(throttle: false))
         }
@@ -84,8 +80,7 @@ extension AttractionsViewController: CLLocationManagerDelegate {
         print("[didUpdateLocations]: \(location.coordinate)")
         self.dispatch(SetActualLocation(location: location.coordinate))
         self.locationBasedNotification(lastCoordinates: location.coordinate)
-        if self.rootView.mapView.userTrackingMode == .follow {
-            //if self.state.locationState.mapCentered {
+        if self.state.locationState.mapCentered {
             self.dispatch(GetCurrentCity(throttle: true))   // Also calls GetPopularPlaces
             self.dispatch(GetNearestPlaces(throttle: true))
         }
@@ -108,44 +103,24 @@ extension AttractionsViewController: CLLocationManagerDelegate {
 
 extension AttractionsViewController: MKMapViewDelegate {
     // Called at every minimum change of the visible region
-    /*func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
-        guard self.mapRendered else { return }
-        //print("\(#function) \(mapView.centerCoordinate)")
-        //self.dispatch(SetMapLocation(location: mapView.centerCoordinate))
-    }*/
+    func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+        self.dispatch(SetMapLocation(location: mapView.centerCoordinate))
+    }
     
     // Called when the region finishes changing
-    /*func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        guard self.mapRendered else { return }
-        print("\(#function) animated = \(animated)")
-        /*self.dispatch(SetMapLocation(location: mapView.centerCoordinate))
-        if self.rootView.mapView.userTrackingMode == .none {
-            //if !self.state.locationState.mapCentered {
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        self.dispatch(SetMapLocation(location: mapView.centerCoordinate))
+        if !self.state.locationState.mapCentered {
             self.dispatch(GetCurrentCity(throttle: false))   // Also calls GetPopularPlaces
             self.dispatch(GetNearestPlaces(throttle: false))
-        }*/
-    }*/
-    
-    // Called when the region begins changing
-    /*func mapView(_ mapView: MKMapView, regionWillChangeAnimated animated: Bool) {
-        guard self.mapRendered else { return }
-        print("\(#function) animated = \(animated)")
-        /*if !animated {
-            self.rootView.mapView.userTrackingMode = .none
-            //self.dispatch(SetMapCentered(value: false))
-        }*/
-    }*/
+        }
+    }
     
     func mapView(_ mapView: MKMapView, didChange mode: MKUserTrackingMode, animated: Bool) {
-        switch mode {
-        case .follow:
-            print("Tracking mode = FOLLOW")
-        case .followWithHeading:
-            print("Tracking mode = FOLLOW WITH HEADING")
-        case .none:
-            print("Tracking mode = NONE")
-        default:
-            print("Tracking mode = DEFAULT")
+        if mode == .none {
+            self.dispatch(SetMapCentered(value: false))
+        } else {
+            self.dispatch(SetMapCentered(value: true))
         }
     }
     

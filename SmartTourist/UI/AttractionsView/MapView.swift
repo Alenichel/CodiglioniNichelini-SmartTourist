@@ -59,7 +59,7 @@ class MapView: UIView, ViewControllerModellableView {
     var markerPool: MarkerPool!
     var searchButton = RoundedButton()
     
-    // MARK: - Interactions
+    // MARK: Interactions
     var didTapCityNameButton: Interaction?
     var didTapLocationButton: Interaction?
     var ditTapSearchButton: Interaction?
@@ -72,6 +72,10 @@ class MapView: UIView, ViewControllerModellableView {
     private var firstLayout = true
     
     private static let zoomThreshold: Float = 9
+    
+    // MARK: Images
+    private static let locationFillImage = UIImage(systemName: "location.fill")
+    private static let locationImage = UIImage(systemName: "location")
     
     // MARK: Setup
     func setup() {
@@ -165,11 +169,10 @@ class MapView: UIView, ViewControllerModellableView {
             self.cityNameButton.setTitle("SmartTourist", for: .normal)
         }
         if model.actualLocation == nil {
-            self.locationButton.setImage(UIImage(systemName: "location"), for: .normal)
+            self.locationButton.setImage(MapView.locationImage, for: .normal)
             self.locationButton.isEnabled = false
         } else {
-            let mapCentered = self.mapView.userTrackingMode == .follow
-            self.locationButton.setImage(UIImage(systemName: mapCentered ? "location.fill" : "location"), for: .normal)
+            self.locationButton.setImage(model.mapCentered ? MapView.locationFillImage : MapView.locationImage, for: .normal)
             self.locationButton.isEnabled = true
         }
         //if let location = model.location {

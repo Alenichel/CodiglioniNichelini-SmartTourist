@@ -48,7 +48,7 @@ struct SetMapCentered: StateUpdater {
 }
 
 
-struct SetCurrentCity: StateUpdater, Persistable {
+struct SetCurrentCity: StateUpdater {
     let city: String?
     
     func updateState(_ state: inout AppState) {
@@ -66,7 +66,7 @@ struct SetCurrentCityLastUpdate: StateUpdater {
 }
 
 
-struct SetNearestPlaces: StateUpdater, Persistable {
+struct SetNearestPlaces: StateUpdater {
     let places: [GPPlace]
     
     func updateState(_ state: inout AppState) {
@@ -84,7 +84,7 @@ struct SetNearestPlacesLastUpdate: StateUpdater {
 }
 
 
-struct SetPopularPlaces: StateUpdater, Persistable {
+struct SetPopularPlaces: StateUpdater {
     let places: [GPPlace]
     
     func updateState(_ state: inout AppState) {
