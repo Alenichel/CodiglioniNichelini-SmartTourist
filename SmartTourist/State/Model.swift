@@ -214,11 +214,15 @@ class WDPlace: Decodable {
         
         valueContainer = try rootContainer.nestedContainer(keyedBy: CodingKeys.ValueCodingKeys.self, forKey: .location)
         let locationString = try valueContainer.decode(String.self, forKey: .value)
-        //TODO: bello fare la substring in swift5
-        //let latitude = locationString.prefix(<#T##maxLength: Int##Int#>)
-        //let location = CLLocation(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>)
-        //self.location = location.coordinate
-        self.location = locationString
+        let longitudeStart = locationString.index(locationString.firstIndex(of: "(")!, offsetBy: 1)
+        let longitudeEnd = locationString.index(locationString.firstIndex(of: " ")!, offsetBy: -1)
+        let latitudeStart = locationString.index(locationString.firstIndex(of: " ")!, offsetBy: 1)
+        let latitudeEnd = locationString.index(locationString.firstIndex(of: ")")!, offsetBy: -1)
+        let longitude = locationString[latitudeStart...latitudeEnd]
+        let latitude = locationString[longitudeStart...longitudeEnd]
+        self.location = CLLocationCoordinate2D()
+        self.location.latitude = Double(latitude) ?? 0.0
+        self.location.longitude = Double(longitude) ?? 0.0
         
         valueContainer = try rootContainer.nestedContainer(keyedBy: CodingKeys.ValueCodingKeys.self, forKey: .imageUri)
         self.imageUri = try valueContainer.decode(String.self, forKey: .value)
@@ -300,32 +304,13 @@ class WDCity: Decodable {
     
     required init(from decoder: Decoder) throws {
         let rootContainer = try decoder.container(keyedBy: CodingKeys.self)
-        
-        
-        
-        
         let resultsContainer = try rootContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.self, forKey: .results)
-        
-        
-        
-        
-        
         var bindingsArrayContainer = try resultsContainer.nestedUnkeyedContainer(forKey: .bindings)
-        
-        
         let bindingsContainer = try bindingsArrayContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.self)
-        
-        
         var container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .city)
         self.city = try container.decode(String.self, forKey: .value)
-
         container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .country)
         self.country = try container.decodeIfPresent(String.self, forKey: .value)
-        
-        
-        
-        
-        
         container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .population)
         self.population = try Int(container.decodeIfPresent(String.self, forKey: .value) ?? "nil")
         container = try bindingsContainer.nestedContainer(keyedBy: CodingKeys.ResultsCodingKeys.BindingsCodingKeys.ValueCodingKeys.self, forKey: .area)
