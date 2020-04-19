@@ -52,14 +52,15 @@ struct GetNearestPlaces: SideEffect {
         if !self.throttle || context.getState().locationState.nearestPlacesLastUpdate.distance(to: Date()) > GoogleAPI.apiThrottleTime {
             context.dispatch(SetNearestPlacesLastUpdate(lastUpdate: Date()))
             async(in: .background) { _ -> [WDPlace] in
-                let places = try await(context.dependencies.wikiAPI.getNearbyPlaces(location: currentLocation))
+                var places = try await(context.dependencies.wikiAPI.getNearbyPlaces(location: currentLocation))
                 //var places = try await(context.dependencies.googleAPI.getNearbyPlaces(location: currentLocation))
-                /*if let actualLocation = context.getState().locationState.actualLocation {
-                    let actualPlaces = try await(context.dependencies.googleAPI.getNearbyPlaces(location: actualLocation))
+                if let actualLocation = context.getState().locationState.actualLocation {
+                    let actualPlaces = try await(context.dependencies.wikiAPI.getNearbyPlaces(location: actualLocation))
                     places = Array(Set(places + actualPlaces))
-                }*/
-                //return places.sorted(by: { $0.distance(from: currentLocation) < $1.distance(from: currentLocation) })
-                return places
+                } else {
+                    places = Array(Set(places))
+                }
+                return places.sorted(by: { $0.distance(from: currentLocation) < $1.distance(from: currentLocation) })
             }.then(in: .utility) { places in
                 context.dispatch(SetNearestPlaces(places: places))
             }.catch(in: .utility) { error in
@@ -79,11 +80,12 @@ struct GetPopularPlaces: SideEffect {
         guard let currentCity = self.city else { return }
         if !self.throttle || context.getState().locationState.popularPlacesLastUpdate.distance(to: Date()) > GoogleAPI.apiThrottleTime {
             context.dispatch(SetPopularPlacesLastUpdate(lastUpdate: Date()))
-            context.dependencies.googleAPI.getPopularPlaces(city: currentCity).then(in: .utility) { places in
+            /*context.dependencies.googleAPI.getPopularPlaces(city: currentCity).then(in: .utility) { places in
                 context.dispatch(SetPopularPlaces(places: places.blacklisted))
             }.catch(in: .utility) { error in
                 context.dispatch(SetPopularPlaces(places: []))
-            }
+            }*/
+            context.dispatch(SetPopularPlaces(places: []))
         }
     }
 }

@@ -11,7 +11,6 @@
 		4DC68C698795D2E15DF07FFE /* Pods_SmartTourist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A68ECEB84859705FE364757 /* Pods_SmartTourist.framework */; };
 		5F7A4CA34DB61B8A7EBF547D /* Pods_SmartTourist_SmartTouristUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */; };
 		715830A6663ED8F1542E5BDC /* Pods_SmartTouristAppleWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7423B99FDA9559DEEF653ECC /* Pods_SmartTouristAppleWatch.framework */; };
-		990E1846244CC56700852DFD /* WDCategories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 990E1845244CC56700852DFD /* WDCategories.swift */; };
 		991F955C238EDD4D002A1093 /* mapStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = 991F955B238EDD4D002A1093 /* mapStyle.json */; };
 		992533C4238FF8B800EE479A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992533C3238FF8B800EE479A /* LocationManager.swift */; };
 		992816A823969ECC0033F43C /* WikipediaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992816A723969ECC0033F43C /* WikipediaAPI.swift */; };
@@ -30,6 +29,7 @@
 		99EC7D6D241FC0890065FDE9 /* String+emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EC7D6C241FC0890065FDE9 /* String+emoji.swift */; };
 		99F36EAC2417FB4C00ACC519 /* PedometerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */; };
 		99F5A11923995D9E0056E68D /* UIImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */; };
+		E501B0E0244CCB18003E271D /* WDInstances.json in Resources */ = {isa = PBXBuildFile; fileRef = E501B0DF244CCB18003E271D /* WDInstances.json */; };
 		E50BC90D241D15EE005EFDCE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC90C241D15EE005EFDCE /* SettingsView.swift */; };
 		E50BC90F241D15FB005EFDCE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC90E241D15FB005EFDCE /* SettingsViewController.swift */; };
 		E50BC911241D42DF005EFDCE /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC910241D42DF005EFDCE /* SettingCell.swift */; };
@@ -209,7 +209,6 @@
 		696BB0495EC0895A3D3C7B9C /* Pods-PictureNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PictureNotification.release.xcconfig"; path = "Target Support Files/Pods-PictureNotification/Pods-PictureNotification.release.xcconfig"; sourceTree = "<group>"; };
 		7423B99FDA9559DEEF653ECC /* Pods_SmartTouristAppleWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartTouristAppleWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		864666DF532B8752C2B28FD3 /* Pods-PictureNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PictureNotification.debug.xcconfig"; path = "Target Support Files/Pods-PictureNotification/Pods-PictureNotification.debug.xcconfig"; sourceTree = "<group>"; };
-		990E1845244CC56700852DFD /* WDCategories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WDCategories.swift; sourceTree = "<group>"; };
 		991F955B238EDD4D002A1093 /* mapStyle.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mapStyle.json; sourceTree = "<group>"; };
 		992533C3238FF8B800EE479A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		992816A723969ECC0033F43C /* WikipediaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikipediaAPI.swift; sourceTree = "<group>"; };
@@ -234,6 +233,7 @@
 		BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartTourist_SmartTouristUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB1F109E38A57D77901D8A65 /* Pods-SmartTouristTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTouristTests.release.xcconfig"; path = "Target Support Files/Pods-SmartTouristTests/Pods-SmartTouristTests.release.xcconfig"; sourceTree = "<group>"; };
 		D30A90CC896E2EB573AFC6C5 /* Pods-SmartTourist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist.debug.xcconfig"; path = "Target Support Files/Pods-SmartTourist/Pods-SmartTourist.debug.xcconfig"; sourceTree = "<group>"; };
+		E501B0DF244CCB18003E271D /* WDInstances.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = WDInstances.json; sourceTree = "<group>"; };
 		E50BC90C241D15EE005EFDCE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		E50BC90E241D15FB005EFDCE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E50BC910241D42DF005EFDCE /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
@@ -402,6 +402,7 @@
 				99C27CCB23AFC37700667FB0 /* MilanTour(Fast).gpx */,
 				991F955B238EDD4D002A1093 /* mapStyle.json */,
 				E52E0B16238F221F00D966CF /* mapStyle.dark.json */,
+				E501B0DF244CCB18003E271D /* WDInstances.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -576,7 +577,6 @@
 				E5335D072389970B00601F02 /* DependenciesContainer.swift */,
 				E5FDE320238B08A40018D791 /* GoogleAPI.swift */,
 				992816A723969ECC0033F43C /* WikipediaAPI.swift */,
-				990E1845244CC56700852DFD /* WDCategories.swift */,
 			);
 			path = Dependencies;
 			sourceTree = "<group>";
@@ -932,6 +932,7 @@
 				E52E0B17238F221F00D966CF /* mapStyle.dark.json in Resources */,
 				E528FF93238972020065483B /* LaunchScreen.storyboard in Resources */,
 				E528FF90238972020065483B /* Assets.xcassets in Resources */,
+				E501B0E0244CCB18003E271D /* WDInstances.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1189,7 +1190,6 @@
 				E590FAE42445FCA300A3DD87 /* String+UIImage.swift in Sources */,
 				E5F9715D2392D96F0096C296 /* String+Random.swift in Sources */,
 				E5335D052389946C00601F02 /* AttractionsViewController.swift in Sources */,
-				990E1846244CC56700852DFD /* WDCategories.swift in Sources */,
 				E56167C42428989B0064B2E8 /* GMSMapVIew+adaptToPlaces.swift in Sources */,
 				E56167CB2428BAA40064B2E8 /* Array+sortedInsert.swift in Sources */,
 				E592B82224140FCF00AD46F8 /* UILabel+setText.swift in Sources */,

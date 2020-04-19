@@ -194,16 +194,16 @@ fileprivate struct WDBinding: Decodable {
 }
 
 
-class WDPlace: Codable, Hashable, Comparable{
+class WDPlace: Codable, Hashable, Comparable {
     var placeID: String
-    var instanceId = "istanceId"
+    var instance: String
     var name: String
     var city: String?
     var location: CLLocationCoordinate2D
     var wikipediaLink: URL?
+    var photos: [URL] = []
     
     //compatibility
-    var photos: [URL] = []
     var rating: Double? = 3.0
     var userRatingsTotal: Int? = 1000
     var website: String? = ""
@@ -211,7 +211,7 @@ class WDPlace: Codable, Hashable, Comparable{
     
     enum CodingKeys: String, CodingKey {
         case placeId = "place"
-        case instanceId = "instanceId"
+        case instance = "instance"
         case name = "placeLabel"
         case city = "cityLabel"
         case location = "location"
@@ -228,16 +228,16 @@ class WDPlace: Codable, Hashable, Comparable{
         }
     }
     
-    required init (from decoder: Decoder) throws {
+    class WrongInstanceError: Error {}
+    
+    required init(from decoder: Decoder) throws {
         let rootContainer = try decoder.container(keyedBy: CodingKeys.self)
         
-        let instanceId = try rootContainer.decode(WDBinding.self, forKey: .instanceId)
+        let instanceId = try rootContainer.decode(WDBinding.self, forKey: .instance)
         let instanceIdString = instanceId.value
         let instanceIdRange = instanceIdString.range(of: #"Q[0-9]+"#, options: .regularExpression)!
         let instanceIdSub = instanceIdString[instanceIdRange]
-        self.instanceId = String(instanceIdSub)
-        
-        //guard WDCategories.contains(
+        self.instance = String(instanceIdSub)
         
         let name = try rootContainer.decode(WDBinding.self, forKey: .name)
         self.name = name.value
@@ -289,6 +289,14 @@ class WDPlace: Codable, Hashable, Comparable{
         } else {
             return lhs.name < rhs.name
         }
+    }
+    
+    func distance(from: WDPlace) -> Int {
+        return self.location.distance(from: from.location)
+    }
+    
+    func distance(from: CLLocationCoordinate2D) -> Int {
+        return self.location.distance(from: from)
     }
 }
 

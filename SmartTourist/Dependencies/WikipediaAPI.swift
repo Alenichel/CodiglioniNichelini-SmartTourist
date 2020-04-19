@@ -56,6 +56,22 @@ WHERE
  }
 """
 
+
+let WDInstances: Set<String> = {
+    if let url = Bundle.main.url(forResource: "WDInstances", withExtension: "json") {
+        do {
+            let data = try Data(contentsOf: url)
+            let list = try JSONDecoder().decode([String].self, from: data)
+            return Set<String>(list)
+        } catch {
+            fatalError("\(#function): \(error.localizedDescription)")
+        }
+    } else {
+        fatalError("\(#function): RESOURCE NOT FOUND")
+    }
+}()
+
+
 class WikipediaAPI {
     
     static let shared = WikipediaAPI()
@@ -229,7 +245,8 @@ class WikipediaAPI {
                     guard let data = response.data else { reject(UnknownApiError()); return }
                     do {
                         let results = try JSONDecoder().decode(WDPlaceResponse.self, from: data)
-                        resolve(results.places)
+                        let places = results.places.filter { WDInstances.contains($0.instance) }
+                        resolve(places)
                     } catch let error as NSError {
                         print("\(#function): \(error.localizedDescription)")
                         reject(error)
