@@ -236,9 +236,9 @@ class WikipediaAPI {
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     do {
-                        let response = try decoder.decode(WDPlaceResponse.self, from: data)
-                        print(response.places)
-                        resolve(response.places)
+                        let results = try decoder.decode(WDPlaceResponse.self, from: data)
+                        print(results.places)
+                        resolve(results.places)
                     } catch let error as NSError {
                         print("\(#function): \(error.localizedDescription)")
                         reject(error)

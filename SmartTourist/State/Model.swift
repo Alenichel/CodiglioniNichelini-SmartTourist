@@ -187,7 +187,7 @@ struct GMDResponse: Decodable {
 class WDPlace: Decodable {
     var name: String
     var city: String
-    var location: String
+    var location: CLLocationCoordinate2D
     var imageUri: String
     var wikipediaLink: URL
     
@@ -213,7 +213,12 @@ class WDPlace: Decodable {
         self.city = try valueContainer.decode(String.self, forKey: .value)
         
         valueContainer = try rootContainer.nestedContainer(keyedBy: CodingKeys.ValueCodingKeys.self, forKey: .location)
-        self.location = try valueContainer.decode(String.self, forKey: .value)
+        let locationString = try valueContainer.decode(String.self, forKey: .value)
+        //TODO: bello fare la substring in swift5
+        //let latitude = locationString.prefix(<#T##maxLength: Int##Int#>)
+        //let location = CLLocation(latitude: <#T##CLLocationDegrees#>, longitude: <#T##CLLocationDegrees#>)
+        //self.location = location.coordinate
+        self.location = locationString
         
         valueContainer = try rootContainer.nestedContainer(keyedBy: CodingKeys.ValueCodingKeys.self, forKey: .imageUri)
         self.imageUri = try valueContainer.decode(String.self, forKey: .value)
