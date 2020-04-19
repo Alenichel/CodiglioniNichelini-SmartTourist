@@ -13,65 +13,6 @@ import Alamofire
 import MapKit
 
 
-let cityDetailsQuery = """
-SELECT DISTINCT ?city ?cityLabel ?country ?countryLabel ?population ?area ?elevation ?link ?facebookPageId ?facebookPlacesId ?instagramUsername ?twitterUsername ?image ?coatOfArmsImage ?cityFlagImage WHERE {
-BIND( <http://www.wikidata.org/entity/Q60> as ?city ).
-OPTIONAL {?city wdt:P17 ?country}.
-OPTIONAL {?city wdt:P1082 ?population}.
-OPTIONAL {?city wdt:P2046 ?area}.
-OPTIONAL {?city wdt:P2044 ?elevation}.
-OPTIONAL {?city wdt:P856 ?link}.
-OPTIONAL {?city wdt:P2013 ?facebookPageId}.
-OPTIONAL {?city wdt:P1997 ?facebookPlacesId}.
-OPTIONAL {?city wdt:P2003 ?instagramUsername}.
-OPTIONAL {?city wdt:P2002 ?twitterUsername}.
-OPTIONAL {?city wdt:P18 ?image}.
-OPTIONAL {?city wdt:P94  ?coatOfArmsImage}.
-OPTIONAL {?city wdt:P41 ?cityFlagImage}.
-SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
-}
-"""
-
-let nearbyPlacesQuery = """
-SELECT DISTINCT ?place ?placeLabel ?location ?image ?instance ?phoneNumber ?website ?wikipediaLink ?wikimediaLink
-WHERE
-{
-  SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
-  SERVICE wikibase:around {
-      ?place wdt:P625 ?location .
-      bd:serviceParam wikibase:center "Point(9.191383 45.464311)"^^geo:wktLiteral .
-      bd:serviceParam wikibase:radius "1" .
-  }
-  ?place wdt:P31 ?instance  .
-  ?wikipediaLink schema:about ?place;
-            schema:inLanguage "en";
-            schema:isPartOf [ wikibase:wikiGroup "wikipedia" ] .
-  OPTIONAL {?wikimediaLink schema:about ?place;
-            schema:inLanguage "en";
-            schema:isPartOf <https://commons.wikimedia.org/>} .
-
-  OPTIONAL {?place wdt:P18 ?image } .
-  OPTIONAL {?place wdt:P1329 ?phoneNumber}.
-  OPTIONAL {?place wdt:P856 ?website} .
- }
-"""
-
-
-let WDInstances: Set<String> = {
-    if let url = Bundle.main.url(forResource: "WDInstances", withExtension: "json") {
-        do {
-            let data = try Data(contentsOf: url)
-            let list = try JSONDecoder().decode([String].self, from: data)
-            return Set<String>(list)
-        } catch {
-            fatalError("\(#function): \(error.localizedDescription)")
-        }
-    } else {
-        fatalError("\(#function): RESOURCE NOT FOUND")
-    }
-}()
-
-
 class WikipediaAPI {
     
     static let shared = WikipediaAPI()
@@ -80,6 +21,65 @@ class WikipediaAPI {
     
     private init() {
         WikipediaNetworking.appAuthorEmailForAPI = "ale.nichelg@gmail.com"
+    }
+    
+    static let wdInstances: Set<String> = {
+        if let url = Bundle.main.url(forResource: "WDInstances", withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let list = try JSONDecoder().decode([String].self, from: data)
+                return Set<String>(list)
+            } catch {
+                fatalError("\(#function): \(error.localizedDescription)")
+            }
+        } else {
+            fatalError("\(#function): RESOURCE NOT FOUND")
+        }
+    }()
+    
+    private func getNearbyPlacesQuery(location: CLLocationCoordinate2D) -> String {
+        return """
+        SELECT DISTINCT ?place ?placeLabel ?location ?image ?instance ?phoneNumber ?website ?wikipediaLink ?wikimediaLink
+        WHERE {
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+            SERVICE wikibase:around {
+                ?place wdt:P625 ?location .
+                bd:serviceParam wikibase:center "Point(\(location.longitude) \(location.latitude))"^^geo:wktLiteral .
+                bd:serviceParam wikibase:radius "1" .
+            }
+            ?place wdt:P31 ?instance  .
+            ?wikipediaLink schema:about ?place;
+                           schema:inLanguage "en";
+                           schema:isPartOf [ wikibase:wikiGroup "wikipedia" ] .
+            OPTIONAL {?wikimediaLink schema:about ?place;
+                                     schema:inLanguage "en";
+                                     schema:isPartOf <https://commons.wikimedia.org/>} .
+            OPTIONAL {?place wdt:P18 ?image } .
+            OPTIONAL {?place wdt:P1329 ?phoneNumber}.
+            OPTIONAL {?place wdt:P856 ?website} .
+        }
+        """
+    }
+    
+    private func getCityDetailsQuery() -> String {
+        return"""
+        SELECT DISTINCT ?city ?cityLabel ?country ?countryLabel ?population ?area ?elevation ?link ?facebookPageId ?facebookPlacesId ?instagramUsername ?twitterUsername ?image ?coatOfArmsImage ?cityFlagImage WHERE {
+            BIND( <http://www.wikidata.org/entity/Q60> as ?city ).
+            OPTIONAL {?city wdt:P17 ?country}.
+            OPTIONAL {?city wdt:P1082 ?population}.
+            OPTIONAL {?city wdt:P2046 ?area}.
+            OPTIONAL {?city wdt:P2044 ?elevation}.
+            OPTIONAL {?city wdt:P856 ?link}.
+            OPTIONAL {?city wdt:P2013 ?facebookPageId}.
+            OPTIONAL {?city wdt:P1997 ?facebookPlacesId}.
+            OPTIONAL {?city wdt:P2003 ?instagramUsername}.
+            OPTIONAL {?city wdt:P2002 ?twitterUsername}.
+            OPTIONAL {?city wdt:P18 ?image}.
+            OPTIONAL {?city wdt:P94  ?coatOfArmsImage}.
+            OPTIONAL {?city wdt:P41 ?cityFlagImage}.
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+        }
+        """
     }
     
     func search(searchTerms: String) -> Promise<String> {
@@ -207,7 +207,7 @@ class WikipediaAPI {
     func getCityDetail(CityName: String, WikidataId: String) -> Promise<WDCity> {
         return Promise<WDCity>(in: .background) { resolve, reject, status in
             let parameters = [
-                "query": cityDetailsQuery,
+                "query": self.getCityDetailsQuery(),
                 "format": "json"
             ]
             let url = "https://query.wikidata.org/sparql"
@@ -234,8 +234,7 @@ class WikipediaAPI {
     func getNearbyPlaces(location: CLLocationCoordinate2D) -> Promise<[WDPlace]> {
         return Promise<[WDPlace]>(in: .background) { resolve, reject, status in
             let parameters = [
-                "query": nearbyPlacesQuery.replacingOccurrences(of: "<LATITUDE>", with: String(location.latitude))
-                    .replacingOccurrences(of: "<LONGITUDE>", with: String(location.longitude)),
+                "query": self.getNearbyPlacesQuery(location: location),
                 "format": "json"
             ]
             let url = "https://query.wikidata.org/sparql"
@@ -245,7 +244,7 @@ class WikipediaAPI {
                     guard let data = response.data else { reject(UnknownApiError()); return }
                     do {
                         let results = try JSONDecoder().decode(WDPlaceResponse.self, from: data)
-                        let places = results.places.filter { WDInstances.contains($0.instance) }
+                        let places = results.places.filter { WikipediaAPI.wdInstances.contains($0.instance) }
                         resolve(places)
                     } catch let error as NSError {
                         print("\(#function): \(error.localizedDescription)")
@@ -278,5 +277,3 @@ class WikipediaAPI {
         }
     }
 }
-
-
