@@ -15,7 +15,7 @@ class WDPlace: Codable, Hashable, Comparable {
     var name: String
     var city: String?
     var location: CLLocationCoordinate2D
-    var wikipediaLink: URL?
+    var wikipediaLink: String?
     var photos: [URL]? = []
     var website: String?
     
@@ -53,7 +53,7 @@ class WDPlace: Codable, Hashable, Comparable {
         self.city = gpPlace.city
         self.location = gpPlace.location
         
-        self.wikipediaLink = URL(string: "to retrieve")
+        self.wikipediaLink = "to retrieve"
         self.photos = []
         self.website = "to retrieve"
         
@@ -93,11 +93,11 @@ class WDPlace: Codable, Hashable, Comparable {
         if let ciu = imageURL?.value {
             self.photos?.append(URL(string: ciu)!)
         }
-        let wikipediaLink = try container.decodeIfPresent(WDBinding.self, forKey: .wikipediaLink)
-        self.wikipediaLink = URL(string: wikipediaLink?.value ?? "")
-        
-        //let website = try container.decodeIfPresent(String.self, forKey: .website)
-        //self.website = URL.init(string: website ?? "")
+        let wikipediaLink = try container.decode(WDBinding.self, forKey: .wikipediaLink)
+        self.wikipediaLink = wikipediaLink.value
+        if let web = try container.decodeIfPresent(WDBinding.self, forKey: .website){
+            self.website = web.value
+        }
     }
     
     func encode(to encoder: Encoder) throws {
@@ -115,7 +115,7 @@ class WDPlace: Codable, Hashable, Comparable {
             try container.encode(cityBinding, forKey: .city)
         }
         if let wikipediaLink = self.wikipediaLink {
-            let wikipediaLinkBinding = WDBinding(value: wikipediaLink.absoluteString)
+            let wikipediaLinkBinding = WDBinding(value: wikipediaLink)
             try container.encode(wikipediaLinkBinding, forKey: .wikipediaLink)
         }
         try container.encode(self.photos, forKey: .photos)
