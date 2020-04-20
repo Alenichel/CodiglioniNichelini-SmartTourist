@@ -99,6 +99,11 @@
 		E5AFC8A123F9B006007B9887 /* CityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */; };
 		E5AFC8A223F9B006007B9887 /* CityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFC89B23F9B006007B9887 /* CityDetailView.swift */; };
 		E5C4324D2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C4324C2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift */; };
+		E5D005CB244DA0810079A37E /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D005CA244DA0810079A37E /* Place.swift */; };
+		E5D005CD244DA08D0079A37E /* GPPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D005CC244DA08D0079A37E /* GPPlace.swift */; };
+		E5D005CF244DA0960079A37E /* WDPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D005CE244DA0960079A37E /* WDPlace.swift */; };
+		E5D005D1244DA0A20079A37E /* WDCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D005D0244DA0A20079A37E /* WDCity.swift */; };
+		E5D005D3244DA0BB0079A37E /* CodableUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D005D2244DA0BB0079A37E /* CodableUtilities.swift */; };
 		E5D1474A23AB747300649C87 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D1474923AB747300649C87 /* Model.swift */; };
 		E5DE62072443084800E817A6 /* WikipediaKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5DE62062443084800E817A6 /* WikipediaKit */; };
 		E5F9715C2392D96F0096C296 /* UIControl+TargetActionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F971522392D96E0096C296 /* UIControl+TargetActionable.swift */; };
@@ -308,6 +313,11 @@
 		E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityDetailViewController.swift; sourceTree = "<group>"; };
 		E5AFC89B23F9B006007B9887 /* CityDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityDetailView.swift; sourceTree = "<group>"; };
 		E5C4324C2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SFSafariViewController+RoutableWithConfiguration.swift"; sourceTree = "<group>"; };
+		E5D005CA244DA0810079A37E /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		E5D005CC244DA08D0079A37E /* GPPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPPlace.swift; sourceTree = "<group>"; };
+		E5D005CE244DA0960079A37E /* WDPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WDPlace.swift; sourceTree = "<group>"; };
+		E5D005D0244DA0A20079A37E /* WDCity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WDCity.swift; sourceTree = "<group>"; };
+		E5D005D2244DA0BB0079A37E /* CodableUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableUtilities.swift; sourceTree = "<group>"; };
 		E5D1474923AB747300649C87 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		E5F971522392D96E0096C296 /* UIControl+TargetActionable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+TargetActionable.swift"; sourceTree = "<group>"; };
 		E5F971532392D96E0096C296 /* String+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Random.swift"; sourceTree = "<group>"; };
@@ -502,6 +512,7 @@
 			children = (
 				E5FDE322238B0B320018D791 /* Application */,
 				E5335CFC2389818D00601F02 /* State */,
+				E5D005C9244DA0660079A37E /* Model */,
 				E5335D012389941200601F02 /* UI */,
 				E5335D06238996F500601F02 /* Dependencies */,
 				E52EECD0238EE690006196BA /* Managers */,
@@ -546,7 +557,6 @@
 			isa = PBXGroup;
 			children = (
 				E5335CFD238981D000601F02 /* AppState.swift */,
-				E5D1474923AB747300649C87 /* Model.swift */,
 				E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */,
 				E585FCA4238ADEF3008D7C86 /* SideEffects.swift */,
 				E54E01BA23996839009D0331 /* Interceptors.swift */,
@@ -673,6 +683,19 @@
 			name = CityDetailView;
 			path = SmartTourist/UI/CityDetailView;
 			sourceTree = SOURCE_ROOT;
+		};
+		E5D005C9244DA0660079A37E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E5D1474923AB747300649C87 /* Model.swift */,
+				E5D005CA244DA0810079A37E /* Place.swift */,
+				E5D005CC244DA08D0079A37E /* GPPlace.swift */,
+				E5D005CE244DA0960079A37E /* WDPlace.swift */,
+				E5D005D0244DA0A20079A37E /* WDCity.swift */,
+				E5D005D2244DA0BB0079A37E /* CodableUtilities.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
 		};
 		E5F971512392D96E0096C296 /* Utilities */ = {
 			isa = PBXGroup;
@@ -1204,6 +1227,7 @@
 				E50BC90D241D15EE005EFDCE /* SettingsView.swift in Sources */,
 				993B35462392B9150003FD8F /* AttractionCell.swift in Sources */,
 				E54E01B423996806009D0331 /* Persistable.swift in Sources */,
+				E5D005D1244DA0A20079A37E /* WDCity.swift in Sources */,
 				E53BF0E8242A874B00358E6D /* UNNotificationAttachment+UIImage.swift in Sources */,
 				993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */,
 				E5AFC8A223F9B006007B9887 /* CityDetailView.swift in Sources */,
@@ -1214,6 +1238,7 @@
 				E5C4324D2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift in Sources */,
 				E528FF87238971FE0065483B /* AppDelegate.swift in Sources */,
 				E58CD2F3241FC6F500BA3F33 /* SettingsDebugSubview.swift in Sources */,
+				E5D005CF244DA0960079A37E /* WDPlace.swift in Sources */,
 				E5F971602392D96F0096C296 /* DataSource.swift in Sources */,
 				E563DB4D242E61B2003D5FFF /* AppleWatchMessage.swift in Sources */,
 				E54B9A5B2417D0F9009F8DBC /* UITextView+setText.swift in Sources */,
@@ -1223,14 +1248,17 @@
 				E5628B512394224F00A61676 /* UIImage+Color.swift in Sources */,
 				E50BC90F241D15FB005EFDCE /* SettingsViewController.swift in Sources */,
 				992816A823969ECC0033F43C /* WikipediaAPI.swift in Sources */,
+				E5D005CB244DA0810079A37E /* Place.swift in Sources */,
 				E5495903241F648400D643F1 /* Bundle+version+build.swift in Sources */,
 				99D5C9BF241CFB39008633C7 /* WorldwideFavoritesViewController.swift in Sources */,
 				E5628B4D2393D4D500A61676 /* AttractionDetailView.swift in Sources */,
 				E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */,
+				E5D005CD244DA08D0079A37E /* GPPlace.swift in Sources */,
 				E50BC917241D4CA3005EFDCE /* SettingBoolCell.swift in Sources */,
 				E57C47162392BC3A008DE784 /* RoundedButton.swift in Sources */,
 				E528FF89238971FE0065483B /* SceneDelegate.swift in Sources */,
 				9930114B23AFED3600909749 /* GMSMapView+loadCustomStyle.swift in Sources */,
+				E5D005D3244DA0BB0079A37E /* CodableUtilities.swift in Sources */,
 				E5F971612392D96F0096C296 /* ConfigurableCell.swift in Sources */,
 				E5D1474A23AB747300649C87 /* Model.swift in Sources */,
 				E5F9715E2392D96F0096C296 /* Source.swift in Sources */,
