@@ -40,7 +40,7 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
             self.nRatings = "0"
         }
         self.wikipediaSearchTerms = self.attraction.wikipediaName
-        self.currentLocation = state.locationState.currentLocation!
+        self.actualLocation = state.locationState.currentLocation!
         self.favorite = state.favorites.contains(attraction)
         self.allLoaded = localState.allLoaded
         self.link = localState.attraction.website
