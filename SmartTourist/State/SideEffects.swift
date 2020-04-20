@@ -13,12 +13,13 @@ import Hydra
 
 struct LoadState: SideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
+        print("Attempting to load state from \(AppState.persistURL)")
         let decoder = JSONDecoder()
         do {
             let data = try Data(contentsOf: AppState.persistURL)
             let state = try decoder.decode(AppState.self, from: data)
             context.dispatch(SetState(state: state))
-            print("Loaded state") // from \(AppState.persistURL)")
+            print("State loaded") // from \(AppState.persistURL)")
         } catch {
             print("\(#function): \(error.localizedDescription)")
         }
@@ -31,14 +32,11 @@ struct GetCurrentCity: SideEffect {
     
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
         guard let coordinates = context.getState().locationState.currentLocation else { return }
-        if !self.throttle || context.getState().locationState.currentCityLastUpdate.distance(to: Date()) > GoogleAPI.apiThrottleTime {
-            context.dispatch(SetCurrentCityLastUpdate(lastUpdate: Date()))
-            context.dependencies.mapsAPI.getCityName(coordinates: coordinates).then(in: .utility) { city in
-                context.dispatch(SetCurrentCity(city: city))
-                context.dispatch(GetPopularPlaces(city: city, throttle: self.throttle))
-            }/*.catch(in: .utility) { error in
-                context.dispatch(SetCurrentCity(city: nil))
-            }*/
+        context.dependencies.mapsAPI.getCityName(coordinates: coordinates).then(in: .utility) { city in
+            context.dispatch(SetCurrentCity(city: city))
+            context.dispatch(GetPopularPlaces(city: city, throttle: self.throttle))
+        }.catch(in: .utility) { error in
+            context.dispatch(SetCurrentCity(city: nil))
         }
     }
 }
@@ -51,7 +49,7 @@ struct GetNearestPlaces: SideEffect {
         guard let currentLocation = context.getState().locationState.currentLocation else { return }
         if !self.throttle || context.getState().locationState.nearestPlacesLastUpdate.distance(to: Date()) > GoogleAPI.apiThrottleTime {
             context.dispatch(SetNearestPlacesLastUpdate(lastUpdate: Date()))
-            async(in: .background) { _ -> [WDPlace] in
+            async(in: .utility) { _ -> [WDPlace] in
                 var places = try await(context.dependencies.wikiAPI.getNearbyPlaces(location: currentLocation))
                 //var places = try await(context.dependencies.googleAPI.getNearbyPlaces(location: currentLocation))
                 if let actualLocation = context.getState().locationState.actualLocation {
@@ -78,11 +76,17 @@ struct GetPopularPlaces: SideEffect {
     
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
         guard let currentCity = self.city else { return }
-        if !self.throttle || context.getState().locationState.popularPlacesLastUpdate.distance(to: Date()) > GoogleAPI.apiThrottleTime {
+        let cachedPlaces = context.getState().cache.popularPlaces[currentCity]
+        if let cachedPlaces = cachedPlaces {
+            context.dispatch(SetPopularPlaces(places: cachedPlaces))
+            print("POPULAR_PLACES: retrieved from cache")
+        } else if !self.throttle || context.getState().locationState.popularPlacesLastUpdate.distance(to: Date()) > GoogleAPI.apiThrottleTime {
+            print("POPULAR PLACES: attempting to download")
             context.dispatch(SetPopularPlacesLastUpdate(lastUpdate: Date()))
             context.dependencies.googleAPI.getPopularPlaces(city: currentCity).then(in: .utility) { places in
                 let converted = places.map { WDPlace(gpPlace: $0) }
                 context.dispatch(SetPopularPlaces(places: converted))
+                context.dispatch(UpdatePopularPlacesCache(city: currentCity, places: converted))
             }.catch(in: .utility) { error in
                 print("\(#function): \(error.localizedDescription)")
                 context.dispatch(SetPopularPlaces(places: []))

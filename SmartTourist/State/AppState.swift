@@ -17,12 +17,14 @@ struct AppState: State, Codable {
     var favorites = [WDPlace]()
     var settings = Settings()
     var pedometerState = PedometerState()
+    var cache = Cache()
     var needToMoveMap = false
     
     /// Used to filter what properties of the state must be persisted
     enum CodingKeys: CodingKey {
         case favorites
         case settings
+        case cache
     }
     
     /// The path where to persist the state
@@ -55,9 +57,6 @@ struct LocationState {
     
     /// Current city details from WikiData
     var wdCity: WDCity?
-    
-    /// Last update of `currentCity`
-    var currentCityLastUpdate: Date = initDate
     
     /// The nearest places to `currentLocation`
     var nearestPlaces: [WDPlace] = [WDPlace]()
@@ -102,4 +101,9 @@ struct PedometerState: Codable {
         self.littleCircleRadius = self.averageWalkingSpeed * PedometerHandler.littleCircleTimeRadius
         self.bigCircleRadius = self.averageWalkingSpeed * PedometerHandler.bigCircleTimeRadius
     }
+}
+
+
+struct Cache: Codable {
+    var popularPlaces: [String: [WDPlace]] = [String: [WDPlace]]()
 }

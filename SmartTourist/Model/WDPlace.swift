@@ -45,9 +45,10 @@ class WDPlace: Codable, Hashable, Comparable {
     
     class WrongInstanceError: Error {}
     
-    init(gpPlace: GPPlace){
-        self.placeID = gpPlace.placeID
-        self.instance = "QPOPULARPLACE"
+    init(gpPlace: GPPlace) {
+        let base = "Q01234567890"
+        self.placeID = base + "\(abs(gpPlace.placeID.hash))"
+        self.instance = base
         self.name = gpPlace.name
         self.city = gpPlace.city
         self.location = gpPlace.location
