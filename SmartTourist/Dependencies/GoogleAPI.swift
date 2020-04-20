@@ -24,7 +24,21 @@ class GoogleAPI {
     enum PlaceType: String {
         case touristAttraction = "tourist_attraction"
     }
-        
+    
+    func getCityName(coordinates: CLLocationCoordinate2D) -> Promise<String> {
+        return Promise<String>(in: .background) { resolve, reject, status in
+            let location = CLLocation(latitude: coordinates.latitude, longitude: coordinates.longitude)
+            self.geocoder.reverseGeocodeLocation(location, completionHandler: { placemarks, error in
+                if let error = error {
+                    reject(error)
+                }
+                else if let placemark = placemarks?[0], let locality = placemark.locality {
+                    resolve(locality)
+                }
+            })
+        }
+    }
+    
     private func placeTextSearch(query: String, limit: Int? = nil, type: PlaceType? = nil) -> Promise<[GPPlace]> {
         return Promise<[GPPlace]>(in: .background) { resolve, reject, status in
             var parameters = [
