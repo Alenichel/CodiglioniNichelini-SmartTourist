@@ -39,7 +39,7 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
         } else {
             self.nRatings = "0"
         }
-        self.wikipediaSearchTerms = self.attraction.name
+        self.wikipediaSearchTerms = self.attraction.wikipediaName
         self.currentLocation = state.locationState.currentLocation!
         self.favorite = state.favorites.contains(attraction)
         self.allLoaded = localState.allLoaded
@@ -200,7 +200,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         if !model.allLoaded {
             let imagePromises = model.photos.map { WikipediaAPI.shared.getPhoto(imageURL: $0) }
             self.imageSlideshow.setImageInputs(imagePromises.map { PromiseImageSource($0) })
-            self.descriptionText.setText(coordinates: model.attraction.location, searchTerms: model.wikipediaSearchTerms) {
+            self.descriptionText.setText(title: model.wikipediaSearchTerms) {
                 self.didLoadEverything?()
             }
         }
