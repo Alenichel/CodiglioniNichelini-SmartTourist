@@ -36,9 +36,9 @@ struct GetCurrentCity: SideEffect {
             context.dependencies.googleAPI.getCityName(coordinates: coordinates).then(in: .utility) { city in
                 context.dispatch(SetCurrentCity(city: city))
                 context.dispatch(GetPopularPlaces(city: city, throttle: self.throttle))
-            }.catch(in: .utility) { error in
+            }/*.catch(in: .utility) { error in
                 context.dispatch(SetCurrentCity(city: nil))
-            }
+            }*/
         }
     }
 }
@@ -95,7 +95,7 @@ struct AddFavorite: SideEffect {
     let place: WDPlace
     
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
-        context.dependencies.googleAPI.getCityNameMK(coordinates: self.place.location).then(in: .utility) { city in
+        context.dependencies.googleAPI.getCityName(coordinates: self.place.location).then(in: .utility) { city in
             self.place.city = city
         }.catch(in: .utility) { error in
             print("\(#function): \(error.localizedDescription)")

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Hydra
 
 
 class WDCity: Decodable {
