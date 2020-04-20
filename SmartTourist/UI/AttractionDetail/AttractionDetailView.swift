@@ -191,9 +191,10 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     func update(oldModel: AttractionDetailViewModel?) {
         guard let model = self.model else { return }
         if let rating = model.attraction.rating {
-            self.cosmos.rating = rating
-        } else {
-            self.cosmos.rating = 0
+            if (rating == 0) {
+                self.cosmos.isHidden = true
+                self.nRatingsLabel.isHidden = true
+            }
         }
         self.nRatingsLabel.text = model.nRatings
         
