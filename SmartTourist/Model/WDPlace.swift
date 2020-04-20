@@ -112,6 +112,11 @@ class WDPlace: Codable, Hashable, Comparable {
         if let wikimediaLink = try container.decodeIfPresent(WDBinding.self, forKey: .wikimediaLink){
             self.wikimediaLink = wikimediaLink.value
         }
+        if let rating = try container.decodeIfPresent(WDBinding.self, forKey: .rating),
+            let urt = try container.decodeIfPresent(WDBinding.self, forKey: .userRatingsTotal) {
+            self.rating = Double(rating.value)
+            self.userRatingsTotal = Int(urt.value)
+        }
     }
     
     func encode(to encoder: Encoder) throws {
@@ -133,6 +138,12 @@ class WDPlace: Codable, Hashable, Comparable {
             try container.encode(wikipediaLinkBinding, forKey: .wikipediaLink)
         }
         try container.encode(self.photos, forKey: .photos)
+        if let rating = self.rating, let urt = self.userRatingsTotal {
+            let ratingBinding = WDBinding(value: String(rating))
+            try container.encode(ratingBinding, forKey: .rating)
+            let urtBinding = WDBinding(value: String(urt))
+            try container.encode(urtBinding, forKey: .userRatingsTotal)
+        }
     }
     
     func hash(into hasher: inout Hasher) {
