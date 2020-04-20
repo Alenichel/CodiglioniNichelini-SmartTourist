@@ -81,6 +81,7 @@
 		E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */; };
 		E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA4238ADEF3008D7C86 /* SideEffects.swift */; };
 		E58CD2F3241FC6F500BA3F33 /* SettingsDebugSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58CD2F2241FC6F500BA3F33 /* SettingsDebugSubview.swift */; };
+		E5904AA1244DD48200F01D50 /* MapsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5904AA0244DD48200F01D50 /* MapsAPI.swift */; };
 		E590A94B242CCA6800C0F0D5 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E590A949242CCA6800C0F0D5 /* Interface.storyboard */; };
 		E590A94D242CCA7100C0F0D5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E590A94C242CCA7100C0F0D5 /* Assets.xcassets */; };
 		E590A954242CCA7100C0F0D5 /* SmartTouristAppleWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E590A953242CCA7100C0F0D5 /* SmartTouristAppleWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -293,6 +294,7 @@
 		E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateUpdaters.swift; sourceTree = "<group>"; };
 		E585FCA4238ADEF3008D7C86 /* SideEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideEffects.swift; sourceTree = "<group>"; };
 		E58CD2F2241FC6F500BA3F33 /* SettingsDebugSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDebugSubview.swift; sourceTree = "<group>"; };
+		E5904AA0244DD48200F01D50 /* MapsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsAPI.swift; sourceTree = "<group>"; };
 		E590A947242CCA6800C0F0D5 /* SmartTouristAppleWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartTouristAppleWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E590A94A242CCA6800C0F0D5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		E590A94C242CCA7100C0F0D5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -587,6 +589,7 @@
 				E5335D072389970B00601F02 /* DependenciesContainer.swift */,
 				E5FDE320238B08A40018D791 /* GoogleAPI.swift */,
 				992816A723969ECC0033F43C /* WikipediaAPI.swift */,
+				E5904AA0244DD48200F01D50 /* MapsAPI.swift */,
 			);
 			path = Dependencies;
 			sourceTree = "<group>";
@@ -1238,6 +1241,7 @@
 				E5C4324D2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift in Sources */,
 				E528FF87238971FE0065483B /* AppDelegate.swift in Sources */,
 				E58CD2F3241FC6F500BA3F33 /* SettingsDebugSubview.swift in Sources */,
+				E5904AA1244DD48200F01D50 /* MapsAPI.swift in Sources */,
 				E5D005CF244DA0960079A37E /* WDPlace.swift in Sources */,
 				E5F971602392D96F0096C296 /* DataSource.swift in Sources */,
 				E563DB4D242E61B2003D5FFF /* AppleWatchMessage.swift in Sources */,

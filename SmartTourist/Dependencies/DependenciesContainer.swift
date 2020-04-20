@@ -17,6 +17,7 @@ final class DependenciesContainer: NavigationProvider {
     let navigator = Navigator()
     let googleAPI = GoogleAPI.shared
     let wikiAPI = WikipediaAPI.shared
+    let mapsAPI = MapsAPI.shared
     
     var getState: () -> State {
         return self.getAppState

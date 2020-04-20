@@ -33,7 +33,7 @@ struct GetCurrentCity: SideEffect {
         guard let coordinates = context.getState().locationState.currentLocation else { return }
         if !self.throttle || context.getState().locationState.currentCityLastUpdate.distance(to: Date()) > GoogleAPI.apiThrottleTime {
             context.dispatch(SetCurrentCityLastUpdate(lastUpdate: Date()))
-            context.dependencies.googleAPI.getCityName(coordinates: coordinates).then(in: .utility) { city in
+            context.dependencies.mapsAPI.getCityName(coordinates: coordinates).then(in: .utility) { city in
                 context.dispatch(SetCurrentCity(city: city))
                 context.dispatch(GetPopularPlaces(city: city, throttle: self.throttle))
             }/*.catch(in: .utility) { error in
@@ -81,11 +81,10 @@ struct GetPopularPlaces: SideEffect {
         if !self.throttle || context.getState().locationState.popularPlacesLastUpdate.distance(to: Date()) > GoogleAPI.apiThrottleTime {
             context.dispatch(SetPopularPlacesLastUpdate(lastUpdate: Date()))
             context.dependencies.googleAPI.getPopularPlaces(city: currentCity).then(in: .utility) { places in
-                let converted = places.map({ place in
-                        return WDPlace(gpPlace: place)
-                    })
+                let converted = places.map { WDPlace(gpPlace: $0) }
                 context.dispatch(SetPopularPlaces(places: converted))
             }.catch(in: .utility) { error in
+                print("\(#function): \(error.localizedDescription)")
                 context.dispatch(SetPopularPlaces(places: []))
             }
             context.dispatch(SetPopularPlaces(places: []))
@@ -98,7 +97,7 @@ struct AddFavorite: SideEffect {
     let place: WDPlace
     
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
-        context.dependencies.googleAPI.getCityName(coordinates: self.place.location).then(in: .utility) { city in
+        context.dependencies.mapsAPI.getCityName(coordinates: self.place.location).then(in: .utility) { city in
             self.place.city = city
         }.catch(in: .utility) { error in
             print("\(#function): \(error.localizedDescription)")
