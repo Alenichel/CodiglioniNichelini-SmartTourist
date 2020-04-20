@@ -18,7 +18,7 @@ import FontAwesome_swift
 
 struct AttractionDetailViewModel: ViewModelWithLocalState {
     let attraction: WDPlace
-    let photos: [URL]
+    let photos: [URL]?
     let nRatings: String
     let wikipediaSearchTerms: String
     let currentLocation: CLLocationCoordinate2D
@@ -194,7 +194,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.nRatingsLabel.text = model.nRatings
         
         if !model.allLoaded {
-            let imagePromises = model.photos.map { WikipediaAPI.shared.getPhoto(imageURL: $0) }
+            let imagePromises = model.photos!.map { WikipediaAPI.shared.getPhoto(imageURL: $0) }
             self.imageSlideshow.setImageInputs(imagePromises.map { PromiseImageSource($0) })
             self.descriptionText.setText(coordinates: model.attraction.location, searchTerms: model.wikipediaSearchTerms) {
                 self.didLoadEverything?()

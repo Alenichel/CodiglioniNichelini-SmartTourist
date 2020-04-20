@@ -185,7 +185,7 @@ struct GMDResponse: Decodable {
 }
 
 
-fileprivate struct WDBinding: Decodable {
+fileprivate struct WDBinding: Codable {
     let value: String
     
     enum CodingKeys: CodingKey {
@@ -201,7 +201,7 @@ class WDPlace: Codable, Hashable, Comparable {
     var city: String?
     var location: CLLocationCoordinate2D
     var wikipediaLink: URL?
-    var photos: [URL] = []
+    var photos: [URL]? = []
     
     //compatibility
     var rating: Double? = 3.0
@@ -231,24 +231,22 @@ class WDPlace: Codable, Hashable, Comparable {
     class WrongInstanceError: Error {}
     
     required init(from decoder: Decoder) throws {
-        let rootContainer = try decoder.container(keyedBy: CodingKeys.self)
-        
-        let instanceId = try rootContainer.decode(WDBinding.self, forKey: .instance)
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let instanceId = try container.decode(WDBinding.self, forKey: .instance)
         let instanceIdString = instanceId.value
         let instanceIdRange = instanceIdString.range(of: #"Q[0-9]+"#, options: .regularExpression)!
         let instanceIdSub = instanceIdString[instanceIdRange]
         self.instance = String(instanceIdSub)
-        
-        let name = try rootContainer.decode(WDBinding.self, forKey: .name)
+        let name = try container.decode(WDBinding.self, forKey: .name)
         self.name = name.value
-        let id = try rootContainer.decode(WDBinding.self, forKey: .placeId)
+        let id = try container.decode(WDBinding.self, forKey: .placeId)
         let placeIdString = id.value
         let placeIdRange = placeIdString.range(of: #"Q[0-9]+"#, options: .regularExpression)!
         let placeIdSub = placeIdString[placeIdRange]
         self.placeID = String(placeIdSub)
-        //let city = try rootContainer.decode(WDBinding.self, forKey: .city)
-        //self.city = city.value
-        let location = try rootContainer.decode(WDBinding.self, forKey: .location)
+        let city = try container.decodeIfPresent(WDBinding.self, forKey: .city)
+        self.city = city?.value
+        let location = try container.decode(WDBinding.self, forKey: .location)
         let locationString = location.value
         let range = locationString.range(of: #"[-+]?(\d*\.)?\d+ [-+]?(\d*\.)?\d+"#, options: .regularExpression)!
         let substring = locationString[range]
@@ -256,23 +254,34 @@ class WDPlace: Codable, Hashable, Comparable {
         let longitude = Double(splits[0])!
         let latitude = Double(splits[1])!
         self.location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        let imageURL = try rootContainer.decodeIfPresent(WDBinding.self, forKey: .imageURL)
+        let imageURL = try container.decodeIfPresent(WDBinding.self, forKey: .imageURL)
         if let ciu = imageURL?.value {
-            self.photos.append(URL(string: ciu)!)
+            self.photos?.append(URL(string: ciu)!)
         }
-        let wikipediaLink = try rootContainer.decodeIfPresent(WDBinding.self, forKey: .wikipediaLink)
+        let wikipediaLink = try container.decodeIfPresent(WDBinding.self, forKey: .wikipediaLink)
         self.wikipediaLink = URL(string: wikipediaLink?.value ?? "")
+        self.photos = try container.decodeIfPresent([URL].self, forKey: .photos)
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(self.name, forKey: .name)
+        let placeIdBinding = WDBinding(value: self.placeID)
+        try container.encode(placeIdBinding, forKey: .placeId)
+        let nameBinding = WDBinding(value: self.name)
+        try container.encode(nameBinding, forKey: .name)
+        let instanceBinding = WDBinding(value: self.instance)
+        try container.encode(instanceBinding, forKey: .instance)
+        let locationBinding = WDBinding(value: "Point(\(self.location.longitude) \(self.location.latitude)")
+        try container.encode(locationBinding, forKey: .location)
+        if let city = self.city {
+            let cityBinding = WDBinding(value: city)
+            try container.encode(cityBinding, forKey: .location)
+        }
+        if let wikipediaLink = self.wikipediaLink {
+            let wikipediaLinkBinding = WDBinding(value: wikipediaLink.absoluteString)
+            try container.encode(wikipediaLinkBinding, forKey: .wikipediaLink)
+        }
         try container.encode(self.photos, forKey: .photos)
-        try container.encode(self.placeID, forKey: .placeId)
-        try container.encodeIfPresent(self.rating, forKey: .rating)
-        try container.encodeIfPresent(self.userRatingsTotal, forKey: .userRatingsTotal)
-        try container.encodeIfPresent(self.city, forKey: .city)
-        try container.encodeIfPresent(self.website, forKey: .website)
     }
     
     func hash(into hasher: inout Hasher) {

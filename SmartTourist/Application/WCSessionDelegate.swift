@@ -97,7 +97,7 @@ extension AppDelegate: WCSessionDelegate {
     }
     
     private func getPhotoData(_ place: WDPlace, maxPixels: CGFloat) -> Data? {
-        if let photo = place.photos.first {
+        if let photo = place.photos?.first {
             do {
                 let image = try await(WikipediaAPI.shared.getPhoto(imageURL: photo))
                 return self.resizeImage(image, maxPixels: maxPixels)
