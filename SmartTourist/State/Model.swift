@@ -254,13 +254,16 @@ class WDPlace: Codable, Hashable, Comparable {
         let longitude = Double(splits[0])!
         let latitude = Double(splits[1])!
         self.location = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        self.photos = try container.decodeIfPresent([URL].self, forKey: .photos)
+        if self.photos == nil {
+            self.photos = []
+        }
         let imageURL = try container.decodeIfPresent(WDBinding.self, forKey: .imageURL)
         if let ciu = imageURL?.value {
             self.photos?.append(URL(string: ciu)!)
         }
         let wikipediaLink = try container.decodeIfPresent(WDBinding.self, forKey: .wikipediaLink)
         self.wikipediaLink = URL(string: wikipediaLink?.value ?? "")
-        self.photos = try container.decodeIfPresent([URL].self, forKey: .photos)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -275,7 +278,7 @@ class WDPlace: Codable, Hashable, Comparable {
         try container.encode(locationBinding, forKey: .location)
         if let city = self.city {
             let cityBinding = WDBinding(value: city)
-            try container.encode(cityBinding, forKey: .location)
+            try container.encode(cityBinding, forKey: .city)
         }
         if let wikipediaLink = self.wikipediaLink {
             let wikipediaLinkBinding = WDBinding(value: wikipediaLink.absoluteString)
