@@ -14,7 +14,6 @@ class GPPlace: Codable, Equatable, Hashable, Comparable {
     let location: CLLocationCoordinate2D
     let name: String
     var city: String?
-    var photos: [GPPhoto]?
     let rating: Double?
     let userRatingsTotal: Int?
     var website: String?
@@ -22,7 +21,6 @@ class GPPlace: Codable, Equatable, Hashable, Comparable {
     enum CodingKeys: CodingKey {
         case geometry
         case name
-        case photos
         case placeId
         case rating
         case userRatingsTotal
@@ -39,22 +37,11 @@ class GPPlace: Codable, Equatable, Hashable, Comparable {
         let geometryContainer = try container.nestedContainer(keyedBy: CodingKeys.LocationKeys.self, forKey: .geometry)
         self.location = try geometryContainer.decode(CLLocationCoordinate2D.self, forKey: .location)
         self.name = try container.decode(String.self, forKey: .name)
-        self.photos = try container.decodeIfPresent([GPPhoto].self, forKey: .photos)
         self.placeID = try container.decode(String.self, forKey: .placeId)
         self.rating = try container.decodeIfPresent(Double.self, forKey: .rating)
         self.userRatingsTotal = try container.decodeIfPresent(Int.self, forKey: .userRatingsTotal)
         self.city = try container.decodeIfPresent(String.self, forKey: .city)
         self.website = try container.decodeIfPresent(String.self, forKey: .website)
-        /*if self.photos == nil || (self.photos != nil && self.photos!.count < 2) || self.website == nil {
-            GoogleAPI.shared.getPlaceDetails(placeID: self.placeID).then(in: .utility) { result in
-                if let photos = result.photos {
-                    self.photos = Array<GPPhoto>(Set<GPPhoto>(self.photos!).union(Set<GPPhoto>(photos)))
-                }
-                if let website = result.website {
-                    self.website = website
-                }
-            }
-        }*/
     }
 
     func encode(to encoder: Encoder) throws {
@@ -62,7 +49,6 @@ class GPPlace: Codable, Equatable, Hashable, Comparable {
         var geometryContainer = container.nestedContainer(keyedBy: CodingKeys.LocationKeys.self, forKey: .geometry)
         try geometryContainer.encode(self.location, forKey: .location)
         try container.encode(self.name, forKey: .name)
-        try container.encode(self.photos, forKey: .photos)
         try container.encode(self.placeID, forKey: .placeId)
         try container.encodeIfPresent(self.rating, forKey: .rating)
         try container.encodeIfPresent(self.userRatingsTotal, forKey: .userRatingsTotal)

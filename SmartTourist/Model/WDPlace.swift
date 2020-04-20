@@ -17,11 +17,11 @@ class WDPlace: Codable, Hashable, Comparable {
     var location: CLLocationCoordinate2D
     var wikipediaLink: URL?
     var photos: [URL]? = []
+    var website: String?
     
     //compatibility
     var rating: Double? = 3.0
     var userRatingsTotal: Int? = 1000
-    var website: String? = ""
     
     
     enum CodingKeys: String, CodingKey {
@@ -44,6 +44,21 @@ class WDPlace: Codable, Hashable, Comparable {
     }
     
     class WrongInstanceError: Error {}
+    
+    init(gpPlace: GPPlace){
+        self.placeID = gpPlace.placeID
+        self.instance = "QPOPULARPLACE"
+        self.name = gpPlace.name
+        self.city = gpPlace.city
+        self.location = gpPlace.location
+        
+        self.wikipediaLink = URL(string: "to retrieve")
+        self.photos = []
+        self.website = "to retrieve"
+        
+        self.rating = gpPlace.rating
+        self.userRatingsTotal = gpPlace.userRatingsTotal
+    }
     
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -79,6 +94,9 @@ class WDPlace: Codable, Hashable, Comparable {
         }
         let wikipediaLink = try container.decodeIfPresent(WDBinding.self, forKey: .wikipediaLink)
         self.wikipediaLink = URL(string: wikipediaLink?.value ?? "")
+        
+        //let website = try container.decodeIfPresent(String.self, forKey: .website)
+        //self.website = URL.init(string: website ?? "")
     }
     
     func encode(to encoder: Encoder) throws {

@@ -80,11 +80,14 @@ struct GetPopularPlaces: SideEffect {
         guard let currentCity = self.city else { return }
         if !self.throttle || context.getState().locationState.popularPlacesLastUpdate.distance(to: Date()) > GoogleAPI.apiThrottleTime {
             context.dispatch(SetPopularPlacesLastUpdate(lastUpdate: Date()))
-            /*context.dependencies.googleAPI.getPopularPlaces(city: currentCity).then(in: .utility) { places in
-                context.dispatch(SetPopularPlaces(places: places.blacklisted))
+            context.dependencies.googleAPI.getPopularPlaces(city: currentCity).then(in: .utility) { places in
+                let converted = places.map({ place in
+                        return WDPlace(gpPlace: place)
+                    })
+                context.dispatch(SetPopularPlaces(places: converted))
             }.catch(in: .utility) { error in
                 context.dispatch(SetPopularPlaces(places: []))
-            }*/
+            }
             context.dispatch(SetPopularPlaces(places: []))
         }
     }

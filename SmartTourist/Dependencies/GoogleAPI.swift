@@ -24,55 +24,9 @@ class GoogleAPI {
     enum PlaceType: String {
         case touristAttraction = "tourist_attraction"
     }
-    
-    func getCityName(coordinates: CLLocationCoordinate2D) -> Promise<String> {
-        return Promise<String>(in: .background) { resolve, reject, status in
-            let location = CLLocation(latitude: coordinates.latitude, longitude: coordinates.longitude)
-            self.geocoder.reverseGeocodeLocation(location, completionHandler: { placemarks, error in
-                if let error = error {
-                    reject(error)
-                }
-                else if let placemark = placemarks?[0], let locality = placemark.locality {
-                    resolve(locality)
-                }
-            })
-        }
-    }
-    
-    func getNearbyPlaces(location: CLLocationCoordinate2D) -> Promise<[WDPlace]> {
-        return Promise<[WDPlace]>(in: .background) { resolve, reject, status in
-            let parameters = [
-                "language": "en",
-                "key": GoogleAPI.apiKey,
-                "location": "\(location.latitude),\(location.longitude)",
-                "rankby": "distance",
-                "type": PlaceType.touristAttraction.rawValue
-            ]
-            AF.request("https://maps.googleapis.com/maps/api/place/nearbysearch/json", parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
-                switch response.result {
-                case .success:
-                    guard let data = response.data else { reject(UnknownApiError()); return }
-                    let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    do {
-                        let gpResponse = try decoder.decode(GPPlaceSearchResponse.self, from: data)
-                        resolve(gpResponse.results)
-                    } catch {
-                        print("\(#function): \(error.localizedDescription)")
-                        reject(error)
-                    }
-                    reject(UnknownApiError())
-                case .failure:
-                    guard let error = response.error else { reject(UnknownApiError()); return }
-                    print("\(#function): \(error.localizedDescription)")
-                    reject(error)
-                }
-            }
-        }
-    }
-    
-    private func placeTextSearch(query: String, limit: Int? = nil, type: PlaceType? = nil) -> Promise<[WDPlace]> {
-        return Promise<[WDPlace]>(in: .background) { resolve, reject, status in
+        
+    private func placeTextSearch(query: String, limit: Int? = nil, type: PlaceType? = nil) -> Promise<[GPPlace]> {
+        return Promise<[GPPlace]>(in: .background) { resolve, reject, status in
             var parameters = [
                 "language": "en",
                 "key": GoogleAPI.apiKey,
@@ -108,71 +62,14 @@ class GoogleAPI {
         }
     }
         
-    func getPopularPlaces(city: String) -> Promise<[WDPlace]> {
+    func getPopularPlaces(city: String) -> Promise<[GPPlace]> {
         return self.placeTextSearch(query: "\(city) top attractions", type: .touristAttraction)
     }
     
-    func getCityPlace(city: String) -> Promise<[WDPlace]> {
+    func getCityPlace(city: String) -> Promise<[GPPlace]> {
         return self.placeTextSearch(query: city, limit: 1)
     }
     
-    func getPlaceDetails(placeID: String) -> Promise<GPPlaceDetailResultsResponse> {
-        return Promise<GPPlaceDetailResultsResponse>(in: .background) { resolve, reject, status in
-            let parameters = [
-                "key": GoogleAPI.apiKey,
-                "place_id": placeID,
-                "fields": "photos,website"
-            ]
-            AF.request("https://maps.googleapis.com/maps/api/place/details/json", parameters: parameters).response { response in
-                switch response.result {
-                case .success:
-                    guard let data = response.data else { reject(UnknownApiError()); return }
-                    let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    do {
-                        let gpResponse = try decoder.decode(GPPlaceDetailResponse.self, from: data)
-                        resolve(gpResponse.result)
-                    } catch {
-                        print("\(#function): \(error.localizedDescription)")
-                        reject(error)
-                    }
-                    reject(UnknownApiError())
-                case .failure:
-                    guard let error = response.error else { reject(UnknownApiError()); return }
-                    print("\(#function): \(error.localizedDescription)")
-                    reject(error)
-                }
-            }
-        }
-    }
-    
-    func getPhoto(_ photo: GPPhoto) -> Promise<UIImage> {
-        return Promise<UIImage>(in: .background) { resolve, reject, status in
-            if let image = self.photoCache.object(forKey: photo) {
-                resolve(image)
-            } else {
-                let parameters = [
-                    "key": GoogleAPI.apiKey,
-                    "photoreference": photo.photoReference,
-                    "maxheight": "\(photo.height)",
-                    "maxwidth": "\(photo.width)"
-                ]
-                AF.request("https://maps.googleapis.com/maps/api/place/photo", parameters: parameters).response { response in
-                    switch response.result {
-                    case .success:
-                        guard let data = response.data else { reject(UnknownApiError()); return }
-                        guard let image = UIImage(data: data) else { reject(UnknownApiError()); return }
-                        self.photoCache.setObject(image, forKey: photo)
-                        resolve(image)
-                    case .failure:
-                        guard let error = response.error else { reject(UnknownApiError()); return }
-                        print("\(#function): \(error.localizedDescription)")
-                        reject(error)
-                    }
-                }
-            }
-        }
-    }
     
     func buildDirectionURL(origin: CLLocationCoordinate2D, destination: CLLocationCoordinate2D , destinationPlaceId: String) -> URL {
         var components = URLComponents()

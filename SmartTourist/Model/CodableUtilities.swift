@@ -42,7 +42,7 @@ class WDPlaceResponse: Decodable {
 
 
 struct GPPlaceSearchResponse: Decodable {
-    let results: [WDPlace]
+    let results: [GPPlace]
     
     enum CodingKeys: CodingKey {
         case results
