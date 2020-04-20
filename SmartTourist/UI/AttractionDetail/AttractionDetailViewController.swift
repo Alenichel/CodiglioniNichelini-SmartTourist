@@ -30,8 +30,8 @@ class AttractionDetailViewController: ViewControllerWithLocalState<AttractionDet
             instance.localState.allLoaded = true
         }
         self.rootView.didTapDirectionButton = { location, place in
-            let url = GoogleAPI.shared.buildDirectionURL(origin: location!, destination: place!.location, destinationPlaceId: place!.placeID)
-            UIApplication.shared.open(url)
+            guard let place = place else { return }
+            MapsAPI.shared.openDirectionsInMapsApp(to: place)
         }
         self.rootView.didTapLinkButton = { [unowned self] attractionUrl in
             guard let stringUrl = attractionUrl, let url = URL(string: stringUrl) else { return }

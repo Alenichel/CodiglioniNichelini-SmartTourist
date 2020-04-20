@@ -74,9 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         case "VIEW_ACTION":
             self.showDetailView(store: store, place: place)
         case "TAKE_ME_THERE_ACTION":
-            guard let origin = store.state.locationState.actualLocation else { completionHandler(); return }
-            let url = GoogleAPI.shared.buildDirectionURL(origin: origin, destination: place.location, destinationPlaceId: placeID)
-            UIApplication.shared.open(url)
+            MapsAPI.shared.openDirectionsInMapsApp(to: place)
         case "com.apple.UNNotificationDefaultActionIdentifier":
             self.showDetailView(store: store, place: place)
         case "com.apple.UNNotificationDismissActionIdentifier to dismiss":

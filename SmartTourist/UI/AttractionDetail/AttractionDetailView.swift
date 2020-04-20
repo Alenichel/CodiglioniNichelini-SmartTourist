@@ -21,7 +21,7 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
     let photos: [URL]
     let nRatings: String
     let wikipediaSearchTerms: String
-    let currentLocation: CLLocationCoordinate2D
+    let actualLocation: CLLocationCoordinate2D
     let favorite: Bool
     let allLoaded: Bool
     let link: String?
@@ -40,7 +40,7 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
             self.nRatings = "0"
         }
         self.wikipediaSearchTerms = self.attraction.name
-        self.currentLocation = state.locationState.currentLocation!
+        self.actualLocation = state.locationState.currentLocation!
         self.favorite = state.favorites.contains(attraction)
         self.allLoaded = localState.allLoaded
         self.link = localState.attraction.website
@@ -98,7 +98,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         }
         self.descriptionText.numberOfLines = 0
         self.directionButton.on(.touchUpInside) { button in
-            self.didTapDirectionButton?(self.model?.currentLocation, self.model?.attraction)
+            self.didTapDirectionButton?(self.model?.actualLocation, self.model?.attraction)
         }
         self.linkButton.on(.touchUpInside) { button in
             self.didTapLinkButton?(self.model?.link)
@@ -218,12 +218,11 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         }
         
         if model.allLoaded && !self.curtainView.isHidden {
-            GoogleAPI.shared.getTravelTime(origin: model.currentLocation, destination: model.attraction.location).then(in: .utility) { _ in }
             self.curtainView.isHidden = true
             self.curtainView.removeFromSuperview()
         }
         
-        self.timeLabel.setText(actualLocation: model.currentLocation, attraction: model.attraction)
+        self.timeLabel.setText(actualLocation: model.actualLocation, attraction: model.attraction)
         if self.timeLabel.text == "Unavailable" {
             self.directionButton.isEnabled = false
         } else {

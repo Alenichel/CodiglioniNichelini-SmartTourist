@@ -27,7 +27,7 @@ extension UILabel {
     }
     
     func setText(actualLocation: CLLocationCoordinate2D, attraction: WDPlace) {
-        GoogleAPI.shared.getTravelTime(origin:  actualLocation, destination: attraction.location).then(in: .main) { travelTime in
+        MapsAPI.shared.getTravelTime(from:  actualLocation, to: attraction.location).then(in: .main) { travelTime in
             self.text = travelTime
         }
     }
