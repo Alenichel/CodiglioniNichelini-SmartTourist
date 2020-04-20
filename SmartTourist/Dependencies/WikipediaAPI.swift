@@ -259,6 +259,44 @@ class WikipediaAPI {
         }
     }
     
+    func getArticle(articleName: String) -> Promise<String> {
+        return Promise<String> (in: .background) { resolve, reject, status in
+            let url = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=\(articleName)"
+            AF.request(url/*, parameters: parameters*/).responseJSON(queue: .global(qos: .utility)) { response in
+                switch response.result {
+                case .success:
+                    guard let data = response.data else { reject(UnknownApiError()); return }
+                    do {
+                        // make sure this JSON is in the format we expect
+                        if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                            print(json)
+                            // try to read out a string array
+                            if let query = json["query"] as? [String: Any] {
+                                if let pages = query["pages"] as? [String: Any]{
+                                    if let number = pages[pages.keys.first ?? ""] as? [String: Any]{
+                                        if let extract = number["extract"] {
+                                                print(extract)
+                                                resolve(extract as! String)
+                                                return
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        reject(UnknownApiError())
+                    } catch let error as NSError {
+                        print("\(#function): \(error.localizedDescription)")
+                        reject(error)
+                    }
+                case .failure:
+                    guard let error = response.error else { reject(UnknownApiError()); return }
+                    print("\(#function): \(error.localizedDescription)")
+                    reject(error)
+                }
+            }
+        }
+    }
+    
     func getPhoto(imageURL: URL) -> Promise<UIImage> {
         return Promise<UIImage>(in: .utility) { resolve, reject, status in
             if let data = try? Data(contentsOf: imageURL){

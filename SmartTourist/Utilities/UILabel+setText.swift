@@ -9,7 +9,7 @@ import UIKit
 import GoogleMaps
 
 extension UILabel {
-    func setText(coordinates: CLLocationCoordinate2D ,searchTerms: String, completion: @escaping () -> Void) {
+    func setText(title: String ,completion: @escaping () -> Void) {
         /*WikipediaAPI.shared.search(searchTerms: searchTerms).then(in: .main) { description in
             self.text = description
         }.always {
@@ -19,7 +19,7 @@ extension UILabel {
             self.text = description
             completion()
         }*/
-        WikipediaAPI.shared.getDescriptionFromNearbyArticles(coordinates: coordinates, searchTerms: searchTerms).then(in: .main) { description in
+        WikipediaAPI.shared.getArticle(articleName: title).then(in: .main) { description in
             self.text = description
         }.always {
             completion()

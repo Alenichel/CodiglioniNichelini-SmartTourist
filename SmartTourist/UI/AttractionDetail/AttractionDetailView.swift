@@ -39,8 +39,8 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
         } else {
             self.nRatings = "0"
         }
-        self.wikipediaSearchTerms = self.attraction.name
-        self.actualLocation = state.locationState.currentLocation!
+        self.wikipediaSearchTerms = self.attraction.wikipediaName
+        self.currentLocation = state.locationState.currentLocation!
         self.favorite = state.favorites.contains(attraction)
         self.allLoaded = localState.allLoaded
         self.link = localState.attraction.website
@@ -191,16 +191,17 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     func update(oldModel: AttractionDetailViewModel?) {
         guard let model = self.model else { return }
         if let rating = model.attraction.rating {
-            self.cosmos.rating = rating
-        } else {
-            self.cosmos.rating = 0
+            if (rating == 0) {
+                self.cosmos.isHidden = true
+                self.nRatingsLabel.isHidden = true
+            }
         }
         self.nRatingsLabel.text = model.nRatings
         
         if !model.allLoaded {
             let imagePromises = model.photos.map { WikipediaAPI.shared.getPhoto(imageURL: $0) }
             self.imageSlideshow.setImageInputs(imagePromises.map { PromiseImageSource($0) })
-            self.descriptionText.setText(coordinates: model.attraction.location, searchTerms: model.wikipediaSearchTerms) {
+            self.descriptionText.setText(title: model.wikipediaSearchTerms) {
                 self.didLoadEverything?()
             }
         }

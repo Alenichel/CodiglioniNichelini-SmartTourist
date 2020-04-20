@@ -13,15 +13,19 @@ class WDPlace: Codable, Hashable, Comparable {
     var placeID: String
     var instance: String
     var name: String
+    var wikipediaName: String
     var city: String?
     var location: CLLocationCoordinate2D
-    var wikipediaLink: URL?
+    var wikipediaLink: String?
     var photos: [URL]? = []
     var website: String?
-    
+    var phoneNumber: String?
+    var wikimediaLink: String?
     //compatibility
-    var rating: Double? = 3.0
-    var userRatingsTotal: Int? = 1000
+    var rating: Double? = 0
+    var userRatingsTotal: Int? = 0
+    
+    
     
     
     enum CodingKeys: String, CodingKey {
@@ -37,6 +41,8 @@ class WDPlace: Codable, Hashable, Comparable {
         case userRatingsTotal = "userRatingsTotal"
         case website = "website"
         case photos = "photos"
+        case phoneNumber = "phoneNumber"
+        case wikimediaLink = "wikimediaLink"
         
         enum ValueCodingKeys: CodingKey {
             case value
@@ -53,7 +59,8 @@ class WDPlace: Codable, Hashable, Comparable {
         self.city = gpPlace.city
         self.location = gpPlace.location
         
-        self.wikipediaLink = URL(string: "to retrieve")
+        self.wikipediaLink = "to retrieve"
+        self.wikipediaName = "to retrieve"
         self.photos = []
         self.website = "to retrieve"
         
@@ -93,11 +100,23 @@ class WDPlace: Codable, Hashable, Comparable {
         if let ciu = imageURL?.value {
             self.photos?.append(URL(string: ciu)!)
         }
-        let wikipediaLink = try container.decodeIfPresent(WDBinding.self, forKey: .wikipediaLink)
-        self.wikipediaLink = URL(string: wikipediaLink?.value ?? "")
-        
-        //let website = try container.decodeIfPresent(String.self, forKey: .website)
-        //self.website = URL.init(string: website ?? "")
+        let wikipediaLink = try container.decode(WDBinding.self, forKey: .wikipediaLink)
+        self.wikipediaLink = wikipediaLink.value
+        self.wikipediaName = self.wikipediaLink!.components(separatedBy: "/").last ?? "No valid name found"
+        if let web = try container.decodeIfPresent(WDBinding.self, forKey: .website){
+            self.website = web.value
+        }
+        if let phoneNumber = try container.decodeIfPresent(WDBinding.self, forKey: .phoneNumber){
+            self.phoneNumber = phoneNumber.value
+        }
+        if let wikimediaLink = try container.decodeIfPresent(WDBinding.self, forKey: .wikimediaLink){
+            self.wikimediaLink = wikimediaLink.value
+        }
+        if let rating = try container.decodeIfPresent(WDBinding.self, forKey: .rating),
+            let urt = try container.decodeIfPresent(WDBinding.self, forKey: .userRatingsTotal) {
+            self.rating = Double(rating.value)
+            self.userRatingsTotal = Int(urt.value)
+        }
     }
     
     func encode(to encoder: Encoder) throws {
@@ -115,10 +134,16 @@ class WDPlace: Codable, Hashable, Comparable {
             try container.encode(cityBinding, forKey: .city)
         }
         if let wikipediaLink = self.wikipediaLink {
-            let wikipediaLinkBinding = WDBinding(value: wikipediaLink.absoluteString)
+            let wikipediaLinkBinding = WDBinding(value: wikipediaLink)
             try container.encode(wikipediaLinkBinding, forKey: .wikipediaLink)
         }
         try container.encode(self.photos, forKey: .photos)
+        if let rating = self.rating, let urt = self.userRatingsTotal {
+            let ratingBinding = WDBinding(value: String(rating))
+            try container.encode(ratingBinding, forKey: .rating)
+            let urtBinding = WDBinding(value: String(urt))
+            try container.encode(urtBinding, forKey: .userRatingsTotal)
+        }
     }
     
     func hash(into hasher: inout Hasher) {
