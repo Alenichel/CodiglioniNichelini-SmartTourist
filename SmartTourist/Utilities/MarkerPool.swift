@@ -18,6 +18,10 @@ class MarkerPool {
         self.mapView = mapView
     }
     
+    var markers: [MKPlacemark] {
+        Array(self.cache.values)
+    }
+    
     static func getMarker(location: CLLocationCoordinate2D, text: String) -> MKPlacemark {
         let address = [CNPostalAddressCountryKey: text]
         return MKPlacemark(coordinate: location, addressDictionary: address)

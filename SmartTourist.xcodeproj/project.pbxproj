@@ -14,7 +14,6 @@
 		991F955C238EDD4D002A1093 /* mapStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = 991F955B238EDD4D002A1093 /* mapStyle.json */; };
 		992533C4238FF8B800EE479A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992533C3238FF8B800EE479A /* LocationManager.swift */; };
 		992816A823969ECC0033F43C /* WikipediaAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992816A723969ECC0033F43C /* WikipediaAPI.swift */; };
-		9930114B23AFED3600909749 /* GMSMapView+loadCustomStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9930114A23AFED3600909749 /* GMSMapView+loadCustomStyle.swift */; };
 		993B35462392B9150003FD8F /* AttractionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B35452392B9150003FD8F /* AttractionCell.swift */; };
 		993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B35472392C1D00003FD8F /* AttractionFlowLayout.swift */; };
 		99C27CD323AFC37700667FB0 /* MilanTour(Fast).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CCB23AFC37700667FB0 /* MilanTour(Fast).gpx */; };
@@ -60,7 +59,6 @@
 		E54E01B423996806009D0331 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E01B323996806009D0331 /* Persistable.swift */; };
 		E54E01BB23996839009D0331 /* Interceptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E01BA23996839009D0331 /* Interceptors.swift */; };
 		E553D14B23926CC600C3199C /* ListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E553D14A23926CC600C3199C /* ListCardView.swift */; };
-		E56167C42428989B0064B2E8 /* GMSMapVIew+adaptToPlaces.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56167C32428989B0064B2E8 /* GMSMapVIew+adaptToPlaces.swift */; };
 		E56167CB2428BAA40064B2E8 /* Array+sortedInsert.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56167CA2428BAA40064B2E8 /* Array+sortedInsert.swift */; };
 		E56167D32428CBE90064B2E8 /* CLLocationCoordinate2D+distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56167D22428CBE90064B2E8 /* CLLocationCoordinate2D+distance.swift */; };
 		E5628B4D2393D4D500A61676 /* AttractionDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5628B4C2393D4D500A61676 /* AttractionDetailView.swift */; };
@@ -221,7 +219,6 @@
 		991F955B238EDD4D002A1093 /* mapStyle.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mapStyle.json; sourceTree = "<group>"; };
 		992533C3238FF8B800EE479A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		992816A723969ECC0033F43C /* WikipediaAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikipediaAPI.swift; sourceTree = "<group>"; };
-		9930114A23AFED3600909749 /* GMSMapView+loadCustomStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSMapView+loadCustomStyle.swift"; sourceTree = "<group>"; };
 		993B35452392B9150003FD8F /* AttractionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionCell.swift; sourceTree = "<group>"; };
 		993B35472392C1D00003FD8F /* AttractionFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionFlowLayout.swift; sourceTree = "<group>"; };
 		99C27CCB23AFC37700667FB0 /* MilanTour(Fast).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Fast).gpx"; sourceTree = "<group>"; };
@@ -280,7 +277,6 @@
 		E54E01B323996806009D0331 /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		E54E01BA23996839009D0331 /* Interceptors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptors.swift; sourceTree = "<group>"; };
 		E553D14A23926CC600C3199C /* ListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCardView.swift; sourceTree = "<group>"; };
-		E56167C32428989B0064B2E8 /* GMSMapVIew+adaptToPlaces.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSMapVIew+adaptToPlaces.swift"; sourceTree = "<group>"; };
 		E56167CA2428BAA40064B2E8 /* Array+sortedInsert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+sortedInsert.swift"; sourceTree = "<group>"; };
 		E56167D22428CBE90064B2E8 /* CLLocationCoordinate2D+distance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+distance.swift"; sourceTree = "<group>"; };
 		E5628B4C2393D4D500A61676 /* AttractionDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionDetailView.swift; sourceTree = "<group>"; };
@@ -727,8 +723,6 @@
 				E5F971592392D96E0096C296 /* CGRect+Utils.swift */,
 				E56167D22428CBE90064B2E8 /* CLLocationCoordinate2D+distance.swift */,
 				E563DB38242E5224003D5FFF /* CLLocationCoordinate2D+Codable.swift */,
-				E56167C32428989B0064B2E8 /* GMSMapVIew+adaptToPlaces.swift */,
-				9930114A23AFED3600909749 /* GMSMapView+loadCustomStyle.swift */,
 				E5FF041124095E7000D32EE7 /* MarkerPool.swift */,
 				E53EEA22241CDC55004CCE16 /* PromiseImageSource.swift */,
 				E5C4324C2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift */,
@@ -1233,7 +1227,6 @@
 				E590FAE42445FCA300A3DD87 /* String+UIImage.swift in Sources */,
 				E5F9715D2392D96F0096C296 /* String+Random.swift in Sources */,
 				E5335D052389946C00601F02 /* AttractionsViewController.swift in Sources */,
-				E56167C42428989B0064B2E8 /* GMSMapVIew+adaptToPlaces.swift in Sources */,
 				E56167CB2428BAA40064B2E8 /* Array+sortedInsert.swift in Sources */,
 				E592B82224140FCF00AD46F8 /* UILabel+setText.swift in Sources */,
 				992533C4238FF8B800EE479A /* LocationManager.swift in Sources */,
@@ -1281,7 +1274,6 @@
 				E50BC917241D4CA3005EFDCE /* SettingBoolCell.swift in Sources */,
 				E57C47162392BC3A008DE784 /* RoundedButton.swift in Sources */,
 				E528FF89238971FE0065483B /* SceneDelegate.swift in Sources */,
-				9930114B23AFED3600909749 /* GMSMapView+loadCustomStyle.swift in Sources */,
 				E5D005D3244DA0BB0079A37E /* CodableUtilities.swift in Sources */,
 				E5F971612392D96F0096C296 /* ConfigurableCell.swift in Sources */,
 				E5D1474A23AB747300649C87 /* Model.swift in Sources */,

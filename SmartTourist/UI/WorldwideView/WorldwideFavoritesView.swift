@@ -8,7 +8,7 @@
 import UIKit
 import Tempura
 import PinLayout
-import GoogleMaps
+import MapKit
 
 
 struct WorldwideFavoritesViewModel: ViewModelWithState {
@@ -21,16 +21,15 @@ struct WorldwideFavoritesViewModel: ViewModelWithState {
 
 
 class WorldwideFavoritesView: UIView, ViewControllerModellableView {
-    var mapView = GMSMapView(frame: .zero)
+    var mapView = MKMapView(frame: .zero)
     var closeButton = UIButton(type: .custom)
     var markerPool : MarkerPool!
     
     var didTapCloseButton: (()->())?
     
     func setup() {
-        //self.markerPool = MarkerPool(mapView: self.mapView)
-        self.mapView.settings.compassButton = true
-        self.mapView.settings.tiltGestures = false
+        self.markerPool = MarkerPool(mapView: self.mapView)
+        self.mapView.showsCompass = true
         self.closeButton.tintColor = .secondaryLabel
         self.closeButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
         self.closeButton.on(.touchUpInside){ button in
@@ -41,7 +40,6 @@ class WorldwideFavoritesView: UIView, ViewControllerModellableView {
     }
     
     func style() {
-        self.mapView.loadCustomStyle()
         self.backgroundColor = .systemBackground
         self.closeButton.contentVerticalAlignment = .fill
         self.closeButton.contentHorizontalAlignment = .fill
@@ -56,11 +54,6 @@ class WorldwideFavoritesView: UIView, ViewControllerModellableView {
     func update(oldModel: WorldwideFavoritesViewModel?){
         guard let model = self.model else { return }
         self.markerPool.setMarkers(places: model.favorites)
-        self.mapView.adaptToPlaces(model.favorites)
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        self.mapView.loadCustomStyle()
+        self.mapView.showAnnotations(self.markerPool.markers, animated: true)
     }
 }
