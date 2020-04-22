@@ -134,7 +134,7 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Layout subviews
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.topBlurEffect.pin.top().left().right().bottom(95.5%)
+        self.topBlurEffect.pin.top().horizontally().height(self.safeAreaInsets.top)
         let showCityNameButton = true // self.mapView.camera >= MapView.zoomThreshold
         self.cityNameButton.pin.below(of: self.topBlurEffect).left(showCityNameButton ? 10 : -20).sizeToFit()
         self.searchButton.pin.right(of: self.cityNameButton, aligned: .center).margin(2%).size(40)

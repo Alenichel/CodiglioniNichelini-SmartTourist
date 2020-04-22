@@ -64,7 +64,7 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
             self.dispatch(GetNearestPlaces(throttle: false))
         }
         self.rootView.ditTapSearchButton = { [unowned self] in
-            self.dispatch(Show(Screen.citySearch, animated: true))
+            self.dispatch(Show(Screen.search, animated: true))
         }
         self.rootView.didMoveMap = { [unowned self] in
             self.dispatch(SetNeedToMoveMap(value: false))
@@ -183,8 +183,8 @@ extension AttractionsViewController: RoutableWithConfiguration {
                 vc.modalPresentationStyle = .pageSheet
                 return vc
             },
-            .show(Screen.citySearch): .presentModally { [unowned self] context in
-                let vc = CitySearchViewController(store: self.store)
+            .show(Screen.search): .presentModally { [unowned self] context in
+                let vc = SearchViewController(store: self.store, localState: SearchViewLocalState())
                 vc.modalPresentationStyle = .overCurrentContext
                 return vc
             },

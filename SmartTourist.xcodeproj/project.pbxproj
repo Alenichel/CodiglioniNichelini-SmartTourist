@@ -17,8 +17,6 @@
 		9930114B23AFED3600909749 /* GMSMapView+loadCustomStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9930114A23AFED3600909749 /* GMSMapView+loadCustomStyle.swift */; };
 		993B35462392B9150003FD8F /* AttractionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B35452392B9150003FD8F /* AttractionCell.swift */; };
 		993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 993B35472392C1D00003FD8F /* AttractionFlowLayout.swift */; };
-		99C26FE524003A4000F57030 /* CitySearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C26FE424003A4000F57030 /* CitySearchView.swift */; };
-		99C26FE724003A5600F57030 /* CitySearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99C26FE624003A5600F57030 /* CitySearchViewController.swift */; };
 		99C27CD323AFC37700667FB0 /* MilanTour(Fast).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CCB23AFC37700667FB0 /* MilanTour(Fast).gpx */; };
 		99C27CD423AFC37700667FB0 /* MilanTour(Cycling).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CD123AFC37700667FB0 /* MilanTour(Cycling).gpx */; };
 		99C27CD523AFC37700667FB0 /* MilanTour(Driving).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CD223AFC37700667FB0 /* MilanTour(Driving).gpx */; };
@@ -77,9 +75,14 @@
 		E563DB4B242E5823003D5FFF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E563DB4A242E5823003D5FFF /* ContentView.swift */; };
 		E563DB4D242E61B2003D5FFF /* AppleWatchMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E563DB4C242E61B2003D5FFF /* AppleWatchMessage.swift */; };
 		E563DB4E242E61B2003D5FFF /* AppleWatchMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E563DB4C242E61B2003D5FFF /* AppleWatchMessage.swift */; };
+		E57AAD06244F592800F49354 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57AAD05244F592800F49354 /* SearchView.swift */; };
+		E57AAD08244F593200F49354 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57AAD07244F593200F49354 /* SearchViewController.swift */; };
+		E57AAD0B244F5B5D00F49354 /* SizeableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57AAD0A244F5B5D00F49354 /* SizeableCell.swift */; };
+		E57AAD0D244F5B8900F49354 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57AAD0C244F5B8900F49354 /* SearchResultCell.swift */; };
 		E57C47162392BC3A008DE784 /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57C47152392BC3A008DE784 /* RoundedButton.swift */; };
 		E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */; };
 		E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */ = {isa = PBXBuildFile; fileRef = E585FCA4238ADEF3008D7C86 /* SideEffects.swift */; };
+		E58C48F5244F5F51006ABBD7 /* SearchFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58C48F4244F5F51006ABBD7 /* SearchFlowLayout.swift */; };
 		E58CD2F3241FC6F500BA3F33 /* SettingsDebugSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = E58CD2F2241FC6F500BA3F33 /* SettingsDebugSubview.swift */; };
 		E5904AA1244DD48200F01D50 /* MapsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5904AA0244DD48200F01D50 /* MapsAPI.swift */; };
 		E590A94B242CCA6800C0F0D5 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E590A949242CCA6800C0F0D5 /* Interface.storyboard */; };
@@ -221,8 +224,6 @@
 		9930114A23AFED3600909749 /* GMSMapView+loadCustomStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "GMSMapView+loadCustomStyle.swift"; sourceTree = "<group>"; };
 		993B35452392B9150003FD8F /* AttractionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionCell.swift; sourceTree = "<group>"; };
 		993B35472392C1D00003FD8F /* AttractionFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionFlowLayout.swift; sourceTree = "<group>"; };
-		99C26FE424003A4000F57030 /* CitySearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchView.swift; sourceTree = "<group>"; };
-		99C26FE624003A5600F57030 /* CitySearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchViewController.swift; sourceTree = "<group>"; };
 		99C27CCB23AFC37700667FB0 /* MilanTour(Fast).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Fast).gpx"; sourceTree = "<group>"; };
 		99C27CD123AFC37700667FB0 /* MilanTour(Cycling).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Cycling).gpx"; sourceTree = "<group>"; };
 		99C27CD223AFC37700667FB0 /* MilanTour(Driving).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Driving).gpx"; sourceTree = "<group>"; };
@@ -290,9 +291,14 @@
 		E563DB38242E5224003D5FFF /* CLLocationCoordinate2D+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CLLocationCoordinate2D+Codable.swift"; sourceTree = "<group>"; };
 		E563DB4A242E5823003D5FFF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E563DB4C242E61B2003D5FFF /* AppleWatchMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleWatchMessage.swift; sourceTree = "<group>"; };
+		E57AAD05244F592800F49354 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		E57AAD07244F593200F49354 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		E57AAD0A244F5B5D00F49354 /* SizeableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeableCell.swift; sourceTree = "<group>"; };
+		E57AAD0C244F5B8900F49354 /* SearchResultCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
 		E57C47152392BC3A008DE784 /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateUpdaters.swift; sourceTree = "<group>"; };
 		E585FCA4238ADEF3008D7C86 /* SideEffects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideEffects.swift; sourceTree = "<group>"; };
+		E58C48F4244F5F51006ABBD7 /* SearchFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFlowLayout.swift; sourceTree = "<group>"; };
 		E58CD2F2241FC6F500BA3F33 /* SettingsDebugSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsDebugSubview.swift; sourceTree = "<group>"; };
 		E5904AA0244DD48200F01D50 /* MapsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsAPI.swift; sourceTree = "<group>"; };
 		E590A947242CCA6800C0F0D5 /* SmartTouristAppleWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SmartTouristAppleWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -427,15 +433,6 @@
 				993B35472392C1D00003FD8F /* AttractionFlowLayout.swift */,
 			);
 			path = Subviews;
-			sourceTree = "<group>";
-		};
-		99C26FDE24003A0900F57030 /* CitySearchView */ = {
-			isa = PBXGroup;
-			children = (
-				99C26FE424003A4000F57030 /* CitySearchView.swift */,
-				99C26FE624003A5600F57030 /* CitySearchViewController.swift */,
-			);
-			path = CitySearchView;
 			sourceTree = "<group>";
 		};
 		99D5C9BD241CFB12008633C7 /* WorldwideView */ = {
@@ -575,7 +572,7 @@
 				E524A100238C4F950052825F /* AttractionsView */,
 				E5628B4B2393D4B900A61676 /* AttractionDetail */,
 				E5AFC89923F9B006007B9887 /* CityDetailView */,
-				99C26FDE24003A0900F57030 /* CitySearchView */,
+				E57AAD09244F5ADC00F49354 /* SearchView */,
 				99D5C9BD241CFB12008633C7 /* WorldwideView */,
 				E50BC906241D159A005EFDCE /* SettingsView */,
 				E57C47172392BE83008DE784 /* Elements */,
@@ -624,6 +621,25 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		E57AAD09244F5ADC00F49354 /* SearchView */ = {
+			isa = PBXGroup;
+			children = (
+				E57AAD0E244F5E0200F49354 /* Subviews */,
+				E57AAD05244F592800F49354 /* SearchView.swift */,
+				E57AAD07244F593200F49354 /* SearchViewController.swift */,
+			);
+			path = SearchView;
+			sourceTree = "<group>";
+		};
+		E57AAD0E244F5E0200F49354 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				E57AAD0C244F5B8900F49354 /* SearchResultCell.swift */,
+				E58C48F4244F5F51006ABBD7 /* SearchFlowLayout.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		E57C47172392BE83008DE784 /* Elements */ = {
 			isa = PBXGroup;
 			children = (
@@ -631,6 +647,7 @@
 				E50BC910241D42DF005EFDCE /* SettingCell.swift */,
 				E50BC916241D4CA3005EFDCE /* SettingBoolCell.swift */,
 				E54958FB241F5BAD00D643F1 /* SettingStringCell.swift */,
+				E57AAD0A244F5B5D00F49354 /* SizeableCell.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -1221,6 +1238,7 @@
 				E592B82224140FCF00AD46F8 /* UILabel+setText.swift in Sources */,
 				992533C4238FF8B800EE479A /* LocationManager.swift in Sources */,
 				E5FF041224095E7000D32EE7 /* MarkerPool.swift in Sources */,
+				E57AAD08244F593200F49354 /* SearchViewController.swift in Sources */,
 				E553D14B23926CC600C3199C /* ListCardView.swift in Sources */,
 				99F36EAC2417FB4C00ACC519 /* PedometerHandler.swift in Sources */,
 				99EC7D66241FBC260065FDE9 /* Array+GPPlace+blacklist.swift in Sources */,
@@ -1234,8 +1252,8 @@
 				E53BF0E8242A874B00358E6D /* UNNotificationAttachment+UIImage.swift in Sources */,
 				993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */,
 				E5AFC8A223F9B006007B9887 /* CityDetailView.swift in Sources */,
-				99C26FE724003A5600F57030 /* CitySearchViewController.swift in Sources */,
 				E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */,
+				E58C48F5244F5F51006ABBD7 /* SearchFlowLayout.swift in Sources */,
 				E563DB39242E5224003D5FFF /* CLLocationCoordinate2D+Codable.swift in Sources */,
 				E56167D32428CBE90064B2E8 /* CLLocationCoordinate2D+distance.swift in Sources */,
 				E5C4324D2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift in Sources */,
@@ -1247,12 +1265,14 @@
 				E563DB4D242E61B2003D5FFF /* AppleWatchMessage.swift in Sources */,
 				E54B9A5B2417D0F9009F8DBC /* UITextView+setText.swift in Sources */,
 				E5F971632392D96F0096C296 /* UIView+Blink.swift in Sources */,
+				E57AAD0D244F5B8900F49354 /* SearchResultCell.swift in Sources */,
 				E52EECCF238EE5FE006196BA /* NotificationManager.swift in Sources */,
 				E524A0FF238C4F530052825F /* Screen.swift in Sources */,
 				E5628B512394224F00A61676 /* UIImage+Color.swift in Sources */,
 				E50BC90F241D15FB005EFDCE /* SettingsViewController.swift in Sources */,
 				992816A823969ECC0033F43C /* WikipediaAPI.swift in Sources */,
 				E5D005CB244DA0810079A37E /* Place.swift in Sources */,
+				E57AAD0B244F5B5D00F49354 /* SizeableCell.swift in Sources */,
 				E5495903241F648400D643F1 /* Bundle+version+build.swift in Sources */,
 				99D5C9BF241CFB39008633C7 /* WorldwideFavoritesViewController.swift in Sources */,
 				E5628B4D2393D4D500A61676 /* AttractionDetailView.swift in Sources */,
@@ -1266,6 +1286,7 @@
 				E5F971612392D96F0096C296 /* ConfigurableCell.swift in Sources */,
 				E5D1474A23AB747300649C87 /* Model.swift in Sources */,
 				E5F9715E2392D96F0096C296 /* Source.swift in Sources */,
+				E57AAD06244F592800F49354 /* SearchView.swift in Sources */,
 				E524A0F8238C4C060052825F /* WelcomeViewController.swift in Sources */,
 				99D5C9B7241CF4D0008633C7 /* WorldwideFavoritesView.swift in Sources */,
 				E53EEA23241CDC55004CCE16 /* PromiseImageSource.swift in Sources */,
@@ -1273,7 +1294,6 @@
 				E5F9715F2392D96F0096C296 /* CollectionView.swift in Sources */,
 				E5AFC8A123F9B006007B9887 /* CityDetailViewController.swift in Sources */,
 				E50BC911241D42DF005EFDCE /* SettingCell.swift in Sources */,
-				99C26FE524003A4000F57030 /* CitySearchView.swift in Sources */,
 				E5F971642392D96F0096C296 /* String+Height.swift in Sources */,
 				E5F971622392D96F0096C296 /* CGRect+Utils.swift in Sources */,
 				99EC7D6D241FC0890065FDE9 /* String+emoji.swift in Sources */,

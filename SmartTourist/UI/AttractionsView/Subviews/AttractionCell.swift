@@ -14,10 +14,6 @@ import CoreLocation
 import MapKit
 import MarqueeLabel
 
-public protocol SizeableCell: ModellableView {
-    static func size(for model: VM) -> CGSize
-}
-
 
 // MARK: View Model
 struct AttractionCellViewModel: ViewModel, Equatable {
