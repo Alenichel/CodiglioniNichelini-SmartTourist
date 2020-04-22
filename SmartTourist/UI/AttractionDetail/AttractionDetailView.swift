@@ -165,6 +165,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
             self.linkButton.pin.topRight().marginHorizontal(16).marginTop(8).size(30)
             self.directionButton.pin.left(of: self.linkButton, aligned: .center).size(30).margin(5)
         } else {
+            self.linkButton.removeFromSuperview()
             self.directionButton.pin.topRight().marginHorizontal(16).marginTop(8).size(30)
         }
         self.timeLabel.pin.before(of: self.directionButton, aligned: .center).size(150).margin(5)

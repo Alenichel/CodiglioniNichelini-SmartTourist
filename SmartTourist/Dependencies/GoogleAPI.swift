@@ -17,9 +17,7 @@ class GoogleAPI {
     
     static let shared = GoogleAPI()
     private init() {}
-    
-    private let photoCache = NSCache<GPPhoto, UIImage>()
-    
+        
     enum PlaceType: String {
         case touristAttraction = "tourist_attraction"
     }

@@ -18,6 +18,7 @@ class WikipediaAPI {
     static let shared = WikipediaAPI()
     let language = WikipediaLanguage("en")
     private let cache = NSCache<NSString, NSString>()
+    private let photoCache = NSCache<NSString, UIImage>()
     
     private init() {
         WikipediaNetworking.appAuthorEmailForAPI = "ale.nichelg@gmail.com"
@@ -260,9 +261,9 @@ class WikipediaAPI {
     }
     
     func getArticle(articleName: String) -> Promise<String> {
-        return Promise<String> (in: .background) { resolve, reject, status in
+        return Promise<String>(in: .background) { resolve, reject, status in
             let url = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=\(articleName)"
-            AF.request(url/*, parameters: parameters*/).responseJSON(queue: .global(qos: .utility)) { response in
+            AF.request(url).responseJSON(queue: .global(qos: .utility)) { response in
                 switch response.result {
                 case .success:
                     guard let data = response.data else { reject(UnknownApiError()); return }
@@ -274,9 +275,9 @@ class WikipediaAPI {
                             if let query = json["query"] as? [String: Any] {
                                 if let pages = query["pages"] as? [String: Any]{
                                     if let number = pages[pages.keys.first ?? ""] as? [String: Any]{
-                                        if let extract = number["extract"] {
+                                        if let extract = number["extract"] as? String {
                                                 print(extract)
-                                                resolve(extract as! String)
+                                                resolve(extract)
                                                 return
                                         }
                                     }
@@ -298,17 +299,20 @@ class WikipediaAPI {
     }
     
     func getPhoto(imageURL: URL) -> Promise<UIImage> {
-        return Promise<UIImage>(in: .utility) { resolve, reject, status in
-            if let data = try? Data(contentsOf: imageURL){
+        return Promise<UIImage>(in: .background) { resolve, reject, status in
+            let urlString = imageURL.absoluteString as NSString
+            if let image = self.photoCache.object(forKey: urlString) {
+                resolve(image)
+            } else if let data = try? Data(contentsOf: imageURL){
                 if let img = UIImage(data: data) {
+                    self.photoCache.setObject(img, forKey: urlString)
                     resolve(img)
                     return;
                 }
                 else {
                     reject(UnknownApiError())
                 }
-            }
-            else {
+            } else {
                 reject(UnknownApiError())
                 return
             }
