@@ -51,7 +51,6 @@ struct GetNearestPlaces: SideEffect {
             context.dispatch(SetNearestPlacesLastUpdate(lastUpdate: Date()))
             async(in: .utility) { _ -> [WDPlace] in
                 var places = try await(context.dependencies.wikiAPI.getNearbyPlaces(location: currentLocation))
-                //var places = try await(context.dependencies.googleAPI.getNearbyPlaces(location: currentLocation))
                 if let actualLocation = context.getState().locationState.actualLocation {
                     let actualPlaces = try await(context.dependencies.wikiAPI.getNearbyPlaces(location: actualLocation))
                     places = Array(Set(places + actualPlaces))
@@ -61,6 +60,11 @@ struct GetNearestPlaces: SideEffect {
                 return places.sorted(by: { $0.distance(from: currentLocation) < $1.distance(from: currentLocation) })
             }.then(in: .utility) { places in
                 context.dispatch(SetNearestPlaces(places: places))
+                WikipediaAPI.shared.getImageUrls(from: places[0].name).then(in: .utility) { urls in
+                    print(urls)
+                }.catch(in: .utility) { error in
+                    print(error.localizedDescription)
+                }
             }.catch(in: .utility) { error in
                 print("\(#function): \(error.localizedDescription)")
                 context.dispatch(SetNearestPlaces(places: []))

@@ -11,6 +11,7 @@ import Hydra
 import Fuse
 import Alamofire
 import MapKit
+import SwiftyXMLParser
 
 
 class WikipediaAPI {
@@ -316,6 +317,92 @@ class WikipediaAPI {
                 reject(UnknownApiError())
                 return
             }
+        }
+    }
+    
+    private func getImageFiles(from title: String, limit: Int = 15) -> Promise<[String]> {
+        return Promise<[String]>(in: .background) { resolve, reject, status in
+            let parameters = [
+                "action": "query",
+                "prop": "images",
+                "imlimit": "\(limit)",
+                "redirects": "1",
+                "titles": title,
+                "format": "json"
+            ]
+            AF.request("https://commons.wikimedia.org/w/api.php", parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
+                switch response.result {
+                case .success:
+                    guard let data = response.data else { reject(UnknownApiError()); return }
+                    do {
+                        var titles = [String]()
+                        guard
+                            let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                            let query = json["query"] as? [String: Any],
+                            let pages = query["pages"] as? [String: Any]
+                            else { reject(UnknownApiError()); return }
+                        for p in pages.keys {
+                            guard
+                                let page = pages[p] as? [String: Any],
+                                let images = page["images"] as? [[String: Any]]
+                                else { reject(UnknownApiError()); return }
+                            for image in images {
+                                guard
+                                    let title = image["title"] as? String,
+                                    let colonIndex = title.firstIndex(of: ":")
+                                    else { reject(UnknownApiError()); return }
+                                let index = title.index(after: colonIndex)
+                                titles.append(String(title.suffix(from: index)))
+                            }
+                        }
+                        resolve(titles)
+                    } catch let error as NSError {
+                        print("\(#function): \(error.localizedDescription)")
+                        reject(error)
+                    }
+                case .failure:
+                    guard let error = response.error else { reject(UnknownApiError()); return }
+                    print("\(#function): \(error.localizedDescription)")
+                    reject(error)
+                }
+            }
+        }
+    }
+    
+    private func getImageUrls(from files: [String]) -> Promise<[String]> {
+        return Promise<[String]>(in: .background) { resolve, reject, status in
+            let filesString = files.joined(separator: "|")
+            let parameters = [
+                "image": filesString
+            ]
+            AF.request("https://tools.wmflabs.org/magnus-toolserver/commonsapi.php", parameters: parameters).responseData { response in
+                switch response.result {
+                case .success:
+                    guard let data = response.data else { reject(UnknownApiError()); return }
+                    var urls = [String]()
+                    let xml = XML.parse(data)
+                    for image in xml.response.image {
+                        if let url = image.file.urls.file.text {
+                            urls.append(url)
+                        }
+                    }
+                    resolve(urls)
+                case .failure:
+                    guard let error = response.error else { reject(UnknownApiError()); return }
+                    print("\(#function): \(error.localizedDescription)")
+                    reject(error)
+                }
+            }
+        }
+    }
+    
+    func getImageUrls(from title: String, limit: Int = 15) -> Promise<[String]> {
+        return self.getImageFiles(from: title, limit: limit).then(self.getImageUrls)
+    }
+    
+    func getCommonsImage(title: String) -> Promise<UIImage> {
+        return Promise<UIImage>(in: .background) { resolve, reject, status in
+            
         }
     }
 }

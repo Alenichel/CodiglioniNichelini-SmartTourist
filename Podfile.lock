@@ -20,6 +20,7 @@ PODS:
   - MarqueeLabel (4.0.2)
   - PinLayout (1.8.13)
   - SigmaSwiftStatistics (9.0.2)
+  - SwiftyXMLParser (5.1.0)
   - Tempura (4.3.1):
     - Katana (< 4, >= 3.0)
 
@@ -36,6 +37,7 @@ DEPENDENCIES:
   - MarqueeLabel
   - PinLayout
   - SigmaSwiftStatistics (~> 9.0)
+  - SwiftyXMLParser (from `https://github.com/yahoojapan/SwiftyXMLParser.git`)
   - Tempura
 
 SPEC REPOS:
@@ -55,6 +57,15 @@ SPEC REPOS:
     - SigmaSwiftStatistics
     - Tempura
 
+EXTERNAL SOURCES:
+  SwiftyXMLParser:
+    :git: https://github.com/yahoojapan/SwiftyXMLParser.git
+
+CHECKOUT OPTIONS:
+  SwiftyXMLParser:
+    :commit: bc85162ecee60d6eb94b778648bc4c51e1c4d34f
+    :git: https://github.com/yahoojapan/SwiftyXMLParser.git
+
 SPEC CHECKSUMS:
   Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
   Cosmos: b47fddf2102bb48580cd3025d9ce0a5c658a65da
@@ -69,8 +80,9 @@ SPEC CHECKSUMS:
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   PinLayout: e41a50260a76508b7a7fcee8955c76639adc69bc
   SigmaSwiftStatistics: 4ec81cd50b0f397baddba05fe88ce228a66edd8c
+  SwiftyXMLParser: 8271497e0a37b5c04b0b167c77b4896e36175a21
   Tempura: adc54766491f97980bcdb3dff82a92076ed825e2
 
-PODFILE CHECKSUM: 957a5919b50159808a9369bee8da822129ad0de4
+PODFILE CHECKSUM: e1e81b959741c0b60bd9cb2a2e3fa7de5fd11145
 
 COCOAPODS: 1.9.1
