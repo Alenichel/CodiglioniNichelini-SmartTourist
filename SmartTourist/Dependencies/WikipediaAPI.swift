@@ -56,7 +56,7 @@ class WikipediaAPI {
             OPTIONAL {?wikimediaLink schema:about ?place;
                                      schema:inLanguage "en";
                                      schema:isPartOf <https://commons.wikimedia.org/>} .
-            OPTIONAL {?place wdt:P18 ?image } .
+            ?place wdt:P18 ?image .
             OPTIONAL {?place wdt:P1329 ?phoneNumber}.
             OPTIONAL {?place wdt:P856 ?website} .
         }
@@ -320,7 +320,7 @@ class WikipediaAPI {
         }
     }
     
-    private func getImageFiles(from title: String, limit: Int = 15) -> Promise<[String]> {
+    private func getImageFiles(from title: String, limit: Int) -> Promise<[String]> {
         return Promise<[String]>(in: .background) { resolve, reject, status in
             let parameters = [
                 "action": "query",
@@ -328,38 +328,20 @@ class WikipediaAPI {
                 "imlimit": "\(limit)",
                 "redirects": "1",
                 "titles": title,
-                "format": "json"
+                "format": "xml"
             ]
-            AF.request("https://commons.wikimedia.org/w/api.php", parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
+            AF.request("https://commons.wikimedia.org/w/api.php", parameters: parameters).responseData(queue: .global(qos: .utility)) { response in
                 switch response.result {
                 case .success:
                     guard let data = response.data else { reject(UnknownApiError()); return }
-                    do {
-                        var titles = [String]()
-                        guard
-                            let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
-                            let query = json["query"] as? [String: Any],
-                            let pages = query["pages"] as? [String: Any]
-                            else { reject(UnknownApiError()); return }
-                        for p in pages.keys {
-                            guard
-                                let page = pages[p] as? [String: Any],
-                                let images = page["images"] as? [[String: Any]]
-                                else { reject(UnknownApiError()); return }
-                            for image in images {
-                                guard
-                                    let title = image["title"] as? String,
-                                    let colonIndex = title.firstIndex(of: ":")
-                                    else { reject(UnknownApiError()); return }
-                                let index = title.index(after: colonIndex)
-                                titles.append(String(title.suffix(from: index)))
-                            }
+                    var files = [String]()
+                    let xml = XML.parse(data)
+                    for im in xml.api.query.pages.page.images.im {
+                        if let title = im.attributes["title"] {
+                            files.append(title)
                         }
-                        resolve(titles)
-                    } catch let error as NSError {
-                        print("\(#function): \(error.localizedDescription)")
-                        reject(error)
                     }
+                    resolve(files)
                 case .failure:
                     guard let error = response.error else { reject(UnknownApiError()); return }
                     print("\(#function): \(error.localizedDescription)")
@@ -369,13 +351,13 @@ class WikipediaAPI {
         }
     }
     
-    private func getImageUrls(from files: [String]) -> Promise<[String]> {
-        return Promise<[String]>(in: .background) { resolve, reject, status in
+    private func getImageUrls(from files: [String]) -> Promise<[URL]> {
+        return Promise<[URL]>(in: .background) { resolve, reject, status in
             let filesString = files.joined(separator: "|")
             let parameters = [
                 "image": filesString
             ]
-            AF.request("https://tools.wmflabs.org/magnus-toolserver/commonsapi.php", parameters: parameters).responseData { response in
+            AF.request("https://tools.wmflabs.org/magnus-toolserver/commonsapi.php", parameters: parameters).responseData(queue: .global(qos: .utility)) { response in
                 switch response.result {
                 case .success:
                     guard let data = response.data else { reject(UnknownApiError()); return }
@@ -386,7 +368,7 @@ class WikipediaAPI {
                             urls.append(url)
                         }
                     }
-                    resolve(urls)
+                    resolve(urls.map { URL(string: $0)! })
                 case .failure:
                     guard let error = response.error else { reject(UnknownApiError()); return }
                     print("\(#function): \(error.localizedDescription)")
@@ -396,13 +378,7 @@ class WikipediaAPI {
         }
     }
     
-    func getImageUrls(from title: String, limit: Int = 15) -> Promise<[String]> {
+    func getImageUrls(from title: String, limit: Int = 15) -> Promise<[URL]> {
         return self.getImageFiles(from: title, limit: limit).then(self.getImageUrls)
-    }
-    
-    func getCommonsImage(title: String) -> Promise<UIImage> {
-        return Promise<UIImage>(in: .background) { resolve, reject, status in
-            
-        }
     }
 }

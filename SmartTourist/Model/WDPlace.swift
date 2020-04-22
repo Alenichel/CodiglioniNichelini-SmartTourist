@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreLocation
+import Hydra
 
 
 class WDPlace: Codable, Hashable, Comparable {
@@ -58,12 +59,10 @@ class WDPlace: Codable, Hashable, Comparable {
         self.name = gpPlace.name
         self.city = gpPlace.city
         self.location = gpPlace.location
-        
         self.wikipediaLink = "to retrieve"
         self.wikipediaName = "to retrieve"
         self.photos = []
         self.website = "to retrieve"
-        
         self.rating = gpPlace.rating
         self.userRatingsTotal = gpPlace.userRatingsTotal
     }
@@ -168,5 +167,26 @@ class WDPlace: Codable, Hashable, Comparable {
     
     func distance(from: CLLocationCoordinate2D) -> Int {
         return self.location.distance(from: from)
+    }
+    
+    @discardableResult func getPhotosURLs() -> Promise<Void> {
+        let photosCountThreshold = 10
+        return Promise<Void>(in: .utility) { resolve, reject, status in
+            if let photos = self.photos, photos.count < photosCountThreshold {
+                WikipediaAPI.shared.getImageUrls(from: self.name).then(in: .utility) { urls in
+                    if let photos = self.photos {
+                        self.photos = Array(Set(photos).union(Set(urls)))
+                    } else {
+                        self.photos = Array(Set(urls))
+                    }
+                    resolve(())
+                }.catch(in: .utility) { error in
+                    print(error.localizedDescription)
+                    reject(error)
+                }
+            } else {
+                resolve(())
+            }
+        }
     }
 }

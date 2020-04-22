@@ -49,22 +49,10 @@ struct GetNearestPlaces: SideEffect {
         guard let currentLocation = context.getState().locationState.currentLocation else { return }
         if !self.throttle || context.getState().locationState.nearestPlacesLastUpdate.distance(to: Date()) > GoogleAPI.apiThrottleTime {
             context.dispatch(SetNearestPlacesLastUpdate(lastUpdate: Date()))
-            async(in: .utility) { _ -> [WDPlace] in
-                var places = try await(context.dependencies.wikiAPI.getNearbyPlaces(location: currentLocation))
-                if let actualLocation = context.getState().locationState.actualLocation {
-                    let actualPlaces = try await(context.dependencies.wikiAPI.getNearbyPlaces(location: actualLocation))
-                    places = Array(Set(places + actualPlaces))
-                } else {
-                    places = Array(Set(places))
-                }
-                return places.sorted(by: { $0.distance(from: currentLocation) < $1.distance(from: currentLocation) })
-            }.then(in: .utility) { places in
-                context.dispatch(SetNearestPlaces(places: places))
-                WikipediaAPI.shared.getImageUrls(from: places[0].name).then(in: .utility) { urls in
-                    print(urls)
-                }.catch(in: .utility) { error in
-                    print(error.localizedDescription)
-                }
+            context.dependencies.wikiAPI.getNearbyPlaces(location: currentLocation).then(in: .utility) { places in
+                let placesSet = Array(Set(places))
+                let sortedPlaces = placesSet.sorted(by: { $0.distance(from: currentLocation) < $1.distance(from: currentLocation) })
+                context.dispatch(SetNearestPlaces(places: sortedPlaces))
             }.catch(in: .utility) { error in
                 print("\(#function): \(error.localizedDescription)")
                 context.dispatch(SetNearestPlaces(places: []))
