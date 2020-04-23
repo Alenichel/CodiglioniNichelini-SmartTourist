@@ -59,13 +59,23 @@ class WDPlace: Codable, Hashable, Comparable {
         self.city = gpPlace.city
         self.location = gpPlace.location
         
-        self.wikipediaLink = "to retrieve"
         self.wikipediaName = "to retrieve"
+        self.wikipediaLink = "to retrieve"
         self.photos = []
         self.website = "to retrieve"
         
         self.rating = gpPlace.rating
         self.userRatingsTotal = gpPlace.userRatingsTotal
+        
+        WikipediaAPI.shared.findExactArticleName(searchTerms: self.name, coordinates: self.location).then(in: .utility){ name
+            in
+            self.wikipediaName = name
+            //self.wikimediaLink = "https://en.wikipedia.org/wiki/" + self.wikipediaName
+            WikipediaAPI.shared.getWikidataId(title: self.wikipediaName).then(in: .utility) { id in
+                self.placeID = id
+                WikipediaAPI.shared.getMissingDetail(place: self).then(in: .utility){}
+            }
+        }
     }
     
     required init(from decoder: Decoder) throws {
