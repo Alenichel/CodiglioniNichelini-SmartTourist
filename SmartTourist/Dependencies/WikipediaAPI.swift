@@ -354,35 +354,33 @@ class WikipediaAPI {
                 case .success:
                     guard let data = response.data else { reject(UnknownApiError()); return }
                     do {
-                        if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                            print(json)
-                            if let results = json["results"] as? [String: Any] {
-                                if let bindings = results["bindings"] as? [String: Any] {
-                                    if let firstResult = bindings[bindings.keys.first ?? ""] as? [String: Any]{
-                                        if let instance = firstResult["instance"] as? [String: String] {
-                                            if let value = instance["value"], let instanceIdRange = value.range(of: #"Q[0-9]+"#, options: .regularExpression){
-                                                place.instance = String(value[instanceIdRange])
-                                            }
-                                        }
-                                        if let wikimediaLink = firstResult["wikimediaLink"] as? [String: String] {
-                                            if let value = wikimediaLink["value"]{
-                                                place.wikimediaLink = value
-                                            }
-                                        }
-                                        if let website = firstResult["website"] as? [String: String] {
-                                            if let value = website["value"] {
-                                                place.website = value
-                                            }
-                                        }
-                                        if let photo = firstResult["image"] as? [String: String] {
-                                            if let value = photo["value"] {
-                                                place.photos?.append(URL(string: value)!)
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                        guard
+                            let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                            let results = json["results"] as? [String: Any],
+                            let bindings = results["bindings"] as? [String: Any],
+                            let firstResult = bindings.first?.value as? [String: Any]
+                        else {
+                            reject(UnknownApiError())
+                            return
                         }
+                        if let instance = firstResult["instance"] as? [String: Any],
+                            let value = instance["value"] as? String,
+                            let instanceIdRange = value.range(of: #"Q[0-9]+"#, options: .regularExpression) {
+                            place.instance = String(value[instanceIdRange])
+                        }
+                        if let wikimediaLink = firstResult["wikimediaLink"] as? [String: Any],
+                            let value = wikimediaLink["value"] as? String {
+                            place.wikimediaLink = value
+                        }
+                        if let website = firstResult["website"] as? [String: Any],
+                            let value = website["value"] as? String {
+                            place.website = value
+                        }
+                        if let photo = firstResult["image"] as? [String: Any],
+                            let value = photo["value"] as? String {
+                            place.photos?.append(URL(string: value)!)
+                        }
+                        resolve(())
                     } catch let error as NSError {
                         print("\(#function): \(error.localizedDescription)")
                         reject(error)
