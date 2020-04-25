@@ -230,7 +230,6 @@ class WikipediaAPI {
                                     if let number = pages[pages.keys.first ?? ""] as? [String: Any]{
                                         if let pageprops = number["pageprops"] as? [String: Any]{
                                             if let wikidataId = pageprops["wikibase_item"] as? String{
-                                                print(wikidataId)
                                                 resolve(wikidataId)
                                                 return
                                             }
@@ -326,7 +325,6 @@ class WikipediaAPI {
                                 if let pages = query["pages"] as? [String: Any]{
                                     if let number = pages[pages.keys.first ?? ""] as? [String: Any]{
                                         if let extract = number["extract"] as? String {
-                                                print(extract)
                                                 resolve(extract)
                                                 return
                                         }

@@ -38,7 +38,6 @@ class SearchView: UIView, ViewControllerModellableView {
                     let id = $0.title.hashValue ^ $0.subtitle.hashValue
                     return id == cellId
                 }) else { return }
-            print(result.title)
             self.didSelectItem?(result)
         }
         self.collectionView.didHighlightItem = { [unowned self] indexPath in

@@ -162,9 +162,6 @@ extension AttractionsViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         print(#function)
         guard let placemark = view.annotation as? MKPlacemark else { return }
-        if let title = placemark.title {
-            print("didTap \(title)")
-        }
         guard let place = self.rootView.markerPool.getPlace(from: placemark) else { return }
         self.dispatch(Show(Screen.detail, animated: true, context: place))
     }
