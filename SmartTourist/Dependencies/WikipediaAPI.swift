@@ -239,7 +239,7 @@ class WikipediaAPI {
                             }
                         }
                         reject(UnknownApiError())
-                    } catch let error as NSError {
+                    } catch {
                         print("\(#function): \(error.localizedDescription)")
                         reject(error)
                     }
@@ -266,7 +266,7 @@ class WikipediaAPI {
                     do {
                         let city = try JSONDecoder().decode(WDCity.self, from: data)
                         resolve(city)
-                    } catch let error as NSError {
+                    } catch {
                         print("\(#function): \(error.localizedDescription)")
                         reject(error)
                     }
@@ -294,7 +294,7 @@ class WikipediaAPI {
                         let results = try JSONDecoder().decode(WDPlaceResponse.self, from: data)
                         let places = results.places.filter { WikipediaAPI.wdInstances.contains($0.instance) }
                         resolve(places)
-                    } catch let error as NSError {
+                    } catch {
                         print("\(#function): \(error.localizedDescription)")
                         reject(error)
                     }
@@ -333,7 +333,7 @@ class WikipediaAPI {
                             }
                         }
                         reject(UnknownApiError())
-                    } catch let error as NSError {
+                    } catch {
                         print("\(#function): \(error.localizedDescription)")
                         reject(error)
                     }
@@ -385,7 +385,7 @@ class WikipediaAPI {
                             place.photos?.append(URL(string: value)!)
                         }
                         resolve(())
-                    } catch let error as NSError {
+                    } catch {
                         print("\(#function): \(error.localizedDescription)")
                         reject(error)
                     }
@@ -454,7 +454,8 @@ class WikipediaAPI {
         return Promise<[URL]>(in: .background) { resolve, reject, status in
             let filesString = files.joined(separator: "|")
             let parameters = [
-                "image": filesString
+                "image": filesString,
+                "thumbwidth": "\(Int(UIScreen.main.bounds.width))"
             ]
             AF.request("https://tools.wmflabs.org/magnus-toolserver/commonsapi.php", parameters: parameters).responseData(queue: .global(qos: .utility)) { response in
                 switch response.result {
@@ -477,7 +478,7 @@ class WikipediaAPI {
         }
     }
     
-    func getImageUrls(from title: String, limit: Int = 15) -> Promise<[URL]> {
-        return self.getImageFiles(from: title, limit: limit).then(self.getImageUrls)
+    func getImageUrls(from title: String, limit: Int = 10) -> Promise<[URL]> {
+        return self.getImageFiles(from: title.stripped, limit: limit).then(self.getImageUrls)
     }
 }

@@ -65,15 +65,6 @@ class WDPlace: Codable, Hashable, Comparable {
         self.website = "to retrieve"
         self.rating = gpPlace.rating
         self.userRatingsTotal = gpPlace.userRatingsTotal
-        
-        WikipediaAPI.shared.findExactArticleName(searchTerms: self.name, coordinates: self.location).then(in: .utility) { name in
-            self.wikipediaName = name
-            //self.wikimediaLink = "https://en.wikipedia.org/wiki/" + self.wikipediaName
-            WikipediaAPI.shared.getWikidataId(title: self.wikipediaName).then(in: .utility) { id in
-                self.placeID = id
-                WikipediaAPI.shared.getMissingDetail(place: self).then(in: .utility) {}
-            }
-        }
     }
     
     required init(from decoder: Decoder) throws {
@@ -179,7 +170,7 @@ class WDPlace: Codable, Hashable, Comparable {
     }
     
     @discardableResult func getPhotosURLs() -> Promise<Void> {
-        let photosCountThreshold = 10
+        let photosCountThreshold = 2
         return Promise<Void>(in: .utility) { resolve, reject, status in
             if let photos = self.photos, photos.count < photosCountThreshold {
                 WikipediaAPI.shared.getImageUrls(from: self.name).then(in: .utility) { urls in
@@ -188,12 +179,41 @@ class WDPlace: Codable, Hashable, Comparable {
                     } else {
                         self.photos = Array(Set(urls))
                     }
+                    self.photos?.removeAll(where: { $0.pathExtension == "svg" })
                     resolve(())
                 }.catch(in: .utility) { error in
                     print(error.localizedDescription)
                     reject(error)
                 }
             } else {
+                resolve(())
+            }
+        }
+    }
+    
+    @discardableResult func getMissingDetails() -> Promise<Void> {
+        return Promise<Void>(in: .utility) { resolve, reject, status in
+            WikipediaAPI.shared.findExactArticleName(searchTerms: self.name, coordinates: self.location).then(in: .utility) { name in
+                self.wikipediaName = name
+                self.wikipediaLink = "https://en.wikipedia.org/wiki/" + self.wikipediaName.replacingOccurrences(of: " ", with: "_")
+                WikipediaAPI.shared.getWikidataId(title: self.wikipediaName).then(in: .utility) { id in
+                    self.placeID = id
+                    WikipediaAPI.shared.getMissingDetail(place: self).then(in: .utility) {
+                        resolve(())
+                    }.catch(in: .utility) { error in
+                        print(error.localizedDescription)
+                        //reject(error)
+                        resolve(())
+                    }
+                }.catch(in: .utility) { error in
+                    print(error.localizedDescription)
+                    //reject(error)
+                    resolve(())
+                }
+            }.catch(in: .utility) { error in
+                print(self.name)
+                print(error.localizedDescription)
+                //reject(error)
                 resolve(())
             }
         }

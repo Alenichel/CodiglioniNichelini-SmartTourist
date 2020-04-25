@@ -75,10 +75,15 @@ struct GetPopularPlaces: SideEffect {
         } else if !self.throttle || context.getState().locationState.popularPlacesLastUpdate.distance(to: Date()) > GoogleAPI.apiThrottleTime {
             print("POPULAR PLACES: attempting to download")
             context.dispatch(SetPopularPlacesLastUpdate(lastUpdate: Date()))
-            context.dependencies.googleAPI.getPopularPlaces(city: currentCity).then(in: .utility) { places in
+            context.dependencies.googleAPI.getPopularPlaces(city: currentCity).then(in: .background) { places in
                 let converted = places.map { WDPlace(gpPlace: $0) }
-                context.dispatch(SetPopularPlaces(places: converted))
-                context.dispatch(UpdatePopularPlacesCache(city: currentCity, places: converted))
+                let promises = converted.map { $0.getMissingDetails() }
+                all(promises).then(in: .utility) { _ in
+                    context.dispatch(SetPopularPlaces(places: converted))
+                    context.dispatch(UpdatePopularPlacesCache(city: currentCity, places: converted))
+                }.catch(in: .utility) { error in
+                    print(error.localizedDescription)
+                }
             }.catch(in: .utility) { error in
                 print("\(#function): \(error.localizedDescription)")
                 context.dispatch(SetPopularPlaces(places: []))
