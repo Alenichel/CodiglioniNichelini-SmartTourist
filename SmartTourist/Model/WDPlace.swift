@@ -67,13 +67,12 @@ class WDPlace: Codable, Hashable, Comparable {
         self.rating = gpPlace.rating
         self.userRatingsTotal = gpPlace.userRatingsTotal
         
-        WikipediaAPI.shared.findExactArticleName(searchTerms: self.name, coordinates: self.location).then(in: .utility){ name
-            in
+        WikipediaAPI.shared.findExactArticleName(searchTerms: self.name, coordinates: self.location).then(in: .utility) { name in
             self.wikipediaName = name
             //self.wikimediaLink = "https://en.wikipedia.org/wiki/" + self.wikipediaName
             WikipediaAPI.shared.getWikidataId(title: self.wikipediaName).then(in: .utility) { id in
                 self.placeID = id
-                WikipediaAPI.shared.getMissingDetail(place: self).then(in: .utility){}
+                WikipediaAPI.shared.getMissingDetail(place: self).then(in: .utility) {}
             }
         }
     }

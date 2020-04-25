@@ -187,16 +187,21 @@ class WikipediaAPI {
                 let titles = articlePreviews.map { article -> String in
                     return article.title
                 }
-                let results = fuse.search(searchTerms, in: titles).sorted(by: {
-                    $0.score < $1.score
-                })
+                let results = fuse.search(searchTerms.stripped, in: titles).sorted {
+                    if $0.score == $1.score {
+                        return titles[$0.index].count < titles[$1.index].count
+                    } else {
+                        return $0.score < $1.score
+                    }
+                }
                 
                 guard results.count > 0 else {
                     reject(UnknownApiError())
                     return
                 }
                 
-                resolve(titles[results.first!.index])
+                let result = titles[results.first!.index]
+                resolve(result)
             }
         }
     }
@@ -314,7 +319,6 @@ class WikipediaAPI {
                     do {
                         // make sure this JSON is in the format we expect
                         if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                            print(json)
                             // try to read out a string array
                             if let query = json["query"] as? [String: Any] {
                                 if let pages = query["pages"] as? [String: Any]{
@@ -357,8 +361,8 @@ class WikipediaAPI {
                         guard
                             let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
                             let results = json["results"] as? [String: Any],
-                            let bindings = results["bindings"] as? [String: Any],
-                            let firstResult = bindings.first?.value as? [String: Any]
+                            let bindings = results["bindings"] as? [[String: Any]],
+                            let firstResult = bindings.first
                         else {
                             reject(UnknownApiError())
                             return
