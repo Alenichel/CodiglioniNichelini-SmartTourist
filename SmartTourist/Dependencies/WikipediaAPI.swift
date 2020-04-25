@@ -84,6 +84,21 @@ class WikipediaAPI {
         """
     }
     
+    private func getMissingPlaceDetailsQuery(id: String) -> String {
+        return """
+        SELECT DISTINCT ?instance ?image ?phoneNumber ?website ?wikimediaLink WHERE {
+            BIND( <http://www.wikidata.org/entity/\(id)> as ?place ).
+            ?place wdt:P31 ?instance  .
+            OPTIONAL {?place wdt:P18 ?image } .
+            OPTIONAL {?place wdt:P1329 ?phoneNumber}.
+            OPTIONAL {?place wdt:P856 ?website} .
+            OPTIONAL {?wikimediaLink schema:about ?place;
+                                     schema:inLanguage "en";
+                                     schema:isPartOf <https://commons.wikimedia.org/>} .
+        }
+        """
+    }
+    
     func search(searchTerms: String) -> Promise<String> {
         return Promise<String>(in: .background) { resolve, reject, status in
             if let description = self.cache.object(forKey: searchTerms as NSString) {
@@ -138,7 +153,7 @@ class WikipediaAPI {
         }
     }
     
-    func findExactWikipediaArticleName(searchTerms: String) -> Promise<String> {
+    func findExactArticleName(searchTerms: String) -> Promise<String> {
         return Promise<String>(in: .background) { resolve, reject, status in
             let _ = Wikipedia.shared.requestOptimizedSearchResults(language: self.language, term: searchTerms, maxCount: 50) { (articlePreviews, error) in
                 guard error == nil, let articlePreviews = articlePreviews else {
@@ -157,6 +172,38 @@ class WikipediaAPI {
                 })
                 
                 resolve(titles[results.first!.index])
+            }
+        }
+    }
+    
+    func findExactArticleName(searchTerms: String, coordinates: CLLocationCoordinate2D) -> Promise<String> {
+        return Promise<String>(in: .background) { resolve, reject, status in
+            let _ = Wikipedia.shared.requestNearbyResults(language: self.language, latitude: Double(coordinates.latitude), longitude: Double(coordinates.longitude), maxCount: 50) { (articlePreviews, resultsLanguage, error) in
+                guard error == nil, let articlePreviews = articlePreviews else {
+                    reject(UnknownApiError())
+                    return
+                }
+                
+                let fuse = Fuse(threshold: 0.5)
+                
+                let titles = articlePreviews.map { article -> String in
+                    return article.title
+                }
+                let results = fuse.search(searchTerms.stripped, in: titles).sorted {
+                    if $0.score == $1.score {
+                        return titles[$0.index].count < titles[$1.index].count
+                    } else {
+                        return $0.score < $1.score
+                    }
+                }
+                
+                guard results.count > 0 else {
+                    reject(UnknownApiError())
+                    return
+                }
+                
+                let result = titles[results.first!.index]
+                resolve(result)
             }
         }
     }
@@ -262,16 +309,18 @@ class WikipediaAPI {
     }
     
     func getArticle(articleName: String) -> Promise<String> {
-        return Promise<String>(in: .background) { resolve, reject, status in
-            let url = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1&titles=\(articleName)"
-            AF.request(url).responseJSON(queue: .global(qos: .utility)) { response in
+        let parameters = [
+            "titles" : articleName
+        ]
+        return Promise<String> (in: .background) { resolve, reject, status in
+            let url = "https://en.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro&explaintext&redirects=1"
+            AF.request(url, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
                 switch response.result {
                 case .success:
                     guard let data = response.data else { reject(UnknownApiError()); return }
                     do {
                         // make sure this JSON is in the format we expect
                         if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                            print(json)
                             // try to read out a string array
                             if let query = json["query"] as? [String: Any] {
                                 if let pages = query["pages"] as? [String: Any]{
@@ -286,6 +335,58 @@ class WikipediaAPI {
                             }
                         }
                         reject(UnknownApiError())
+                    } catch let error as NSError {
+                        print("\(#function): \(error.localizedDescription)")
+                        reject(error)
+                    }
+                case .failure:
+                    guard let error = response.error else { reject(UnknownApiError()); return }
+                    print("\(#function): \(error.localizedDescription)")
+                    reject(error)
+                }
+            }
+        }
+    }
+    
+    func getMissingDetail(place: WDPlace) -> Promise<Void> {
+        return Promise<Void> (in: .utility) { resolve, reject, status in
+            let parameters = [
+                "query": self.getMissingPlaceDetailsQuery(id: place.placeID),
+                "format": "json"
+            ]
+            let url = "https://query.wikidata.org/sparql"
+            AF.request(url, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
+                switch response.result {
+                case .success:
+                    guard let data = response.data else { reject(UnknownApiError()); return }
+                    do {
+                        guard
+                            let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+                            let results = json["results"] as? [String: Any],
+                            let bindings = results["bindings"] as? [[String: Any]],
+                            let firstResult = bindings.first
+                        else {
+                            reject(UnknownApiError())
+                            return
+                        }
+                        if let instance = firstResult["instance"] as? [String: Any],
+                            let value = instance["value"] as? String,
+                            let instanceIdRange = value.range(of: #"Q[0-9]+"#, options: .regularExpression) {
+                            place.instance = String(value[instanceIdRange])
+                        }
+                        if let wikimediaLink = firstResult["wikimediaLink"] as? [String: Any],
+                            let value = wikimediaLink["value"] as? String {
+                            place.wikimediaLink = value
+                        }
+                        if let website = firstResult["website"] as? [String: Any],
+                            let value = website["value"] as? String {
+                            place.website = value
+                        }
+                        if let photo = firstResult["image"] as? [String: Any],
+                            let value = photo["value"] as? String {
+                            place.photos?.append(URL(string: value)!)
+                        }
+                        resolve(())
                     } catch let error as NSError {
                         print("\(#function): \(error.localizedDescription)")
                         reject(error)
