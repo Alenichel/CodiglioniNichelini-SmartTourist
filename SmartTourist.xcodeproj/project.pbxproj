@@ -54,6 +54,8 @@
 		E5495903241F648400D643F1 /* Bundle+version+build.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5495902241F648400D643F1 /* Bundle+version+build.swift */; };
 		E54B9A5B2417D0F9009F8DBC /* UITextView+setText.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54B9A5A2417D0F9009F8DBC /* UITextView+setText.swift */; };
 		E54BF857244AECAD0049D3E2 /* CGSize+init.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54BF856244AECAD0049D3E2 /* CGSize+init.swift */; };
+		E54CE343245C84F700813F51 /* CityDetailInfoIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54CE342245C84F700813F51 /* CityDetailInfoIcon.swift */; };
+		E54CE345245C95EE00813F51 /* ManualStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54CE344245C95EE00813F51 /* ManualStackView.swift */; };
 		E54E01B423996806009D0331 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E01B323996806009D0331 /* Persistable.swift */; };
 		E54E01BB23996839009D0331 /* Interceptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E01BA23996839009D0331 /* Interceptors.swift */; };
 		E553D14B23926CC600C3199C /* ListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E553D14A23926CC600C3199C /* ListCardView.swift */; };
@@ -106,7 +108,7 @@
 		E5D005D1244DA0A20079A37E /* WDCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D005D0244DA0A20079A37E /* WDCity.swift */; };
 		E5D005D3244DA0BB0079A37E /* CodableUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D005D2244DA0BB0079A37E /* CodableUtilities.swift */; };
 		E5D1474A23AB747300649C87 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D1474923AB747300649C87 /* Model.swift */; };
-		E5DE62072443084800E817A6 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = E5DE62062443084800E817A6 /* SwiftPackageProductDependency */; };
+		E5DE62072443084800E817A6 /* WikipediaKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5DE62062443084800E817A6 /* WikipediaKit */; };
 		E5EF7094245C202B00C69B3A /* WelcomeViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EF7093245C202B00C69B3A /* WelcomeViewTest.swift */; };
 		E5EF7098245C266F00C69B3A /* SettingsViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EF7097245C266F00C69B3A /* SettingsViewTest.swift */; };
 		E5EF709A245C27BD00C69B3A /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EF7099245C27BD00C69B3A /* TestCase.swift */; };
@@ -268,6 +270,8 @@
 		E5495902241F648400D643F1 /* Bundle+version+build.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+version+build.swift"; sourceTree = "<group>"; };
 		E54B9A5A2417D0F9009F8DBC /* UITextView+setText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextView+setText.swift"; sourceTree = "<group>"; };
 		E54BF856244AECAD0049D3E2 /* CGSize+init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+init.swift"; sourceTree = "<group>"; };
+		E54CE342245C84F700813F51 /* CityDetailInfoIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDetailInfoIcon.swift; sourceTree = "<group>"; };
+		E54CE344245C95EE00813F51 /* ManualStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualStackView.swift; sourceTree = "<group>"; };
 		E54E01B323996806009D0331 /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		E54E01BA23996839009D0331 /* Interceptors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptors.swift; sourceTree = "<group>"; };
 		E553D14A23926CC600C3199C /* ListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCardView.swift; sourceTree = "<group>"; };
@@ -340,7 +344,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DC68C698795D2E15DF07FFE /* Pods_SmartTourist.framework in Frameworks */,
-				E5DE62072443084800E817A6 /* BuildFile in Frameworks */,
+				E5DE62072443084800E817A6 /* WikipediaKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,6 +633,7 @@
 				E50BC916241D4CA3005EFDCE /* SettingBoolCell.swift */,
 				E54958FB241F5BAD00D643F1 /* SettingStringCell.swift */,
 				E57AAD0A244F5B5D00F49354 /* SizeableCell.swift */,
+				E54CE344245C95EE00813F51 /* ManualStackView.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -666,6 +671,14 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		E59ECD92245C830B008B2B44 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				E54CE342245C84F700813F51 /* CityDetailInfoIcon.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		E5A7B065242F9C4B0001869A /* Supporting Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -678,6 +691,7 @@
 		E5AFC89923F9B006007B9887 /* CityDetailView */ = {
 			isa = PBXGroup;
 			children = (
+				E59ECD92245C830B008B2B44 /* Subviews */,
 				E5AFC89B23F9B006007B9887 /* CityDetailView.swift */,
 				E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */,
 			);
@@ -781,7 +795,7 @@
 			);
 			name = SmartTourist;
 			packageProductDependencies = (
-				E5DE62062443084800E817A6 /* SwiftPackageProductDependency */,
+				E5DE62062443084800E817A6 /* WikipediaKit */,
 			);
 			productName = SmartTourist;
 			productReference = E528FF83238971FE0065483B /* SmartTourist.app */;
@@ -899,7 +913,7 @@
 			);
 			mainGroup = E528FF7A238971FE0065483B;
 			packageReferences = (
-				E5DE62052443084800E817A6 /* RemoteSwiftPackageReference */,
+				E5DE62052443084800E817A6 /* XCRemoteSwiftPackageReference "WikipediaKit" */,
 			);
 			productRefGroup = E528FF84238971FE0065483B /* Products */;
 			projectDirPath = "";
@@ -1118,6 +1132,7 @@
 				E50BC90D241D15EE005EFDCE /* SettingsView.swift in Sources */,
 				993B35462392B9150003FD8F /* AttractionCell.swift in Sources */,
 				E54E01B423996806009D0331 /* Persistable.swift in Sources */,
+				E54CE345245C95EE00813F51 /* ManualStackView.swift in Sources */,
 				E5D005D1244DA0A20079A37E /* WDCity.swift in Sources */,
 				E53BF0E8242A874B00358E6D /* UNNotificationAttachment+UIImage.swift in Sources */,
 				993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */,
@@ -1154,6 +1169,7 @@
 				E528FF89238971FE0065483B /* SceneDelegate.swift in Sources */,
 				E5D005D3244DA0BB0079A37E /* CodableUtilities.swift in Sources */,
 				E5F971612392D96F0096C296 /* ConfigurableCell.swift in Sources */,
+				E54CE343245C84F700813F51 /* CityDetailInfoIcon.swift in Sources */,
 				E5D1474A23AB747300649C87 /* Model.swift in Sources */,
 				E5F9715E2392D96F0096C296 /* Source.swift in Sources */,
 				E57AAD06244F592800F49354 /* SearchView.swift in Sources */,
@@ -1648,7 +1664,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E5DE62052443084800E817A6 /* RemoteSwiftPackageReference */ = {
+		E5DE62052443084800E817A6 /* XCRemoteSwiftPackageReference "WikipediaKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Raureif/WikipediaKit";
 			requirement = {
@@ -1659,9 +1675,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E5DE62062443084800E817A6 /* SwiftPackageProductDependency */ = {
+		E5DE62062443084800E817A6 /* WikipediaKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E5DE62052443084800E817A6 /* RemoteSwiftPackageReference */;
+			package = E5DE62052443084800E817A6 /* XCRemoteSwiftPackageReference "WikipediaKit" */;
 			productName = WikipediaKit;
 		};
 /* End XCSwiftPackageProductDependency section */
