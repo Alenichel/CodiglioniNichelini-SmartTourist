@@ -23,6 +23,8 @@ PODS:
   - SwiftyXMLParser (5.1.0)
   - Tempura (4.3.1):
     - Katana (< 4, >= 3.0)
+  - TempuraTesting (4.3.0):
+    - Tempura (< 5.0, >= 4.0)
 
 DEPENDENCIES:
   - Alamofire (~> 5.0.0-rc.3)
@@ -39,6 +41,7 @@ DEPENDENCIES:
   - SigmaSwiftStatistics (~> 9.0)
   - SwiftyXMLParser (from `https://github.com/yahoojapan/SwiftyXMLParser.git`)
   - Tempura
+  - TempuraTesting
 
 SPEC REPOS:
   trunk:
@@ -56,6 +59,7 @@ SPEC REPOS:
     - PinLayout
     - SigmaSwiftStatistics
     - Tempura
+    - TempuraTesting
 
 EXTERNAL SOURCES:
   SwiftyXMLParser:
@@ -82,7 +86,8 @@ SPEC CHECKSUMS:
   SigmaSwiftStatistics: 4ec81cd50b0f397baddba05fe88ce228a66edd8c
   SwiftyXMLParser: 8271497e0a37b5c04b0b167c77b4896e36175a21
   Tempura: adc54766491f97980bcdb3dff82a92076ed825e2
+  TempuraTesting: 302a6f14ec6bb8d69d30bc7708dad1c062d6730a
 
-PODFILE CHECKSUM: e1e81b959741c0b60bd9cb2a2e3fa7de5fd11145
+PODFILE CHECKSUM: d753c9b75a223b5ec38f6747e6bec8ccde04f6aa
 
 COCOAPODS: 1.9.1

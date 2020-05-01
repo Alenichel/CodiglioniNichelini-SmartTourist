@@ -1,5 +1,5 @@
 //
-//  Array+GPPlace+blacklist.swift
+//  Array+WDPlace+blacklist.swift
 //  SmartTourist
 //
 //  Created on 16/03/2020
@@ -9,14 +9,14 @@ import Foundation
 import SigmaSwiftStatistics
 
 
-class GPPlaceFilter {
+class WDPlaceFilter {
     var places: [WDPlace]
     
     init(_ places: [WDPlace]) {
         self.places = places
     }
     
-    func minRatings(_ threshold: Double) -> GPPlaceFilter {
+    func minRatings(_ threshold: Double) -> WDPlaceFilter {
         self.places = self.places.filter { place in
             guard let rating = place.rating else { return false }
             return rating >= threshold
@@ -24,16 +24,16 @@ class GPPlaceFilter {
         return self
     }
     
-    func nonNegativeRatings() -> GPPlaceFilter {
+    func nonNegativeRatings() -> WDPlaceFilter {
         return self.minRatings(0.0)
     }
     
-    func noEmojis() -> GPPlaceFilter {
+    func noEmojis() -> WDPlaceFilter {
         self.places = self.places.filter { !$0.name.containsEmoji }
         return self
     }
     
-    func minTotalRatings(_ minRatingsTotal: Int) -> GPPlaceFilter {
+    func minTotalRatings(_ minRatingsTotal: Int) -> WDPlaceFilter {
         self.places = self.places.filter { place in
             guard let userRatingsTotal = place.userRatingsTotal else { return false }
             return userRatingsTotal > minRatingsTotal
@@ -41,7 +41,7 @@ class GPPlaceFilter {
         return self
     }
     
-    func minTotalRatingsPercentile(_ alpha: Double) -> GPPlaceFilter {
+    func minTotalRatingsPercentile(_ alpha: Double) -> WDPlaceFilter {
         let ratings = self.places
             .filter { $0.userRatingsTotal != nil }
             .map { Double($0.userRatingsTotal!) }
@@ -54,7 +54,7 @@ class GPPlaceFilter {
 
 extension Array where Element: WDPlace {
     var blacklisted: [WDPlace] {
-        GPPlaceFilter(self)
+        WDPlaceFilter(self)
             .noEmojis()
             .minRatings(2.5)
             .minTotalRatingsPercentile(0.05)

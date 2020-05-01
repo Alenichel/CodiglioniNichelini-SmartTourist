@@ -26,9 +26,6 @@ class WDPlace: Codable, Hashable, Comparable {
     var rating: Double? = 0
     var userRatingsTotal: Int? = 0
     
-    
-    
-    
     enum CodingKeys: String, CodingKey {
         case placeId = "place"
         case instance = "instance"
@@ -49,9 +46,7 @@ class WDPlace: Codable, Hashable, Comparable {
             case value
         }
     }
-    
-    class WrongInstanceError: Error {}
-    
+        
     init(gpPlace: GPPlace) {
         let base = "Q01234567890"
         self.placeID = base + "\(abs(gpPlace.placeID.hash))"

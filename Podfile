@@ -24,10 +24,7 @@ target 'SmartTourist' do
   target 'SmartTouristTests' do
     inherit! :search_paths
     # Pods for testing
-  end
-
-  target 'SmartTouristUITests' do
-    # Pods for testing
+    pod 'TempuraTesting'
   end
 
 end

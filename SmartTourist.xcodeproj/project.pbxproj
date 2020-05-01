@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2600720118ACEE0881FCB41F /* Pods_SmartTouristTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32E56BB7B73B2546D81ECE2D /* Pods_SmartTouristTests.framework */; };
 		4DC68C698795D2E15DF07FFE /* Pods_SmartTourist.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A68ECEB84859705FE364757 /* Pods_SmartTourist.framework */; };
-		5F7A4CA34DB61B8A7EBF547D /* Pods_SmartTourist_SmartTouristUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */; };
 		715830A6663ED8F1542E5BDC /* Pods_SmartTouristAppleWatch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7423B99FDA9559DEEF653ECC /* Pods_SmartTouristAppleWatch.framework */; };
 		991F955C238EDD4D002A1093 /* mapStyle.json in Resources */ = {isa = PBXBuildFile; fileRef = 991F955B238EDD4D002A1093 /* mapStyle.json */; };
 		992533C4238FF8B800EE479A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992533C3238FF8B800EE479A /* LocationManager.swift */; };
@@ -22,10 +21,9 @@
 		99C27CE723AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CE123AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx */; };
 		99D5C9B7241CF4D0008633C7 /* WorldwideFavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D5C9B6241CF4D0008633C7 /* WorldwideFavoritesView.swift */; };
 		99D5C9BF241CFB39008633C7 /* WorldwideFavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D5C9BE241CFB39008633C7 /* WorldwideFavoritesViewController.swift */; };
-		99EC7D66241FBC260065FDE9 /* Array+GPPlace+blacklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EC7D65241FBC260065FDE9 /* Array+GPPlace+blacklist.swift */; };
+		99EC7D66241FBC260065FDE9 /* Array+WDPlace+blacklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EC7D65241FBC260065FDE9 /* Array+WDPlace+blacklist.swift */; };
 		99EC7D6D241FC0890065FDE9 /* String+emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EC7D6C241FC0890065FDE9 /* String+emoji.swift */; };
 		99F36EAC2417FB4C00ACC519 /* PedometerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */; };
-		99F5A11923995D9E0056E68D /* UIImageView+setImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */; };
 		E501B0E0244CCB18003E271D /* WDInstances.json in Resources */ = {isa = PBXBuildFile; fileRef = E501B0DF244CCB18003E271D /* WDInstances.json */; };
 		E50BC90D241D15EE005EFDCE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC90C241D15EE005EFDCE /* SettingsView.swift */; };
 		E50BC90F241D15FB005EFDCE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC90E241D15FB005EFDCE /* SettingsViewController.swift */; };
@@ -39,10 +37,9 @@
 		E528FF89238971FE0065483B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528FF88238971FE0065483B /* SceneDelegate.swift */; };
 		E528FF90238972020065483B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E528FF8F238972020065483B /* Assets.xcassets */; };
 		E528FF93238972020065483B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E528FF91238972020065483B /* LaunchScreen.storyboard */; };
-		E528FF9E238972030065483B /* SmartTouristTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528FF9D238972030065483B /* SmartTouristTests.swift */; };
-		E528FFA9238972030065483B /* SmartTouristUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E528FFA8238972030065483B /* SmartTouristUITests.swift */; };
 		E52E0B17238F221F00D966CF /* mapStyle.dark.json in Resources */ = {isa = PBXBuildFile; fileRef = E52E0B16238F221F00D966CF /* mapStyle.dark.json */; };
 		E52EECCF238EE5FE006196BA /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52EECCE238EE5FE006196BA /* NotificationManager.swift */; };
+		E530A677245C2982008B0D6A /* CityDetailViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E530A676245C2982008B0D6A /* CityDetailViewTest.swift */; };
 		E5335CFE238981D000601F02 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335CFD238981D000601F02 /* AppState.swift */; };
 		E5335D032389942D00601F02 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D022389942D00601F02 /* MapView.swift */; };
 		E5335D052389946C00601F02 /* AttractionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5335D042389946C00601F02 /* AttractionsViewController.swift */; };
@@ -96,6 +93,7 @@
 		E590A97A242CE1FD00C0F0D5 /* WCSessionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590A979242CE1FD00C0F0D5 /* WCSessionDelegate.swift */; };
 		E590FAE42445FCA300A3DD87 /* String+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590FAE32445FCA300A3DD87 /* String+UIImage.swift */; };
 		E592B82224140FCF00AD46F8 /* UILabel+setText.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592B82124140FCF00AD46F8 /* UILabel+setText.swift */; };
+		E596EB902457437900E6FF7D /* ArrayTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E596EB8F2457437900E6FF7D /* ArrayTest.swift */; };
 		E5A7B057242F93640001869A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7B056242F93640001869A /* LoadingView.swift */; };
 		E5A7B059242F960A0001869A /* PlaceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7B058242F960A0001869A /* PlaceDetailView.swift */; };
 		E5A7B064242F9C400001869A /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7B063242F9C400001869A /* CircleImage.swift */; };
@@ -109,6 +107,9 @@
 		E5D005D3244DA0BB0079A37E /* CodableUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D005D2244DA0BB0079A37E /* CodableUtilities.swift */; };
 		E5D1474A23AB747300649C87 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D1474923AB747300649C87 /* Model.swift */; };
 		E5DE62072443084800E817A6 /* WikipediaKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5DE62062443084800E817A6 /* WikipediaKit */; };
+		E5EF7094245C202B00C69B3A /* WelcomeViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EF7093245C202B00C69B3A /* WelcomeViewTest.swift */; };
+		E5EF7098245C266F00C69B3A /* SettingsViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EF7097245C266F00C69B3A /* SettingsViewTest.swift */; };
+		E5EF709A245C27BD00C69B3A /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EF7099245C27BD00C69B3A /* TestCase.swift */; };
 		E5F9715C2392D96F0096C296 /* UIControl+TargetActionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F971522392D96E0096C296 /* UIControl+TargetActionable.swift */; };
 		E5F9715D2392D96F0096C296 /* String+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F971532392D96E0096C296 /* String+Random.swift */; };
 		E5F9715E2392D96F0096C296 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F971552392D96E0096C296 /* Source.swift */; };
@@ -125,13 +126,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		E528FF9A238972030065483B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E528FF7B238971FE0065483B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E528FF82238971FE0065483B;
-			remoteInfo = SmartTourist;
-		};
-		E528FFA5238972030065483B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E528FF7B238971FE0065483B /* Project object */;
 			proxyType = 1;
@@ -216,6 +210,8 @@
 		603068C865E1ECE2BF68B7E4 /* Pods-SmartTouristAppleWatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTouristAppleWatch.debug.xcconfig"; path = "Target Support Files/Pods-SmartTouristAppleWatch/Pods-SmartTouristAppleWatch.debug.xcconfig"; sourceTree = "<group>"; };
 		696BB0495EC0895A3D3C7B9C /* Pods-PictureNotification.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PictureNotification.release.xcconfig"; path = "Target Support Files/Pods-PictureNotification/Pods-PictureNotification.release.xcconfig"; sourceTree = "<group>"; };
 		7423B99FDA9559DEEF653ECC /* Pods_SmartTouristAppleWatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartTouristAppleWatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		74BA54B184EF5B15C4230B64 /* Pods-SmartTouristUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTouristUITests.debug.xcconfig"; path = "Target Support Files/Pods-SmartTouristUITests/Pods-SmartTouristUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		7FF9BFF323836DE8C7EE9C14 /* Pods-SmartTouristUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTouristUITests.release.xcconfig"; path = "Target Support Files/Pods-SmartTouristUITests/Pods-SmartTouristUITests.release.xcconfig"; sourceTree = "<group>"; };
 		864666DF532B8752C2B28FD3 /* Pods-PictureNotification.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PictureNotification.debug.xcconfig"; path = "Target Support Files/Pods-PictureNotification/Pods-PictureNotification.debug.xcconfig"; sourceTree = "<group>"; };
 		991F955B238EDD4D002A1093 /* mapStyle.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mapStyle.json; sourceTree = "<group>"; };
 		992533C3238FF8B800EE479A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -228,14 +224,13 @@
 		99C27CE123AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanCityCenterTour(bycicle).gpx"; sourceTree = "<group>"; };
 		99D5C9B6241CF4D0008633C7 /* WorldwideFavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldwideFavoritesView.swift; sourceTree = "<group>"; };
 		99D5C9BE241CFB39008633C7 /* WorldwideFavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldwideFavoritesViewController.swift; sourceTree = "<group>"; };
-		99EC7D65241FBC260065FDE9 /* Array+GPPlace+blacklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+GPPlace+blacklist.swift"; sourceTree = "<group>"; };
+		99EC7D65241FBC260065FDE9 /* Array+WDPlace+blacklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+WDPlace+blacklist.swift"; sourceTree = "<group>"; };
 		99EC7D6C241FC0890065FDE9 /* String+emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+emoji.swift"; sourceTree = "<group>"; };
 		99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PedometerHandler.swift; sourceTree = "<group>"; };
-		99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+setImage.swift"; sourceTree = "<group>"; };
+		A1EDBB9FA8DC31BDE98385C3 /* Pods_SmartTouristUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartTouristUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A280B60986322FB0AC1DA690 /* Pods-SmartTouristAppleWatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTouristAppleWatch.release.xcconfig"; path = "Target Support Files/Pods-SmartTouristAppleWatch/Pods-SmartTouristAppleWatch.release.xcconfig"; sourceTree = "<group>"; };
 		AB3310E805FE2AAD225A0C8E /* Pods-SmartTourist.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist.release.xcconfig"; path = "Target Support Files/Pods-SmartTourist/Pods-SmartTourist.release.xcconfig"; sourceTree = "<group>"; };
 		B169329D24736107D441A8F6 /* Pods-SmartTourist-SmartTouristUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist-SmartTouristUITests.release.xcconfig"; path = "Target Support Files/Pods-SmartTourist-SmartTouristUITests/Pods-SmartTourist-SmartTouristUITests.release.xcconfig"; sourceTree = "<group>"; };
-		BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartTourist_SmartTouristUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB1F109E38A57D77901D8A65 /* Pods-SmartTouristTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTouristTests.release.xcconfig"; path = "Target Support Files/Pods-SmartTouristTests/Pods-SmartTouristTests.release.xcconfig"; sourceTree = "<group>"; };
 		D30A90CC896E2EB573AFC6C5 /* Pods-SmartTourist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist.debug.xcconfig"; path = "Target Support Files/Pods-SmartTourist/Pods-SmartTourist.debug.xcconfig"; sourceTree = "<group>"; };
 		E501B0DF244CCB18003E271D /* WDInstances.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = WDInstances.json; sourceTree = "<group>"; };
@@ -254,13 +249,10 @@
 		E528FF92238972020065483B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E528FF94238972020065483B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E528FF99238972030065483B /* SmartTouristTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartTouristTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E528FF9D238972030065483B /* SmartTouristTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartTouristTests.swift; sourceTree = "<group>"; };
 		E528FF9F238972030065483B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E528FFA4238972030065483B /* SmartTouristUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmartTouristUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E528FFA8238972030065483B /* SmartTouristUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartTouristUITests.swift; sourceTree = "<group>"; };
-		E528FFAA238972030065483B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E52E0B16238F221F00D966CF /* mapStyle.dark.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mapStyle.dark.json; sourceTree = "<group>"; };
 		E52EECCE238EE5FE006196BA /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		E530A676245C2982008B0D6A /* CityDetailViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDetailViewTest.swift; sourceTree = "<group>"; };
 		E5335CFD238981D000601F02 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		E5335D022389942D00601F02 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		E5335D042389946C00601F02 /* AttractionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionsViewController.swift; sourceTree = "<group>"; };
@@ -313,6 +305,7 @@
 		E590A979242CE1FD00C0F0D5 /* WCSessionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCSessionDelegate.swift; sourceTree = "<group>"; };
 		E590FAE32445FCA300A3DD87 /* String+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UIImage.swift"; sourceTree = "<group>"; };
 		E592B82124140FCF00AD46F8 /* UILabel+setText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+setText.swift"; sourceTree = "<group>"; };
+		E596EB8F2457437900E6FF7D /* ArrayTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTest.swift; sourceTree = "<group>"; };
 		E5A7B056242F93640001869A /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		E5A7B058242F960A0001869A /* PlaceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailView.swift; sourceTree = "<group>"; };
 		E5A7B063242F9C400001869A /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
@@ -325,6 +318,9 @@
 		E5D005D0244DA0A20079A37E /* WDCity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WDCity.swift; sourceTree = "<group>"; };
 		E5D005D2244DA0BB0079A37E /* CodableUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableUtilities.swift; sourceTree = "<group>"; };
 		E5D1474923AB747300649C87 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		E5EF7093245C202B00C69B3A /* WelcomeViewTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewTest.swift; sourceTree = "<group>"; };
+		E5EF7097245C266F00C69B3A /* SettingsViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewTest.swift; sourceTree = "<group>"; };
+		E5EF7099245C27BD00C69B3A /* TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
 		E5F971522392D96E0096C296 /* UIControl+TargetActionable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+TargetActionable.swift"; sourceTree = "<group>"; };
 		E5F971532392D96E0096C296 /* String+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Random.swift"; sourceTree = "<group>"; };
 		E5F971552392D96E0096C296 /* Source.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
@@ -353,14 +349,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2600720118ACEE0881FCB41F /* Pods_SmartTouristTests.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E528FFA1238972030065483B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				5F7A4CA34DB61B8A7EBF547D /* Pods_SmartTourist_SmartTouristUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,6 +393,8 @@
 				696BB0495EC0895A3D3C7B9C /* Pods-PictureNotification.release.xcconfig */,
 				603068C865E1ECE2BF68B7E4 /* Pods-SmartTouristAppleWatch.debug.xcconfig */,
 				A280B60986322FB0AC1DA690 /* Pods-SmartTouristAppleWatch.release.xcconfig */,
+				74BA54B184EF5B15C4230B64 /* Pods-SmartTouristUITests.debug.xcconfig */,
+				7FF9BFF323836DE8C7EE9C14 /* Pods-SmartTouristUITests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -446,12 +436,12 @@
 			isa = PBXGroup;
 			children = (
 				4A68ECEB84859705FE364757 /* Pods_SmartTourist.framework */,
-				BF65FC97A5FB8C30AB0C694D /* Pods_SmartTourist_SmartTouristUITests.framework */,
 				32E56BB7B73B2546D81ECE2D /* Pods_SmartTouristTests.framework */,
 				E53BF0B9242A747F00358E6D /* UserNotifications.framework */,
 				E53BF0BB242A747F00358E6D /* UserNotificationsUI.framework */,
 				365B7F51EF199C782DE088CA /* Pods_PictureNotification.framework */,
 				7423B99FDA9559DEEF653ECC /* Pods_SmartTouristAppleWatch.framework */,
+				A1EDBB9FA8DC31BDE98385C3 /* Pods_SmartTouristUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -481,7 +471,6 @@
 			children = (
 				E528FF85238971FE0065483B /* SmartTourist */,
 				E528FF9C238972030065483B /* SmartTouristTests */,
-				E528FFA7238972030065483B /* SmartTouristUITests */,
 				E53BF0BD242A747F00358E6D /* PictureNotification */,
 				E590A948242CCA6800C0F0D5 /* SmartTouristAppleWatch */,
 				E590A957242CCA7100C0F0D5 /* SmartTouristAppleWatch Extension */,
@@ -496,7 +485,6 @@
 			children = (
 				E528FF83238971FE0065483B /* SmartTourist.app */,
 				E528FF99238972030065483B /* SmartTouristTests.xctest */,
-				E528FFA4238972030065483B /* SmartTouristUITests.xctest */,
 				E53BF0B8242A747F00358E6D /* PictureNotification.appex */,
 				E590A947242CCA6800C0F0D5 /* SmartTouristAppleWatch.app */,
 				E590A953242CCA7100C0F0D5 /* SmartTouristAppleWatch Extension.appex */,
@@ -525,19 +513,14 @@
 		E528FF9C238972030065483B /* SmartTouristTests */ = {
 			isa = PBXGroup;
 			children = (
-				E528FF9D238972030065483B /* SmartTouristTests.swift */,
 				E528FF9F238972030065483B /* Info.plist */,
+				E596EB8F2457437900E6FF7D /* ArrayTest.swift */,
+				E5EF7099245C27BD00C69B3A /* TestCase.swift */,
+				E5EF7093245C202B00C69B3A /* WelcomeViewTest.swift */,
+				E5EF7097245C266F00C69B3A /* SettingsViewTest.swift */,
+				E530A676245C2982008B0D6A /* CityDetailViewTest.swift */,
 			);
 			path = SmartTouristTests;
-			sourceTree = "<group>";
-		};
-		E528FFA7238972030065483B /* SmartTouristUITests */ = {
-			isa = PBXGroup;
-			children = (
-				E528FFA8238972030065483B /* SmartTouristUITests.swift */,
-				E528FFAA238972030065483B /* Info.plist */,
-			);
-			path = SmartTouristUITests;
 			sourceTree = "<group>";
 		};
 		E52EECD0238EE690006196BA /* Managers */ = {
@@ -719,7 +702,7 @@
 			isa = PBXGroup;
 			children = (
 				E5F971542392D96E0096C296 /* CollectionView */,
-				99EC7D65241FBC260065FDE9 /* Array+GPPlace+blacklist.swift */,
+				99EC7D65241FBC260065FDE9 /* Array+WDPlace+blacklist.swift */,
 				E56167CA2428BAA40064B2E8 /* Array+sortedInsert.swift */,
 				E5495902241F648400D643F1 /* Bundle+version+build.swift */,
 				E5F971592392D96E0096C296 /* CGRect+Utils.swift */,
@@ -735,7 +718,6 @@
 				E590FAE32445FCA300A3DD87 /* String+UIImage.swift */,
 				E5F971522392D96E0096C296 /* UIControl+TargetActionable.swift */,
 				E5628B502394224F00A61676 /* UIImage+Color.swift */,
-				99F5A11823995D9E0056E68D /* UIImageView+setImage.swift */,
 				E592B82124140FCF00AD46F8 /* UILabel+setText.swift */,
 				E54B9A5A2417D0F9009F8DBC /* UITextView+setText.swift */,
 				E5F9715A2392D96E0096C296 /* UIView+Blink.swift */,
@@ -814,6 +796,7 @@
 				E528FF95238972030065483B /* Sources */,
 				E528FF96238972030065483B /* Frameworks */,
 				E528FF97238972030065483B /* Resources */,
+				8E1E2D1DEB50D722C0B65D4B /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -824,27 +807,6 @@
 			productName = SmartTouristTests;
 			productReference = E528FF99238972030065483B /* SmartTouristTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		E528FFA3238972030065483B /* SmartTouristUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E528FFB3238972030065483B /* Build configuration list for PBXNativeTarget "SmartTouristUITests" */;
-			buildPhases = (
-				2296791FAF437524AE21D1D8 /* [CP] Check Pods Manifest.lock */,
-				E528FFA0238972030065483B /* Sources */,
-				E528FFA1238972030065483B /* Frameworks */,
-				E528FFA2238972030065483B /* Resources */,
-				B934A062E9A666B18CA3ACCC /* [CP] Embed Pods Frameworks */,
-				4729319255556D304D33FACF /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				E528FFA6238972030065483B /* PBXTargetDependency */,
-			);
-			name = SmartTouristUITests;
-			productName = SmartTouristUITests;
-			productReference = E528FFA4238972030065483B /* SmartTouristUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 		E53BF0B7242A747F00358E6D /* PictureNotification */ = {
 			isa = PBXNativeTarget;
@@ -918,10 +880,6 @@
 						CreatedOnToolsVersion = 11.2.1;
 						TestTargetID = E528FF82238971FE0065483B;
 					};
-					E528FFA3238972030065483B = {
-						CreatedOnToolsVersion = 11.2.1;
-						TestTargetID = E528FF82238971FE0065483B;
-					};
 					E53BF0B7242A747F00358E6D = {
 						CreatedOnToolsVersion = 11.3.1;
 					};
@@ -951,7 +909,6 @@
 			targets = (
 				E528FF82238971FE0065483B /* SmartTourist */,
 				E528FF98238972030065483B /* SmartTouristTests */,
-				E528FFA3238972030065483B /* SmartTouristUITests */,
 				E53BF0B7242A747F00358E6D /* PictureNotification */,
 				E590A946242CCA6800C0F0D5 /* SmartTouristAppleWatch */,
 				E590A952242CCA7100C0F0D5 /* SmartTouristAppleWatch Extension */,
@@ -977,13 +934,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		E528FF97238972030065483B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E528FFA2238972030065483B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1034,28 +984,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-SmartTourist-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		2296791FAF437524AE21D1D8 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SmartTourist-SmartTouristUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1118,23 +1046,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SmartTourist/Pods-SmartTourist-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4729319255556D304D33FACF /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SmartTourist-SmartTouristUITests/Pods-SmartTourist-SmartTouristUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SmartTourist-SmartTouristUITests/Pods-SmartTourist-SmartTouristUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SmartTourist-SmartTouristUITests/Pods-SmartTourist-SmartTouristUITests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		572E144F9B6BBC528E666282 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1174,21 +1085,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B934A062E9A666B18CA3ACCC /* [CP] Embed Pods Frameworks */ = {
+		8E1E2D1DEB50D722C0B65D4B /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SmartTourist-SmartTouristUITests/Pods-SmartTourist-SmartTouristUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SmartTouristTests/Pods-SmartTouristTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SmartTourist-SmartTouristUITests/Pods-SmartTourist-SmartTouristUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-SmartTouristTests/Pods-SmartTouristTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SmartTourist-SmartTouristUITests/Pods-SmartTourist-SmartTouristUITests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SmartTouristTests/Pods-SmartTouristTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D5708FFD5183A33909526F80 /* [CP] Check Pods Manifest.lock */ = {
@@ -1223,7 +1134,6 @@
 				E563DB3B242E52C4003D5FFF /* WatchModel.swift in Sources */,
 				E5628B4F2393D4E100A61676 /* AttractionDetailViewController.swift in Sources */,
 				E5335D082389970B00601F02 /* DependenciesContainer.swift in Sources */,
-				99F5A11923995D9E0056E68D /* UIImageView+setImage.swift in Sources */,
 				E590A97A242CE1FD00C0F0D5 /* WCSessionDelegate.swift in Sources */,
 				E54958FC241F5BAD00D643F1 /* SettingStringCell.swift in Sources */,
 				E54BF857244AECAD0049D3E2 /* CGSize+init.swift in Sources */,
@@ -1237,7 +1147,7 @@
 				E57AAD08244F593200F49354 /* SearchViewController.swift in Sources */,
 				E553D14B23926CC600C3199C /* ListCardView.swift in Sources */,
 				99F36EAC2417FB4C00ACC519 /* PedometerHandler.swift in Sources */,
-				99EC7D66241FBC260065FDE9 /* Array+GPPlace+blacklist.swift in Sources */,
+				99EC7D66241FBC260065FDE9 /* Array+WDPlace+blacklist.swift in Sources */,
 				E5F9715C2392D96F0096C296 /* UIControl+TargetActionable.swift in Sources */,
 				E5335D032389942D00601F02 /* MapView.swift in Sources */,
 				E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */,
@@ -1302,15 +1212,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E528FF9E238972030065483B /* SmartTouristTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E528FFA0238972030065483B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E528FFA9238972030065483B /* SmartTouristUITests.swift in Sources */,
+				E5EF7098245C266F00C69B3A /* SettingsViewTest.swift in Sources */,
+				E5EF709A245C27BD00C69B3A /* TestCase.swift in Sources */,
+				E596EB902457437900E6FF7D /* ArrayTest.swift in Sources */,
+				E530A677245C2982008B0D6A /* CityDetailViewTest.swift in Sources */,
+				E5EF7094245C202B00C69B3A /* WelcomeViewTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1348,11 +1254,6 @@
 			isa = PBXTargetDependency;
 			target = E528FF82238971FE0065483B /* SmartTourist */;
 			targetProxy = E528FF9A238972030065483B /* PBXContainerItemProxy */;
-		};
-		E528FFA6238972030065483B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E528FF82238971FE0065483B /* SmartTourist */;
-			targetProxy = E528FFA5238972030065483B /* PBXContainerItemProxy */;
 		};
 		E53BF0C5242A747F00358E6D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1593,48 +1494,6 @@
 			};
 			name = Release;
 		};
-		E528FFB4238972030065483B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 014CE858DC4BFB7532A5EC85 /* Pods-SmartTourist-SmartTouristUITests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Q82QAU88KE;
-				INFOPLIST_FILE = SmartTouristUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.anfc.SmartTouristUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = SmartTourist;
-			};
-			name = Debug;
-		};
-		E528FFB5238972030065483B /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B169329D24736107D441A8F6 /* Pods-SmartTourist-SmartTouristUITests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Q82QAU88KE;
-				INFOPLIST_FILE = SmartTouristUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.anfc.SmartTouristUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = SmartTourist;
-			};
-			name = Release;
-		};
 		E53BF0C8242A747F00358E6D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 864666DF532B8752C2B28FD3 /* Pods-PictureNotification.debug.xcconfig */;
@@ -1791,15 +1650,6 @@
 			buildConfigurations = (
 				E528FFB1238972030065483B /* Debug */,
 				E528FFB2238972030065483B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E528FFB3238972030065483B /* Build configuration list for PBXNativeTarget "SmartTouristUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E528FFB4238972030065483B /* Debug */,
-				E528FFB5238972030065483B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
