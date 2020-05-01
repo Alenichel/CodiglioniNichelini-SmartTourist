@@ -18,7 +18,6 @@ import FontAwesome_swift
 
 struct AttractionDetailViewModel: ViewModelWithLocalState {
     let attraction: WDPlace
-    //let photos: [URL]
     let nRatings: String
     let wikipediaSearchTerms: String
     let actualLocation: CLLocationCoordinate2D
@@ -29,11 +28,6 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
     init?(state: AppState?, localState: AttractionDetailLocalState) {
         guard let state = state else { return nil }
         self.attraction = localState.attraction
-        /*if let photos = self.attraction.photos {
-            self.photos = photos
-        } else {
-            self.photos = []
-        }*/
         if let nRatings = localState.attraction.userRatingsTotal {
             self.nRatings = nRatings > 1000 ? "\(Int(nRatings / 1000))k" : "\(nRatings)"
         } else {
@@ -51,7 +45,6 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
 class AttractionDetailView: UIView, ViewControllerModellableView {
     private static let isFavoriteImage = UIImage(systemName: "heart.fill")
     private static let isNotFavoriteImage = UIImage(systemName: "heart")
-    //private static let walkingIconImage = UIImage(named: "walking_icon")?.withRenderingMode(.alwaysTemplate)
     private static let linkImage = UIImage(systemName: "link")
     
     var descriptionText = UILabel()
@@ -137,7 +130,6 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.directionButton.layer.shadowOffset = .zero
         self.directionButton.layer.shadowRadius = 1
         self.directionButton.setImage(UIImage.fontAwesomeIcon(name: .shoePrints, style: .solid, textColor: .label, size: CGSize(size: 30)), for: .normal)
-        //self.directionButton.setImage(AttractionDetailView.walkingIconImage, for: .normal)
         self.directionButton.imageEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         self.linkButton.tintColor = .label
         self.linkButton.backgroundColor = .systemBackground

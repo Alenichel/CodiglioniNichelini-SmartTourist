@@ -32,10 +32,6 @@ struct CityDetailViewModel: ViewModelWithLocalState {
 
 
 class CityDetailView: UIView, ViewControllerModellableView {
-    static private var elevationImage = UIImage.fontAwesomeIcon(name: .mountain, style: .solid, textColor: .label, size: CGSize(size: 25))
-    static private var populationImage = UIImage.fontAwesomeIcon(name: .users, style: .solid, textColor: .label, size: CGSize(size: 25))
-    static private var areaImage = UIImage.fontAwesomeIcon(name: .square, style: .solid, textColor: .label, size: CGSize(size: 25))
-    
     var titleContainerView = UIView()
     var cityNameLabel = UILabel()
     var countryNameLabel = UILabel()
@@ -44,6 +40,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
     var lineView = UIView()
     var detailsStackView: UIStackView!
     var infoView = ManualStackView()
+    var linksView = ManualStackView()
     var flagImageView = UIImageView()
     
     func setup() {
@@ -57,6 +54,8 @@ class CityDetailView: UIView, ViewControllerModellableView {
         self.addSubview(self.mapView)
         self.infoView.setup()
         self.addSubview(self.infoView)
+        self.linksView.setup()
+        self.addSubview(self.linksView)
         self.addSubview(self.descriptionText)
         self.descriptionText.showsVerticalScrollIndicator = false
     }
@@ -76,6 +75,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
         self.descriptionText.textAlignment = NSTextAlignment.justified
         self.lineView.backgroundColor = .secondaryLabel
         self.infoView.style()
+        self.linksView.style()
     }
     
     override func layoutSubviews() {
@@ -93,7 +93,9 @@ class CityDetailView: UIView, ViewControllerModellableView {
         self.mapView.pin.below(of: self.lineView).horizontally(5).marginTop(5)
         let infoViewHeight = (self.infoView.stackedSubviews as! [CityDetailInfoIcon]).map({$0.getHeight()}).max()
         self.infoView.pin.below(of: self.mapView).horizontally(5).marginTop(10).height(infoViewHeight ?? 0)
-        self.descriptionText.pin.horizontally(8).below(of: self.infoView).marginTop(5).bottom()
+        let linksViewHeight = (self.linksView.stackedSubviews as! [RoundedButton]).map({$0.frame.height}).max()
+        self.linksView.pin.below(of: self.infoView).horizontally(5).marginTop(10).height(linksViewHeight ?? 0)
+        self.descriptionText.pin.horizontally(8).below(of: self.linksView).marginTop(5).bottom()
     }
     
     func update(oldModel: CityDetailViewModel?){
@@ -106,18 +108,44 @@ class CityDetailView: UIView, ViewControllerModellableView {
         if let city = model.city {
             self.countryNameLabel.text = city.countryLabel ?? "No country detected"
             self.flagImageView.image = city.countryFlagImage
-            var views = [UIView]()
+            var infoViews = [UIView]()
             if let population = city.population {
-                views.append(self.getPopulationView(value: population))
+                let icon = UIImage.fontAwesomeIcon(name: .users, style: .solid, textColor: .label, size: CGSize(size: 25))
+                infoViews.append(self.getIconView(label: "\(population)", icon: icon))
             }
             if let area = city.area {
-                views.append(self.getAreaView(value: area))
+                let icon = UIImage.fontAwesomeIcon(name: .square, style: .solid, textColor: .label, size: CGSize(size: 25))
+                infoViews.append(self.getIconView(label: "\(area)", icon: icon))
             }
             if let elevation = city.elevation {
-                views.append(self.getElevationView(value: elevation))
+                let icon = UIImage.fontAwesomeIcon(name: .mountain, style: .solid, textColor: .label, size: CGSize(size: 25))
+                infoViews.append(self.getIconView(label: "\(elevation)", icon: icon))
             }
-            let infoViewModel = ManualStackViewModel(views: views)
+            let infoViewModel = ManualStackViewModel(views: infoViews)
             self.infoView.model = infoViewModel
+            var linkViews = [UIView]()
+            if let link = city.link {
+                let icon = UIImage.fontAwesomeIcon(name: .link, style: .solid, textColor: .label, size: CGSize(size: 40))
+                linkViews.append(self.getLinkButton(url: URL(string: link)!, icon: icon))
+            }
+            if let facebookId = city.facebookPageId {
+                let icon = UIImage.fontAwesomeIcon(name: .facebookF, style: .brands, textColor: .label, size: CGSize(size: 40))
+                let url = URL(string: "https://www.facebook.com/\(facebookId)")!
+                linkViews.append(self.getLinkButton(url: url, icon: icon))
+            }
+            if let instagramUsername = city.instagramUsername {
+                let icon = UIImage.fontAwesomeIcon(name: .instagram, style: .brands, textColor: .label, size: CGSize(size: 40))
+                let url = URL(string: "https://www.instagram.com/\(instagramUsername)")!
+                linkViews.append(self.getLinkButton(url: url, icon: icon))
+            }
+            if let twitterUsername = city.twitterUsername {
+                let icon = UIImage.fontAwesomeIcon(name: .twitter, style: .brands, textColor: .label, size: CGSize(size: 40))
+                let url = URL(string: "https://www.twitter.com/\(twitterUsername)")!
+                linkViews.append(self.getLinkButton(url: url, icon: icon))
+            }
+            let linksViewModel = ManualStackViewModel(views: linkViews)
+            self.linksView.model = linksViewModel
+            
         }
         self.cityNameLabel.text = model.cityName
         let marker = MarkerPool.getMarker(location: model.location, text: model.cityName)
@@ -133,15 +161,21 @@ class CityDetailView: UIView, ViewControllerModellableView {
         return view
     }
     
-    private func getElevationView(value: Int) -> UIView {
-        return getIconView(label: "\(value)", icon: CityDetailView.elevationImage)
-    }
-    
-    private func getPopulationView(value: Int) -> UIView {
-        return getIconView(label: "\(value)", icon: CityDetailView.populationImage)
-    }
-    
-    private func getAreaView(value: Double) -> UIView {
-        return getIconView(label: "\(value)", icon: CityDetailView.areaImage)
+    private func getLinkButton(url: URL, icon: UIImage) -> UIView {
+        var button = RoundedButton()
+        button.tintColor = .label
+        button.backgroundColor = .systemBackground
+        button.layer.cornerRadius = 20
+        button.layer.shadowColor = UIColor.label.cgColor
+        button.layer.shadowOpacity = 0.75
+        button.layer.shadowOffset = .zero
+        button.layer.shadowRadius = 1
+        button.setImage(icon, for: .normal)
+        button.imageEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+        button.on(.touchUpInside) { _ in
+            UIApplication.shared.open(url)
+        }
+        button.pin.size(40)
+        return button
     }
 }

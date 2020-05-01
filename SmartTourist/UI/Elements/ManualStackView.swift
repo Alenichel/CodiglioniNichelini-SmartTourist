@@ -42,6 +42,11 @@ class ManualStackView: UIView, ModellableView {
             self.stackedSubviews[0].pin.top().left(15%)
             self.stackedSubviews[1].pin.top().hCenter()
             self.stackedSubviews[2].pin.top().right(15%)
+        } else if self.stackedSubviews.count == 4 {
+            self.stackedSubviews[0].pin.top().left(10%)
+            self.stackedSubviews[1].pin.top().left(33%)
+            self.stackedSubviews[2].pin.top().right(33%)
+            self.stackedSubviews[3].pin.top().right(10%)
         } else {
             fatalError("The requested number of views is not supported in this ManualStackView")
         }
