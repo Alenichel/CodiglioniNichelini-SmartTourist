@@ -13,7 +13,7 @@ class WDCity: Decodable {
     let city: String
     let country: String?
     let population: Int?
-    let area: Int?
+    let area: Double?
     let elevation: Int?
     let link: String?
     let facebookPageId: String?
@@ -65,7 +65,7 @@ class WDCity: Decodable {
         let population = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .population)
         self.population = Int(population?.value ?? "nil")
         let area = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .area)
-        self.area = Int(area?.value ?? "nil")
+        self.area = Double(area?.value ?? "nil")
         let elevation = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .elevation)
         self.elevation = Int(elevation?.value ?? "nil")
         let link = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .link)
