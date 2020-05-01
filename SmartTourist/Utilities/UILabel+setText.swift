@@ -6,19 +6,11 @@
 //
 
 import UIKit
-import GoogleMaps
+import CoreLocation
+
 
 extension UILabel {
     func setText(title: String ,completion: @escaping () -> Void) {
-        /*WikipediaAPI.shared.search(searchTerms: searchTerms).then(in: .main) { description in
-            self.text = description
-        }.always {
-            completion()
-        }*/
-        /*WikipediaAPI.shared.search(searchTerms: searchTerms).then(in: .main) { description in
-            self.text = description
-            completion()
-        }*/
         WikipediaAPI.shared.getArticle(articleName: title).then(in: .main) { description in
             self.text = description
         }.always {

@@ -9,12 +9,10 @@ target 'SmartTourist' do
   pod 'Katana'
   pod 'Tempura'
   pod 'PinLayout'
-  pod 'GoogleMaps'
   pod 'DeepDiff'
   pod 'Cosmos', '~> 20.0'
   pod 'Fuse'
   pod 'Alamofire', '~> 5.0.0-rc.3'
-  pod 'GooglePlaces'
   pod 'ImageSlideshow', '~> 1.8.3'
   pod 'MarqueeLabel'
   pod 'SigmaSwiftStatistics', '~> 9.0'
@@ -36,5 +34,4 @@ end
 
 target 'SmartTouristAppleWatch' do
   use_frameworks!
-  pod 'GoogleMaps'
 end

@@ -106,7 +106,7 @@
 		E5D005D1244DA0A20079A37E /* WDCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D005D0244DA0A20079A37E /* WDCity.swift */; };
 		E5D005D3244DA0BB0079A37E /* CodableUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D005D2244DA0BB0079A37E /* CodableUtilities.swift */; };
 		E5D1474A23AB747300649C87 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D1474923AB747300649C87 /* Model.swift */; };
-		E5DE62072443084800E817A6 /* WikipediaKit in Frameworks */ = {isa = PBXBuildFile; productRef = E5DE62062443084800E817A6 /* WikipediaKit */; };
+		E5DE62072443084800E817A6 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; productRef = E5DE62062443084800E817A6 /* SwiftPackageProductDependency */; };
 		E5EF7094245C202B00C69B3A /* WelcomeViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EF7093245C202B00C69B3A /* WelcomeViewTest.swift */; };
 		E5EF7098245C266F00C69B3A /* SettingsViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EF7097245C266F00C69B3A /* SettingsViewTest.swift */; };
 		E5EF709A245C27BD00C69B3A /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EF7099245C27BD00C69B3A /* TestCase.swift */; };
@@ -340,7 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DC68C698795D2E15DF07FFE /* Pods_SmartTourist.framework in Frameworks */,
-				E5DE62072443084800E817A6 /* WikipediaKit in Frameworks */,
+				E5DE62072443084800E817A6 /* BuildFile in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -769,7 +769,6 @@
 				E528FF80238971FE0065483B /* Frameworks */,
 				E528FF81238971FE0065483B /* Resources */,
 				3F36C68F5739F82D20D127AD /* [CP] Embed Pods Frameworks */,
-				572E144F9B6BBC528E666282 /* [CP] Copy Pods Resources */,
 				E5F5BE2B2399112D0076665F /* Embed Frameworks */,
 				E53BF0C7242A747F00358E6D /* Embed App Extensions */,
 				E590A967242CCA7200C0F0D5 /* Embed Watch Content */,
@@ -782,7 +781,7 @@
 			);
 			name = SmartTourist;
 			packageProductDependencies = (
-				E5DE62062443084800E817A6 /* WikipediaKit */,
+				E5DE62062443084800E817A6 /* SwiftPackageProductDependency */,
 			);
 			productName = SmartTourist;
 			productReference = E528FF83238971FE0065483B /* SmartTourist.app */;
@@ -834,7 +833,6 @@
 				E590A945242CCA6800C0F0D5 /* Resources */,
 				E590A96A242CCA7200C0F0D5 /* Embed App Extensions */,
 				FFFCA17673A9518B98455FDD /* Frameworks */,
-				3D36E5DAC106F60683120694 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -901,7 +899,7 @@
 			);
 			mainGroup = E528FF7A238971FE0065483B;
 			packageReferences = (
-				E5DE62052443084800E817A6 /* XCRemoteSwiftPackageReference "WikipediaKit" */,
+				E5DE62052443084800E817A6 /* RemoteSwiftPackageReference */,
 			);
 			productRefGroup = E528FF84238971FE0065483B /* Products */;
 			projectDirPath = "";
@@ -1012,23 +1010,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3D36E5DAC106F60683120694 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SmartTouristAppleWatch/Pods-SmartTouristAppleWatch-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SmartTouristAppleWatch/Pods-SmartTouristAppleWatch-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SmartTouristAppleWatch/Pods-SmartTouristAppleWatch-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		3F36C68F5739F82D20D127AD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1044,23 +1025,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SmartTourist/Pods-SmartTourist-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		572E144F9B6BBC528E666282 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SmartTourist/Pods-SmartTourist-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SmartTourist/Pods-SmartTourist-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SmartTourist/Pods-SmartTourist-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		582E15D4988D480F4BFF1796 /* [CP] Check Pods Manifest.lock */ = {
@@ -1684,7 +1648,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E5DE62052443084800E817A6 /* XCRemoteSwiftPackageReference "WikipediaKit" */ = {
+		E5DE62052443084800E817A6 /* RemoteSwiftPackageReference */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Raureif/WikipediaKit";
 			requirement = {
@@ -1695,9 +1659,9 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E5DE62062443084800E817A6 /* WikipediaKit */ = {
+		E5DE62062443084800E817A6 /* SwiftPackageProductDependency */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E5DE62052443084800E817A6 /* XCRemoteSwiftPackageReference "WikipediaKit" */;
+			package = E5DE62052443084800E817A6 /* RemoteSwiftPackageReference */;
 			productName = WikipediaKit;
 		};
 /* End XCSwiftPackageProductDependency section */

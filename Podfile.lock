@@ -4,13 +4,6 @@ PODS:
   - DeepDiff (2.3.1)
   - FontAwesome.swift (1.9.0)
   - Fuse (1.2.0)
-  - GoogleMaps (3.8.0):
-    - GoogleMaps/Maps (= 3.8.0)
-  - GoogleMaps/Base (3.8.0)
-  - GoogleMaps/Maps (3.8.0):
-    - GoogleMaps/Base
-  - GooglePlaces (3.8.0):
-    - GoogleMaps/Base (= 3.8.0)
   - HydraAsync (1.2.1)
   - ImageSlideshow (1.8.3):
     - ImageSlideshow/Core (= 1.8.3)
@@ -32,8 +25,6 @@ DEPENDENCIES:
   - DeepDiff
   - FontAwesome.swift
   - Fuse
-  - GoogleMaps
-  - GooglePlaces
   - ImageSlideshow (~> 1.8.3)
   - Katana
   - MarqueeLabel
@@ -50,8 +41,6 @@ SPEC REPOS:
     - DeepDiff
     - FontAwesome.swift
     - Fuse
-    - GoogleMaps
-    - GooglePlaces
     - HydraAsync
     - ImageSlideshow
     - Katana
@@ -76,8 +65,6 @@ SPEC CHECKSUMS:
   DeepDiff: e5ae6c50d0321568e4508cec5930b9f10bb293fc
   FontAwesome.swift: a403b88cec950511745ba8f2decd1b6a07346d13
   Fuse: 287bd95a5c8dbfe6c41af519eaf48856aa1a28f6
-  GoogleMaps: 7c8d66d70e4e8c300f43a7219d8fdaad7b325a9a
-  GooglePlaces: d5f70c3e9e427964fdeca1301a665d276ccd8754
   HydraAsync: 8f2ab62d57e140b4ca587ae0f66e1eb04e8e6965
   ImageSlideshow: 4694d7d699a1549582e7cc631fb392d8f91630f3
   Katana: a9f2d63cc23ff9dc95ad557d7443717ef5b3201e
@@ -88,6 +75,6 @@ SPEC CHECKSUMS:
   Tempura: adc54766491f97980bcdb3dff82a92076ed825e2
   TempuraTesting: 302a6f14ec6bb8d69d30bc7708dad1c062d6730a
 
-PODFILE CHECKSUM: d753c9b75a223b5ec38f6747e6bec8ccde04f6aa
+PODFILE CHECKSUM: 91370ebfc5280aa1539f01591905628f6c1e81ec
 
 COCOAPODS: 1.9.1

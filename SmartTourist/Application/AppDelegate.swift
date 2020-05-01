@@ -7,7 +7,6 @@
 
 import UIKit
 import UserNotifications
-import GoogleMaps
 import GooglePlaces
 import Katana
 import Tempura
@@ -24,8 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        GMSServices.provideAPIKey(GoogleAPI.apiKey)
-        GMSPlacesClient.provideAPIKey(GoogleAPI.apiKey)
         NotificationManager.shared.setDelegate(self)
         self.store = Store<AppState, DependenciesContainer>(interceptors: [
             //DispatchableLogger.interceptor(),
