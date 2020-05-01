@@ -18,6 +18,7 @@ target 'SmartTourist' do
   pod 'SigmaSwiftStatistics', '~> 9.0'
   pod 'FontAwesome.swift'
   pod "SwiftyXMLParser", :git => 'https://github.com/yahoojapan/SwiftyXMLParser.git'
+  pod 'PocketSVG', '~> 2.0'
 
   target 'SmartTouristTests' do
     inherit! :search_paths

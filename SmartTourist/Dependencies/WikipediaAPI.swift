@@ -62,7 +62,7 @@ class WikipediaAPI {
     
     private func getCityDetailsQuery(_ cityId: String) -> String {
         return"""
-        SELECT DISTINCT ?city ?cityLabel ?country ?countryLabel ?population ?area ?elevation ?link ?facebookPageId ?facebookPlacesId ?instagramUsername ?twitterUsername ?image ?coatOfArmsImage ?cityFlagImage WHERE {
+        SELECT DISTINCT ?city ?cityLabel ?country ?countryLabel ?population ?area ?elevation ?link ?facebookPageId ?facebookPlacesId ?instagramUsername ?twitterUsername ?image ?coatOfArmsImage ?cityFlagImage ?countryFlagImage WHERE {
             BIND( <http://www.wikidata.org/entity/\(cityId)> as ?city ).
             OPTIONAL {?city wdt:P17 ?country}.
             OPTIONAL {?city wdt:P1082 ?population}.
@@ -76,6 +76,7 @@ class WikipediaAPI {
             OPTIONAL {?city wdt:P18 ?image}.
             OPTIONAL {?city wdt:P94  ?coatOfArmsImage}.
             OPTIONAL {?city wdt:P41 ?cityFlagImage}.
+            OPTIONAL {?country wdt:P41 ?countryFlagImage}
             SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
         }
         """

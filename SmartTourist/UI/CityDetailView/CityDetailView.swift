@@ -12,6 +12,8 @@ import PinLayout
 import Cosmos
 import CoreLocation
 import MapKit
+import Hydra
+import PocketSVG
 
 
 struct CityDetailViewModel: ViewModelWithLocalState {
@@ -49,6 +51,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
     var populationLabel = UILabel()
     var areaImageView = UIImageView()
     var areaLabel = UILabel()
+    var flagImageView = UIView()
     
     func setup() {
         self.mapView.showsTraffic = false
@@ -56,9 +59,11 @@ class CityDetailView: UIView, ViewControllerModellableView {
         self.addSubview(self.titleContainerView)
         self.titleContainerView.addSubview(self.cityNameLabel)
         self.titleContainerView.addSubview(self.countryNameLabel)
+        self.titleContainerView.addSubview(self.flagImageView)
         self.addSubview(self.lineView)
         self.addSubview(self.mapView)
         self.addSubview(self.detailsContainerView)
+        self.addSubview(self.flagImageView)
         self.detailsContainerView.addSubview(self.elevationImageView)
         self.detailsContainerView.addSubview(self.elevationLabel)
         self.detailsContainerView.addSubview(self.populationImageView)
@@ -84,7 +89,6 @@ class CityDetailView: UIView, ViewControllerModellableView {
         self.descriptionText.isEditable = false
         self.descriptionText.textAlignment = NSTextAlignment.justified
         self.lineView.backgroundColor = .secondaryLabel
-//        self.detailsContainerView.backgroundColor = .lightGray
         self.detailsContainerView.alpha = 0.3
         self.elevationLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.15 , weight: .thin)
         self.elevationLabel.textAlignment = .center
@@ -107,6 +111,8 @@ class CityDetailView: UIView, ViewControllerModellableView {
         self.cityNameLabel.pin.top().horizontally().marginTop(3)
         self.countryNameLabel.sizeToFit()
         self.countryNameLabel.pin.below(of: cityNameLabel, aligned: .center).marginTop(3)
+        self.flagImageView.pin.all()
+        self.flagImageView.pin.size(2000)
         let tcvHeight = self.cityNameLabel.frame.height + self.countryNameLabel.frame.height + 8
         self.titleContainerView.pin.top(self.safeAreaInsets).width(100%).height(tcvHeight)
         self.lineView.pin.below(of: self.titleContainerView).height(1).horizontally(7)
@@ -152,7 +158,6 @@ class CityDetailView: UIView, ViewControllerModellableView {
                 self.areaImageView.isHidden = true
                 self.areaLabel.isHidden = true
             }
-
         }
         self.cityNameLabel.text = model.cityName
         let marker = MarkerPool.getMarker(location: model.location, text: model.cityName)
