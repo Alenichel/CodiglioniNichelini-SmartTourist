@@ -79,8 +79,12 @@ struct GetPopularPlaces: SideEffect {
                 let converted = places.map { WDPlace(gpPlace: $0) }
                 let promises = converted.map { $0.getMissingDetails() }
                 all(promises).then(in: .utility) { _ in
-                    context.dispatch(SetPopularPlaces(places: converted))
-                    context.dispatch(UpdatePopularPlacesCache(city: currentCity, places: converted))
+                    let places = converted.filter { place in
+                        guard let photos = place.photos else { return false }
+                        return !photos.isEmpty
+                    }
+                    context.dispatch(SetPopularPlaces(places: places))
+                    context.dispatch(UpdatePopularPlacesCache(city: currentCity, places: places))
                 }.catch(in: .utility) { error in
                     print(error.localizedDescription)
                 }
