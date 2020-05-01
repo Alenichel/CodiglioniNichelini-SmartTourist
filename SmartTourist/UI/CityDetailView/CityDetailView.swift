@@ -12,6 +12,7 @@ import PinLayout
 import Cosmos
 import CoreLocation
 import MapKit
+import Hydra
 
 
 struct CityDetailViewModel: ViewModelWithLocalState {
@@ -43,6 +44,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
     var lineView = UIView()
     var detailsStackView: UIStackView!
     var infoView = ManualStackView()
+    var flagImageView = UIImageView()
     
     func setup() {
         self.mapView.showsTraffic = false
@@ -50,6 +52,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
         self.addSubview(self.titleContainerView)
         self.titleContainerView.addSubview(self.cityNameLabel)
         self.titleContainerView.addSubview(self.countryNameLabel)
+        self.titleContainerView.addSubview(self.flagImageView)
         self.addSubview(self.lineView)
         self.addSubview(self.mapView)
         self.infoView.setup()
@@ -81,6 +84,8 @@ class CityDetailView: UIView, ViewControllerModellableView {
         self.cityNameLabel.pin.top().horizontally().marginTop(3)
         self.countryNameLabel.sizeToFit()
         self.countryNameLabel.pin.below(of: cityNameLabel, aligned: .center).marginTop(3)
+        self.flagImageView.sizeToFit()
+        self.flagImageView.pin.after(of: self.countryNameLabel, aligned: .center).marginLeft(5)
         let tcvHeight = self.cityNameLabel.frame.height + self.countryNameLabel.frame.height + 8
         self.titleContainerView.pin.top(self.safeAreaInsets).width(100%).height(tcvHeight)
         self.lineView.pin.below(of: self.titleContainerView).height(1).horizontally(7)
@@ -100,6 +105,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
         }
         if let city = model.city {
             self.countryNameLabel.text = city.countryLabel ?? "No country detected"
+            self.flagImageView.image = city.countryFlagImage
             var views = [UIView]()
             if let population = city.population {
                 views.append(self.getPopulationView(value: population))

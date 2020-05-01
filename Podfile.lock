@@ -2,6 +2,7 @@ PODS:
   - Alamofire (5.0.5)
   - Cosmos (20.0.1)
   - DeepDiff (2.3.1)
+  - FlagKit (2.2)
   - FontAwesome.swift (1.9.0)
   - Fuse (1.2.0)
   - HydraAsync (1.2.1)
@@ -23,6 +24,7 @@ DEPENDENCIES:
   - Alamofire (~> 5.0.0-rc.3)
   - Cosmos (~> 20.0)
   - DeepDiff
+  - FlagKit
   - FontAwesome.swift
   - Fuse
   - ImageSlideshow (~> 1.8.3)
@@ -39,6 +41,7 @@ SPEC REPOS:
     - Alamofire
     - Cosmos
     - DeepDiff
+    - FlagKit
     - FontAwesome.swift
     - Fuse
     - HydraAsync
@@ -63,6 +66,7 @@ SPEC CHECKSUMS:
   Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
   Cosmos: b47fddf2102bb48580cd3025d9ce0a5c658a65da
   DeepDiff: e5ae6c50d0321568e4508cec5930b9f10bb293fc
+  FlagKit: eca7dc89064b0c986302ba9acefad1bf80a435b1
   FontAwesome.swift: a403b88cec950511745ba8f2decd1b6a07346d13
   Fuse: 287bd95a5c8dbfe6c41af519eaf48856aa1a28f6
   HydraAsync: 8f2ab62d57e140b4ca587ae0f66e1eb04e8e6965
@@ -75,6 +79,6 @@ SPEC CHECKSUMS:
   Tempura: adc54766491f97980bcdb3dff82a92076ed825e2
   TempuraTesting: 302a6f14ec6bb8d69d30bc7708dad1c062d6730a
 
-PODFILE CHECKSUM: 91370ebfc5280aa1539f01591905628f6c1e81ec
+PODFILE CHECKSUM: 9e3670c7956951b9baf1038e60a88244ca423356
 
 COCOAPODS: 1.9.1
