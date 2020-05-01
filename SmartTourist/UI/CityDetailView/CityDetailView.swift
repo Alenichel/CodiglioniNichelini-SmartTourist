@@ -33,6 +33,8 @@ struct CityDetailViewModel: ViewModelWithLocalState {
 class CityDetailView: UIView, ViewControllerModellableView {
     
     static private var elevationImage = UIImage.fontAwesomeIcon(name: .mountain, style: .solid, textColor: .label, size: CGSize(size: 25))
+    static private var populationImage = UIImage.fontAwesomeIcon(name: .users, style: .solid, textColor: .label, size: CGSize(size: 25))
+    static private var areaImage = UIImage.fontAwesomeIcon(name: .square, style: .solid, textColor: .label, size: CGSize(size: 25))
     
     var titleContainerView = UIView()
     var cityNameLabel = UILabel()
@@ -43,6 +45,10 @@ class CityDetailView: UIView, ViewControllerModellableView {
     var detailsContainerView = UIView()
     var elevationImageView = UIImageView()
     var elevationLabel = UILabel()
+    var populationImageView = UIImageView()
+    var populationLabel = UILabel()
+    var areaImageView = UIImageView()
+    var areaLabel = UILabel()
     
     func setup() {
         self.mapView.showsTraffic = false
@@ -55,6 +61,11 @@ class CityDetailView: UIView, ViewControllerModellableView {
         self.addSubview(self.detailsContainerView)
         self.detailsContainerView.addSubview(self.elevationImageView)
         self.detailsContainerView.addSubview(self.elevationLabel)
+        self.detailsContainerView.addSubview(self.populationImageView)
+        self.detailsContainerView.addSubview(self.populationLabel)
+        self.detailsContainerView.addSubview(self.areaImageView)
+        self.detailsContainerView.addSubview(self.areaLabel)
+
         self.addSubview(self.descriptionText)
         self.descriptionText.showsVerticalScrollIndicator = false
     }
@@ -73,9 +84,20 @@ class CityDetailView: UIView, ViewControllerModellableView {
         self.descriptionText.isEditable = false
         self.descriptionText.textAlignment = NSTextAlignment.justified
         self.lineView.backgroundColor = .secondaryLabel
-        self.detailsContainerView.backgroundColor = .lightGray
+//        self.detailsContainerView.backgroundColor = .lightGray
         self.detailsContainerView.alpha = 0.3
+        self.elevationLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.15 , weight: .thin)
+        self.elevationLabel.textAlignment = .center
+        self.elevationLabel.layer.cornerRadius = 20
+        self.populationLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.15 , weight: .thin)
+        self.populationLabel.textAlignment = .center
+        self.populationLabel.layer.cornerRadius = 20
+        self.areaLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.15 , weight: .thin)
+        self.areaLabel.textAlignment = .center
+        self.areaLabel.layer.cornerRadius = 20
         self.elevationImageView.image = CityDetailView.elevationImage
+        self.populationImageView.image = CityDetailView.populationImage
+        self.areaImageView.image = CityDetailView.areaImage
     }
     
     override func layoutSubviews() {
@@ -91,9 +113,17 @@ class CityDetailView: UIView, ViewControllerModellableView {
         self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 250)
         self.mapView.pin.below(of: self.lineView).horizontally(5).marginTop(5)
         self.elevationImageView.sizeToFit()
-        self.elevationImageView.pin.topCenter(10)
+        self.elevationImageView.pin.topLeft().marginTop(10).marginLeft(20)
         self.elevationLabel.sizeToFit()
         self.elevationLabel.pin.below(of: self.elevationImageView, aligned: .center)
+        self.populationImageView.sizeToFit()
+        self.populationImageView.pin.topCenter().marginTop(10)
+        self.populationLabel.sizeToFit()
+        self.populationLabel.pin.below(of: self.populationImageView, aligned: .center)
+        self.areaImageView.sizeToFit()
+        self.areaImageView.pin.topRight().marginTop(10).marginRight(20)
+        self.areaLabel.sizeToFit()
+        self.areaLabel.pin.below(of: self.areaImageView, aligned: .center)
         self.detailsContainerView.pin.below(of: self.mapView).horizontally().height(100)
         self.descriptionText.pin.horizontally(8).below(of: self.detailsContainerView).marginTop(5).bottom()
     }
@@ -108,6 +138,21 @@ class CityDetailView: UIView, ViewControllerModellableView {
         if let city = model.city {
             self.countryNameLabel.text = city.countryLabel ?? "No country detected"
             self.elevationLabel.text = "\(city.elevation ?? 0)"
+            self.populationLabel.text = "\(city.population ?? 0)"
+            self.areaLabel.text = "\(city.area ?? 0)"
+            if elevationLabel.text == "0" {
+                self.elevationImageView.isHidden = true
+                self.elevationLabel.isHidden = true
+            }
+            if populationLabel.text == "0" {
+                self.populationImageView.isHidden = true
+                self.populationLabel.isHidden = true
+            }
+            if areaLabel.text == "0" {
+                self.areaImageView.isHidden = true
+                self.areaLabel.isHidden = true
+            }
+
         }
         self.cityNameLabel.text = model.cityName
         let marker = MarkerPool.getMarker(location: model.location, text: model.cityName)
