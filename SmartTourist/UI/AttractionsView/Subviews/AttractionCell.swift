@@ -109,11 +109,17 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         self.nameLabel.sizeToFit()
         self.image.sizeToFit()
         self.cosmos.sizeToFit()
-        self.nameLabel.pin.top(10).bottom(50%).left(15).right(90)
-        self.cosmos.pin.top(55%).bottom().left(15)
         self.image.pin.vCenter().right(15)
-        self.favoriteImage.pin.right(of: cosmos, aligned: .top).marginLeft(10).size(CGSize(width: Double(UIFont.systemFontSize) * 1.2, height: Double(UIFont.systemFontSize)))
         guard let model = self.model else { return }
+        if model.rating != 0 {
+            self.nameLabel.pin.top(10).bottom(50%).left(15).right(90 + UIFont.systemFontSize * 1.2 + 1)
+            self.cosmos.isHidden = false
+            self.cosmos.pin.top(55%).bottom().left(15)
+        } else {
+            self.nameLabel.pin.centerLeft().right(90 + UIFont.systemFontSize * 1.2 + 1).marginLeft(15)
+            self.cosmos.isHidden = true
+        }
+        self.favoriteImage.pin.left(of: distanceLabel, aligned: .top).marginRight(5).size(CGSize(width: Double(UIFont.systemFontSize) * 1.2, height: Double(UIFont.systemFontSize)))
         self.distanceLabel.pin.vCenter(model.isInFavoriteTab ? -8 : 0).right(35).sizeToFit()
         self.cityNameLabel.pin.below(of: self.distanceLabel, aligned: .right).sizeToFit()
     }
@@ -159,6 +165,6 @@ extension AttractionCellViewModel: DiffAware {
     var diffId: Int { return self.identifier.hashValue }
 
     static func compareContent(_ a: AttractionCellViewModel, _ b: AttractionCellViewModel) -> Bool {
-        return a.identifier == b.identifier && a.favorite == b.favorite && a.isInFavoriteTab == b.isInFavoriteTab && a.distance == b.distance
+        return a.identifier == b.identifier && a.favorite == b.favorite && a.isInFavoriteTab == b.isInFavoriteTab && a.distance == b.distance && a.rating == b.rating
     }
 }
