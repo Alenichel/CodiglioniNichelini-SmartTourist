@@ -7,6 +7,7 @@
 
 import UIKit
 import Hydra
+import FlagKit
 
 
 class WDCity: Decodable {
@@ -22,7 +23,8 @@ class WDCity: Decodable {
     let twitterUsername: String?
     let imageURL: String?
     var image: UIImage?
-    let countryFlagImageURL: String?
+    let countryCode: String?
+    let countryFlagImage: UIImage?
     let cityLabel: String?
     let countryLabel: String?
     
@@ -44,9 +46,10 @@ class WDCity: Decodable {
                 case instagramUsername
                 case twitterUsername
                 case image
-                case countryFlagImage
+                
                 case cityLabel
                 case countryLabel
+                case countryCode
                 
                 enum ValueCodingKeys: CodingKey {
                     case value
@@ -82,8 +85,9 @@ class WDCity: Decodable {
         self.twitterUsername = twitterUsername?.value
         let imageURL = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .image)
         self.imageURL = imageURL?.value
-        let countryFlagImageURL = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .countryFlagImage)
-        self.countryFlagImageURL = countryFlagImageURL?.value
+        let countryCode = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .countryCode)
+        self.countryCode = countryCode?.value
+        self.countryFlagImage = Flag(countryCode: self.countryCode!)?.originalImage
         let cityLabel = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .cityLabel)
         self.cityLabel = cityLabel?.value
         let countryLabel = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .countryLabel)

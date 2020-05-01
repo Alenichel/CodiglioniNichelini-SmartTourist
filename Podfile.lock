@@ -2,6 +2,7 @@ PODS:
   - Alamofire (5.0.5)
   - Cosmos (20.0.1)
   - DeepDiff (2.3.1)
+  - FlagKit (2.2)
   - FontAwesome.swift (1.9.0)
   - Fuse (1.2.0)
   - HydraAsync (1.2.1)
@@ -12,7 +13,6 @@ PODS:
     - HydraAsync (~> 1.2)
   - MarqueeLabel (4.0.2)
   - PinLayout (1.8.13)
-  - PocketSVG (2.5.0)
   - SigmaSwiftStatistics (9.0.2)
   - SwiftyXMLParser (5.1.0)
   - Tempura (4.3.1):
@@ -24,13 +24,13 @@ DEPENDENCIES:
   - Alamofire (~> 5.0.0-rc.3)
   - Cosmos (~> 20.0)
   - DeepDiff
+  - FlagKit
   - FontAwesome.swift
   - Fuse
   - ImageSlideshow (~> 1.8.3)
   - Katana
   - MarqueeLabel
   - PinLayout
-  - PocketSVG (~> 2.0)
   - SigmaSwiftStatistics (~> 9.0)
   - SwiftyXMLParser (from `https://github.com/yahoojapan/SwiftyXMLParser.git`)
   - Tempura
@@ -41,6 +41,7 @@ SPEC REPOS:
     - Alamofire
     - Cosmos
     - DeepDiff
+    - FlagKit
     - FontAwesome.swift
     - Fuse
     - HydraAsync
@@ -48,7 +49,6 @@ SPEC REPOS:
     - Katana
     - MarqueeLabel
     - PinLayout
-    - PocketSVG
     - SigmaSwiftStatistics
     - Tempura
     - TempuraTesting
@@ -66,6 +66,7 @@ SPEC CHECKSUMS:
   Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
   Cosmos: b47fddf2102bb48580cd3025d9ce0a5c658a65da
   DeepDiff: e5ae6c50d0321568e4508cec5930b9f10bb293fc
+  FlagKit: eca7dc89064b0c986302ba9acefad1bf80a435b1
   FontAwesome.swift: a403b88cec950511745ba8f2decd1b6a07346d13
   Fuse: 287bd95a5c8dbfe6c41af519eaf48856aa1a28f6
   HydraAsync: 8f2ab62d57e140b4ca587ae0f66e1eb04e8e6965
@@ -73,12 +74,11 @@ SPEC CHECKSUMS:
   Katana: a9f2d63cc23ff9dc95ad557d7443717ef5b3201e
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   PinLayout: e41a50260a76508b7a7fcee8955c76639adc69bc
-  PocketSVG: 9d9c4bc8e7d8dbbc208bd21e5c92814fd3c6c34d
   SigmaSwiftStatistics: 4ec81cd50b0f397baddba05fe88ce228a66edd8c
   SwiftyXMLParser: 8271497e0a37b5c04b0b167c77b4896e36175a21
   Tempura: adc54766491f97980bcdb3dff82a92076ed825e2
   TempuraTesting: 302a6f14ec6bb8d69d30bc7708dad1c062d6730a
 
-PODFILE CHECKSUM: f43be46d58fff06f11c59e28cde103fc9150bdb5
+PODFILE CHECKSUM: 9e3670c7956951b9baf1038e60a88244ca423356
 
 COCOAPODS: 1.9.1
