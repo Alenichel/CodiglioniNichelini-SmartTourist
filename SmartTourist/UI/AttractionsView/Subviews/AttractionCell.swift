@@ -26,10 +26,6 @@ struct AttractionCellViewModel: ViewModel, Equatable {
     let favorite: Bool
     let isInFavoriteTab: Bool
     
-    static func == (l: AttractionCellViewModel, r: AttractionCellViewModel) -> Bool {
-        return l.identifier == r.identifier
-    }
-    
     init(place: WDPlace, currentLocation: CLLocationCoordinate2D, favorite: Bool, isInFavoriteTab: Bool) {
         self.identifier = place.placeID
         self.attractionName = place.name
@@ -119,9 +115,9 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
             self.nameLabel.pin.centerLeft().right(90 + UIFont.systemFontSize * 1.2 + 1).marginLeft(15)
             self.cosmos.isHidden = true
         }
-        self.favoriteImage.pin.left(of: distanceLabel, aligned: .top).marginRight(5).size(CGSize(width: Double(UIFont.systemFontSize) * 1.2, height: Double(UIFont.systemFontSize)))
         self.distanceLabel.pin.vCenter(model.isInFavoriteTab ? -8 : 0).right(35).sizeToFit()
         self.cityNameLabel.pin.below(of: self.distanceLabel, aligned: .right).sizeToFit()
+        self.favoriteImage.pin.left(of: self.image, aligned: .center).marginRight(55).size(CGSize(width: Double(UIFont.systemFontSize) * 1.2, height: Double(UIFont.systemFontSize)))
     }
 
     static var paddingHeight: CGFloat = 10
@@ -144,9 +140,9 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
             self.cityNameLabel.text = nil
         }
         if model.favorite {
-            self.favoriteImage.alpha = 1
+            self.favoriteImage.isHidden = false
         } else {
-            self.favoriteImage.alpha = 0
+            self.favoriteImage.isHidden = true
         }
         self.cosmos.rating = Double(model.rating)
         self.distanceLabel.text = AttractionCell.distanceFormatter.string(fromDistance: CLLocationDistance(model.distance))
@@ -165,6 +161,6 @@ extension AttractionCellViewModel: DiffAware {
     var diffId: Int { return self.identifier.hashValue }
 
     static func compareContent(_ a: AttractionCellViewModel, _ b: AttractionCellViewModel) -> Bool {
-        return a.identifier == b.identifier && a.favorite == b.favorite && a.isInFavoriteTab == b.isInFavoriteTab && a.distance == b.distance && a.rating == b.rating
+        return a == b
     }
 }

@@ -30,6 +30,8 @@ class WorldwideFavoritesView: UIView, ViewControllerModellableView {
     func setup() {
         self.markerPool = MarkerPool(mapView: self.mapView)
         self.mapView.showsCompass = true
+        self.mapView.showsTraffic = false
+        self.mapView.pointOfInterestFilter = .init(including: [.publicTransport])
         self.closeButton.tintColor = .secondaryLabel
         self.closeButton.setImage(UIImage(systemName: "xmark.circle.fill"), for: .normal)
         self.closeButton.on(.touchUpInside){ button in
