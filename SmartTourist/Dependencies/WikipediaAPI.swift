@@ -41,7 +41,7 @@ class WikipediaAPI {
     
     private func getNearbyPlacesQuery(location: CLLocationCoordinate2D) -> String {
         return """
-        SELECT DISTINCT ?place ?placeLabel ?location ?image ?instance ?phoneNumber ?website ?wikipediaLink ?wikimediaLink
+        SELECT DISTINCT ?place ?placeLabel ?location ?image ?instance ?phoneNumber ?website ?wikipediaLink
         WHERE {
             SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
             SERVICE wikibase:around {
@@ -53,9 +53,6 @@ class WikipediaAPI {
             ?wikipediaLink schema:about ?place;
                            schema:inLanguage "en";
                            schema:isPartOf [ wikibase:wikiGroup "wikipedia" ] .
-            OPTIONAL {?wikimediaLink schema:about ?place;
-                                     schema:inLanguage "en";
-                                     schema:isPartOf <https://commons.wikimedia.org/>} .
             ?place wdt:P18 ?image .
             OPTIONAL {?place wdt:P1329 ?phoneNumber}.
             OPTIONAL {?place wdt:P856 ?website} .
