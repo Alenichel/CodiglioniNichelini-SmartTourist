@@ -7,7 +7,6 @@
 
 import UIKit
 import UserNotifications
-import GooglePlaces
 import Katana
 import Tempura
 import WatchConnectivity
