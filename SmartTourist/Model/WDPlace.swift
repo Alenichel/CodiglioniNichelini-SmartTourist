@@ -40,7 +40,6 @@ class WDPlace: Codable, Hashable, Comparable {
         case website = "website"
         case photos = "photos"
         case phoneNumber = "phoneNumber"
-        case wikimediaLink = "wikimediaLink"
         
         enum ValueCodingKeys: CodingKey {
             case value
@@ -102,9 +101,6 @@ class WDPlace: Codable, Hashable, Comparable {
         }
         if let phoneNumber = try container.decodeIfPresent(WDBinding.self, forKey: .phoneNumber){
             self.phoneNumber = phoneNumber.value
-        }
-        if let wikimediaLink = try container.decodeIfPresent(WDBinding.self, forKey: .wikimediaLink){
-            self.wikimediaLink = wikimediaLink.value
         }
         if let rating = try container.decodeIfPresent(WDBinding.self, forKey: .rating),
             let urt = try container.decodeIfPresent(WDBinding.self, forKey: .userRatingsTotal) {

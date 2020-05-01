@@ -41,7 +41,7 @@ class WikipediaAPI {
     
     private func getNearbyPlacesQuery(location: CLLocationCoordinate2D) -> String {
         return """
-        SELECT DISTINCT ?place ?placeLabel ?location ?image ?instance ?phoneNumber ?website ?wikipediaLink ?wikimediaLink
+        SELECT DISTINCT ?place ?placeLabel ?location ?image ?instance ?phoneNumber ?website ?wikipediaLink
         WHERE {
             SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
             SERVICE wikibase:around {
@@ -53,9 +53,6 @@ class WikipediaAPI {
             ?wikipediaLink schema:about ?place;
                            schema:inLanguage "en";
                            schema:isPartOf [ wikibase:wikiGroup "wikipedia" ] .
-            OPTIONAL {?wikimediaLink schema:about ?place;
-                                     schema:inLanguage "en";
-                                     schema:isPartOf <https://commons.wikimedia.org/>} .
             ?place wdt:P18 ?image .
             OPTIONAL {?place wdt:P1329 ?phoneNumber}.
             OPTIONAL {?place wdt:P856 ?website} .
@@ -63,10 +60,10 @@ class WikipediaAPI {
         """
     }
     
-    private func getCityDetailsQuery() -> String {
+    private func getCityDetailsQuery(_ cityId: String) -> String {
         return"""
         SELECT DISTINCT ?city ?cityLabel ?country ?countryLabel ?population ?area ?elevation ?link ?facebookPageId ?facebookPlacesId ?instagramUsername ?twitterUsername ?image ?coatOfArmsImage ?cityFlagImage WHERE {
-            BIND( <http://www.wikidata.org/entity/Q60> as ?city ).
+            BIND( <http://www.wikidata.org/entity/\(cityId)> as ?city ).
             OPTIONAL {?city wdt:P17 ?country}.
             OPTIONAL {?city wdt:P1082 ?population}.
             OPTIONAL {?city wdt:P2046 ?area}.
@@ -252,10 +249,10 @@ class WikipediaAPI {
         }
     }
     
-    func getCityDetail(CityName: String, WikidataId: String) -> Promise<WDCity> {
+    func getCityDetail(wikidataId: String) -> Promise<WDCity> {
         return Promise<WDCity>(in: .background) { resolve, reject, status in
             let parameters = [
-                "query": self.getCityDetailsQuery(),
+                "query": self.getCityDetailsQuery(wikidataId),
                 "format": "json"
             ]
             let url = "https://query.wikidata.org/sparql"
