@@ -15,15 +15,17 @@ import MapKit
 
 
 struct CityDetailViewModel: ViewModelWithLocalState {
-    let city: String
+    let city: WDCity?
+    let cityName: String
     let location: CLLocationCoordinate2D
     let allLoaded: Bool
     
     init?(state: AppState?, localState: CityDetailLocalState) {
         guard let state = state else { return nil }
-        self.city = state.locationState.currentCity!
+        self.cityName = state.locationState.currentCity!
         self.location = state.locationState.currentLocation!
         self.allLoaded = localState.allLoaded
+        self.city = state.locationState.wdCity
     }
 }
 
@@ -71,13 +73,11 @@ class CityDetailView: UIView, ViewControllerModellableView {
         guard let model = self.model else { return }
         let camera = MKMapCamera(lookingAtCenter: model.location, fromDistance: 1000, pitch: 0, heading: 0)
         self.mapView.setCamera(camera, animated: true)
-        self.descriptionText.setText(searchTerms: model.city) {
+        self.descriptionText.setText(searchTerms: model.cityName) {
             self.setNeedsLayout()
         }
-        self.cityNameLabel.text = model.city
-        let marker = MarkerPool.getMarker(location: model.location, text: model.city)
+        self.cityNameLabel.text = model.cityName
+        let marker = MarkerPool.getMarker(location: model.location, text: model.cityName)
         self.mapView.addAnnotation(marker)
-        //WikipediaAPI.shared.findExactWikipediaArticleName(searchTerms: model.city).then(WikipediaAPI.shared.getWikidataId).then(in: .background) {_ in }
-        WikipediaAPI.shared.getCityDetail(CityName: model.city, WikidataId: "").then(in: .background){_ in}
     }
 }
