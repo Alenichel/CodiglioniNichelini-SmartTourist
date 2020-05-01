@@ -172,6 +172,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.nRatingsLabel.sizeToFit()
         self.nRatingsLabel.pin.after(of: self.cosmos, aligned: .center).marginLeft(5)
         self.lineView.pin.below(of: self.cosmos).horizontally(7).height(1).marginTop(15)
+        self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 300)
         if let text = self.descriptionText.text {
             self.descriptionText.sizeToFit()
             let textContentHeight = text.height(constraintedWidth: self.frame.width, font: self.descriptionText.font)
@@ -181,9 +182,10 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
             let mapHeight: CGFloat = 300
             let h = textContentHeight + frameHeight / 1.8 + mapHeight + 50
             self.scrollView.contentSize = CGSize(width: self.frame.width, height: h)
+            self.mapView.pin.horizontally(20).below(of: descriptionText).marginTop(20)
+        } else {
+            self.mapView.pin.horizontally(20).below(of: self.lineView).marginTop(15)
         }
-        self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 300)
-        self.mapView.pin.horizontally(20).below(of: descriptionText).marginTop(20)
         self.scrollView.pin.top(self.safeAreaInsets).bottom().horizontally()
         self.curtainView.pin.all()
         self.activityIndicator.pin.center().size(30)
