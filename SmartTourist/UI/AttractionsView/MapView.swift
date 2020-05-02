@@ -168,6 +168,12 @@ class MapView: UIView, ViewControllerModellableView {
             self.locationButton.setImage(model.mapCentered ? MapView.locationFillImage : MapView.locationImage, for: .normal)
             self.locationButton.isEnabled = true
         }
+        if model.city == nil {
+            self.cityNameButton.isEnabled = false
+        } else {
+            self.cityNameButton.isEnabled = true
+        }
+        
         if let location = model.location, model.needToMoveMap {
             self.moveMap(to: location)
             self.didMoveMap?()
@@ -187,6 +193,7 @@ class MapView: UIView, ViewControllerModellableView {
             self.markerPool.setMarkers(places: [])
             self.cityNameButton.setTitle(nil, for: .normal)
         }
+        
         self.setNeedsLayout()
     }
     
