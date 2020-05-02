@@ -125,23 +125,27 @@ class CityDetailView: UIView, ViewControllerModellableView {
             self.infoView.model = infoViewModel
             var linkViews = [UIView]()
             if let link = city.link {
-                let icon = UIImage.fontAwesomeIcon(name: .link, style: .solid, textColor: .label, size: CGSize(size: 40))
-                linkViews.append(self.getLinkButton(url: URL(string: link)!, icon: icon))
+                let icon = UIImage.fontAwesomeIcon(name: .link, style: .solid, textColor: .white, size: CGSize(size: 40))
+                let color = UIColor(red: 0.99, green: 0.69, blue: 0.27, alpha: 1)
+                linkViews.append(self.getLinkButton(url: URL(string: link)!, icon: icon, color: color))
             }
             if let facebookId = city.facebookPageId {
-                let icon = UIImage.fontAwesomeIcon(name: .facebookF, style: .brands, textColor: .label, size: CGSize(size: 40))
                 let url = URL(string: "https://www.facebook.com/\(facebookId)")!
-                linkViews.append(self.getLinkButton(url: url, icon: icon))
+                let icon = UIImage.fontAwesomeIcon(name: .facebookF, style: .brands, textColor: .white, size: CGSize(size: 40))
+                let color = UIColor(red: 0.26, green: 0.4, blue: 0.7, alpha: 1)
+                linkViews.append(self.getLinkButton(url: url, icon: icon, color: color))
             }
             if let instagramUsername = city.instagramUsername {
-                let icon = UIImage.fontAwesomeIcon(name: .instagram, style: .brands, textColor: .label, size: CGSize(size: 40))
                 let url = URL(string: "https://www.instagram.com/\(instagramUsername)")!
-                linkViews.append(self.getLinkButton(url: url, icon: icon))
+                let icon = UIImage.fontAwesomeIcon(name: .instagram, style: .brands, textColor: .white, size: CGSize(size: 40))
+                let color = UIColor(red: 0.88, green: 0.19, blue: 0.42, alpha: 1)
+                linkViews.append(self.getLinkButton(url: url, icon: icon, color: color))
             }
             if let twitterUsername = city.twitterUsername {
-                let icon = UIImage.fontAwesomeIcon(name: .twitter, style: .brands, textColor: .label, size: CGSize(size: 40))
                 let url = URL(string: "https://www.twitter.com/\(twitterUsername)")!
-                linkViews.append(self.getLinkButton(url: url, icon: icon))
+                let icon = UIImage.fontAwesomeIcon(name: .twitter, style: .brands, textColor: .white, size: CGSize(size: 40))
+                let color = UIColor(red: 0.11, green: 0.63, blue: 0.95, alpha: 1)
+                linkViews.append(self.getLinkButton(url: url, icon: icon, color: color))
             }
             let linksViewModel = ManualStackViewModel(views: linkViews)
             self.linksView.model = linksViewModel
@@ -161,15 +165,15 @@ class CityDetailView: UIView, ViewControllerModellableView {
         return view
     }
     
-    private func getLinkButton(url: URL, icon: UIImage) -> UIView {
+    private func getLinkButton(url: URL, icon: UIImage, color: UIColor = .systemBackground) -> UIView {
         var button = RoundedButton()
         button.tintColor = .label
-        button.backgroundColor = .systemBackground
+        button.backgroundColor = color
         button.layer.cornerRadius = 20
-        button.layer.shadowColor = UIColor.label.cgColor
+        /*button.layer.shadowColor = UIColor.label.cgColor
         button.layer.shadowOpacity = 0.75
         button.layer.shadowOffset = .zero
-        button.layer.shadowRadius = 1
+        button.layer.shadowRadius = 1*/
         button.setImage(icon, for: .normal)
         button.imageEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
         button.on(.touchUpInside) { _ in
@@ -177,5 +181,11 @@ class CityDetailView: UIView, ViewControllerModellableView {
         }
         button.pin.size(40)
         return button
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        let model = self.model
+        self.model = model
     }
 }
