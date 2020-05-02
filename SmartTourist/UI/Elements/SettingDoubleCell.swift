@@ -25,12 +25,16 @@ class SettingDoubleCell: SettingCell, ModellableView {
     var didChange: ((Double) -> Void)?
     
     func setup() {
+        self.stepper.minimumValue = 1
+        self.stepper.maximumValue = 15
+        self.stepper.stepValue = 1
         self.stepper.on(.valueChanged) { stepper in
             self.didChange?(stepper.value)
         }
         self.addSubview(self.title)
         self.addSubview(self.subtitle)
         self.addSubview(self.stepper)
+        self.addSubview(self.valueLabel)
     }
     
     override func style() {
@@ -48,13 +52,14 @@ class SettingDoubleCell: SettingCell, ModellableView {
             self.title.pin.vCenter().left(10).sizeToFit()
         }
         self.stepper.pin.vCenter().right(10).sizeToFit()
+        self.valueLabel.pin.left(of: self.stepper, aligned: .center).marginRight(10).sizeToFit()
     }
     
-    func update(oldModel: SettingBoolCellViewModel?) {
+    func update(oldModel: SettingDoubleCellViewModel?) {
         guard let model = self.model else { return }
         self.title.text = model.title
         self.subtitle.text = model.subtitle
-        self.stepper.value = model.value
+        self.valueLabel.text = "\(model.value)"
     }
 }
 
