@@ -52,7 +52,7 @@ struct GetNearestPlaces: SideEffect {
             var nPlaces = 0
             var distance : Double = 1
             var roundPlaces : [WDPlace] = []
-            while nPlaces < 10 && distance < context.getState().settings.maxRadius {
+            while nPlaces < 50 && distance <= context.getState().settings.maxRadius {
                 roundPlaces = try await(context.dependencies.wikiAPI.getNearbyPlaces(location: currentLocation, radius: Int(distance)))
                 nPlaces = roundPlaces.count
                 distance = distance * 2
