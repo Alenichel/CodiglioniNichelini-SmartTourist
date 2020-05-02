@@ -21,6 +21,7 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
         if let navigationController = self.navigationController {
             navigationController.setNavigationBarHidden(true, animated: animated)
         }
+        self.dispatch(SetWDCity(city: nil))
     }
     
     override func viewWillDisappear(_ animated: Bool) {
