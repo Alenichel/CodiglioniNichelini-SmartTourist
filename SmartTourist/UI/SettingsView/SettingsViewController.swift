@@ -26,6 +26,9 @@ class SettingsViewController: ViewControllerWithLocalState<SettingsView> {
         self.rootView.didTapDebug = {
             self.localState.showDebug.toggle()
         }
+        self.rootView.maxRadiusCell.didChange = { [unowned self] value in
+            self.dispatch(SetMaxRadius(value: value))
+        }
     }
 }
 

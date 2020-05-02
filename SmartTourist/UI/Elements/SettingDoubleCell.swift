@@ -59,7 +59,9 @@ class SettingDoubleCell: SettingCell, ModellableView {
         guard let model = self.model else { return }
         self.title.text = model.title
         self.subtitle.text = model.subtitle
+        self.stepper.value = model.value
         self.valueLabel.text = "\(model.value)"
+        self.setNeedsLayout()
     }
 }
 

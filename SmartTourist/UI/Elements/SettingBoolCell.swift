@@ -54,5 +54,6 @@ class SettingBoolCell: SettingCell, ModellableView {
         self.title.text = model.title
         self.subtitle.text = model.subtitle
         self.toggle.setOn(model.value, animated: false)
+        self.setNeedsLayout()
     }
 }

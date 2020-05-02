@@ -52,5 +52,6 @@ class SettingStringCell: SettingCell, ModellableView {
         self.title.text = model.title
         self.subtitle.text = model.subtitle
         self.value.text = model.value
+        self.setNeedsLayout()
     }
 }
