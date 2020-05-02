@@ -26,7 +26,7 @@ class SettingDoubleCell: SettingCell, ModellableView {
     
     func setup() {
         self.stepper.minimumValue = 1
-        self.stepper.maximumValue = 15
+        self.stepper.maximumValue = 16
         self.stepper.stepValue = 1
         self.stepper.on(.valueChanged) { stepper in
             self.didChange?(stepper.value)
