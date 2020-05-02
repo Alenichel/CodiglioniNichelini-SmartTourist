@@ -109,17 +109,25 @@ class CityDetailView: UIView, ViewControllerModellableView {
             self.countryNameLabel.text = city.countryLabel ?? "No country detected"
             self.flagImageView.image = city.countryFlagImage
             var infoViews = [UIView]()
+            let mf = MeasurementFormatter()
+            mf.unitStyle = .medium
+            mf.unitOptions = .naturalScale
             if let population = city.population {
                 let icon = UIImage.fontAwesomeIcon(name: .users, style: .solid, textColor: .label, size: CGSize(size: 25))
-                infoViews.append(self.getIconView(label: "\(population)", icon: icon))
+                let nf = NumberFormatter()
+                nf.allowsFloats = false
+                nf.numberStyle = .decimal
+                infoViews.append(self.getIconView(label: nf.string(from: population as NSNumber) ?? "0", icon: icon))
             }
             if let area = city.area {
                 let icon = UIImage.fontAwesomeIcon(name: .square, style: .solid, textColor: .label, size: CGSize(size: 25))
-                infoViews.append(self.getIconView(label: "\(area)", icon: icon))
+                let measurement = Measurement(value: area, unit: UnitArea.squareKilometers)
+                infoViews.append(self.getIconView(label: mf.string(from: measurement), icon: icon))
             }
             if let elevation = city.elevation {
                 let icon = UIImage.fontAwesomeIcon(name: .mountain, style: .solid, textColor: .label, size: CGSize(size: 25))
-                infoViews.append(self.getIconView(label: "\(elevation)", icon: icon))
+                let measurement = Measurement(value: elevation, unit: UnitLength.meters)
+                infoViews.append(self.getIconView(label: mf.string(from: measurement), icon: icon))
             }
             let infoViewModel = ManualStackViewModel(views: infoViews)
             self.infoView.model = infoViewModel

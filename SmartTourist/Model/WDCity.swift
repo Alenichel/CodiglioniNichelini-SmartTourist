@@ -13,9 +13,9 @@ import FlagKit
 class WDCity: Decodable {
     let city: String
     let country: String?
-    let population: Int?
+    let population: Double?
     let area: Double?
-    let elevation: Int?
+    let elevation: Double?
     let link: String?
     let facebookPageId: String?
     let facebookPlacesId: String?
@@ -68,11 +68,11 @@ class WDCity: Decodable {
         let country = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .country)
         self.country = country?.value
         let population = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .population)
-        self.population = Int(population?.value ?? "nil")
+        self.population = Double(population?.value ?? "nil")
         let area = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .area)
         self.area = Double(area?.value ?? "nil")
         let elevation = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .elevation)
-        self.elevation = Int(elevation?.value ?? "nil")
+        self.elevation = Double(elevation?.value ?? "nil")
         let link = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .link)
         self.link = link?.value
         let facebookPageId = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .facebookPageId)
