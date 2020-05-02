@@ -21,12 +21,11 @@ class WDCity: Decodable {
     let facebookPlacesId: String?
     let instagramUsername: String?
     let twitterUsername: String?
-    let imageURL: String?
-    var image: UIImage?
     let countryCode: String?
     let countryFlagImage: UIImage?
     let cityLabel: String?
     let countryLabel: String?
+    var photos: [URL] = [URL]()
     
     enum CodingKeys: CodingKey {
         case results
@@ -84,7 +83,9 @@ class WDCity: Decodable {
         let twitterUsername = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .twitterUsername)
         self.twitterUsername = twitterUsername?.value
         let imageURL = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .image)
-        self.imageURL = imageURL?.value
+        if let photoURL = imageURL?.value {
+            self.photos.append(URL(string: photoURL)!)
+        }
         let countryCode = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .countryCode)
         self.countryCode = countryCode?.value
         self.countryFlagImage = Flag(countryCode: self.countryCode!)?.image(style: .circle)
@@ -92,13 +93,25 @@ class WDCity: Decodable {
         self.cityLabel = cityLabel?.value
         let countryLabel = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .countryLabel)
         self.countryLabel = countryLabel?.value
-        async(in: .utility) {
-            guard
-                let imageURL = self.imageURL,
-                let url = URL(string: imageURL),
-                let data = try? Data(contentsOf: url)
-            else { return }
-            self.image = UIImage(data: data)
+        self.getPhotosURLs().then() {}
+    }
+    
+    @discardableResult func getPhotosURLs() -> Promise<Void> {
+        let photosCountThreshold = 2
+        return Promise<Void>(in: .utility) { resolve, reject, status in
+            if let cityLabel = self.cityLabel, self.photos.count < photosCountThreshold {
+                WikipediaAPI.shared.getImageUrls(from: cityLabel).then(in: .utility) { urls in
+                    self.photos = Array(Set(self.photos).union(Set(urls)))
+                    self.photos.removeAll(where: { $0.pathExtension == "svg" })
+                    print(self.photos)
+                    resolve(())
+                }.catch(in: .utility) { error in
+                    print(error.localizedDescription)
+                    reject(error)
+                }
+            } else {
+                resolve(())
+            }
         }
     }
 }
