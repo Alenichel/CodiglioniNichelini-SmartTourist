@@ -26,7 +26,7 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>WKCompanionAppBundleIdentifier</key>
-	<string>com.fcan.SmartTourist</string>
+	<string>com.fcan.SmartTouristv2</string>
 	<key>WKWatchKitApp</key>
 	<true/>
 </dict>
