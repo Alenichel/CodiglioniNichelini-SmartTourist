@@ -370,10 +370,6 @@ class WikipediaAPI {
                             let instanceIdRange = value.range(of: #"Q[0-9]+"#, options: .regularExpression) {
                             place.instance = String(value[instanceIdRange])
                         }
-                        if let wikimediaLink = firstResult["wikimediaLink"] as? [String: Any],
-                            let value = wikimediaLink["value"] as? String {
-                            place.wikimediaLink = value
-                        }
                         if let website = firstResult["website"] as? [String: Any],
                             let value = website["value"] as? String {
                             place.website = value
