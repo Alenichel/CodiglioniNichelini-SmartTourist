@@ -21,8 +21,6 @@ class WDPlace: Codable, Hashable, Comparable {
     var photos: [URL]? = []
     var website: String?
     var phoneNumber: String?
-    var wikimediaLink: String?
-    //compatibility
     var rating: Double? = 0
     var userRatingsTotal: Int? = 0
     
