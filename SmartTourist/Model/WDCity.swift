@@ -93,7 +93,7 @@ class WDCity: Decodable {
         self.cityLabel = cityLabel?.value
         let countryLabel = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .countryLabel)
         self.countryLabel = countryLabel?.value
-        self.getPhotosURLs().then() {}
+        self.getPhotosURLs().then() {}      // This should be called from the view
     }
     
     @discardableResult func getPhotosURLs() -> Promise<Void> {
