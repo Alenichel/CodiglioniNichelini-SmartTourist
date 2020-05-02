@@ -291,10 +291,10 @@ class WikipediaAPI {
         }
     }
     
-    func getNearbyPlaces(location: CLLocationCoordinate2D, radius: Int) -> Promise<[WDPlace]> {
+    func getNearbyPlaces(location: CLLocationCoordinate2D, radius: Int, isArticleMandatory: Bool) -> Promise<[WDPlace]> {
         return Promise<[WDPlace]>(in: .background) { resolve, reject, status in
             let parameters = [
-                "query": self.getNearbyPlacesQuery(location: location, radius: radius, isArticleMandatory: false),
+                "query": self.getNearbyPlacesQuery(location: location, radius: radius, isArticleMandatory: isArticleMandatory),
                 "format": "json"
             ]
             let url = "https://query.wikidata.org/sparql"
