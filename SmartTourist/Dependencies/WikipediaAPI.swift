@@ -39,25 +39,39 @@ class WikipediaAPI {
         }
     }()
     
-    private func getNearbyPlacesQuery(location: CLLocationCoordinate2D, radius: Int) -> String {
-        return """
+    private func getNearbyPlacesQuery(location: CLLocationCoordinate2D, radius: Int, isArticleMandatory: Bool) -> String {
+        var value =  """
         SELECT DISTINCT ?place ?placeLabel ?location ?image ?instance ?phoneNumber ?website ?wikipediaLink
         WHERE {
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "en, it" }
             SERVICE wikibase:around {
                 ?place wdt:P625 ?location .
                 bd:serviceParam wikibase:center "Point(\(location.longitude) \(location.latitude))"^^geo:wktLiteral .
                 bd:serviceParam wikibase:radius "\(radius)" .
             }
             ?place wdt:P31 ?instance  .
-            ?wikipediaLink schema:about ?place;
-                           schema:inLanguage "en";
-                           schema:isPartOf [ wikibase:wikiGroup "wikipedia" ] .
-            ?place wdt:P18 ?image .
-            OPTIONAL {?place wdt:P1329 ?phoneNumber}.
-            OPTIONAL {?place wdt:P856 ?website} .
-        }
+        
+        ?place wdt:P18 ?image .
+        OPTIONAL {?place wdt:P1329 ?phoneNumber}.
+        OPTIONAL {?place wdt:P856 ?website} .
         """
+        if isArticleMandatory {
+            value = value + """
+                {?wikipediaLink schema:about ?place;
+                schema:inLanguage "en";
+                schema:isPartOf [ wikibase:wikiGroup "wikipedia" ]} .
+            }
+            """
+        } else {
+            value = value + """
+                OPTIONAL {?wikipediaLink schema:about ?place;
+                schema:inLanguage "en";
+                schema:isPartOf [ wikibase:wikiGroup "wikipedia" ]} .
+            }
+            """
+        }
+        
+        return value
     }
     
     private func getCityDetailsQuery(_ cityId: String) -> String {
@@ -280,7 +294,7 @@ class WikipediaAPI {
     func getNearbyPlaces(location: CLLocationCoordinate2D, radius: Int) -> Promise<[WDPlace]> {
         return Promise<[WDPlace]>(in: .background) { resolve, reject, status in
             let parameters = [
-                "query": self.getNearbyPlacesQuery(location: location, radius: radius),
+                "query": self.getNearbyPlacesQuery(location: location, radius: radius, isArticleMandatory: false),
                 "format": "json"
             ]
             let url = "https://query.wikidata.org/sparql"
