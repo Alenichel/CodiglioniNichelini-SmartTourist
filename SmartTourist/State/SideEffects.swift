@@ -49,14 +49,16 @@ struct GetNearestPlaces: SideEffect {
         guard let currentLocation = context.getState().locationState.currentLocation else { return }
         if !self.throttle || context.getState().locationState.nearestPlacesLastUpdate.distance(to: Date()) > GoogleAPI.apiThrottleTime {
             context.dispatch(SetNearestPlacesLastUpdate(lastUpdate: Date()))
-            context.dependencies.wikiAPI.getNearbyPlaces(location: currentLocation).then(in: .utility) { places in
-                let placesSet = Array(Set(places))
-                let sortedPlaces = placesSet.sorted(by: { $0.distance(from: currentLocation) < $1.distance(from: currentLocation) })
-                context.dispatch(SetNearestPlaces(places: sortedPlaces))
-            }.catch(in: .utility) { error in
-                print("\(#function): \(error.localizedDescription)")
-                context.dispatch(SetNearestPlaces(places: []))
+            var nPlaces = 0
+            var distance : Double = 1
+            var roundPlaces : [WDPlace] = []
+            while nPlaces < 10 && distance < context.getState().settings.maxRadius {
+                roundPlaces = try await(context.dependencies.wikiAPI.getNearbyPlaces(location: currentLocation, radius: Int(distance)))
+                nPlaces = roundPlaces.count
+                distance = distance * 2
             }
+             let sortedPlaces = Set(roundPlaces).sorted(by: { $0.distance(from: currentLocation) < $1.distance(from: currentLocation) })
+             context.dispatch(SetNearestPlaces(places: sortedPlaces))
         }
     }
 }

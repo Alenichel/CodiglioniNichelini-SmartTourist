@@ -39,7 +39,7 @@ class WikipediaAPI {
         }
     }()
     
-    private func getNearbyPlacesQuery(location: CLLocationCoordinate2D) -> String {
+    private func getNearbyPlacesQuery(location: CLLocationCoordinate2D, radius: Int) -> String {
         return """
         SELECT DISTINCT ?place ?placeLabel ?location ?image ?instance ?phoneNumber ?website ?wikipediaLink
         WHERE {
@@ -47,7 +47,7 @@ class WikipediaAPI {
             SERVICE wikibase:around {
                 ?place wdt:P625 ?location .
                 bd:serviceParam wikibase:center "Point(\(location.longitude) \(location.latitude))"^^geo:wktLiteral .
-                bd:serviceParam wikibase:radius "1" .
+                bd:serviceParam wikibase:radius "\(radius)" .
             }
             ?place wdt:P31 ?instance  .
             ?wikipediaLink schema:about ?place;
@@ -277,10 +277,10 @@ class WikipediaAPI {
         }
     }
     
-    func getNearbyPlaces(location: CLLocationCoordinate2D) -> Promise<[WDPlace]> {
+    func getNearbyPlaces(location: CLLocationCoordinate2D, radius: Int) -> Promise<[WDPlace]> {
         return Promise<[WDPlace]>(in: .background) { resolve, reject, status in
             let parameters = [
-                "query": self.getNearbyPlacesQuery(location: location),
+                "query": self.getNearbyPlacesQuery(location: location, radius: radius),
                 "format": "json"
             ]
             let url = "https://query.wikidata.org/sparql"
