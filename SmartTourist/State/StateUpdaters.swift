@@ -131,6 +131,15 @@ struct SetNotificationsEnabled: StateUpdater, Persistable {
 }
 
 
+struct SetMaxRadius: StateUpdater, Persistable {
+    let value: Double
+    
+    func updateState(_ state: inout AppState) {
+        state.settings.maxRadius = value
+    }
+}
+
+
 struct SetPedometerAverageWalkingSpeed: StateUpdater {
     let newSpeed: Double
     
