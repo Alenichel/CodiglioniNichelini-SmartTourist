@@ -139,6 +139,14 @@ struct SetMaxRadius: StateUpdater, Persistable {
     }
 }
 
+struct SetMaxNAttraction: StateUpdater, Persistable {
+    let value: Int
+    
+    func updateState(_ state: inout AppState) {
+        state.settings.maxNAttraction = value
+    }
+}
+
 
 struct SetPedometerAverageWalkingSpeed: StateUpdater {
     let newSpeed: Double
