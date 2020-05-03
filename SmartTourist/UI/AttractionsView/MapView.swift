@@ -178,10 +178,10 @@ class MapView: UIView, ViewControllerModellableView {
             self.moveMap(to: location)
             self.didMoveMap?()
         }
-        /*if let actualLocation = model.actualLocation {
+        if let actualLocation = model.actualLocation {
             self.updateCircle(self.littleCircle, actualLocation: actualLocation, radius: model.littleCircleRadius, text: "5 min")
             self.updateCircle(self.bigCircle, actualLocation: actualLocation, radius: model.bigCircleRadius, text: "15 min")
-        }*/
+        }
         if model.mapCentered || self.mapView.camera.altitude <= MapView.altitudeThreshold {
             self.markerPool.setMarkers(places: model.places)
             if let city = model.city {

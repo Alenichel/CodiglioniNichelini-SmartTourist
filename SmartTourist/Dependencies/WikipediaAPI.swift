@@ -50,7 +50,6 @@ class WikipediaAPI {
                 bd:serviceParam wikibase:radius "\(radius)" .
             }
             ?place wdt:P31 ?instance  .
-        
         ?place wdt:P18 ?image .
         OPTIONAL {?place wdt:P1329 ?phoneNumber}.
         OPTIONAL {?place wdt:P856 ?website} .
