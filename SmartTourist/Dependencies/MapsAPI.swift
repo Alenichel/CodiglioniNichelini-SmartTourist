@@ -27,7 +27,6 @@ class MapsAPI {
     
     private var lastCoordinates: CLLocationCoordinate2D?
     private var lastCity: String?
-    private var lastCountryCode: String?
     private var lastUpdate: Date?
     
     func getCityName(coordinates: CLLocationCoordinate2D) -> Promise<String> {

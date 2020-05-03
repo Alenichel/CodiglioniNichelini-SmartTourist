@@ -178,10 +178,10 @@ class MapView: UIView, ViewControllerModellableView {
             self.moveMap(to: location)
             self.didMoveMap?()
         }
-        if let actualLocation = model.actualLocation {
+        /*if let actualLocation = model.actualLocation {
             self.updateCircle(self.littleCircle, actualLocation: actualLocation, radius: model.littleCircleRadius, text: "5 min")
             self.updateCircle(self.bigCircle, actualLocation: actualLocation, radius: model.bigCircleRadius, text: "15 min")
-        }
+        }*/
         if model.mapCentered || self.mapView.camera.altitude <= MapView.altitudeThreshold {
             self.markerPool.setMarkers(places: model.places)
             if let city = model.city {
@@ -280,15 +280,15 @@ class MapView: UIView, ViewControllerModellableView {
                 self.animator?.addCompletion { [unowned self] _ in
                     self.cardState = .expanded
                     self.panGestureRecognizer.isEnabled = true
-                    self.layoutMapView(targetPercent: self.cardState.rawValue%)
+                    //self.layoutMapView(targetPercent: self.cardState.rawValue%)
                     self.listCardView.attractionListView.isScrollEnabled = true
                 }
             } else {
-                self.animator?.isReversed = true
+                //self.animator?.isReversed = true
                 self.animator?.addCompletion { [unowned self] _ in
-                    self.cardState = .collapsed
+                    self.cardState = .expanded //.collapsed
                     self.panGestureRecognizer.isEnabled = true
-                    self.layoutMapView(targetPercent: self.cardState.rawValue%)
+                    //self.layoutMapView(targetPercent: self.cardState.rawValue%)
                     self.listCardView.attractionListView.isScrollEnabled = false
                 }
             }
@@ -298,15 +298,15 @@ class MapView: UIView, ViewControllerModellableView {
                 self.animator?.addCompletion { [unowned self] _ in
                     self.cardState = .collapsed
                     self.panGestureRecognizer.isEnabled = true
-                    self.layoutMapView(targetPercent: self.cardState.rawValue%)
+                    //self.layoutMapView(targetPercent: self.cardState.rawValue%)
                     self.listCardView.attractionListView.isScrollEnabled = false
                 }
             } else {
-                self.animator?.isReversed = true
+                //self.animator?.isReversed = true
                 self.animator?.addCompletion { [unowned self] _ in
-                    self.cardState = .expanded
+                    self.cardState = .collapsed //.expanded
                     self.panGestureRecognizer.isEnabled = true
-                    self.layoutMapView(targetPercent: self.cardState.rawValue%)
+                    //self.layoutMapView(targetPercent: self.cardState.rawValue%)
                     self.listCardView.attractionListView.isScrollEnabled = true
                 }
             }
