@@ -60,7 +60,9 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     var activityIndicator = UIActivityIndicatorView()
     var directionButton = RoundedButton()
     var linkButton = RoundedButton()
+    var wikipediaButton = RoundedButton()
     var timeLabel = UILabel()
+    var buttonsStack = ManualStackView()
     
     var didTapFavoriteButton: ((WDPlace) -> Void)?
     var didLoadEverything: Interaction?
@@ -68,39 +70,46 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     var didTapLinkButton: ((String?) -> Void)?
 
     func setup() {
-        self.mapView.showsTraffic = false
-        self.mapView.pointOfInterestFilter = .init(including: [.publicTransport])
-        self.scrollView.delegate = self
-        self.addSubview(self.scrollView)
-        self.addSubview(self.curtainView)
-        self.curtainView.addSubview(self.activityIndicator)
-        self.scrollView.addSubview(self.imageSlideshow)
-        self.scrollView.addSubview(self.containerView)
-        self.containerView.addSubview(self.descriptionText)
-        self.containerView.addSubview(self.cosmos)
-        self.containerView.addSubview(self.lineView)
-        self.containerView.addSubview(self.nRatingsLabel)
-        self.containerView.addSubview(self.mapView)
-        self.containerView.addSubview(self.directionButton)
-        self.containerView.addSubview(self.linkButton)
-        self.containerView.addSubview(self.timeLabel)
         self.navigationItem?.rightBarButtonItem = self.favoriteButton
         self.favoriteButton.onTap { button in
             guard let model = self.model else { return }
             self.didTapFavoriteButton?(model.attraction)
         }
-        self.descriptionText.numberOfLines = 0
+        
+        self.scrollView.delegate = self
+        self.scrollView.showsVerticalScrollIndicator = false
+        self.addSubview(self.scrollView)
+        
+        self.imageSlideshow.slideshowInterval = 5
+        self.imageSlideshow.zoomEnabled = true
+        self.imageSlideshow.pageIndicator = nil
+        self.imageSlideshow.contentScaleMode = .scaleAspectFill
+        self.scrollView.addSubview(self.imageSlideshow)
+        
+        self.scrollView.addSubview(self.containerView)
+        self.containerView.addSubview(self.cosmos)
+        self.containerView.addSubview(self.nRatingsLabel)
         self.directionButton.on(.touchUpInside) { button in
             self.didTapDirectionButton?(self.model?.actualLocation, self.model?.attraction)
         }
         self.linkButton.on(.touchUpInside) { button in
             self.didTapLinkButton?(self.model?.link)
         }
-        self.imageSlideshow.slideshowInterval = 5
-        self.imageSlideshow.zoomEnabled = true
-        self.imageSlideshow.pageIndicator = nil
-        self.imageSlideshow.contentScaleMode = .scaleAspectFill
-        self.scrollView.showsVerticalScrollIndicator = false
+        self.buttonsStack.setup()
+        self.containerView.addSubview(self.buttonsStack)
+        self.containerView.addSubview(self.lineView)
+        
+        self.descriptionText.numberOfLines = 0
+        self.containerView.addSubview(self.descriptionText)
+        self.containerView.addSubview(self.mapView)
+        
+        //self.containerView.addSubview(self.timeLabel)
+        self.mapView.showsTraffic = false
+        self.mapView.pointOfInterestFilter = .init(including: [.publicTransport])
+        
+        //must be at the end to cover all the screen
+        self.curtainView.addSubview(self.activityIndicator)
+        self.addSubview(self.curtainView)
     }
     
     func style() {
@@ -108,62 +117,72 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.descriptionText.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.15)
         self.descriptionText.textAlignment = NSTextAlignment.justified
         self.cosmos.settings.updateOnTouch = false
-        self.cosmos.settings.starSize = Double(UIFont.systemFontSize) * 1.1
+        self.cosmos.settings.starSize = Double(UIFont.systemFontSize) * 1.4
         self.cosmos.settings.starMargin = 5
         self.cosmos.settings.fillMode = .precise
         self.cosmos.settings.filledImage = UIImage(systemName: "star.fill")?.maskWithColor(color: .orange)
         self.cosmos.settings.emptyImage = UIImage(systemName: "star")?.maskWithColor(color: .orange)
         self.cosmos.settings.disablePanGestures = true
         self.containerView.backgroundColor = .systemBackground
-        self.nRatingsLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .bold)
+        self.nRatingsLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.2, weight: .bold)
         self.nRatingsLabel.textColor = .systemOrange
         self.lineView.backgroundColor = .secondaryLabel
         self.mapView.showsCompass = false
         self.mapView.isUserInteractionEnabled = false
         self.curtainView.backgroundColor = .systemBackground
         self.activityIndicator.startAnimating()
-        self.directionButton.tintColor = .label
-        self.directionButton.backgroundColor = .systemBackground
-        self.directionButton.layer.cornerRadius = 15
-        self.directionButton.layer.shadowColor = UIColor.label.cgColor
-        self.directionButton.layer.shadowOpacity = 0.75
-        self.directionButton.layer.shadowOffset = .zero
-        self.directionButton.layer.shadowRadius = 1
-        self.directionButton.setImage(UIImage.fontAwesomeIcon(name: .shoePrints, style: .solid, textColor: .label, size: CGSize(size: 30)), for: .normal)
-        self.directionButton.imageEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
-        self.linkButton.tintColor = .label
-        self.linkButton.backgroundColor = .systemBackground
-        self.linkButton.layer.cornerRadius = 15
-        self.linkButton.layer.shadowColor = UIColor.label.cgColor
-        self.linkButton.layer.shadowOpacity = 0.75
-        self.linkButton.layer.shadowOffset = .zero
-        self.linkButton.layer.shadowRadius = 1
-        self.linkButton.setImage(AttractionDetailView.linkImage, for: .normal)
-        self.linkButton.imageEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+        styleRoundedButton(button: self.directionButton, image: UIImage.fontAwesomeIcon(name: .shoePrints, style: .solid, textColor: .label, size: CGSize(size: 30)))
+        styleRoundedButton(button: self.linkButton, image: AttractionDetailView.linkImage!)
+        styleRoundedButton(button: self.wikipediaButton, image: UIImage.fontAwesomeIcon(name: .wikipediaW, style: .brands, textColor: .label, size: CGSize(size: 40)))
         self.timeLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .light)
         self.timeLabel.textAlignment = .right
         self.timeLabel.sizeToFit()
         self.favoriteButton.tintColor = .systemRed
+        self.buttonsStack.style()
+    }
+    
+    func styleRoundedButton(button: RoundedButton, image: UIImage){
+        button.tintColor = .label
+        button.backgroundColor = .systemBackground
+        button.layer.cornerRadius = 20
+        button.layer.shadowColor = UIColor.label.cgColor
+        button.layer.shadowOpacity = 0.75
+        button.layer.shadowOffset = .zero
+        button.layer.shadowRadius = 1
+        button.setImage(image, for: .normal)
+        button.imageEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        self.scrollView.pin.top(self.safeAreaInsets).bottom().horizontally()
+        self.curtainView.pin.all()
+        self.activityIndicator.pin.center().size(30)
+        
         self.imageSlideshow.sizeToFit()
         self.imageSlideshow.pin.top().bottom(50%).left().right()
+        
         self.containerView.pin.horizontally().bottom(10).below(of: self.imageSlideshow)
+        
         self.cosmos.sizeToFit()
         self.cosmos.pin.topLeft().marginHorizontal(20).marginTop(15)
-        if (model?.link != nil){
-            self.linkButton.pin.topRight().marginHorizontal(16).marginTop(8).size(30)
-            self.directionButton.pin.left(of: self.linkButton, aligned: .center).size(30).margin(5)
-        } else {
-            self.linkButton.removeFromSuperview()
-            self.directionButton.pin.topRight().marginHorizontal(16).marginTop(8).size(30)
-        }
-        self.timeLabel.pin.before(of: self.directionButton, aligned: .center).size(150).margin(5)
         self.nRatingsLabel.sizeToFit()
         self.nRatingsLabel.pin.after(of: self.cosmos, aligned: .center).marginLeft(5)
-        self.lineView.pin.below(of: self.cosmos).horizontally(7).height(1).marginTop(15)
+        
+        self.linkButton.pin.size(40)
+        self.directionButton.pin.size(40)
+        self.wikipediaButton.pin.size(40)
+        let linksViewHeight = (self.buttonsStack.stackedSubviews as! [RoundedButton]).map({$0.frame.height}).max()
+        if let model = self.model {
+            if model.nRatings == "0" {
+                self.buttonsStack.pin.top().horizontally().height(linksViewHeight ?? 50).marginTop(15)
+            } else {
+                self.buttonsStack.pin.below(of: self.cosmos).horizontally().height(linksViewHeight ?? 50).marginTop(15)
+            }
+        }
+        
+        self.lineView.pin.below(of: [self.buttonsStack]).horizontally(7).height(1).marginTop(15)
+        
         self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 300)
         if let text = self.descriptionText.text {
             self.descriptionText.sizeToFit()
@@ -178,9 +197,10 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         } else {
             self.mapView.pin.horizontally(20).below(of: self.lineView).marginTop(15)
         }
-        self.scrollView.pin.top(self.safeAreaInsets).bottom().horizontally()
-        self.curtainView.pin.all()
-        self.activityIndicator.pin.center().size(30)
+        /*
+        self.timeLabel.pin.before(of: self.directionButton, aligned: .center).size(150).margin(5)
+        */
+        
     }
     
     func update(oldModel: AttractionDetailViewModel?) {
@@ -230,6 +250,16 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         } else {
             self.directionButton.isEnabled = true
         }
+        
+        
+        var views = [self.directionButton, self.wikipediaButton]
+        if model.link == nil {
+            views.append(self.linkButton)
+        }
+        let bsViewModel = ManualStackViewModel(views: views)
+        self.buttonsStack.model = bsViewModel
+        
+        
         self.setNeedsLayout()
     }
     
