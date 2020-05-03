@@ -102,6 +102,7 @@
 		E5A7B064242F9C400001869A /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7B063242F9C400001869A /* CircleImage.swift */; };
 		E5AFC8A123F9B006007B9887 /* CityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */; };
 		E5AFC8A223F9B006007B9887 /* CityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFC89B23F9B006007B9887 /* CityDetailView.swift */; };
+		E5C10DBD245EFDB100B2CFAE /* MKMapView+image.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C10DBC245EFDB100B2CFAE /* MKMapView+image.swift */; };
 		E5C4324D2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C4324C2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift */; };
 		E5CA289B245EBB69005BA50A /* SettingDistanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CA289A245EBB69005BA50A /* SettingDistanceCell.swift */; };
 		E5CA289D245EBBA9005BA50A /* SettingIntCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CA289C245EBBA9005BA50A /* SettingIntCell.swift */; };
@@ -319,6 +320,7 @@
 		E5A7B063242F9C400001869A /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
 		E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityDetailViewController.swift; sourceTree = "<group>"; };
 		E5AFC89B23F9B006007B9887 /* CityDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityDetailView.swift; sourceTree = "<group>"; };
+		E5C10DBC245EFDB100B2CFAE /* MKMapView+image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+image.swift"; sourceTree = "<group>"; };
 		E5C4324C2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SFSafariViewController+RoutableWithConfiguration.swift"; sourceTree = "<group>"; };
 		E5CA289A245EBB69005BA50A /* SettingDistanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDistanceCell.swift; sourceTree = "<group>"; };
 		E5CA289C245EBBA9005BA50A /* SettingIntCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingIntCell.swift; sourceTree = "<group>"; };
@@ -729,9 +731,11 @@
 				E56167CA2428BAA40064B2E8 /* Array+sortedInsert.swift */,
 				E5495902241F648400D643F1 /* Bundle+version+build.swift */,
 				E5F971592392D96E0096C296 /* CGRect+Utils.swift */,
+				E54BF856244AECAD0049D3E2 /* CGSize+init.swift */,
 				E56167D22428CBE90064B2E8 /* CLLocationCoordinate2D+distance.swift */,
 				E563DB38242E5224003D5FFF /* CLLocationCoordinate2D+Codable.swift */,
 				E5FF041124095E7000D32EE7 /* MarkerPool.swift */,
+				E5C10DBC245EFDB100B2CFAE /* MKMapView+image.swift */,
 				E53EEA22241CDC55004CCE16 /* PromiseImageSource.swift */,
 				E5C4324C2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift */,
 				99EC7D6C241FC0890065FDE9 /* String+emoji.swift */,
@@ -745,7 +749,6 @@
 				E54B9A5A2417D0F9009F8DBC /* UITextView+setText.swift */,
 				E5F9715A2392D96E0096C296 /* UIView+Blink.swift */,
 				E53BF0E7242A874B00358E6D /* UNNotificationAttachment+UIImage.swift */,
-				E54BF856244AECAD0049D3E2 /* CGSize+init.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1149,6 +1152,7 @@
 				993B35482392C1D00003FD8F /* AttractionFlowLayout.swift in Sources */,
 				E5AFC8A223F9B006007B9887 /* CityDetailView.swift in Sources */,
 				E585FCA3238ADE58008D7C86 /* StateUpdaters.swift in Sources */,
+				E5C10DBD245EFDB100B2CFAE /* MKMapView+image.swift in Sources */,
 				E58C48F5244F5F51006ABBD7 /* SearchFlowLayout.swift in Sources */,
 				E563DB39242E5224003D5FFF /* CLLocationCoordinate2D+Codable.swift in Sources */,
 				E56167D32428CBE90064B2E8 /* CLLocationCoordinate2D+distance.swift in Sources */,
