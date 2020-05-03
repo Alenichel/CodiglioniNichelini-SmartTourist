@@ -24,9 +24,9 @@ class CityDetailViewController: ViewControllerWithLocalState<CityDetailView> {
     }
     
     override func setupInteraction() {
-        self.rootView.didLoadEverything = { [unowned self ] in
+        /*self.rootView.didLoadEverything = { [unowned self ] in
             self.localState.allLoaded = true
-        }
+        }*/
     }
 }
 

@@ -9,14 +9,16 @@ import UIKit
 import Katana
 import Tempura
 import PinLayout
+import FlexLayout
 import Cosmos
 import CoreLocation
 import MapKit
 import Hydra
+import ImageSlideshow
 
 
 struct CityDetailViewModel: ViewModelWithLocalState {
-    let city: WDCity?
+    let wdCity: WDCity?
     let cityName: String
     let location: CLLocationCoordinate2D
     let allLoaded: Bool
@@ -26,178 +28,271 @@ struct CityDetailViewModel: ViewModelWithLocalState {
         self.cityName = state.locationState.currentCity!
         self.location = state.locationState.currentLocation!
         self.allLoaded = localState.allLoaded
-        self.city = state.locationState.wdCity
+        self.wdCity = state.locationState.wdCity
     }
 }
 
 
 class CityDetailView: UIView, ViewControllerModellableView {
+    // MARK: Containers
+    var scrollView = UIScrollView()
     var titleContainerView = UIView()
-    var cityNameLabel = UILabel()
-    var countryNameLabel = UILabel()
-    var mapView = MKMapView()
-    var descriptionText = UITextView()
-    var lineView = UIView()
-    var detailsStackView: UIStackView!
-    var infoView = ManualStackView()
-    var linksView = ManualStackView()
-    var flagImageView = UIImageView()
+    var infoView = UIView()
+    var linksView = UIView()
     
-    var didLoadEverything: Interaction?
+    // MARK: Actual views
+    var cityLabel = UILabel()
+    var countryLabel = UILabel()
+    var flagView = UIImageView()
+    var slideshow = ImageSlideshow()
+    var populationIcon = UIImageView()
+    var populationLabel = UILabel()
+    var areaIcon = UIImageView()
+    var areaLabel = UILabel()
+    var elevationIcon = UIImageView()
+    var elevationLabel = UILabel()
+    var linkButton: RoundedButton!
+    var facebookButton: RoundedButton!
+    var instagramButton: RoundedButton!
+    var twitterButton: RoundedButton!
+    var descriptionLabel = UILabel()
+    
+    // MARK: Utility
+    var mapView = MKMapView()
+    let numberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.allowsFloats = false
+        formatter.numberStyle = .decimal
+        return formatter
+    }()
+    let measurementFormatter: MeasurementFormatter = {
+        let formatter = MeasurementFormatter()
+        formatter.unitStyle = .medium
+        formatter.unitOptions = .naturalScale
+        return formatter
+    }()
     
     func setup() {
-        self.mapView.showsTraffic = false
-        self.mapView.showsCompass = false
-        self.mapView.isUserInteractionEnabled = false
-        self.mapView.pointOfInterestFilter = .init(including: [.publicTransport])
-        self.addSubview(self.titleContainerView)
-        self.titleContainerView.addSubview(self.cityNameLabel)
-        self.titleContainerView.addSubview(self.countryNameLabel)
-        self.titleContainerView.addSubview(self.flagImageView)
-        self.addSubview(self.lineView)
-        self.addSubview(self.mapView)
-        self.infoView.setup()
-        self.addSubview(self.infoView)
-        self.linksView.setup()
-        self.addSubview(self.linksView)
-        self.addSubview(self.descriptionText)
-        self.descriptionText.showsVerticalScrollIndicator = false
+        self.setupMapView()
+        self.setupInfoIcons()
+        self.setupSocialButtons()
+        self.slideshow.slideshowInterval = 5
+        self.slideshow.zoomEnabled = true
+        self.slideshow.pageIndicator = nil
+        self.slideshow.contentScaleMode = .scaleAspectFill
+        self.addSubview(self.scrollView)
+        self.scrollView.addSubview(self.titleContainerView)
+        self.scrollView.addSubview(self.slideshow)
+        self.scrollView.addSubview(self.infoView)
+        self.scrollView.addSubview(self.linksView)
+        self.scrollView.addSubview(self.descriptionLabel)
+        self.titleContainerView.flex.direction(.column).define { flex in
+            flex.alignItems(.center)
+            flex.addItem(self.cityLabel)
+            flex.addItem().direction(.row).define { flex in
+                flex.alignItems(.center)
+                flex.addItem(self.countryLabel)
+                flex.addItem(self.flagView).marginLeft(5).size(15)
+            }
+            flex.addItem().height(1).width(95%).marginVertical(5).backgroundColor(.secondaryLabel)
+        }
+        self.infoView.flex.direction(.row).define { flex in
+            flex.alignItems(.center)
+            flex.justifyContent(.spaceAround)
+            flex.addItem().direction(.column).grow(1).define { flex in
+                flex.alignItems(.center)
+                flex.addItem(self.populationIcon).size(25)
+                flex.addItem(self.populationLabel)
+            }
+            flex.addItem().direction(.column).grow(1).define { flex in
+                flex.alignItems(.center)
+                flex.addItem(self.areaIcon).size(25)
+                flex.addItem(self.areaLabel)
+            }
+            flex.addItem().direction(.column).grow(1).define { flex in
+                flex.alignItems(.center)
+                flex.addItem(self.elevationIcon).size(25)
+                flex.addItem(self.elevationLabel)
+            }
+        }
+        self.linksView.flex.direction(.row).justifyContent(.spaceAround).define { flex in
+            flex.addItem(self.linkButton).size(40)
+            flex.addItem(self.facebookButton).size(40)
+            flex.addItem(self.instagramButton).size(40)
+            flex.addItem(self.twitterButton).size(40)
+        }
     }
     
     func style() {
         self.backgroundColor = .systemBackground
-        self.cityNameLabel.font = UIFont.systemFont(ofSize: 32, weight: .bold)
-        self.cityNameLabel.textAlignment = .center
-        self.cityNameLabel.layer.cornerRadius = 20
-        self.countryNameLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.15 , weight: .thin)
-        self.countryNameLabel.textAlignment = .center
-        self.countryNameLabel.layer.cornerRadius = 20
-        self.descriptionText.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.15)
-        self.descriptionText.isEditable = false
-        self.descriptionText.textAlignment = NSTextAlignment.justified
-        self.lineView.backgroundColor = .secondaryLabel
-        self.infoView.style()
-        self.linksView.style()
+        self.scrollView.showsVerticalScrollIndicator = false
+        self.cityLabel.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+        self.countryLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.15 , weight: .thin)
+        self.descriptionLabel.numberOfLines = 0
+        self.descriptionLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.15)
+        self.descriptionLabel.textAlignment = .justified
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.cityNameLabel.sizeToFit()
-        self.cityNameLabel.pin.top().horizontally().marginTop(3)
-        self.countryNameLabel.sizeToFit()
-        self.countryNameLabel.pin.below(of: cityNameLabel, aligned: .center).marginTop(3)
-        self.flagImageView.sizeToFit()
-        self.flagImageView.pin.after(of: self.countryNameLabel, aligned: .center).marginLeft(5)
-        let tcvHeight = self.cityNameLabel.frame.height + self.countryNameLabel.frame.height + 8
-        self.titleContainerView.pin.top(self.safeAreaInsets).width(100%).height(tcvHeight)
-        self.lineView.pin.below(of: self.titleContainerView).height(1).horizontally(7)
-        self.mapView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: 250)
-        self.mapView.pin.below(of: self.lineView).horizontally(5).marginTop(5)
-        let infoViewHeight = (self.infoView.stackedSubviews as! [CityDetailInfoIcon]).map({$0.getHeight()}).max()
-        self.infoView.pin.below(of: self.mapView).horizontally(5).marginTop(10).height(infoViewHeight ?? 0)
-        let linksViewHeight = (self.linksView.stackedSubviews as! [RoundedButton]).map({$0.frame.height}).max()
-        self.linksView.pin.below(of: self.infoView).horizontally(5).marginTop(10).height(linksViewHeight ?? 0)
-        self.descriptionText.pin.horizontally(8).below(of: self.linksView).marginTop(5).bottom()
+        self.scrollView.pin.all().margin(pin.safeArea)
+        self.titleContainerView.pin.top().horizontally()
+        self.titleContainerView.flex.layout(mode: .adjustHeight)
+        self.slideshow.pin.below(of: self.titleContainerView).horizontally().marginTop(5).height(self.frame.width)
+        self.infoView.pin.below(of: self.slideshow).horizontally().marginTop(10)
+        self.infoView.flex.layout(mode: .adjustHeight)
+        self.linksView.pin.below(of: self.infoView).horizontally().marginTop(15)
+        self.linksView.flex.layout(mode: .adjustHeight)
+        if let text = self.descriptionLabel.text {
+            self.descriptionLabel.sizeToFit()
+            let textContentHeight = text.height(constraintedWidth: self.frame.width, font: self.descriptionLabel.font)
+            self.descriptionLabel.pin.horizontally(20).below(of: self.linksView).marginTop(10)
+            self.descriptionLabel.sizeToFit()
+            let contentHeight = self.titleContainerView.frame.height + self.slideshow.frame.height + self.infoView.frame.height + self.linksView.frame.height + textContentHeight + self.safeAreaInsets.top + self.safeAreaInsets.bottom + 70
+            self.scrollView.contentSize = CGSize(width: self.frame.width, height: contentHeight)
+        }
     }
     
-    func update(oldModel: CityDetailViewModel?){
-        guard let model = self.model, !model.allLoaded else { return }
-        let camera = MKMapCamera(lookingAtCenter: model.location, fromDistance: 20000, pitch: 0, heading: 0)
-        print("--> SETTING CAMERA")
-        self.mapView.setCamera(camera, animated: true)
-        self.descriptionText.setText(searchTerms: model.cityName) {
-            self.setNeedsLayout()
-        }
-        if let city = model.city {
-            self.countryNameLabel.text = city.countryLabel ?? "No country detected"
-            self.flagImageView.image = city.countryFlagImage
-            var infoViews = [UIView]()
-            let mf = MeasurementFormatter()
-            mf.unitStyle = .medium
-            mf.unitOptions = .naturalScale
-            if let population = city.population {
-                let icon = UIImage.fontAwesomeIcon(name: .users, style: .solid, textColor: .label, size: CGSize(size: 25))
-                let nf = NumberFormatter()
-                nf.allowsFloats = false
-                nf.numberStyle = .decimal
-                infoViews.append(self.getIconView(label: nf.string(from: population as NSNumber) ?? "0", icon: icon))
-            }
-            if let area = city.area {
-                let icon = UIImage.fontAwesomeIcon(name: .square, style: .solid, textColor: .label, size: CGSize(size: 25))
-                let measurement = Measurement(value: area, unit: UnitArea.squareKilometers)
-                infoViews.append(self.getIconView(label: mf.string(from: measurement), icon: icon))
-            }
-            if let elevation = city.elevation {
-                let icon = UIImage.fontAwesomeIcon(name: .mountain, style: .solid, textColor: .label, size: CGSize(size: 25))
-                let measurement = Measurement(value: elevation, unit: UnitLength.meters)
-                infoViews.append(self.getIconView(label: mf.string(from: measurement), icon: icon))
-            }
-            let infoViewModel = ManualStackViewModel(views: infoViews)
-            self.infoView.model = infoViewModel
-            var linkViews = [UIView]()
-            if let link = city.link {
-                let icon = UIImage.fontAwesomeIcon(name: .link, style: .solid, textColor: .white, size: CGSize(size: 40))
-                let color = UIColor(red: 0.99, green: 0.69, blue: 0.27, alpha: 1)
-                linkViews.append(self.getLinkButton(url: URL(string: link)!, icon: icon, color: color))
-            }
-            if let facebookId = city.facebookPageId {
-                let url = URL(string: "https://www.facebook.com/\(facebookId)")!
-                let icon = UIImage.fontAwesomeIcon(name: .facebookF, style: .brands, textColor: .white, size: CGSize(size: 40))
-                let color = UIColor(red: 0.26, green: 0.4, blue: 0.7, alpha: 1)
-                linkViews.append(self.getLinkButton(url: url, icon: icon, color: color))
-            }
-            if let instagramUsername = city.instagramUsername {
-                let url = URL(string: "https://www.instagram.com/\(instagramUsername)")!
-                let icon = UIImage.fontAwesomeIcon(name: .instagram, style: .brands, textColor: .white, size: CGSize(size: 40))
-                let color = UIColor(red: 0.88, green: 0.19, blue: 0.42, alpha: 1)
-                linkViews.append(self.getLinkButton(url: url, icon: icon, color: color))
-            }
-            if let twitterUsername = city.twitterUsername {
-                let url = URL(string: "https://www.twitter.com/\(twitterUsername)")!
-                let icon = UIImage.fontAwesomeIcon(name: .twitter, style: .brands, textColor: .white, size: CGSize(size: 40))
-                let color = UIColor(red: 0.11, green: 0.63, blue: 0.95, alpha: 1)
-                linkViews.append(self.getLinkButton(url: url, icon: icon, color: color))
-            }
-            let linksViewModel = ManualStackViewModel(views: linkViews)
-            self.linksView.model = linksViewModel
-            self.didLoadEverything?()
-        }
-        self.cityNameLabel.text = model.cityName
-        let marker = MarkerPool.getMarker(location: model.location, text: model.cityName)
+    func update(oldModel: CityDetailViewModel?) {
+        guard let model = self.model, let city = model.wdCity else { return }
+        self.cityLabel.text = city.cityLabel ?? "NO CITY LABEL"
+        self.countryLabel.text = city.countryLabel ?? "NO COUNTRY LABEL"
+        self.flagView.image = city.countryFlagImage ?? UIImage(systemName: "photo")
+        let mapCamera = MKMapCamera(lookingAtCenter: model.location, fromDistance: 20000, pitch: 0, heading: 0)
+        self.mapView.setCamera(mapCamera, animated: false)
+        let marker = MarkerPool.getMarker(location: model.location, text: " ")
         self.mapView.addAnnotation(marker)
+        let mapScreenshot = self.mapView.screenshot()
+        city.getPhotosURLs().then(in: .main) {
+            var imagePromises = city.photos.map { WikipediaAPI.shared.getPhoto(imageURL: $0) }
+            imagePromises.insert(mapScreenshot, at: 0)
+            self.slideshow.setImageInputs(imagePromises.map { PromiseImageSource($0) })
+        }
+        if let population = city.population {
+            self.populationLabel.text = self.numberFormatter.string(from: population as NSNumber)!
+        } else {
+            self.populationLabel.text = "N/A"
+        }
+        if let area = city.area {
+            let measurement = Measurement(value: area, unit: UnitArea.squareKilometers)
+            self.areaLabel.text = self.measurementFormatter.string(from: measurement)
+        } else {
+            self.areaLabel.text = "N/A"
+        }
+        if let elevation = city.elevation {
+            let measurement = Measurement(value: elevation, unit: UnitLength.meters)
+            self.elevationLabel.text = self.measurementFormatter.string(from: measurement)
+        } else {
+            self.elevationLabel.text = "N/A"
+        }
+        if let link = city.link {
+            let url = URL(string: link)!
+            self.linkButton.on(.touchUpInside) { _ in
+                UIApplication.shared.open(url)
+            }
+            self.linkButton.alpha = 1.0
+        } else {
+            self.linkButton.isEnabled = false
+            self.linkButton.alpha = 0.7
+        }
+        if let facebookId = city.facebookPageId {
+            let url = URL(string: "https://www.facebook.com/\(facebookId)")!
+            self.facebookButton.on(.touchUpInside) { _ in
+                UIApplication.shared.open(url)
+            }
+            self.facebookButton.alpha = 1.0
+        } else {
+            self.facebookButton.isEnabled = false
+            self.facebookButton.alpha = 0.7
+        }
+        if let instagramUsername = city.instagramUsername {
+            let url = URL(string: "https://www.instagram.com/\(instagramUsername)")!
+            self.instagramButton.on(.touchUpInside) { _ in
+                UIApplication.shared.open(url)
+            }
+            self.instagramButton.alpha = 1.0
+        } else {
+            self.instagramButton.isEnabled = false
+            self.instagramButton.alpha = 0.7
+        }
+        if let twitterUsername = city.twitterUsername {
+            let url = URL(string: "https://www.twitter.com/\(twitterUsername)")!
+            self.twitterButton.on(.touchUpInside) { _ in
+                UIApplication.shared.open(url)
+            }
+            self.twitterButton.alpha = 1.0
+        } else {
+            self.twitterButton.isEnabled = false
+            self.twitterButton.alpha = 0.7
+        }
+        self.descriptionLabel.setText(title: model.cityName) {
+            DispatchQueue.main.async {
+                self.setNeedsLayout()
+            }
+        }
+        self.markDirty()
         self.setNeedsLayout()
     }
     
-    private func getIconView(label: String, icon: UIImage) -> UIView {
-        let view = CityDetailInfoIcon()
-        view.setup()
-        view.style()
-        let viewModel = CityDetailInfoIconViewModel(label: label, icon: icon)
-        view.model = viewModel
-        return view
+    private func setupMapView() {
+        self.mapView.showsTraffic = false
+        self.mapView.showsCompass = false
+        self.mapView.isUserInteractionEnabled = false
+        self.mapView.pointOfInterestFilter = .init(including: [.publicTransport])
+        let screenWidth = UIScreen.main.bounds.width
+        self.mapView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenWidth)
     }
     
-    private func getLinkButton(url: URL, icon: UIImage, color: UIColor = .systemBackground) -> UIView {
-        var button = RoundedButton()
+    private func setupInfoIcons() {
+        self.populationIcon.image = UIImage.fontAwesomeIcon(name: .users, style: .solid, textColor: .label, size: CGSize(size: 25))
+        self.areaIcon.image = UIImage.fontAwesomeIcon(name: .square, style: .solid, textColor: .label, size: CGSize(size: 25))
+        self.elevationIcon.image = UIImage.fontAwesomeIcon(name: .mountain, style: .solid, textColor: .label, size: CGSize(size: 25))
+    }
+    
+    private func getLinkButton(icon: UIImage, color: UIColor = .systemBackground) -> RoundedButton {
+        let button = RoundedButton()
         button.tintColor = .label
         button.backgroundColor = color
         button.layer.cornerRadius = 20
-        /*button.layer.shadowColor = UIColor.label.cgColor
-        button.layer.shadowOpacity = 0.75
-        button.layer.shadowOffset = .zero
-        button.layer.shadowRadius = 1*/
         button.setImage(icon, for: .normal)
         button.imageEdgeInsets = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
-        button.on(.touchUpInside) { _ in
-            UIApplication.shared.open(url)
-        }
-        button.pin.size(40)
         return button
+    }
+    
+    private func setupSocialButtons() {
+        let linkIcon = UIImage.fontAwesomeIcon(name: .link, style: .solid, textColor: .white, size: CGSize(size: 40))
+        let linkColor = UIColor(red: 0.99, green: 0.69, blue: 0.27, alpha: 1)
+        self.linkButton = self.getLinkButton(icon: linkIcon, color: linkColor)
+        let facebookIcon = UIImage.fontAwesomeIcon(name: .facebookF, style: .brands, textColor: .white, size: CGSize(size: 40))
+        let facebookColor = UIColor(red: 0.26, green: 0.4, blue: 0.7, alpha: 1)
+        self.facebookButton = self.getLinkButton(icon: facebookIcon, color: facebookColor)
+        let instagramIcon = UIImage.fontAwesomeIcon(name: .instagram, style: .brands, textColor: .white, size: CGSize(size: 40))
+        let instagramColor = UIColor(red: 0.88, green: 0.19, blue: 0.42, alpha: 1)
+        self.instagramButton = self.getLinkButton(icon: instagramIcon, color: instagramColor)
+        let twitterIcon = UIImage.fontAwesomeIcon(name: .twitter, style: .brands, textColor: .white, size: CGSize(size: 40))
+        let twitterColor = UIColor(red: 0.11, green: 0.63, blue: 0.95, alpha: 1)
+        self.twitterButton = self.getLinkButton(icon: twitterIcon, color: twitterColor)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        let model = self.model
-        self.model = model
+        self.setupInfoIcons()
+    }
+    
+    private func markDirty() {
+        self.cityLabel.flex.markDirty()
+        self.countryLabel.flex.markDirty()
+        self.flagView.flex.markDirty()
+        self.populationIcon.flex.markDirty()
+        self.populationLabel.flex.markDirty()
+        self.areaIcon.flex.markDirty()
+        self.areaLabel.flex.markDirty()
+        self.elevationIcon.flex.markDirty()
+        self.elevationLabel.flex.markDirty()
+        self.linkButton.flex.markDirty()
+        self.facebookButton.flex.markDirty()
+        self.instagramButton.flex.markDirty()
+        self.twitterButton.flex.markDirty()
     }
 }
+

@@ -32,21 +32,6 @@ extension MKMapView {
                     self.drawPin(point: point, annotation: annotation)
                     self.drawTitle(title: annotation.title!!, at: point, attributes: titleAttributes)
                 }
-                /*let visibleRect = CGRect(origin: CGPoint.zero, size: image.size)
-                for annotation in self.annotations {
-                    let marker = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "marker")
-                    var point = snapshot.point(for: annotation.coordinate)
-                    if visibleRect.contains(point) {
-                        point.x = point.x + marker.centerOffset.x - (marker.bounds.size.width / 2)
-                        point.y = point.y + marker.centerOffset.y - (marker.bounds.size.height / 2)
-                        if let markerImage = marker.image {
-                            markerImage.draw(at: point)
-                        } else {
-                            marker.image = UIImage()
-                            marker.image!.draw(at: point)
-                        }
-                    }
-                }*/
                 let compositeImage = UIGraphicsGetImageFromCurrentImageContext()
                 UIGraphicsEndImageContext()
                 guard let finalImage = compositeImage else {

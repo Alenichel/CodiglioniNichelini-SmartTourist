@@ -9,6 +9,7 @@ target 'SmartTourist' do
   pod 'Katana'
   pod 'Tempura'
   pod 'PinLayout'
+  pod 'FlexLayout'
   pod 'DeepDiff'
   pod 'Cosmos', '~> 20.0'
   pod 'Fuse'
