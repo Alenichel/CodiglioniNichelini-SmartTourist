@@ -103,6 +103,8 @@
 		E5AFC8A123F9B006007B9887 /* CityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */; };
 		E5AFC8A223F9B006007B9887 /* CityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFC89B23F9B006007B9887 /* CityDetailView.swift */; };
 		E5C4324D2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C4324C2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift */; };
+		E5CA289B245EBB69005BA50A /* SettingDistanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CA289A245EBB69005BA50A /* SettingDistanceCell.swift */; };
+		E5CA289D245EBBA9005BA50A /* SettingIntCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CA289C245EBBA9005BA50A /* SettingIntCell.swift */; };
 		E5D005CB244DA0810079A37E /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D005CA244DA0810079A37E /* Place.swift */; };
 		E5D005CD244DA08D0079A37E /* GPPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D005CC244DA08D0079A37E /* GPPlace.swift */; };
 		E5D005CF244DA0960079A37E /* WDPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D005CE244DA0960079A37E /* WDPlace.swift */; };
@@ -318,6 +320,8 @@
 		E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityDetailViewController.swift; sourceTree = "<group>"; };
 		E5AFC89B23F9B006007B9887 /* CityDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityDetailView.swift; sourceTree = "<group>"; };
 		E5C4324C2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SFSafariViewController+RoutableWithConfiguration.swift"; sourceTree = "<group>"; };
+		E5CA289A245EBB69005BA50A /* SettingDistanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDistanceCell.swift; sourceTree = "<group>"; };
+		E5CA289C245EBBA9005BA50A /* SettingIntCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingIntCell.swift; sourceTree = "<group>"; };
 		E5D005CA244DA0810079A37E /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
 		E5D005CC244DA08D0079A37E /* GPPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GPPlace.swift; sourceTree = "<group>"; };
 		E5D005CE244DA0960079A37E /* WDPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WDPlace.swift; sourceTree = "<group>"; };
@@ -635,6 +639,8 @@
 				E50BC916241D4CA3005EFDCE /* SettingBoolCell.swift */,
 				E54958FB241F5BAD00D643F1 /* SettingStringCell.swift */,
 				E5615AF8245DB7620079F00C /* SettingDoubleCell.swift */,
+				E5CA289A245EBB69005BA50A /* SettingDistanceCell.swift */,
+				E5CA289C245EBBA9005BA50A /* SettingIntCell.swift */,
 				E57AAD0A244F5B5D00F49354 /* SizeableCell.swift */,
 				E54CE344245C95EE00813F51 /* ManualStackView.swift */,
 			);
@@ -1121,6 +1127,7 @@
 				E590FAE42445FCA300A3DD87 /* String+UIImage.swift in Sources */,
 				E5F9715D2392D96F0096C296 /* String+Random.swift in Sources */,
 				E5335D052389946C00601F02 /* AttractionsViewController.swift in Sources */,
+				E5CA289D245EBBA9005BA50A /* SettingIntCell.swift in Sources */,
 				E56167CB2428BAA40064B2E8 /* Array+sortedInsert.swift in Sources */,
 				E592B82224140FCF00AD46F8 /* UILabel+setText.swift in Sources */,
 				992533C4238FF8B800EE479A /* LocationManager.swift in Sources */,
@@ -1173,6 +1180,7 @@
 				E528FF89238971FE0065483B /* SceneDelegate.swift in Sources */,
 				E5D005D3244DA0BB0079A37E /* CodableUtilities.swift in Sources */,
 				E5F971612392D96F0096C296 /* ConfigurableCell.swift in Sources */,
+				E5CA289B245EBB69005BA50A /* SettingDistanceCell.swift in Sources */,
 				E54CE343245C84F700813F51 /* CityDetailInfoIcon.swift in Sources */,
 				E5D1474A23AB747300649C87 /* Model.swift in Sources */,
 				E5F9715E2392D96F0096C296 /* Source.swift in Sources */,

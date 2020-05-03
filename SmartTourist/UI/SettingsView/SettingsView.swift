@@ -34,8 +34,8 @@ struct SettingsViewModel: ViewModelWithLocalState {
 
 class SettingsView: UIView, ViewControllerModellableView {
     var notificationsCell = SettingBoolCell()
-    var maxRadiusCell = SettingDoubleCell()
-    var maxNAttractionCell = SettingDoubleCell()
+    var maxRadiusCell = SettingDistanceCell()
+    var maxNAttractionCell = SettingIntCell()
     var systemSettingsCell = SettingStringCell()
     var debugSubview = SettingsDebugSubview()
     var versionLabel = UILabel()

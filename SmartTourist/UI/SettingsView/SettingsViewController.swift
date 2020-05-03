@@ -29,6 +29,9 @@ class SettingsViewController: ViewControllerWithLocalState<SettingsView> {
         self.rootView.maxRadiusCell.didChange = { [unowned self] value in
             self.dispatch(SetMaxRadius(value: value))
         }
+        self.rootView.maxNAttractionCell.didChange = { [unowned self] value in
+            self.dispatch(SetMaxNAttraction(value: Int(value)))
+        }
     }
 }
 
