@@ -165,6 +165,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
         self.cityNameLabel.text = model.cityName
         let marker = MarkerPool.getMarker(location: model.location, text: model.cityName)
         self.mapView.addAnnotation(marker)
+        self.setNeedsLayout()
     }
     
     private func getIconView(label: String, icon: UIImage) -> UIView {
