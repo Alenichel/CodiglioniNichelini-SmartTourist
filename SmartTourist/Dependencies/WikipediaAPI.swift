@@ -43,7 +43,7 @@ class WikipediaAPI {
         var query = """
         SELECT DISTINCT ?place ?placeLabel ?location ?image ?instance ?phoneNumber ?website ?wikipediaLink
         WHERE {
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "en, it" }
             SERVICE wikibase:around {
                 ?place wdt:P625 ?location .
                 bd:serviceParam wikibase:center "Point(\(location.longitude) \(location.latitude))"^^geo:wktLiteral .
