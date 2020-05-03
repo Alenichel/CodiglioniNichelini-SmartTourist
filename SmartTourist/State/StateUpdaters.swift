@@ -139,11 +139,11 @@ struct SetMaxRadius: StateUpdater, Persistable {
     }
 }
 
-struct SetMaxNAttraction: StateUpdater, Persistable {
+struct SetMaxNAttractions: StateUpdater, Persistable {
     let value: Int
     
     func updateState(_ state: inout AppState) {
-        state.settings.maxNAttraction = value
+        state.settings.maxNAttractions = value
     }
 }
 

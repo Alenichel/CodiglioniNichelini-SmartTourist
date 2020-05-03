@@ -13,7 +13,7 @@ import PinLayout
 struct SettingsViewModel: ViewModelWithLocalState {
     let notificationsEnabled: Bool
     let maxRadius: Double
-    let maxNAttraction: Int
+    let maxNAttractions: Int
     let showDebug: Bool
     let averagePace: Double
     let littleCircleRadius: Double
@@ -23,7 +23,7 @@ struct SettingsViewModel: ViewModelWithLocalState {
         guard let state = state else { return nil }
         self.notificationsEnabled = state.settings.notificationsEnabled
         self.maxRadius = state.settings.maxRadius
-        self.maxNAttraction = state.settings.maxNAttraction
+        self.maxNAttractions = state.settings.maxNAttractions
         self.showDebug = localState.showDebug
         self.averagePace = state.pedometerState.averageWalkingSpeed
         self.littleCircleRadius = state.pedometerState.littleCircleRadius
@@ -35,7 +35,7 @@ struct SettingsViewModel: ViewModelWithLocalState {
 class SettingsView: UIView, ViewControllerModellableView {
     var notificationsCell = SettingBoolCell()
     var maxRadiusCell = SettingDistanceCell()
-    var maxNAttractionCell = SettingIntCell()
+    var maxNAttractionsCell = SettingIntCell()
     var systemSettingsCell = SettingStringCell()
     var debugSubview = SettingsDebugSubview()
     var versionLabel = UILabel()
@@ -52,7 +52,7 @@ class SettingsView: UIView, ViewControllerModellableView {
     func setup() {
         self.notificationsCell.setup()
         self.maxRadiusCell.setup()
-        self.maxNAttractionCell.setup()
+        self.maxNAttractionsCell.setup()
         self.systemSettingsCell.setup()
         self.debugSubview.setup()
         self.debugGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleDebugTap))
@@ -62,7 +62,7 @@ class SettingsView: UIView, ViewControllerModellableView {
         self.systemSettingsCell.addGestureRecognizer(self.systemSettingsGestureRecognizer)
         self.addSubview(self.notificationsCell)
         self.addSubview(self.maxRadiusCell)
-        self.addSubview(self.maxNAttractionCell)
+        self.addSubview(self.maxNAttractionsCell)
         self.addSubview(self.systemSettingsCell)
         self.addSubview(self.versionLabel)
         if let version = Bundle.main.releaseVersionNumber, let build = Bundle.main.buildVersionNumber {
@@ -74,7 +74,7 @@ class SettingsView: UIView, ViewControllerModellableView {
         self.backgroundColor = .systemBackground
         self.notificationsCell.style()
         self.maxRadiusCell.style()
-        self.maxNAttractionCell.style()
+        self.maxNAttractionsCell.style()
         self.systemSettingsCell.style()
         self.debugSubview.style()
         self.versionLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 0.85)
@@ -85,8 +85,8 @@ class SettingsView: UIView, ViewControllerModellableView {
         super.layoutSubviews()
         self.notificationsCell.pin.top(self.safeAreaInsets).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
         self.maxRadiusCell.pin.below(of: self.notificationsCell).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
-        self.maxNAttractionCell.pin.below(of: self.maxRadiusCell).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
-        self.systemSettingsCell.pin.below(of: self.maxNAttractionCell).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
+        self.maxNAttractionsCell.pin.below(of: self.maxRadiusCell).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
+        self.systemSettingsCell.pin.below(of: self.maxNAttractionsCell).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
         self.versionLabel.pin.below(of: self.systemSettingsCell).marginTop(30).hCenter().sizeToFit()
         self.debugSubview.pin.below(of: self.versionLabel).marginTop(30).horizontally()
     }
@@ -95,7 +95,7 @@ class SettingsView: UIView, ViewControllerModellableView {
         guard let model = self.model else { return }
         self.notificationsCell.model = SettingBoolCellViewModel(title: self.notificationsTitle, subtitle: self.notificationsSubtitle, value: model.notificationsEnabled)
         self.maxRadiusCell.model = SettingDoubleCellViewModel(title: "Maximum radius", subtitle: nil, value: model.maxRadius)
-        self.maxNAttractionCell.model = SettingDoubleCellViewModel(title: "Maximum attractions", subtitle: nil, value: Double(model.maxNAttraction))
+        self.maxNAttractionsCell.model = SettingDoubleCellViewModel(title: "Maximum attractions", subtitle: nil, value: Double(model.maxNAttractions))
         self.systemSettingsCell.model = SettingStringCellViewModel(title: "System settings", subtitle: nil, value: nil)
         if model.showDebug {
             self.addSubview(self.debugSubview)

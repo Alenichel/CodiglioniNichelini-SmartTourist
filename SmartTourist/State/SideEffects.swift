@@ -61,7 +61,7 @@ struct GetNearestPlaces: SideEffect {
                 roundPlaces = try await(context.dependencies.wikiAPI.getNearbyPlaces(location: currentLocation, radius: Int(distance), isArticleMandatory: false))
             }
             let sortedPlaces = Set(roundPlaces).sorted(by: { $0.distance(from: currentLocation) < $1.distance(from: currentLocation) })
-            context.dispatch(SetNearestPlaces(places: Array(sortedPlaces.prefix(context.getState().settings.maxNAttraction))))
+            context.dispatch(SetNearestPlaces(places: Array(sortedPlaces.prefix(context.getState().settings.maxNAttractions))))
         }
     }
 }
