@@ -40,10 +40,10 @@ class WikipediaAPI {
     }()
     
     private func getNearbyPlacesQuery(location: CLLocationCoordinate2D, radius: Int, isArticleMandatory: Bool) -> String {
-        var value =  """
+        var query = """
         SELECT DISTINCT ?place ?placeLabel ?location ?image ?instance ?phoneNumber ?website ?wikipediaLink
         WHERE {
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "en, it" }
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
             SERVICE wikibase:around {
                 ?place wdt:P625 ?location .
                 bd:serviceParam wikibase:center "Point(\(location.longitude) \(location.latitude))"^^geo:wktLiteral .
@@ -55,23 +55,16 @@ class WikipediaAPI {
         OPTIONAL {?place wdt:P1329 ?phoneNumber}.
         OPTIONAL {?place wdt:P856 ?website} .
         """
-        if isArticleMandatory {
-            value = value + """
-                {?wikipediaLink schema:about ?place;
-                schema:inLanguage "en";
-                schema:isPartOf [ wikibase:wikiGroup "wikipedia" ]} .
-            }
-            """
-        } else {
-            value = value + """
-                OPTIONAL {?wikipediaLink schema:about ?place;
-                schema:inLanguage "en";
-                schema:isPartOf [ wikibase:wikiGroup "wikipedia" ]} .
-            }
-            """
+        if !isArticleMandatory {
+            query += "OPTIONAL "
         }
-        
-        return value
+        query += """
+            {?wikipediaLink schema:about ?place;
+            schema:inLanguage "en";
+            schema:isPartOf [ wikibase:wikiGroup "wikipedia" ]} .
+        }
+        """
+        return query
     }
     
     private func getCityDetailsQuery(_ cityId: String) -> String {
@@ -304,7 +297,11 @@ class WikipediaAPI {
                     guard let data = response.data else { reject(UnknownApiError()); return }
                     do {
                         let results = try JSONDecoder().decode(WDPlaceResponse.self, from: data)
-                        let places = results.places.filter { WikipediaAPI.wdInstances.contains($0.instance) }
+                        let places = results.places.filter { place in
+                            let rightInstance = WikipediaAPI.wdInstances.contains(place.instance)
+                            let nonQLabel = place.name.range(of: #"Q[0-9]+"#, options: .regularExpression) == nil
+                            return rightInstance && nonQLabel
+                        }
                         resolve(places)
                     } catch {
                         print("\(#function): \(error.localizedDescription)")
