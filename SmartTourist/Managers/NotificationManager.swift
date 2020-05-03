@@ -81,7 +81,8 @@ class NotificationManager {
             content.userInfo = ["PLACE_ID": place.placeID]
             if let photo = place.photos?.first {
                 let image = try await(WikipediaAPI.shared.getPhoto(imageURL: photo))
-                if let attachment = UNNotificationAttachment.create(identifier: "PHOTO", image: image, options: nil) {
+                let fileExtension = photo.pathExtension.lowercased()
+                if let attachment = UNNotificationAttachment.create(identifier: "PHOTO", image: image, fileExtension: fileExtension, options: nil) {
                     content.attachments.append(attachment)
                 }
             }

@@ -80,7 +80,7 @@ struct LocationState {
 /// The part of the state concering settings
 struct Settings: Codable {
     /// Whether or not the app should send notifications when the user is near a top attraction
-    var notificationsEnabled: Bool = false
+    var notificationsEnabled: Bool = true
     var maxRadius: Double = 1
 }
 

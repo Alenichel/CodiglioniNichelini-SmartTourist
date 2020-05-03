@@ -12,7 +12,7 @@ import Alamofire
 
 class GoogleAPI {
     static let apiKey = "AIzaSyBRyXdxfKGblNikXdbjmGoLMDvMdWqeku0"
-    static let apiThrottleTime: Double = 30   // seconds
+    static let apiThrottleTime: Double = 15   // seconds
     
     static let shared = GoogleAPI()
     private init() {}
