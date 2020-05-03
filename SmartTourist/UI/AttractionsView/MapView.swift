@@ -160,7 +160,7 @@ class MapView: UIView, ViewControllerModellableView {
     func update(oldModel: AttractionsViewModel?) {
         guard let model = self.model else { return }
         let places = model.places.filter { place in
-            if let link = place.wikipediaLink {
+            if let _ = place.wikipediaLink {
                 return true
             } else {
                 return false

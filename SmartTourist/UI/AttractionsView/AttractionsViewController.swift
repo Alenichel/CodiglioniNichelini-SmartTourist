@@ -139,6 +139,9 @@ extension AttractionsViewController: MKMapViewDelegate {
             return nil
         } else if let placemark = annotation as? MKPlacemark {
             let view = MKMarkerAnnotationView(annotation: placemark, reuseIdentifier: "marker")
+            if let place = self.rootView.markerPool.getPlace(from: placemark), place.wikipediaLink == nil {
+                view.markerTintColor = .systemGray2
+            }
             view.canShowCallout = true
             let button = UIButton(type: .detailDisclosure)
             button.tintColor = .label
