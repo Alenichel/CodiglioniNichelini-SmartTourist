@@ -159,7 +159,14 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Update
     func update(oldModel: AttractionsViewModel?) {
         guard let model = self.model else { return }
-        let listCardViewModel = ListCardViewModel(currentLocation: model.location, places: model.places, favorites: model.favorites, selectedSegmentedIndex: model.selectedSegmentedIndex)
+        let places = model.places.filter { place in
+            if let link = place.wikipediaLink {
+                return true
+            } else {
+                return false
+            } 
+        }
+        let listCardViewModel = ListCardViewModel(currentLocation: model.location, places: places, favorites: model.favorites, selectedSegmentedIndex: model.selectedSegmentedIndex)
         self.listCardView.model = listCardViewModel
         if model.actualLocation == nil {
             self.locationButton.setImage(MapView.locationImage, for: .normal)
