@@ -124,11 +124,10 @@ struct AddFavorite: SideEffect {
 struct GetCityDetails: SideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
         guard let cityName = context.getState().locationState.currentCity else { return }
-        
-        WikipediaAPI.shared.getWikidataId(title: cityName).then(
-            WikipediaAPI.shared.getCityDetail
-        ).then(in: .utility){city in
+        WikipediaAPI.shared.getWikidataId(title: cityName).then(WikipediaAPI.shared.getCityDetail).then(in: .utility) { city in
             context.dispatch(SetWDCity(city: city))
+        }.catch(in: .utility) { error in
+            print(error.localizedDescription)
         }
     }
 }

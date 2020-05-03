@@ -205,7 +205,6 @@ class WDPlace: Codable, Hashable, Comparable {
                 } else {
                     return
                 }
-                
             }.catch(in: .utility) { error in
                 print(self.name)
                 print(error.localizedDescription)

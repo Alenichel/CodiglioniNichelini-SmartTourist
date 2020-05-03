@@ -217,35 +217,21 @@ class WikipediaAPI {
             let parameters = [
                 "action" : "query",
                 "prop" : "pageprops",
+                "ppprop": "wikibase_item",
+                "redirects": "1",
                 "titles" : title,
-                "format" : "json"
+                "format" : "xml"
             ]
             let url = "https://en.wikipedia.org/w/api.php"
-            AF.request(url, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
+            AF.request(url, parameters: parameters).responseData(queue: .global(qos: .utility)) { response in
                 switch response.result {
                 case .success:
                     guard let data = response.data else { reject(UnknownApiError()); return }
-                    do {
-                        // make sure this JSON is in the format we expect
-                        if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                            // try to read out a string array
-                            if let query = json["query"] as? [String: Any] {
-                                if let pages = query["pages"] as? [String: Any]{
-                                    if let number = pages[pages.keys.first ?? ""] as? [String: Any]{
-                                        if let pageprops = number["pageprops"] as? [String: Any]{
-                                            if let wikidataId = pageprops["wikibase_item"] as? String{
-                                                resolve(wikidataId)
-                                                return
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                    let xml = XML.parse(data)
+                    if let wdID = xml.api.query.pages.page.pageprops.attributes["wikibase_item"] {
+                        resolve(wdID)
+                    } else {
                         reject(UnknownApiError())
-                    } catch {
-                        print("\(#function): \(error.localizedDescription)")
-                        reject(error)
                     }
                 case .failure:
                     guard let error = response.error else { reject(UnknownApiError()); return }

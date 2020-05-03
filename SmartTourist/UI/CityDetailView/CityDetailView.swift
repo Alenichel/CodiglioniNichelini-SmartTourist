@@ -43,8 +43,12 @@ class CityDetailView: UIView, ViewControllerModellableView {
     var linksView = ManualStackView()
     var flagImageView = UIImageView()
     
+    var didLoadEverything: Interaction?
+    
     func setup() {
         self.mapView.showsTraffic = false
+        self.mapView.showsCompass = false
+        self.mapView.isUserInteractionEnabled = false
         self.mapView.pointOfInterestFilter = .init(including: [.publicTransport])
         self.addSubview(self.titleContainerView)
         self.titleContainerView.addSubview(self.cityNameLabel)
@@ -68,8 +72,6 @@ class CityDetailView: UIView, ViewControllerModellableView {
         self.countryNameLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.15 , weight: .thin)
         self.countryNameLabel.textAlignment = .center
         self.countryNameLabel.layer.cornerRadius = 20
-        self.mapView.showsCompass = false
-        self.mapView.isUserInteractionEnabled = false
         self.descriptionText.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 1.15)
         self.descriptionText.isEditable = false
         self.descriptionText.textAlignment = NSTextAlignment.justified
@@ -99,8 +101,9 @@ class CityDetailView: UIView, ViewControllerModellableView {
     }
     
     func update(oldModel: CityDetailViewModel?){
-        guard let model = self.model else { return }
+        guard let model = self.model, !model.allLoaded else { return }
         let camera = MKMapCamera(lookingAtCenter: model.location, fromDistance: 20000, pitch: 0, heading: 0)
+        print("--> SETTING CAMERA")
         self.mapView.setCamera(camera, animated: true)
         self.descriptionText.setText(searchTerms: model.cityName) {
             self.setNeedsLayout()
@@ -157,7 +160,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
             }
             let linksViewModel = ManualStackViewModel(views: linkViews)
             self.linksView.model = linksViewModel
-            
+            self.didLoadEverything?()
         }
         self.cityNameLabel.text = model.cityName
         let marker = MarkerPool.getMarker(location: model.location, text: model.cityName)
