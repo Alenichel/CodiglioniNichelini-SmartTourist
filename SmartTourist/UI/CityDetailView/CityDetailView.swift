@@ -165,7 +165,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
         let mapScreenshot = self.mapView.screenshot()
         city.getPhotosURLs().then(in: .main) {
             var imagePromises = city.photos.map { WikipediaAPI.shared.getPhoto(imageURL: $0) }
-            imagePromises.insert(mapScreenshot, at: 0)
+            imagePromises.append(mapScreenshot)
             self.slideshow.setImageInputs(imagePromises.map { PromiseImageSource($0) })
         }
         if let population = city.population {

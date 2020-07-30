@@ -210,6 +210,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
                 self.cosmos.isHidden = true
                 self.nRatingsLabel.isHidden = true
             }
+            self.cosmos.rating = rating
         }
         self.nRatingsLabel.text = model.nRatings
         
