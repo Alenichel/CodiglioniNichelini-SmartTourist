@@ -53,12 +53,15 @@ struct GetNearestPlaces: SideEffect {
             var distance : Double = 1
             var roundPlaces : [WDPlace] = []
             while nPlaces < 50 && distance <= context.getState().settings.maxRadius {
-                roundPlaces = try await(context.dependencies.wikiAPI.getNearbyPlaces(location: currentLocation, radius: Int(distance)))
+                roundPlaces = try await(context.dependencies.wikiAPI.getNearbyPlaces(location: currentLocation, radius: Int(distance), isArticleMandatory: true))
                 nPlaces = roundPlaces.count
                 distance = distance * 2
             }
-             let sortedPlaces = Set(roundPlaces).sorted(by: { $0.distance(from: currentLocation) < $1.distance(from: currentLocation) })
-             context.dispatch(SetNearestPlaces(places: sortedPlaces))
+            if nPlaces < 50 {
+                roundPlaces = try await(context.dependencies.wikiAPI.getNearbyPlaces(location: currentLocation, radius: Int(distance), isArticleMandatory: false))
+            }
+            let sortedPlaces = Set(roundPlaces).sorted(by: { $0.distance(from: currentLocation) < $1.distance(from: currentLocation) })
+            context.dispatch(SetNearestPlaces(places: Array(sortedPlaces.prefix(context.getState().settings.maxNAttractions))))
         }
     }
 }
@@ -121,11 +124,10 @@ struct AddFavorite: SideEffect {
 struct GetCityDetails: SideEffect {
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
         guard let cityName = context.getState().locationState.currentCity else { return }
-        
-        WikipediaAPI.shared.getWikidataId(title: cityName).then(
-            WikipediaAPI.shared.getCityDetail
-        ).then(in: .utility){city in
+        WikipediaAPI.shared.getWikidataId(title: cityName).then(WikipediaAPI.shared.getCityDetail).then(in: .utility) { city in
             context.dispatch(SetWDCity(city: city))
+        }.catch(in: .utility) { error in
+            print(error.localizedDescription)
         }
     }
 }

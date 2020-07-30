@@ -23,7 +23,11 @@ class CityDetailViewController: ViewControllerWithLocalState<CityDetailView> {
         self.navigationItem.rightBarButtonItem = self.settingsButton
     }
     
-    override func setupInteraction() {}
+    override func setupInteraction() {
+        /*self.rootView.didLoadEverything = { [unowned self ] in
+            self.localState.allLoaded = true
+        }*/
+    }
 }
 
 

@@ -159,7 +159,14 @@ class MapView: UIView, ViewControllerModellableView {
     // MARK: Update
     func update(oldModel: AttractionsViewModel?) {
         guard let model = self.model else { return }
-        let listCardViewModel = ListCardViewModel(currentLocation: model.location, places: model.places, favorites: model.favorites, selectedSegmentedIndex: model.selectedSegmentedIndex)
+        let places = model.places.filter { place in
+            if let _ = place.wikipediaLink {
+                return true
+            } else {
+                return false
+            } 
+        }
+        let listCardViewModel = ListCardViewModel(currentLocation: model.location, places: places, favorites: model.favorites, selectedSegmentedIndex: model.selectedSegmentedIndex)
         self.listCardView.model = listCardViewModel
         if model.actualLocation == nil {
             self.locationButton.setImage(MapView.locationImage, for: .normal)
@@ -280,15 +287,15 @@ class MapView: UIView, ViewControllerModellableView {
                 self.animator?.addCompletion { [unowned self] _ in
                     self.cardState = .expanded
                     self.panGestureRecognizer.isEnabled = true
-                    self.layoutMapView(targetPercent: self.cardState.rawValue%)
+                    //self.layoutMapView(targetPercent: self.cardState.rawValue%)
                     self.listCardView.attractionListView.isScrollEnabled = true
                 }
             } else {
-                self.animator?.isReversed = true
+                //self.animator?.isReversed = true
                 self.animator?.addCompletion { [unowned self] _ in
-                    self.cardState = .collapsed
+                    self.cardState = .expanded //.collapsed
                     self.panGestureRecognizer.isEnabled = true
-                    self.layoutMapView(targetPercent: self.cardState.rawValue%)
+                    //self.layoutMapView(targetPercent: self.cardState.rawValue%)
                     self.listCardView.attractionListView.isScrollEnabled = false
                 }
             }
@@ -298,15 +305,15 @@ class MapView: UIView, ViewControllerModellableView {
                 self.animator?.addCompletion { [unowned self] _ in
                     self.cardState = .collapsed
                     self.panGestureRecognizer.isEnabled = true
-                    self.layoutMapView(targetPercent: self.cardState.rawValue%)
+                    //self.layoutMapView(targetPercent: self.cardState.rawValue%)
                     self.listCardView.attractionListView.isScrollEnabled = false
                 }
             } else {
-                self.animator?.isReversed = true
+                //self.animator?.isReversed = true
                 self.animator?.addCompletion { [unowned self] _ in
-                    self.cardState = .expanded
+                    self.cardState = .collapsed //.expanded
                     self.panGestureRecognizer.isEnabled = true
-                    self.layoutMapView(targetPercent: self.cardState.rawValue%)
+                    //self.layoutMapView(targetPercent: self.cardState.rawValue%)
                     self.listCardView.attractionListView.isScrollEnabled = true
                 }
             }

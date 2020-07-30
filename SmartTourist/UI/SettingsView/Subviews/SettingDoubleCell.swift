@@ -25,14 +25,7 @@ class SettingDoubleCell: SettingCell, ModellableView {
     var didChange: ((Double) -> Void)?
     
     func setup() {
-        self.stepper.minimumValue = 0
-        self.stepper.maximumValue = 5
-        self.stepper.stepValue = 1
-        self.stepper.wraps = true
-        self.stepper.on(.valueChanged) { stepper in
-            let value = pow(2, stepper.value)
-            self.didChange?(value)
-        }
+        self.stepperConfig()
         self.addSubview(self.title)
         self.addSubview(self.subtitle)
         self.addSubview(self.stepper)
@@ -61,9 +54,30 @@ class SettingDoubleCell: SettingCell, ModellableView {
         guard let model = self.model else { return }
         self.title.text = model.title
         self.subtitle.text = model.subtitle
-        self.stepper.value = log2(model.value)
-        self.valueLabel.text = "\(Int(model.value)) km"
+        self.stepper.value = self.getValue()
+        self.valueLabel.text = self.getValueString()
         self.setNeedsLayout()
+    }
+    
+    func getValue() -> Double {
+        guard let model = self.model else { return 0 }
+        return model.value
+    }
+    
+    func getValueString() -> String {
+        guard let model = self.model else { return "" }
+        return "\(model.value)"
+    }
+    
+    func stepperConfig() {
+        self.stepper.minimumValue = 0
+        self.stepper.maximumValue = 10
+        self.stepper.stepValue = 1
+        self.stepper.wraps = true
+        self.stepper.on(.valueChanged) { stepper in
+            let value = stepper.value
+            self.didChange?(value)
+        }
     }
 }
 

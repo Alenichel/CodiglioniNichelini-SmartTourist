@@ -39,25 +39,31 @@ class WikipediaAPI {
         }
     }()
     
-    private func getNearbyPlacesQuery(location: CLLocationCoordinate2D, radius: Int) -> String {
-        return """
+    private func getNearbyPlacesQuery(location: CLLocationCoordinate2D, radius: Int, isArticleMandatory: Bool) -> String {
+        var query = """
         SELECT DISTINCT ?place ?placeLabel ?location ?image ?instance ?phoneNumber ?website ?wikipediaLink
         WHERE {
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "en, it" }
             SERVICE wikibase:around {
                 ?place wdt:P625 ?location .
                 bd:serviceParam wikibase:center "Point(\(location.longitude) \(location.latitude))"^^geo:wktLiteral .
                 bd:serviceParam wikibase:radius "\(radius)" .
             }
             ?place wdt:P31 ?instance  .
-            ?wikipediaLink schema:about ?place;
-                           schema:inLanguage "en";
-                           schema:isPartOf [ wikibase:wikiGroup "wikipedia" ] .
-            ?place wdt:P18 ?image .
-            OPTIONAL {?place wdt:P1329 ?phoneNumber}.
-            OPTIONAL {?place wdt:P856 ?website} .
+        ?place wdt:P18 ?image .
+        OPTIONAL {?place wdt:P1329 ?phoneNumber}.
+        OPTIONAL {?place wdt:P856 ?website} .
+        """
+        if !isArticleMandatory {
+            query += "OPTIONAL "
+        }
+        query += """
+            {?wikipediaLink schema:about ?place;
+            schema:inLanguage "en";
+            schema:isPartOf [ wikibase:wikiGroup "wikipedia" ]} .
         }
         """
+        return query
     }
     
     private func getCityDetailsQuery(_ cityId: String) -> String {
@@ -211,35 +217,21 @@ class WikipediaAPI {
             let parameters = [
                 "action" : "query",
                 "prop" : "pageprops",
+                "ppprop": "wikibase_item",
+                "redirects": "1",
                 "titles" : title,
-                "format" : "json"
+                "format" : "xml"
             ]
             let url = "https://en.wikipedia.org/w/api.php"
-            AF.request(url, parameters: parameters).responseJSON(queue: .global(qos: .utility)) { response in
+            AF.request(url, parameters: parameters).responseData(queue: .global(qos: .utility)) { response in
                 switch response.result {
                 case .success:
                     guard let data = response.data else { reject(UnknownApiError()); return }
-                    do {
-                        // make sure this JSON is in the format we expect
-                        if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                            // try to read out a string array
-                            if let query = json["query"] as? [String: Any] {
-                                if let pages = query["pages"] as? [String: Any]{
-                                    if let number = pages[pages.keys.first ?? ""] as? [String: Any]{
-                                        if let pageprops = number["pageprops"] as? [String: Any]{
-                                            if let wikidataId = pageprops["wikibase_item"] as? String{
-                                                resolve(wikidataId)
-                                                return
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                    let xml = XML.parse(data)
+                    if let wdID = xml.api.query.pages.page.pageprops.attributes["wikibase_item"] {
+                        resolve(wdID)
+                    } else {
                         reject(UnknownApiError())
-                    } catch {
-                        print("\(#function): \(error.localizedDescription)")
-                        reject(error)
                     }
                 case .failure:
                     guard let error = response.error else { reject(UnknownApiError()); return }
@@ -277,10 +269,10 @@ class WikipediaAPI {
         }
     }
     
-    func getNearbyPlaces(location: CLLocationCoordinate2D, radius: Int) -> Promise<[WDPlace]> {
+    func getNearbyPlaces(location: CLLocationCoordinate2D, radius: Int, isArticleMandatory: Bool) -> Promise<[WDPlace]> {
         return Promise<[WDPlace]>(in: .background) { resolve, reject, status in
             let parameters = [
-                "query": self.getNearbyPlacesQuery(location: location, radius: radius),
+                "query": self.getNearbyPlacesQuery(location: location, radius: radius, isArticleMandatory: isArticleMandatory),
                 "format": "json"
             ]
             let url = "https://query.wikidata.org/sparql"
@@ -290,7 +282,11 @@ class WikipediaAPI {
                     guard let data = response.data else { reject(UnknownApiError()); return }
                     do {
                         let results = try JSONDecoder().decode(WDPlaceResponse.self, from: data)
-                        let places = results.places.filter { WikipediaAPI.wdInstances.contains($0.instance) }
+                        let places = results.places.filter { place in
+                            let rightInstance = WikipediaAPI.wdInstances.contains(place.instance)
+                            let nonQLabel = place.name.range(of: #"Q[0-9]+"#, options: .regularExpression) == nil
+                            return rightInstance && nonQLabel
+                        }
                         resolve(places)
                     } catch {
                         print("\(#function): \(error.localizedDescription)")

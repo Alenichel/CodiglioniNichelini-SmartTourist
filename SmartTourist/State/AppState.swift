@@ -82,6 +82,7 @@ struct Settings: Codable {
     /// Whether or not the app should send notifications when the user is near a top attraction
     var notificationsEnabled: Bool = true
     var maxRadius: Double = 1
+    var maxNAttractions: Int = 150
 }
 
 

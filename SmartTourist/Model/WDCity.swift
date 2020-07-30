@@ -103,7 +103,6 @@ class WDCity: Decodable {
                 WikipediaAPI.shared.getImageUrls(from: cityLabel).then(in: .utility) { urls in
                     self.photos = Array(Set(self.photos).union(Set(urls)))
                     self.photos.removeAll(where: { $0.pathExtension == "svg" })
-                    print(self.photos)
                     resolve(())
                 }.catch(in: .utility) { error in
                     print(error.localizedDescription)
