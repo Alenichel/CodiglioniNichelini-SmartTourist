@@ -17,7 +17,7 @@ class ArrayTest: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         let location = CLLocationCoordinate2D(latitude: 51.501476, longitude: -0.140634)    // Should be Buckingham Palace
-        self.places = try await(WikipediaAPI.shared.getNearbyPlaces(location: location))
+        self.places = try await(WikipediaAPI.shared.getNearbyPlaces(location: location, radius: 100, isArticleMandatory: false))
     }
     
     func testSortedInsert() {

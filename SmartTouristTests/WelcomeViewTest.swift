@@ -30,9 +30,15 @@ class WelcomeViewTest: XCTestCase, ViewControllerTestCase {
     }
     
     func test() {
-        let testCases = [
-            TestCase.WelcomeViewAllEnabled.rawValue,
-            TestCase.WelcomeViewAllDisabled.rawValue
+        let testCases: [String: WelcomeViewModel] = [
+            TestCase.WelcomeViewAllEnabled.rawValue: {
+                let localState = WelcomeLocalState(locationButtonEnabled: false, notificationsButtonEnabled: false)
+                return WelcomeViewModel(state: viewController.store.state, localState: localState)!
+            }(),
+            TestCase.WelcomeViewAllDisabled.rawValue: {
+                let localState = WelcomeLocalState(locationButtonEnabled: true, notificationsButtonEnabled: true)
+                return WelcomeViewModel(state: viewController.store.state, localState: localState)!
+            }()
         ]
         self.uiTest(testCases: testCases, context: UITests.VCContext<WelcomeViewTest.VC>())
     }

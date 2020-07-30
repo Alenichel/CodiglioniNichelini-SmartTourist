@@ -30,9 +30,15 @@ class SettingsViewTest: XCTestCase, ViewControllerTestCase {
     }
     
     func test() {
-        let testCases = [
-            TestCase.SettingsViewShowDebug.rawValue,
-            TestCase.SettingsViewHideDebug.rawValue
+        let testCases: [String: SettingsViewModel] = [
+            TestCase.SettingsViewShowDebug.rawValue: {
+                let localState = SettingsViewLocalState(showDebug: true)
+                return SettingsViewModel(state: viewController.store.state, localState: localState)!
+            }(),
+            TestCase.SettingsViewHideDebug.rawValue:  {
+                let localState = SettingsViewLocalState(showDebug: false)
+                return SettingsViewModel(state: viewController.store.state, localState: localState)!
+            }()
         ]
         self.uiTest(testCases: testCases, context: UITests.VCContext<SettingsViewTest.VC>())
     }
