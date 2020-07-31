@@ -11,16 +11,10 @@ import Tempura
 
 
 class CityDetailViewController: ViewControllerWithLocalState<CityDetailView> {
-    var settingsButton = UIBarButtonItem()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.dispatch(GetCityDetails())
-        self.settingsButton.image = UIImage(systemName: "gear")
-        self.settingsButton.onTap { button in
-            self.dispatch(Show(Screen.settings, animated: true))
-        }
-        self.navigationItem.rightBarButtonItem = self.settingsButton
     }
     
     override func setupInteraction() {
@@ -39,9 +33,6 @@ extension CityDetailViewController: RoutableWithConfiguration {
     var navigationConfiguration: [NavigationRequest : NavigationInstruction] {
         [
             .hide(Screen.cityDetail): .pop,
-            .show(Screen.settings): .push { [unowned self] context in
-                SettingsViewController(store: self.store, localState: SettingsViewLocalState())
-            },
         ]
     }
 }

@@ -73,6 +73,9 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
         self.rootView.listCardView.didTapMapButton = { [unowned self] in
             self.dispatch(Show(Screen.worldwideFavorites, animated: true))
         }
+        self.rootView.listCardView.didTapSettingsButton = { [unowned self] in
+            self.dispatch(Show(Screen.settings, animated: true))
+        }
     }
 }
 
@@ -200,6 +203,9 @@ extension AttractionsViewController: RoutableWithConfiguration {
                 vc.modalPresentationStyle = .pageSheet
                 return vc
             },
+            .show(Screen.settings): .push { [unowned self] context in
+                SettingsViewController(store: self.store, localState: SettingsViewLocalState())
+            }
         ]
     }
 }

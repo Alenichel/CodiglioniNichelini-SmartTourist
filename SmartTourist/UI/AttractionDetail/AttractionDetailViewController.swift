@@ -41,6 +41,9 @@ class AttractionDetailViewController: ViewControllerWithLocalState<AttractionDet
             guard let wikipediaUrl = wikipediaUrl, let url = URL(string: wikipediaUrl) else { return }
             self.dispatch(Show(Screen.safari, animated: true, context: url))
         }
+        self.rootView.didTapContributeButton = {
+            self.dispatch(Show(Screen.safari, animated: true, context: URL(string: "https://en.wikipedia.org/wiki/Wikipedia:Contributing_to_Wikipedia")))
+        }
     }
 }
 

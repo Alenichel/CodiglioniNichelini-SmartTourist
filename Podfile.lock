@@ -30,7 +30,7 @@ DEPENDENCIES:
   - FontAwesome.swift
   - Fuse
   - ImageSlideshow (~> 1.8.3)
-  - Katana
+  - Katana (~> 3.2.0)
   - MarqueeLabel
   - PinLayout
   - SigmaSwiftStatistics (~> 9.0)
@@ -83,6 +83,6 @@ SPEC CHECKSUMS:
   Tempura: 9c448606f6fd20c60ab2e56a7614eeb1db6bc2a0
   TempuraTesting: 7e73cb4542029b3493cb30e67f619d15fe1065ac
 
-PODFILE CHECKSUM: 0338d52b7dc4cfb291236a3c17e5d3908d4ab0fc
+PODFILE CHECKSUM: e017c38ecbfd127f479b2455c534ad382a0ee619
 
 COCOAPODS: 1.9.1

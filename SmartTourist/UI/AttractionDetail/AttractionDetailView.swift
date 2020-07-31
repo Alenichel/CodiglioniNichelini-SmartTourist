@@ -15,11 +15,10 @@ import MapKit
 import ImageSlideshow
 import FontAwesome_swift
 
-
 struct AttractionDetailViewModel: ViewModelWithLocalState {
     let attraction: WDPlace
     let nRatings: String
-    let wikipediaLink: String
+    let wikipediaLink: String?
     let wikipediaSearchTerms: String
     let actualLocation: CLLocationCoordinate2D
     let favorite: Bool
@@ -35,7 +34,7 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
             self.nRatings = "0"
         }
         self.wikipediaSearchTerms = self.attraction.wikipediaName ?? ""
-        self.wikipediaLink = self.attraction.wikipediaLink ?? ""
+        self.wikipediaLink = self.attraction.wikipediaLink
         self.actualLocation = state.locationState.currentLocation!
         self.favorite = state.favorites.contains(attraction)
         self.allLoaded = localState.allLoaded
@@ -65,12 +64,14 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     var wikipediaButton = RoundedButton()
     var timeLabel = UILabel()
     var buttonsStack = ManualStackView()
+    var contributeButton = RoundedButton()
     
     var didTapFavoriteButton: ((WDPlace) -> Void)?
     var didLoadEverything: Interaction?
     var didTapDirectionButton: (( CLLocationCoordinate2D?, WDPlace?) -> Void)?
     var didTapLinkButton: ((String?) -> Void)?
     var didTapWikipediaButton: ((String?) -> Void)?
+    var didTapContributeButton: (() -> Void)?
 
     func setup() {
         self.navigationItem?.rightBarButtonItem = self.favoriteButton
@@ -101,12 +102,16 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.wikipediaButton.on(.touchUpInside) { button in
             self.didTapWikipediaButton?(self.model?.wikipediaLink)
         }
+        self.contributeButton.on(.touchUpInside) { button in
+            self.didTapContributeButton?()
+        }
         self.buttonsStack.setup()
         self.containerView.addSubview(self.buttonsStack)
         self.containerView.addSubview(self.lineView)
         
         self.descriptionText.numberOfLines = 0
         self.containerView.addSubview(self.descriptionText)
+        self.containerView.addSubview(self.contributeButton)
         self.containerView.addSubview(self.mapView)
         
         //self.containerView.addSubview(self.timeLabel)
@@ -140,6 +145,13 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         styleRoundedButton(button: self.directionButton, image: UIImage.fontAwesomeIcon(name: .shoePrints, style: .solid, textColor: .label, size: CGSize(size: 30)))
         styleRoundedButton(button: self.linkButton, image: AttractionDetailView.linkImage!)
         styleRoundedButton(button: self.wikipediaButton, image: UIImage.fontAwesomeIcon(name: .wikipediaW, style: .brands, textColor: .label, size: CGSize(size: 40)))
+        self.contributeButton.setTitle("Contribute!", for: .normal)
+        self.contributeButton.setTitleColor(.label, for: .normal)
+        self.contributeButton.backgroundColor = .systemBackground
+        self.contributeButton.layer.cornerRadius = 20
+        self.contributeButton.layer.shadowColor = UIColor.label.cgColor
+        self.contributeButton.layer.shadowOpacity = 0.75
+        self.contributeButton.layer.shadowOffset = .zero
         self.timeLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .light)
         self.timeLabel.textAlignment = .right
         self.timeLabel.sizeToFit()
@@ -152,7 +164,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         button.backgroundColor = .systemBackground
         button.layer.cornerRadius = 20
         button.layer.shadowColor = UIColor.label.cgColor
-        button.layer.shadowOpacity = 0.75
+        button.layer.shadowOpacity = 0.40
         button.layer.shadowOffset = .zero
         button.layer.shadowRadius = 1
         button.setImage(image, for: .normal)
@@ -199,14 +211,16 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
             let mapHeight: CGFloat = 300
             let h = textContentHeight + frameHeight / 1.8 + mapHeight + 50
             self.scrollView.contentSize = CGSize(width: self.frame.width, height: h)
-            self.mapView.pin.horizontally(20).below(of: descriptionText).marginTop(20)
+            if text != defaultDescription {
+                self.mapView.pin.horizontally(20).below(of: descriptionText).marginTop(20)
+            } else {
+                self.contributeButton.sizeToFit()
+                self.contributeButton.pin.below(of: descriptionText, aligned: .center).horizontally(20).marginTop(20).width(180)
+                self.mapView.pin.horizontally(20).below(of: contributeButton).marginTop(20)
+            }
         } else {
             self.mapView.pin.horizontally(20).below(of: self.lineView).marginTop(15)
         }
-        /*
-        self.timeLabel.pin.before(of: self.directionButton, aligned: .center).size(150).margin(5)
-        */
-        
     }
     
     func update(oldModel: AttractionDetailViewModel?) {
@@ -259,7 +273,10 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         }
         
         
-        var views = [self.directionButton, self.wikipediaButton]
+        var views = [self.directionButton]
+        if model.wikipediaLink != nil {
+            views.append(self.wikipediaButton)
+        }
         if model.link != nil {
             views.append(self.linkButton)
         }
