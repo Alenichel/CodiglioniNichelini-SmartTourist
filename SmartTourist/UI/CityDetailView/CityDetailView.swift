@@ -231,7 +231,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
             self.twitterButton.isEnabled = false
             self.twitterButton.alpha = 0.7
         }
-        self.descriptionLabel.setText(title: model.cityName) {
+        self.descriptionLabel.setText(city: city) {
             DispatchQueue.main.async {
                 self.setNeedsLayout()
             }

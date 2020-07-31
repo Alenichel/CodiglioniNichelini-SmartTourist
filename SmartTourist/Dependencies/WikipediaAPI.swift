@@ -276,6 +276,37 @@ class WikipediaAPI {
         }
     }
     
+    func getCityArticle(_ city: WDCity) -> Promise<String> {
+        return Promise<String>(in: .background) { resolve, reject, status in
+            guard let wikiLink = city.wikipediaLink,
+                let wikiName = wikiLink.components(separatedBy: "/").last
+            else { reject(UnknownApiError()); return }
+            let url = "https://en.wikipedia.org/api/rest_v1/page/summary/\(wikiName)"
+            AF.request(url).responseJSON(queue: .global(qos: .utility)) { response in
+                switch response.result {
+                case .success:
+                    guard let data = response.data else { reject(UnknownApiError()); return }
+                    do {
+                        if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                            if let extract = json["extract"] as? String {
+                                resolve(extract)
+                                return
+                            }
+                        }
+                        reject(UnknownApiError())
+                    } catch {
+                        print("\(#function): \(error.localizedDescription)")
+                        reject(error)
+                    }
+                case .failure:
+                    guard let error = response.error else { reject(UnknownApiError()); return }
+                    print("\(#function): \(error.localizedDescription)")
+                    reject(error)
+                }
+            }
+        }
+    }
+    
     func getNearbyPlaces(location: CLLocationCoordinate2D, radius: Int, isArticleMandatory: Bool) -> Promise<[WDPlace]> {
         return Promise<[WDPlace]>(in: .background) { resolve, reject, status in
             let parameters = [
