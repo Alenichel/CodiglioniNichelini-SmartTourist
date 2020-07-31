@@ -138,7 +138,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
         self.scrollView.pin.all().margin(pin.safeArea)
         self.titleContainerView.pin.top().horizontally()
         self.titleContainerView.flex.layout(mode: .adjustHeight)
-        self.slideshow.pin.below(of: self.titleContainerView).horizontally().marginTop(5).height(self.frame.width)
+        self.slideshow.pin.below(of: self.titleContainerView).horizontally().marginTop(5).bottom(50%)
         self.infoView.pin.below(of: self.slideshow).horizontally().marginTop(10)
         self.infoView.flex.layout(mode: .adjustHeight)
         self.linksView.pin.below(of: self.infoView).horizontally().marginTop(15)
