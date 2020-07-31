@@ -26,11 +26,13 @@ class ListCardView: UIView, ModellableView {
     var attractionListView: CollectionView<AttractionCell, SimpleSource<AttractionCellViewModel>>!
     var emptyLabel = UILabel()
     var mapButton = RoundedButton()
+    var settingsButton = RoundedButton()
     
     // MARK: - Interactions
     var didTapItem: ((WDPlace) -> Void)?
     var didChangeSegmentedValue: ((Int) -> Void)?
     var didTapMapButton: Interaction?
+    var didTapSettingsButton: Interaction?
         
     func setup() {
         self.chooser.selectedSegmentIndex = 0
@@ -65,12 +67,17 @@ class ListCardView: UIView, ModellableView {
         self.mapButton.on(.touchUpInside) {button in
             self.didTapMapButton?()
         }
+        self.settingsButton.setImage(UIImage(systemName: "gear"), for: .normal)
+        self.settingsButton.on(.touchUpInside) { button in
+            self.didTapSettingsButton?()
+        }
         self.emptyLabel.text = "No attraction to show"
         self.scrollView.addSubview(self.attractionListView)
         self.addSubview(self.handle)
         self.addSubview(self.chooser)
         self.addSubview(self.scrollView)
         self.addSubview(self.emptyLabel)
+        self.addSubview(self.settingsButton)
         self.addSubview(self.mapButton)
     }
     
@@ -90,6 +97,8 @@ class ListCardView: UIView, ModellableView {
         self.emptyLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize * 0.9)
         self.mapButton.backgroundColor = .secondarySystemBackground
         self.mapButton.tintColor = .secondaryLabel
+        self.settingsButton.backgroundColor = .secondarySystemBackground
+        self.settingsButton.tintColor = .secondaryLabel
     }
     
     override func layoutSubviews() {
@@ -97,6 +106,7 @@ class ListCardView: UIView, ModellableView {
         self.emptyLabel.sizeToFit()
         self.handle.pin.top(20).hCenter().height(5).width(40)
         self.chooser.pin.below(of: self.handle).marginTop(20).hCenter()
+        self.settingsButton.pin.before(of: self.chooser, aligned: .center).size(32).marginRight(15)
         self.mapButton.pin.after(of: self.chooser, aligned: .center).size(32).marginLeft(15)
         self.scrollView.pin.below(of: self.chooser).marginTop(15).left().right().bottom()
         self.attractionListView.frame = self.scrollView.frame.bounds
