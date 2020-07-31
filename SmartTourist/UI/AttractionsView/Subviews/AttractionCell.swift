@@ -117,7 +117,7 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         }
         self.distanceLabel.pin.vCenter(model.isInFavoriteTab ? -8 : 0).right(35).sizeToFit()
         self.cityNameLabel.pin.below(of: self.distanceLabel, aligned: .right).sizeToFit()
-        self.favoriteImage.pin.left(of: self.image, aligned: .center).marginRight(55).size(CGSize(width: Double(UIFont.systemFontSize) * 1.2, height: Double(UIFont.systemFontSize)))
+        self.favoriteImage.pin.left(of: self.distanceLabel, aligned: .center).marginRight(5).size(CGSize(width: Double(UIFont.systemFontSize) * 1.2, height: Double(UIFont.systemFontSize)))
     }
 
     static var paddingHeight: CGFloat = 10
