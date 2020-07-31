@@ -201,6 +201,12 @@ class CityDetailView: UIView, ViewControllerModellableView {
                 UIApplication.shared.open(url)
             }
             self.facebookButton.alpha = 1.0
+        } else if let facebookPlacesId = city.facebookPlacesId {
+            let url = URL(string: "https://www.facebook.com/\(facebookPlacesId)")!
+            self.facebookButton.on(.touchUpInside) { _ in
+                UIApplication.shared.open(url)
+            }
+            self.facebookButton.alpha = 1.0
         } else {
             self.facebookButton.isEnabled = false
             self.facebookButton.alpha = 0.7

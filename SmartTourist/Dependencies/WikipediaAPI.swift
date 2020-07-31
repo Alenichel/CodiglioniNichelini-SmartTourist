@@ -255,7 +255,11 @@ class WikipediaAPI {
                     guard let data = response.data else { reject(UnknownApiError()); return }
                     do {
                         let city = try JSONDecoder().decode(WDCity.self, from: data)
-                        resolve(city)
+                        if city.population == nil && city.area == nil && city.elevation == nil {
+                            reject(DisambiguationPageError())
+                        } else {
+                            resolve(city)
+                        }
                     } catch {
                         print("\(#function): \(error.localizedDescription)")
                         reject(error)
@@ -472,3 +476,6 @@ class WikipediaAPI {
         return self.getImageFiles(from: title.stripped, limit: limit).then(self.getImageUrls)
     }
 }
+
+
+class DisambiguationPageError: Error {}
