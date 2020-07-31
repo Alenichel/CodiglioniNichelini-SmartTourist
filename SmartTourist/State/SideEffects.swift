@@ -60,7 +60,10 @@ struct GetNearestPlaces: SideEffect {
             if nPlaces < 50 {
                 roundPlaces = try await(context.dependencies.wikiAPI.getNearbyPlaces(location: currentLocation, radius: Int(distance), isArticleMandatory: false))
             }
-            let sortedPlaces = Set(roundPlaces).sorted(by: { $0.distance(from: currentLocation) < $1.distance(from: currentLocation) })
+            var sortedPlaces = Set(roundPlaces).sorted(by: { $0.distance(from: currentLocation) < $1.distance(from: currentLocation) })
+            if !context.getState().settings.poorEntitiesEnabled {
+                sortedPlaces = sortedPlaces.filter({ $0.wikipediaLink != nil})
+            }
             context.dispatch(SetNearestPlaces(places: Array(sortedPlaces.prefix(context.getState().settings.maxNAttractions))))
         }
     }

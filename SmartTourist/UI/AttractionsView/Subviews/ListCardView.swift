@@ -71,7 +71,9 @@ class ListCardView: UIView, ModellableView {
         self.settingsButton.on(.touchUpInside) { button in
             self.didTapSettingsButton?()
         }
-        self.emptyLabel.text = "No attraction to show"
+        self.emptyLabel.numberOfLines = 2
+        self.emptyLabel.text = "No attraction to show\nConsider to enlarge the radius in settings"
+        self.emptyLabel.textAlignment = .center
         self.scrollView.addSubview(self.attractionListView)
         self.addSubview(self.handle)
         self.addSubview(self.chooser)

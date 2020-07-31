@@ -83,6 +83,7 @@ struct Settings: Codable {
     var notificationsEnabled: Bool = true
     var maxRadius: Double = 1
     var maxNAttractions: Int = 150
+    var poorEntitiesEnabled: Bool = true
 }
 
 

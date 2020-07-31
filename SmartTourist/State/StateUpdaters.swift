@@ -130,6 +130,13 @@ struct SetNotificationsEnabled: StateUpdater, Persistable {
     }
 }
 
+struct SetPoorEntitiesEnabled: StateUpdater, Persistable {
+    let value: Bool
+    
+    func updateState(_ state: inout AppState) {
+        state.settings.poorEntitiesEnabled = value
+    }
+}
 
 struct SetMaxRadius: StateUpdater, Persistable {
     let value: Double
