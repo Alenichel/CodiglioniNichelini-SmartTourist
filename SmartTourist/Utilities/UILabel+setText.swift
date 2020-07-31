@@ -14,6 +14,9 @@ extension UILabel {
         WikipediaAPI.shared.getArticle(articleName: title).then(in: .main) { description in
             self.text = description
         }.always {
+            if self.text == nil {
+                self.text = "No description is available. If you are familiar with this place, consider to contribute. Together \"we can make the world a better place\"."
+            }
             completion()
         }
     }
