@@ -37,6 +37,10 @@ class AttractionDetailViewController: ViewControllerWithLocalState<AttractionDet
             guard let stringUrl = attractionUrl, let url = URL(string: stringUrl) else { return }
             self.dispatch(Show(Screen.safari, animated: true, context: url))
         }
+        self.rootView.didTapWikipediaButton = { [unowned self] wikipediaUrl in
+            guard let wikipediaUrl = wikipediaUrl, let url = URL(string: wikipediaUrl) else { return }
+            self.dispatch(Show(Screen.safari, animated: true, context: url))
+        }
     }
 }
 
