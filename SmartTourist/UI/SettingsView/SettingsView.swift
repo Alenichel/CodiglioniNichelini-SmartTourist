@@ -52,7 +52,7 @@ class SettingsView: UIView, ViewControllerModellableView {
     private let notificationsTitle = "Notifications"
     private let notificationsSubtitle = "Enable notifications for nearest top attractions"
     private let poorEntitiesTitle = "Undetailed entities"
-    private let poorEntitiesSubtitle = "Enable undetailed entities on the map. They are marked in gray"
+    private let poorEntitiesSubtitle = "Enable undetailed entities on the map"
     
     func setup() {
         self.notificationsCell.setup()
@@ -93,7 +93,7 @@ class SettingsView: UIView, ViewControllerModellableView {
         super.layoutSubviews()
         self.notificationsCell.pin.top(self.safeAreaInsets).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
         self.poorEntitiesCell.pin.below(of:
-            self.notificationsCell).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
+            self.notificationsCell).marginTop(15).horizontally(10).height(SettingCell.preferredHeight + 30)
         self.maxRadiusCell.pin.below(of: self.poorEntitiesCell).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
         self.maxNAttractionsCell.pin.below(of: self.maxRadiusCell).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
         self.systemSettingsCell.pin.below(of: self.maxNAttractionsCell).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
