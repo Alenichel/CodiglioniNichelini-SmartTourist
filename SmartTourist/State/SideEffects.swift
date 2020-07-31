@@ -125,11 +125,23 @@ struct AddFavorite: SideEffect {
 
 
 struct GetCityDetails: SideEffect {
+    let rerun: Bool
+    
+    init(rerun: Bool = false) {
+        self.rerun = rerun
+    }
+    
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
-        guard let cityName = context.getState().locationState.currentCity else { return }
+        guard var cityName = context.getState().locationState.currentCity else { return }
+        if self.rerun {
+            cityName += " City"
+        }
         WikipediaAPI.shared.getWikidataId(title: cityName).then(WikipediaAPI.shared.getCityDetail).then(in: .utility) { city in
             context.dispatch(SetWDCity(city: city))
         }.catch(in: .utility) { error in
+            if let _ = error as? DisambiguationPageError {
+                context.dispatch(GetCityDetails(rerun: true))
+            }
             print(error.localizedDescription)
         }
     }
