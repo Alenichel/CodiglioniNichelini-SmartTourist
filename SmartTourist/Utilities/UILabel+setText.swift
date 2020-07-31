@@ -14,7 +14,7 @@ extension UILabel {
     func setText(title: String ,completion: @escaping () -> Void) {
         WikipediaAPI.shared.getArticle(articleName: title).then(in: .main) { description in
             self.text = description
-        }.always {
+        }.always(in: .main) {
             if self.text == nil {
                 self.text = defaultDescription;
             }

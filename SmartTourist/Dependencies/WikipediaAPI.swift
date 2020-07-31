@@ -449,7 +449,7 @@ class WikipediaAPI {
             let filesString = files.joined(separator: "|")
             let parameters = [
                 "image": filesString,
-                "thumbwidth": "\(Int(UIScreen.main.bounds.width))"
+                "thumbwidth": "\(Int(UIScreen.main.bounds.width) / 2)"
             ]
             AF.request("https://tools.wmflabs.org/magnus-toolserver/commonsapi.php", parameters: parameters).responseData(queue: .global(qos: .utility)) { response in
                 switch response.result {
