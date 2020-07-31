@@ -1,0 +1,443 @@
+\documentclass[a4paper, 11pt, parskip=half]{scrreprt}
+
+\usepackage[automark]{scrlayer-scrpage}         % Headings
+\usepackage{DejaVuSerif}                        % Default font
+\usepackage{DejaVuSans}                         % Headers font
+\usepackage{sourcecodepro}                      % Monospace font
+\usepackage[utf8]{inputenc}                     % Input encoding
+\usepackage[T1]{fontenc}                        % Output encoding
+\usepackage{graphicx}                           % Pictures
+\usepackage{listings}                           % Code snippets
+\usepackage{hyperref}                           % Make strings clickable
+\usepackage{amsmath,amsfonts,stmaryrd,amssymb}  % Math packages
+\usepackage{amsthm}                             % Definitions, theorems, corollaries, ...
+\usepackage{mathtools}                          % Math stuff
+\usepackage[usenames,dvipsnames,table]{xcolor}  % Colors
+\usepackage[toc,page]{appendix}                 % Support for appendices
+\usepackage[chapter]{algorithm}                 % Pseudocode headers
+\usepackage{algpseudocode}                      % Pseudocode
+\usepackage{pdfpages}                           % Embed external pdf
+\usepackage{wrapfig}                            % Wrap text around figures
+\usepackage{multicol}                           % Used for multicolumn itemize
+\usepackage{multirow}                           % Used for multirow in tables
+\usepackage{longtable}                          % Tables can spread over multiple pages
+\usepackage{enumerate}                          % Custom item numbers for enumerations
+\usepackage[framemethod=tikz]{mdframed}         % Allows defining custom boxed/framed environments
+\usepackage{tocloft}                            % TOC spacing
+
+
+% TODO: REMOVE
+\usepackage{lipsum}
+\usepackage{blindtext}
+
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT SETTINGS
+%----------------------------------------------------------------------------------------
+
+\areaset{17cm}{22.5cm}              % Set page width and height
+\graphicspath{{./figures/}}         % Set path for figures
+\setlength{\cftchapnumwidth}{2em}   % Set chapter numwidth
+\setlength{\cftsecnumwidth}{3em}    % Set section numwidth
+\setlength{\cftsubsecnumwidth}{4em} % Set subsection numwidth
+\hypersetup{linktoc=all}            % Set TOC clickable
+
+\lstset{ 
+    belowcaptionskip=\baselineskip,
+    aboveskip=\baselineskip,
+    breaklines=true,
+    frame=l,
+    xleftmargin=0.5in,
+    showstringspaces=false,
+    basicstyle=\footnotesize\ttfamily,
+    keywordstyle=\bfseries\color{green!40!black},
+    commentstyle=\color{MidnightBlue},
+    stringstyle=\color{BrickRed},
+    numberstyle=\color{Cyan!50!Black},
+    numbers=left,
+    tabsize=4
+}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[chapter]
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{corollary}{Corollary}[theorem]
+
+
+%----------------------------------------------------------------------------------------
+%	COMMAND LINE ENVIRONMENT
+%----------------------------------------------------------------------------------------
+
+% Usage:
+% \begin{commandline}
+%	\begin{verbatim}
+%		$ ls
+%		
+%		Applications	Desktop	...
+%	\end{verbatim}
+% \end{commandline}
+
+\mdfdefinestyle{commandline}{
+	leftmargin=10pt,
+	rightmargin=10pt,
+	innerleftmargin=15pt,
+	middlelinecolor=black!50!white,
+	middlelinewidth=2pt,
+	frametitlerule=false,
+	backgroundcolor=black!5!white,
+	frametitle={Command line},
+	frametitlefont={\normalfont\ttfamily\color{white}\hspace{-1em}},
+	frametitlebackgroundcolor=black!50!white,
+	nobreak,
+}
+
+% Define a custom environment for command-line snapshots
+\newenvironment{commandline}{
+	\medskip
+	\begin{mdframed}[style=commandline]
+	\footnotesize
+}{
+	\end{mdframed}
+	\medskip
+}
+
+
+%----------------------------------------------------------------------------------------
+%	FILE CONTENTS ENVIRONMENT
+%----------------------------------------------------------------------------------------
+
+% Usage:
+% \begin{file}[optional filename, defaults to "File"]
+%	File contents, for example, with a listings environment
+% \end{file}
+
+\mdfdefinestyle{file}{
+	innertopmargin=1.6\baselineskip,
+	innerbottommargin=0.28\baselineskip,
+	topline=false, bottomline=false,
+	leftline=false, rightline=false,
+	leftmargin=2cm,
+	rightmargin=2cm,
+	singleextra={%
+		\draw[fill=black!10!white](P)++(0,-1.3em)rectangle(P-|O);
+		\node[anchor=north west]
+		at(P-|O){\footnotesize\ttfamily\mdfilename};
+		%
+		\def\l{1.5em}
+		\draw(O-|P)++(-\l,0)--++(\l,\l)--(P)--(P-|O)--(O)--cycle;
+		\draw(O-|P)++(-\l,0)--++(0,\l)--++(\l,0);
+	},
+	nobreak,
+}
+
+% Define a custom environment for file contents
+\newenvironment{file}[1][File]{ % Set the default filename to "File"
+	\medskip
+	\newcommand{\mdfilename}{#1}
+	\begin{mdframed}[style=file]
+}{
+	\end{mdframed}
+	\medskip
+}
+
+
+%----------------------------------------------------------------------------------------
+%	NUMBERED QUESTIONS ENVIRONMENT
+%----------------------------------------------------------------------------------------
+
+% Usage:
+% \begin{question}[optional title]
+%	Question contents
+% \end{question}
+
+\mdfdefinestyle{question}{
+	innertopmargin=1.2\baselineskip,
+	innerbottommargin=0.8\baselineskip,
+	roundcorner=5pt,
+	nobreak,
+	singleextra={%
+		\draw(P-|O)node[xshift=1em,anchor=west,fill=white,draw,rounded corners=5pt]{%
+		Question \theQuestion\questionTitle};
+	},
+}
+
+\newcounter{Question} % Stores the current question number that gets iterated with each new question
+
+% Define a custom environment for numbered questions
+\newenvironment{question}[1][\unskip]{
+	\bigskip
+	\stepcounter{Question}
+	\newcommand{\questionTitle}{~#1}
+	\begin{mdframed}[style=question]
+}{
+	\end{mdframed}
+	\medskip
+}
+
+
+%----------------------------------------------------------------------------------------
+%	BOXED PARAGRAPH ENVIRONMENT
+%----------------------------------------------------------------------------------------
+
+% Usage:
+% \begin{boxedpar}[optional title]
+%	Question contents
+% \end{boxedpar}
+
+\mdfdefinestyle{boxedpar}{
+	innertopmargin=1.2\baselineskip,
+	innerbottommargin=0.8\baselineskip,
+	roundcorner=5pt,
+	nobreak,
+	singleextra={%
+		\draw(P-|O)node[xshift=1em,anchor=west,fill=white,draw,rounded corners=5pt]{%
+		\textit{\boxTitle}};
+	},
+}
+
+% Define a custom environment for numbered questions
+\newenvironment{boxedpar}[1][in-depth]{
+	\bigskip
+	\newcommand{\boxTitle}{#1}
+	\begin{mdframed}[style=boxedpar]
+}{
+	\end{mdframed}
+	\medskip
+}
+
+
+%----------------------------------------------------------------------------------------
+%	ROUNDED BOX ENVIRONMENT
+%----------------------------------------------------------------------------------------
+
+% Usage:
+% \begin{roundedbox}
+%	Contents
+% \end{roundedbox}
+
+\mdfdefinestyle{roundedbox}{
+	innertopmargin=0.5\baselineskip,
+	innerbottommargin=0.5\baselineskip,
+	roundcorner=5pt,
+	nobreak,
+}
+
+% Define a custom environment for numbered questions
+\newenvironment{roundedbox}{
+	\bigskip
+	\begin{mdframed}[style=roundedbox]
+}{
+	\end{mdframed}
+	\medskip
+}
+
+
+%----------------------------------------------------------------------------------------
+%	WARNING TEXT ENVIRONMENT
+%----------------------------------------------------------------------------------------
+
+% Usage:
+% \begin{warn}[optional title, defaults to "Warning:"]
+%	Contents
+% \end{warn}
+
+\mdfdefinestyle{warning}{
+	topline=false, bottomline=false,
+	leftline=false, rightline=false,
+	nobreak,
+	singleextra={%
+		\draw(P-|O)++(-0.5em,0)node(tmp1){};
+		\draw(P-|O)++(0.5em,0)node(tmp2){};
+		\fill[black,rotate around={45:(P-|O)}](tmp1)rectangle(tmp2);
+		\node at(P-|O){\color{white}\scriptsize\textbf !};
+		\draw[very thick](P-|O)++(0,-1em)--(O);%--(O-|P);
+	}
+}
+
+% Define a custom environment for warning text
+\newenvironment{warn}[1][Warning:]{ % Set the default warning to "Warning:"
+	\medskip
+	\begin{mdframed}[style=warning]
+		\noindent{\textbf{#1}}
+}{
+	\end{mdframed}
+}
+
+
+%----------------------------------------------------------------------------------------
+%	INFORMATION ENVIRONMENT
+%----------------------------------------------------------------------------------------
+
+% Usage:
+% \begin{info}[optional title, defaults to "Info:"]
+% 	contents
+% 	\end{info}
+
+\mdfdefinestyle{info}{%
+	topline=false, bottomline=false,
+	leftline=false, rightline=false,
+	nobreak,
+	singleextra={%
+		\fill[black](P-|O)circle[radius=0.4em];
+		\node at(P-|O){\color{white}\scriptsize\textbf i};
+		\draw[very thick](P-|O)++(0,-0.8em)--(O);%--(O-|P);
+	}
+}
+
+% Define a custom environment for information
+\newenvironment{info}[1][Info:]{ % Set the default title to "Info:"
+	\medskip
+	\begin{mdframed}[style=info]
+		\noindent{\textbf{#1}}
+}{
+	\end{mdframed}
+}
+
+
+%----------------------------------------------------------------------------------------
+%	LINEDQUOTE ENVIRONMENT
+%----------------------------------------------------------------------------------------
+
+% Usage:
+% \begin{linedquote}
+% 	contents
+% 	\end{linedquote}
+
+\mdfdefinestyle{linedquote}{%
+	topline=false, bottomline=false,
+	leftline=false, rightline=false,
+	nobreak,
+	singleextra={%
+		\draw[very thick](P-|O)++(0,0)--(O);%--(O-|P);
+	}
+}
+
+% Define a custom environment
+\newenvironment{linedquote}{
+	\begin{mdframed}[style=linedquote]
+}{
+	\end{mdframed}
+}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\publishers{
+    \begin{figure}[t]
+        \centering
+        \includegraphics[width=0.9\linewidth, keepaspectratio]{logo}
+    \end{figure}
+}
+\title{Smart Tourist}
+\subtitle{Design and Implementation of mobile application\\Design Document}
+\date{A.A. 2019/2020}
+\author{Fabio Codiglioni, Alessandro Nichelini }
+
+
+
+%----------------------------------------------------------------------------------------
+%	DOCUMENT
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+% Title page and TOC
+\pagenumbering{gobble}
+\maketitle
+%\shipout\null           % Blank page
+\pagenumbering{roman}
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+
+
+% Body
+
+\chapter{Template test}
+
+\begin{linedquote}
+    Hello, world
+\end{linedquote}
+
+\begin{commandline}
+\begin{verbatim}
+	$ chmod +x hello.py
+	$ ./hello.py
+
+	Hello World!
+\end{verbatim}
+\end{commandline}
+
+\begin{file}[hello.c]
+\begin{lstlisting}[language=c]
+#include <stdio.h>
+
+int main(int argc, char *argv[]) {
+    printf("%s\n", "Hello, world!");
+    return 0;
+}
+\end{lstlisting}
+\end{file}
+
+\begin{question}
+Quisque ullamcorper placerat ipsum. Cras nibh. Morbi vel justo vitae lacus tincidunt ultrices. Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+
+% Subquestions numbered with letters
+\begin{enumerate}[(a)]
+	\item Do this.
+	\item Do that.
+	\item Do something else.
+\end{enumerate}
+\end{question}
+
+\begin{question}[\itshape (with optional title)]
+In congue risus leo, in gravida enim viverra id. Donec eros mauris, bibendum vel dui at, tempor commodo augue. In vel lobortis lacus. Nam ornare ullamcorper mauris vel molestie. Maecenas vehicula ornare turpis, vitae fringilla orci consectetur vel. Nam pulvinar justo nec neque egestas tristique. Donec ac dolor at libero congue varius sed vitae lectus. Donec et tristique nulla, sit amet scelerisque orci. Maecenas a vestibulum lectus, vitae gravida nulla. Proin eget volutpat orci. Morbi eu aliquet turpis. Vivamus molestie urna quis tempor tristique. Proin hendrerit sem nec tempor sollicitudin.
+\end{question}
+
+\begin{warn}[Notice:]
+In congue risus leo, in gravida enim viverra id. Donec eros mauris, bibendum vel dui at, tempor commodo augue. In vel lobortis lacus. Nam ornare ullamcorper mauris vel molestie. Maecenas vehicula ornare turpis, vitae fringilla orci consectetur vel. Nam pulvinar justo nec neque egestas tristique. Donec ac dolor at libero congue varius sed vitae lectus. Donec et tristique nulla, sit amet scelerisque orci. Maecenas a vestibulum lectus, vitae gravida nulla. Proin eget volutpat orci. Morbi eu aliquet turpis. Vivamus molestie urna quis tempor tristique. Proin hendrerit sem nec tempor sollicitudin.
+\end{warn}
+
+\begin{info} % Information block
+This is an interesting piece of information, to which the reader should pay special attention. Fusce varius orci ac magna dapibus porttitor. In tempor leo a neque bibendum sollicitudin. Nulla pretium fermentum nisi, eget sodales magna facilisis eu. Praesent aliquet nulla ut bibendum lacinia. Donec vel mauris vulputate, commodo ligula ut, egestas orci. Suspendisse commodo odio sed hendrerit lobortis. Donec finibus eros erat, vel ornare enim mattis et.
+\end{info}
+
+\begin{boxedpar}
+In congue risus leo, in gravida enim viverra id. Donec eros mauris, bibendum vel dui at, tempor commodo augue. In vel lobortis lacus. Nam ornare ullamcorper mauris vel molestie. Maecenas vehicula ornare turpis, vitae fringilla orci consectetur vel. Nam pulvinar justo nec neque egestas tristique. Donec ac dolor at libero congue varius sed vitae lectus. Donec et tristique nulla, sit amet scelerisque orci. Maecenas a vestibulum lectus, vitae gravida nulla. Proin eget volutpat orci. Morbi eu aliquet turpis. Vivamus molestie urna quis tempor tristique. Proin hendrerit sem nec tempor sollicitudin.
+\end{boxedpar}
+
+
+
+\chapter{A chapter}
+\lipsum[1-3]
+\section{A section}
+\lipsum[5-11]
+\subsection{A subsection}
+\lipsum[12-15]
+
+\blinddocument
+
+
+\chapter{Introduction}
+
+\chapter{General Overview}
+
+\chapter{Architectural design}
+
+\chapter{Data design}
+
+\chapter{User interface}
+
+\chapter{Notifications}
+
+\chapter{External services and libraries}
+
+\chapter{Testing}
+
+\chapter{Effort spent}
+
+
+\end{document}
