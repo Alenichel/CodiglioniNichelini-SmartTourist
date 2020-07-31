@@ -343,9 +343,18 @@ extension MapView: UIGestureRecognizerDelegate {
 }
 
 
-enum CardState: Int {
-    case expanded = 30
-    case collapsed = 70
+enum CardState {
+    case expanded
+    case collapsed
+    
+    var rawValue: Int {
+        switch self {
+        case .expanded:
+            return UIDevice.current.userInterfaceIdiom == .phone ? 30 : 50
+        case .collapsed:
+            return 70
+        }
+    }
 }
 
 
