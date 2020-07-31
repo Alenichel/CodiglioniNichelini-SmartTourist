@@ -26,6 +26,7 @@ class WDCity: Decodable {
     let cityLabel: String?
     let countryLabel: String?
     var photos: [URL] = [URL]()
+    let wikipediaLink: String?
     
     enum CodingKeys: CodingKey {
         case results
@@ -45,6 +46,7 @@ class WDCity: Decodable {
                 case instagramUsername
                 case twitterUsername
                 case image
+                case wikipediaLink
                 
                 case cityLabel
                 case countryLabel
@@ -74,6 +76,8 @@ class WDCity: Decodable {
         self.elevation = Double(elevation?.value ?? "nil")
         let link = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .link)
         self.link = link?.value
+        let wikipediaLink = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .wikipediaLink)
+        self.wikipediaLink = wikipediaLink?.value
         let facebookPageId = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .facebookPageId)
         self.facebookPageId = facebookPageId?.value
         let facebookPlacesId = try bindingsContainer.decodeIfPresent(WDBinding.self, forKey: .facebookPlacesId)
