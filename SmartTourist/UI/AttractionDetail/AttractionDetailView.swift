@@ -19,7 +19,7 @@ import FontAwesome_swift
 struct AttractionDetailViewModel: ViewModelWithLocalState {
     let attraction: WDPlace
     let nRatings: String
-    let wikipediaLink: String
+    let wikipediaLink: String?
     let wikipediaSearchTerms: String
     let actualLocation: CLLocationCoordinate2D
     let favorite: Bool
@@ -35,7 +35,7 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
             self.nRatings = "0"
         }
         self.wikipediaSearchTerms = self.attraction.wikipediaName ?? ""
-        self.wikipediaLink = self.attraction.wikipediaLink ?? ""
+        self.wikipediaLink = self.attraction.wikipediaLink
         self.actualLocation = state.locationState.currentLocation!
         self.favorite = state.favorites.contains(attraction)
         self.allLoaded = localState.allLoaded
@@ -259,7 +259,10 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         }
         
         
-        var views = [self.directionButton, self.wikipediaButton]
+        var views = [self.directionButton]
+        if model.wikipediaLink != nil {
+            views.append(self.wikipediaButton)
+        }
         if model.link != nil {
             views.append(self.linkButton)
         }
