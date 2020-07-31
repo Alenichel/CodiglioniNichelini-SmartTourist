@@ -260,7 +260,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         
         
         var views = [self.directionButton, self.wikipediaButton]
-        if model.link == nil {
+        if model.link != nil {
             views.append(self.linkButton)
         }
         let bsViewModel = ManualStackViewModel(views: views)
