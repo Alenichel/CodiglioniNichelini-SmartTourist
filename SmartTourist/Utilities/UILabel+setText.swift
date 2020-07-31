@@ -8,6 +8,7 @@
 import UIKit
 import CoreLocation
 
+let defaultDescription = "No description is available. If you are familiar with this place, consider to contribute. Together \"we can make the world a better place\"."
 
 extension UILabel {
     func setText(title: String ,completion: @escaping () -> Void) {
@@ -15,7 +16,7 @@ extension UILabel {
             self.text = description
         }.always {
             if self.text == nil {
-                self.text = "No description is available. If you are familiar with this place, consider to contribute. Together \"we can make the world a better place\"."
+                self.text = defaultDescription;
             }
             completion()
         }

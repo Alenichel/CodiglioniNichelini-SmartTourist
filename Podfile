@@ -6,7 +6,7 @@ target 'SmartTourist' do
   use_frameworks!
 
   # Pods for SmartTourist
-  pod 'Katana'
+  pod 'Katana', '~> 3.2.0'
   pod 'Tempura'
   pod 'PinLayout'
   pod 'FlexLayout'
