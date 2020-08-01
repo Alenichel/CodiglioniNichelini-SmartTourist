@@ -139,7 +139,6 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.nRatingsLabel.textColor = .systemOrange
         self.lineView.backgroundColor = .secondaryLabel
         self.mapView.showsCompass = false
-        self.mapView.isUserInteractionEnabled = false
         self.curtainView.backgroundColor = .systemBackground
         self.activityIndicator.startAnimating()
         styleRoundedButton(button: self.directionButton, image: UIImage.fontAwesomeIcon(name: .shoePrints, style: .solid, textColor: .label, size: CGSize(size: 30)))

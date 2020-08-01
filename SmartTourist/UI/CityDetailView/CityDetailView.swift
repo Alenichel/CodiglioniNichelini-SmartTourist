@@ -301,4 +301,3 @@ class CityDetailView: UIView, ViewControllerModellableView {
         self.twitterButton.flex.markDirty()
     }
 }
-
