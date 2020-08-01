@@ -92,8 +92,7 @@ class SettingsView: UIView, ViewControllerModellableView {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.notificationsCell.pin.top(self.safeAreaInsets).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
-        self.poorEntitiesCell.pin.below(of:
-            self.notificationsCell).marginTop(15).horizontally(10).height(SettingCell.preferredHeight + 30)
+        self.poorEntitiesCell.pin.below(of: self.notificationsCell).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
         self.maxRadiusCell.pin.below(of: self.poorEntitiesCell).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
         self.maxNAttractionsCell.pin.below(of: self.maxRadiusCell).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
         self.systemSettingsCell.pin.below(of: self.maxNAttractionsCell).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
@@ -104,8 +103,7 @@ class SettingsView: UIView, ViewControllerModellableView {
     func update(oldModel: SettingsViewModel?) {
         guard let model = self.model else { return }
         self.notificationsCell.model = SettingBoolCellViewModel(title: self.notificationsTitle, subtitle: self.notificationsSubtitle, value: model.notificationsEnabled)
-        self.poorEntitiesCell.model = SettingBoolCellViewModel(title:
-            self.poorEntitiesTitle, subtitle: self.poorEntitiesSubtitle, value: model.poorEntitiesEnabled)
+        self.poorEntitiesCell.model = SettingBoolCellViewModel(title: self.poorEntitiesTitle, subtitle: self.poorEntitiesSubtitle, value: model.poorEntitiesEnabled)
         self.maxRadiusCell.model = SettingDoubleCellViewModel(title: "Maximum radius", subtitle: nil, value: model.maxRadius)
         self.maxNAttractionsCell.model = SettingDoubleCellViewModel(title: "Maximum attractions", subtitle: nil, value: Double(model.maxNAttractions))
         self.systemSettingsCell.model = SettingStringCellViewModel(title: "System settings", subtitle: nil, value: nil)

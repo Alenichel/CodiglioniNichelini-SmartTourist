@@ -127,6 +127,7 @@ class WikipediaAPI {
         }
     }
     
+    // FIXME: NOT USED
     func getDescriptionFromNearbyArticles(coordinates: CLLocationCoordinate2D, searchTerms: String) -> Promise<String> {
         return Promise<String>(in: .background) { resolve, reject, status in
             let _ = Wikipedia.shared.requestNearbyResults(language: self.language, latitude: Double(coordinates.latitude), longitude: Double(coordinates.longitude), maxCount: 50) { (articlePreviews, resultsLanguage, error) in
@@ -160,6 +161,7 @@ class WikipediaAPI {
         }
     }
     
+    // FIXME: NOT USED
     func findExactArticleName(searchTerms: String) -> Promise<String> {
         return Promise<String>(in: .background) { resolve, reject, status in
             let _ = Wikipedia.shared.requestOptimizedSearchResults(language: self.language, term: searchTerms, maxCount: 50) { (articlePreviews, error) in
@@ -430,8 +432,10 @@ class WikipediaAPI {
         return Promise<UIImage>(in: .background) { resolve, reject, status in
             let urlString = imageURL.absoluteString as NSString
             if let image = self.photoCache.object(forKey: urlString) {
+                print("Getting photo from cache")
                 resolve(image)
             } else if let data = try? Data(contentsOf: imageURL){
+                print("Requesting photo from API")
                 if let img = UIImage(data: data) {
                     self.photoCache.setObject(img, forKey: urlString)
                     resolve(img)

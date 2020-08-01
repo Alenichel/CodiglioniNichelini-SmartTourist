@@ -20,15 +20,17 @@ class SettingsViewController: ViewControllerWithLocalState<SettingsView> {
             self.dispatch(SetNotificationsEnabled(value: value))
         }
         self.rootView.poorEntitiesCell.didToggle = { [unowned self] value in
-            self.dispatch(SetPoorEntitiesEnabled(value: value))
-            self.dispatch(GetNearestPlaces(throttle: false))
+            self.dispatch(SetPoorEntitiesEnabled(value: value)).then {
+                self.dispatch(GetNearestPlaces(throttle: false))
+            }
         }
         self.rootView.didTapSystemSettings = {
             guard let settingsURL = URL(string: UIApplication.openSettingsURLString) else { return }
             UIApplication.shared.open(settingsURL)
         }
-        self.rootView.didTapDebug = {
+        self.rootView.didTapDebug = { [unowned self] in
             self.localState.showDebug.toggle()
+            self.dispatch(ClearPopularPlacesCache())
         }
         self.rootView.maxRadiusCell.didChange = { [unowned self] value in
             self.dispatch(SetMaxRadius(value: value))

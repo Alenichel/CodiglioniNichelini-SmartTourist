@@ -184,3 +184,10 @@ struct UpdatePopularPlacesCache: StateUpdater, Persistable {
         state.cache.popularPlaces[city] = places
     }
 }
+
+
+struct ClearPopularPlacesCache: StateUpdater, Persistable {
+    func updateState(_ state: inout AppState) {
+        state.cache.popularPlaces = [String: [WDPlace]]()
+    }
+}

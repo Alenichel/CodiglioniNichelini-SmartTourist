@@ -43,7 +43,7 @@ class SettingsDebugSubview: UIView, ModellableView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.debugTitle.pin.top(50).hCenter().sizeToFit()
+        self.debugTitle.pin.top(15).hCenter().sizeToFit()
         self.averagePaceCell.pin.below(of: self.debugTitle).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
         self.littleCircleRadiusCell.pin.below(of: self.averagePaceCell).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
         self.bigCircleRadiusCell.pin.below(of: self.littleCircleRadiusCell).marginTop(15).horizontally(10).height(SettingCell.preferredHeight)
