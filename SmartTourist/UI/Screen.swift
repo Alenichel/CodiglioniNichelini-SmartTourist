@@ -18,4 +18,5 @@ enum Screen: RouteElementIdentifier {
     case settings
     case safari
     case search
+    case fullScreenMap
 }

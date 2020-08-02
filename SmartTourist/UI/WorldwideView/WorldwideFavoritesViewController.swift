@@ -11,7 +11,6 @@ import Tempura
 
 
 class WorldwideFavoritesViewController: ViewController<WorldwideFavoritesView> {
-    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -21,7 +20,6 @@ class WorldwideFavoritesViewController: ViewController<WorldwideFavoritesView> {
             self.dispatch(Hide(animated: true))
         }
     }
-
 }
 
 

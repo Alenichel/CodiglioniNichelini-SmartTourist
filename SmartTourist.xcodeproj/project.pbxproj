@@ -25,6 +25,8 @@
 		99EC7D6D241FC0890065FDE9 /* String+emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EC7D6C241FC0890065FDE9 /* String+emoji.swift */; };
 		99F36EAC2417FB4C00ACC519 /* PedometerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */; };
 		E501B0E0244CCB18003E271D /* WDInstances.json in Resources */ = {isa = PBXBuildFile; fileRef = E501B0DF244CCB18003E271D /* WDInstances.json */; };
+		E50A45E424D73B8800E01703 /* FullScreenMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50A45E324D73B8800E01703 /* FullScreenMapView.swift */; };
+		E50A45E624D73B9800E01703 /* FullScreenMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50A45E524D73B9800E01703 /* FullScreenMapViewController.swift */; };
 		E50BC90D241D15EE005EFDCE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC90C241D15EE005EFDCE /* SettingsView.swift */; };
 		E50BC90F241D15FB005EFDCE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC90E241D15FB005EFDCE /* SettingsViewController.swift */; };
 		E50BC911241D42DF005EFDCE /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC910241D42DF005EFDCE /* SettingCell.swift */; };
@@ -240,6 +242,8 @@
 		CB1F109E38A57D77901D8A65 /* Pods-SmartTouristTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTouristTests.release.xcconfig"; path = "Target Support Files/Pods-SmartTouristTests/Pods-SmartTouristTests.release.xcconfig"; sourceTree = "<group>"; };
 		D30A90CC896E2EB573AFC6C5 /* Pods-SmartTourist.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTourist.debug.xcconfig"; path = "Target Support Files/Pods-SmartTourist/Pods-SmartTourist.debug.xcconfig"; sourceTree = "<group>"; };
 		E501B0DF244CCB18003E271D /* WDInstances.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = WDInstances.json; sourceTree = "<group>"; };
+		E50A45E324D73B8800E01703 /* FullScreenMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenMapView.swift; sourceTree = "<group>"; };
+		E50A45E524D73B9800E01703 /* FullScreenMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenMapViewController.swift; sourceTree = "<group>"; };
 		E50BC90C241D15EE005EFDCE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		E50BC90E241D15FB005EFDCE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E50BC910241D42DF005EFDCE /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
@@ -458,6 +462,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E50A45E224D73B6400E01703 /* FullScreenMap */ = {
+			isa = PBXGroup;
+			children = (
+				E50A45E324D73B8800E01703 /* FullScreenMapView.swift */,
+				E50A45E524D73B9800E01703 /* FullScreenMapViewController.swift */,
+			);
+			path = FullScreenMap;
+			sourceTree = "<group>";
+		};
 		E50BC906241D159A005EFDCE /* SettingsView */ = {
 			isa = PBXGroup;
 			children = (
@@ -565,6 +578,7 @@
 				E5FDE323238B25610018D791 /* WelcomeView */,
 				E524A100238C4F950052825F /* AttractionsView */,
 				E5628B4B2393D4B900A61676 /* AttractionDetail */,
+				E50A45E224D73B6400E01703 /* FullScreenMap */,
 				E5AFC89923F9B006007B9887 /* CityDetailView */,
 				E57AAD09244F5ADC00F49354 /* SearchView */,
 				99D5C9BD241CFB12008633C7 /* WorldwideView */,
@@ -1150,6 +1164,7 @@
 				E5F9715C2392D96F0096C296 /* UIControl+TargetActionable.swift in Sources */,
 				E5335D032389942D00601F02 /* MapView.swift in Sources */,
 				E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */,
+				E50A45E424D73B8800E01703 /* FullScreenMapView.swift in Sources */,
 				E50BC90D241D15EE005EFDCE /* SettingsView.swift in Sources */,
 				993B35462392B9150003FD8F /* AttractionCell.swift in Sources */,
 				E54E01B423996806009D0331 /* Persistable.swift in Sources */,
@@ -1198,6 +1213,7 @@
 				E5F9715E2392D96F0096C296 /* Source.swift in Sources */,
 				E57AAD06244F592800F49354 /* SearchView.swift in Sources */,
 				E524A0F8238C4C060052825F /* WelcomeViewController.swift in Sources */,
+				E50A45E624D73B9800E01703 /* FullScreenMapViewController.swift in Sources */,
 				99D5C9B7241CF4D0008633C7 /* WorldwideFavoritesView.swift in Sources */,
 				E53EEA23241CDC55004CCE16 /* PromiseImageSource.swift in Sources */,
 				E5335CFE238981D000601F02 /* AppState.swift in Sources */,

@@ -25,9 +25,8 @@ class AttractionDetailViewController: ViewControllerWithLocalState<AttractionDet
                 self.dispatch(AddFavorite(place: place))
             }
         }
-        self.rootView.didLoadEverything = { [weak self] in
-            guard let instance = self else { return }
-            instance.localState.allLoaded = true
+        self.rootView.didLoadEverything = { [unowned self] in
+            self.localState.allLoaded = true
         }
         self.rootView.didTapDirectionButton = { location, place in
             guard let place = place else { return }
@@ -41,8 +40,11 @@ class AttractionDetailViewController: ViewControllerWithLocalState<AttractionDet
             guard let wikipediaUrl = wikipediaUrl, let url = URL(string: wikipediaUrl) else { return }
             self.dispatch(Show(Screen.safari, animated: true, context: url))
         }
-        self.rootView.didTapContributeButton = {
+        self.rootView.didTapContributeButton = { [unowned self] in
             self.dispatch(Show(Screen.safari, animated: true, context: URL(string: "https://en.wikipedia.org/wiki/Wikipedia:Contributing_to_Wikipedia")))
+        }
+        self.rootView.didTapMap = { [unowned self] attraction in
+            self.dispatch(Show(Screen.fullScreenMap, animated: true, context: attraction))
         }
     }
 }
@@ -62,6 +64,12 @@ extension AttractionDetailViewController: RoutableWithConfiguration {
                 vc.dismissButtonStyle = .close
                 return vc
             },
+            .show(Screen.fullScreenMap): .presentModally { [unowned self] context in
+                let attraction = context as! WDPlace
+                let vc = FullScreenMapViewController(store: self.store, localState: FullScreenMapLocalState(attraction: attraction))
+                vc.modalPresentationStyle = .pageSheet
+                return vc
+            }
         ]
     }
 }

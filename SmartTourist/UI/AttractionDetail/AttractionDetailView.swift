@@ -68,10 +68,11 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     
     var didTapFavoriteButton: ((WDPlace) -> Void)?
     var didLoadEverything: Interaction?
-    var didTapDirectionButton: (( CLLocationCoordinate2D?, WDPlace?) -> Void)?
+    var didTapDirectionButton: ((CLLocationCoordinate2D?, WDPlace?) -> Void)?
     var didTapLinkButton: ((String?) -> Void)?
     var didTapWikipediaButton: ((String?) -> Void)?
-    var didTapContributeButton: (() -> Void)?
+    var didTapContributeButton: Interaction?
+    var didTapMap: ((WDPlace) -> Void)?
 
     func setup() {
         self.navigationItem?.rightBarButtonItem = self.favoriteButton
@@ -83,6 +84,10 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.scrollView.delegate = self
         self.scrollView.showsVerticalScrollIndicator = false
         self.addSubview(self.scrollView)
+        
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
+        recognizer.cancelsTouchesInView = false
+        self.scrollView.addGestureRecognizer(recognizer)
         
         self.imageSlideshow.slideshowInterval = 5
         self.imageSlideshow.zoomEnabled = true
@@ -282,7 +287,6 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         let bsViewModel = ManualStackViewModel(views: views)
         self.buttonsStack.model = bsViewModel
         
-        
         self.setNeedsLayout()
     }
     
@@ -291,6 +295,15 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.directionButton.setImage(UIImage.fontAwesomeIcon(name: .shoePrints, style: .solid, textColor: .label, size: CGSize(size: 30)), for: .normal)
         self.directionButton.layer.shadowColor = UIColor.label.cgColor
         self.linkButton.layer.shadowColor = UIColor.label.cgColor
+    }
+    
+    @objc func handleTap(_ recognizer: UITapGestureRecognizer) {
+        let point = recognizer.location(in: self.mapView)
+        let frame = self.mapView.frame
+        if point.x >= 0 && point.x <= frame.width && point.y >= 0 && point.y <= frame.height {
+            guard let model = self.model else { return }
+            self.didTapMap?(model.attraction)
+        }
     }
 }
 
