@@ -40,8 +40,8 @@ class AttractionDetailViewController: ViewControllerWithLocalState<AttractionDet
             guard let wikipediaUrl = wikipediaUrl, let url = URL(string: wikipediaUrl) else { return }
             self.dispatch(Show(Screen.safari, animated: true, context: url))
         }
-        self.rootView.didTapContributeButton = { [unowned self] in
-            self.dispatch(Show(Screen.safari, animated: true, context: URL(string: "https://en.wikipedia.org/wiki/Wikipedia:Contributing_to_Wikipedia")))
+        self.rootView.didTapContributeButton = {
+            UIApplication.shared.open(URL(string: "https://en.wikipedia.org/wiki/Wikipedia:Contributing_to_Wikipedia")!)
         }
         self.rootView.didTapMap = { [unowned self] attraction in
             self.dispatch(Show(Screen.fullScreenMap, animated: true, context: attraction))

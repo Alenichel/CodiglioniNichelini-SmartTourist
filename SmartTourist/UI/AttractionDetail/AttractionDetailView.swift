@@ -218,8 +218,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
             if text != defaultDescription {
                 self.mapView.pin.horizontally(20).below(of: descriptionText).marginTop(20)
             } else {
-                self.contributeButton.sizeToFit()
-                self.contributeButton.pin.below(of: descriptionText, aligned: .center).horizontally(20).marginTop(20).width(180)
+                self.contributeButton.pin.below(of: descriptionText, aligned: .center).horizontally(20).marginTop(20).width(180).height(40)
                 self.mapView.pin.horizontally(20).below(of: contributeButton).marginTop(20)
             }
         } else {
