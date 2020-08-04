@@ -371,15 +371,22 @@ Smart
 
 \chapter{Notifications}
 
-\chapter{External services and libraries}
-\section{Services}
+\chapter{Services and libraries}
+\section{Internal libraries}
+SmartTourist uses consistently internal libraries and services:
+\begin{itemize}
+	\item \textbf{\textit{MapKit}}: for location gathering and maps.
+	\item \textbf{\textit{Core Motion}}: for accessing accelerometer, gyroscope, pedometer, and environment-related events.
+\end{itemize}
+
+\section{External services}
 SmartTourist relies almost only on \textit{free data and services}. Here, it follows the description of the external services used.
 
 \begin{itemize}
 	\item \textit{\textbf{Wikipedia}}: all displayed attractions are taken from Wikidata knowledge base. The given api is quite basic: attractions entries are retrieved with a SPARQL query embedded in a http API call. Details and places' pictures are retrieved with standard HTTP API calls from different endpoints.
 	\item \textit{\textbf{Google}}: Places ratings are the only data retrieved from Google services. This was due to the lack of a reliable free alternative for places' rating. For the simplicity of the task, we decided not to rely on the Google SDK for iOS and to manually make request to the Google API. 
 \end{itemize}
-\section{Libraries}
+\section{External libraries}
 The app uses lots of third parties' libraries the can be roughly divided into three kind: architectural libraries, back-end libraries and front-end libraries.
 
 
