@@ -357,8 +357,11 @@
 % Body
 
 \chapter{Introduction}
+This is the \textit{design document} (DD) of the iOS application "\textbf{Smart Tourist}" developed by \textit{Fabio Codiglioni} and \textit{Alessandro Nichelini} in the context of "Design and Implementation of Mobile Application" course at Politecnico di Milano. \\The document explains the most important design choice we made and the motivations behind them, with specific focus on the Redux like architecture adopted.
+
 
 \chapter{General Overview}
+Smart 
 
 \chapter{Architectural design}
 
@@ -373,8 +376,8 @@
 SmartTourist relies almost only on \textit{free data and services}. Here, it follows the description of the external services used.
 
 \begin{itemize}
-	\item \textit{\textbf{Wikipedia}}: all displayed attractions are taken from Wikidata knowledge base. The given api is quite basic: attractions entries are retrieved with a SPARQL query embedded in a http api call. Details and places' pictures are retrieved with standard http api calls from different endpoints.
-	\item \textit{\textbf{Google}}: Places ratings are the only data retrieved from Google services.
+	\item \textit{\textbf{Wikipedia}}: all displayed attractions are taken from Wikidata knowledge base. The given api is quite basic: attractions entries are retrieved with a SPARQL query embedded in a http API call. Details and places' pictures are retrieved with standard HTTP API calls from different endpoints.
+	\item \textit{\textbf{Google}}: Places ratings are the only data retrieved from Google services. This was due to the lack of a reliable free alternative for places' rating. For the simplicity of the task, we decided not to rely on the Google SDK for iOS and to manually make request to the Google API. 
 \end{itemize}
 \section{Libraries}
 The app uses lots of third parties' libraries the can be roughly divided into three kind: architectural libraries, back-end libraries and front-end libraries.
