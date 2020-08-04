@@ -369,6 +369,43 @@
 \chapter{Notifications}
 
 \chapter{External services and libraries}
+\section{Services}
+SmartTourist relies almost only on \textit{free data and services}. Here, it follows the description of the external services used.
+
+\begin{itemize}
+	\item \textit{\textbf{Wikipedia}}: all displayed attractions are taken from Wikidata knowledge base. The given api is quite basic: attractions entries are retrieved with a SPARQL query embedded in a http api call. Details and places' pictures are retrieved with standard http api calls from different endpoints.
+	\item \textit{\textbf{Google}}: Places ratings are the only data retrieved from Google services.
+\end{itemize}
+\section{Libraries}
+The app uses lots of third parties' libraries the can be roughly divided into three kind: architectural libraries, back-end libraries and front-end libraries.
+
+
+\begin{center}
+
+\begin{tabular}{|c|c|l|}
+\hline
+\textbf{Kind}                  & \textbf{Library}     & \textbf{Description}                                                                                                                                                                                        \\ \hline
+\multirow{2}{*}{Architectural} & Katana               & Katana is a modern Swift framework for writing iOS applications' business logic that are testable and easy to reason about. Katana is inspired by Redux.                                                    \\ \cline{2-3} 
+                               & Tempura              & Tempura is a holistic approach to iOS development, it borrows concepts from Redux (through Katana) and MVVM.                                                                                                \\ \hline
+\multirow{5}{*}{Back-end}      & DeepDiff             & DeepDiff tells the difference between 2 collections and the changes as edit steps.                                                                                                                          \\ \cline{2-3} 
+                               & Fuse                 & Fuse is a super lightweight library which provides a simple way to do fuzzy searching.                                                                                                                      \\ \cline{2-3} 
+                               & Alamofire            & Alamofire is an HTTP networking library written in Swift.                                                                                                                                                   \\ \cline{2-3} 
+                               & SigmaSwiftStatistics & It is a collection of functions that perform statistical calculations in Swift. It can be used in Swift apps for Apple devices and in open source Swift programs on other platforms.                        \\ \cline{2-3} 
+                               & SwiftyXMLParser      & Simple XML Parser implemented in Swift                                                                                                                                                                      \\ \hline
+\multirow{7}{*}{Front-end}     & PinLayout            & Extremely Fast views layouting without auto layout. No magic, pure code, full control and blazing fast. Concise syntax, intuitive, readable \& chainable. PinLayout can layouts UIView, NSView and CALayer. \\ \cline{2-3} 
+                               & FlexLayout           & Angular Flex Layout provides a sophisticated layout API using Flexbox CSS + mediaQuery.                                                                                                                     \\ \cline{2-3} 
+                               & Cosmos               & This is a UI control for iOS and tvOS written in Swift.                                                                                                                                                     \\ \cline{2-3} 
+                               & ImageSlideshow       & Customizable Swift image slideshow with circular scrolling, timer and full screen viewer.                                                                                                                   \\ \cline{2-3} 
+                               & MarqueeLabel         & MarqueeLabel is a UILabel subclass adds a scrolling marquee effect when the text of the label outgrows the available width                                                                                  \\ \cline{2-3} 
+                               & FontAwesome          & Use Font Awesome in your Swift projects                                                                                                                                                                     \\ \cline{2-3} 
+                               & FlagKit              & Beautiful flag icons for usage in apps and on the web.                                                                                                                                                      \\ \hline
+\end{tabular}
+
+
+
+
+\end{center}
+
 
 \chapter{Testing}
 
