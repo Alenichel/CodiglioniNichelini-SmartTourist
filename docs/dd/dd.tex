@@ -435,6 +435,27 @@ SmartTourist relies almost only on \textit{free data and services}. Here, it fol
 
 \begin{itemize}
 	\item \textit{\textbf{Wikipedia}}: all displayed attractions are taken from the Wikidata knowledge base. The given API is quite basic: attraction entries are retrieved with a SPARQL query embedded in a http API call. Details and pictures are retrieved with standard HTTP API calls from different endpoints.
+		
+		\begin{lstlisting}[language=sql, caption={SPARQL query for attraction retrieving}, captionpos=b]
+		
+		SELECT DISTINCT ?place ?placeLabel ?location ?image ?instance ?phoneNumber ?website ?wikipediaLink
+        WHERE {
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "en, it" }
+            SERVICE wikibase:around {
+                ?place wdt:P625 ?location .
+                bd:serviceParam wikibase:center "Point(\(location.longitude) \(location.latitude))"^^geo:wktLiteral .
+                bd:serviceParam wikibase:radius "\(radius)" .
+            }
+            ?place wdt:P31 ?instance  .
+        ?place wdt:P18 ?image .
+        OPTIONAL {?place wdt:P1329 ?phoneNumber}.
+        OPTIONAL {?place wdt:P856 ?website} .
+        OPTIONAL {?wikipediaLink schema:about ?place;
+            schema:inLanguage "en";
+            schema:isPartOf [ wikibase:wikiGroup "wikipedia" ]} .
+        }
+		\end{lstlisting}
+		
 	\item \textit{\textbf{Google}}: Places ratings are the only data retrieved from Google services. This was due to the lack of a reliable free alternative. For the simplicity of the task, we decided not to rely on the Google SDK for iOS and to manually make request to the Google API.
 \end{itemize}
 
