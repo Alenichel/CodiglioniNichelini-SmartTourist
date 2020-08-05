@@ -357,16 +357,45 @@
 % Body
 
 \chapter{Introduction}
-This is the \textit{design document} (DD) of the \textbf{\textit{Smart Tourist}} iOS application developed by \textit{Fabio Codiglioni} and \textit{Alessandro Nichelini} in the context of the \textit{Design and Implementation of Mobile Application} course at Politecnico di Milano. \\
+This is the \textit{design document} (DD) of the \textbf{\textit{Smart Tourist}} iOS application developed by \textit{Fabio Codiglioni} and \textit{Alessandro Nichelini} in the context of the \textit{Design and Implementation of Mobile Application} course at Politecnico di Milano. The authors have been tutored by Bending Spoons for the usage of some technologies that are described later.\\
 The document explains the most important design choices we made and the motivations behind them, with specific focus on the Redux-like architecture adopted.
 
 
 
 
 \chapter{General Overview}
-Smart 
+Smart Tourist is a multi-device application for iOS and iPadOS.
 
+\section{Assignment}
+For the reader convenience, the assignment is reported below:
+\begin{warn}[Assignement:]
+	 Smart Tourist
+	 \\\\Help your users when they are exploring new cities!
+	 \\\\By using the localisation systems on the smartphones and the google places API, notify the user when something interesting is nearby.
+	 \\\\Connect to wikipedia, to retrieve interesting informations on the point of interest selected.
+	 \\\\Search and filters among several interesting places of the city you are visiting, save them as favourites so you can check on them later.
+	 \\\\Attach some pictures to those pins and eventually share them with your friends!
+\end{warn}
 
+ \section{Features description}
+ \subsection{Exploring}
+ The user is given with a navigation map filled with the city's point of interest. She has the chance to control which attraction to see on a map. She can choose between \textit{Nearest places}, \textit{Popular places} and \textit{Favourites}. Each attraction is shown on the map and in a table view. They are clickable from both position to open  the corresponding detail view.
+ \\\\In the map, two circles are displayed to help the user better understand distances. These circles correspond to the distance she can cover in 5 and 15 minutes. Circles' radius is automatically updated with information from user profile and thus they fit always with user's pace.
+ 
+ \subsection{Dynamical exploring}
+ SmartTourist works well in both crowded cities and small towns. The user will be always provided with a right amount of attractions. Where not so many attractions are available, the app will automatically show her less known attraction and particular point of interest.
+ 
+ \subsection{Learning}
+ The user can open the detail view of both the city and attractions. She will be provided with useful information about the point of interest such as pictures, Wikipedia description, useful links and a shortcut to open turn-by-turn navigation.
+ 
+ \subsection{Notifications}
+ The user is notified when she is nearby a "top location". The notification comes with a picture of the attraction and lets her either to open the the detail view of the attraction or to open turn-by-turn navigation. 
+ 
+ \subsection{Keep track of favourite attractions}
+ The user can view the attraction of her current city or she can have a preview of other cities attractions. In both case she can keep track of them by adding them in the list of favourite attractions. The user is also provided the ability to open a worldwide map with all her favourite places.
+
+\subsection{Contribute (proof of concept)}
+SmartTourist is manly based on free data. When a detailed description is missing, the user is given the chance to contribute.
 
 
 \chapter{Architectural design}
