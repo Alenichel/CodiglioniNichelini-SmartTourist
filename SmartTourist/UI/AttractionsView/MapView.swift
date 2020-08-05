@@ -185,10 +185,10 @@ class MapView: UIView, ViewControllerModellableView {
             self.moveMap(to: location)
             self.didMoveMap?()
         }
-        /*if let actualLocation = model.actualLocation {
+        if let actualLocation = model.actualLocation {
             self.updateCircle(self.littleCircle, actualLocation: actualLocation, radius: model.littleCircleRadius, text: "5 min")
             self.updateCircle(self.bigCircle, actualLocation: actualLocation, radius: model.bigCircleRadius, text: "15 min")
-        }*/
+        }
         if model.mapCentered || self.mapView.camera.altitude <= MapView.altitudeThreshold {
             self.markerPool.setMarkers(places: model.places)
             if let city = model.city {
@@ -211,16 +211,6 @@ class MapView: UIView, ViewControllerModellableView {
         let circle = MKCircle(center: actualLocation, radius: radius)
         self.mapView.addOverlay(circle)
         mapCircle.circle = circle
-        /*mapCircle.circle!.strokeColor = .label
-        let position = actualLocation.offset(radius + 10)
-        if mapCircle.overlay == nil {
-            mapCircle.overlay = GMSGroundOverlay(position: position, icon: text.image, zoomLevel: 15)
-        } else {
-            mapCircle.overlay!.position = position
-            mapCircle.overlay!.icon = text.image
-        }
-        mapCircle.overlay!.bearing = 0
-        mapCircle.overlay!.map = self.mapView*/
     }
     
     private func moveMap(to location: CLLocationCoordinate2D) {
