@@ -409,8 +409,122 @@ SmartTourist is manly based on free data. When a detailed description is missing
 
 
 \chapter{User interface}
+\section{Screenshot}
+Here follow some screenshot of the application in both Light and Dark mode.
+
+\subsection{Mapview}
+\subsubsection{Mapview - nearest}
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{.5\textwidth}
+  	\centering
+  	\includegraphics[width=0.98\linewidth]{/screenshot/light_nearest}
+  	\label{fig:test1}
+	\end{minipage}%
+	\begin{minipage}{.5\textwidth}
+  	\centering
+  	\includegraphics[width=0.98\linewidth]{/screenshot/dark_nearest}
+  	\label{fig:test2}
+	\end{minipage}
+	\caption{Map view with nearest tab selected in both light and dark mode}
+\end{figure}
+
+\subsection{Mapview - popular}
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{.5\textwidth}
+  	\centering
+  	\includegraphics[width=0.98\linewidth]{/screenshot/light_popular}
+  	\label{fig:test1}
+	\end{minipage}%
+	\begin{minipage}{.5\textwidth}
+  	\centering
+  	\includegraphics[width=0.98\linewidth]{/screenshot/dark_popular}
+  	\label{fig:test2}
+	\end{minipage}
+	\caption{Map view with popular tab selected in both light and dark mode}
+\end{figure}
+
+\subsection{Mapview - favourite}
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{.5\textwidth}
+  	\centering
+  	\includegraphics[width=0.98\linewidth]{/screenshot/light_favourite}
+  	\label{fig:test1}
+	\end{minipage}%
+	\begin{minipage}{.5\textwidth}
+  	\centering
+  	\includegraphics[width=0.98\linewidth]{/screenshot/dark_favourite}
+  	\label{fig:test2}
+	\end{minipage}
+	\caption{Map view with favourite tab selected in both light and dark mode}
+\end{figure}
+
+\subsection{Global favourite view}
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{.5\textwidth}
+  	\centering
+  	\includegraphics[width=0.98\linewidth]{/screenshot/light_worldwide}
+  	\label{fig:test1}
+	\end{minipage}%
+	\begin{minipage}{.5\textwidth}
+  	\centering
+  	\includegraphics[width=0.98\linewidth]{/screenshot/dark_worldwide}
+  	\label{fig:test2}
+	\end{minipage}
+	\caption{Favourite worldwide view in both light and dark mode}
+\end{figure}
+
+\subsection{Attraction detail view}
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{.5\textwidth}
+  	\centering
+  	\includegraphics[width=0.98\linewidth]{/screenshot/light_detail_view}
+  	\label{fig:test1}
+	\end{minipage}%
+	\begin{minipage}{.5\textwidth}
+  	\centering
+  	\includegraphics[width=0.98\linewidth]{/screenshot/dark_detail_view}
+  	\label{fig:test2}
+	\end{minipage}
+	\caption{Attraction detail view in both light and dark mode}
+\end{figure}
+
+\subsection{City detail view}
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{.5\textwidth}
+  	\centering
+  	\includegraphics[width=0.98\linewidth]{/screenshot/light_city_detail_view}
+  	\label{fig:test1}
+	\end{minipage}%
+	\begin{minipage}{.5\textwidth}
+  	\centering
+  	\includegraphics[width=0.98\linewidth]{/screenshot/dark_city_detail_view}
+  	\label{fig:test2}
+	\end{minipage}
+	\caption{City detail view in both light and dark mode}
+\end{figure}
 
 
+\subsection{Settings view}
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{.5\textwidth}
+  	\centering
+  	\includegraphics[width=0.98\linewidth]{/screenshot/light_settings}
+  	\label{fig:test1}
+	\end{minipage}%
+	\begin{minipage}{.5\textwidth}
+  	\centering
+  	\includegraphics[width=0.98\linewidth]{/screenshot/dark_settings}
+  	\label{fig:test2}
+	\end{minipage}
+	\caption{Settings view in both light and dark mode}
+\end{figure}
 
 
 \chapter{Notifications}
@@ -453,6 +567,29 @@ SmartTourist relies almost only on \textit{free data and services}. Here, it fol
         OPTIONAL {?wikipediaLink schema:about ?place;
             schema:inLanguage "en";
             schema:isPartOf [ wikibase:wikiGroup "wikipedia" ]} .
+        }
+		\end{lstlisting}
+		
+		\begin{lstlisting}[language=sql, caption={SPARQL query for city detail retrieving}, captionpos=b]
+			SELECT DISTINCT ?city ?cityLabel ?country ?countryLabel ?population ?area ?elevation ?link ?facebookPageId ?facebookPlacesId ?instagramUsername ?twitterUsername ?image ?coatOfArmsImage ?cityFlagImage ?countryCode ?wikipediaLink WHERE {
+            BIND( <http://www.wikidata.org/entity/\(cityId)> as ?city ).
+            OPTIONAL {?city wdt:P17 ?country}.
+            OPTIONAL {?city wdt:P1082 ?population}.
+            OPTIONAL {?city wdt:P2046 ?area}.
+            OPTIONAL {?city wdt:P2044 ?elevation}.
+            OPTIONAL {?city wdt:P856 ?link}.
+            OPTIONAL {?city wdt:P2013 ?facebookPageId}.
+            OPTIONAL {?city wdt:P1997 ?facebookPlacesId}.
+            OPTIONAL {?city wdt:P2003 ?instagramUsername}.
+            OPTIONAL {?city wdt:P2002 ?twitterUsername}.
+            OPTIONAL {?city wdt:P18 ?image}.
+            OPTIONAL {?city wdt:P94  ?coatOfArmsImage}.
+            OPTIONAL {?city wdt:P41 ?cityFlagImage}.
+            OPTIONAL {?country wdt:P297 ?countryCode}.
+            OPTIONAL {?wikipediaLink schema:about ?city;
+              schema:inLanguage "en";
+              schema:isPartOf [ wikibase:wikiGroup "wikipedia" ]}.
+            SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
         }
 		\end{lstlisting}
 		
