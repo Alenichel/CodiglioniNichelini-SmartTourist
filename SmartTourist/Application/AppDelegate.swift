@@ -26,8 +26,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         self.store = Store<AppState, DependenciesContainer>(interceptors: [
             //DispatchableLogger.interceptor(),
             PersistorInterceptor.interceptor()
-        ])
-        self.store.dispatch(LoadState())
+        ], stateInitializer: {
+            print("Attempting to load state from \(AppState.persistURL)")
+            let decoder = JSONDecoder()
+            do {
+                let data = try Data(contentsOf: AppState.persistURL)
+                let state = try decoder.decode(AppState.self, from: data)
+                print("State loaded") // from \(AppState.persistURL)")
+                return state
+            } catch {
+                print("\(#function): \(error.localizedDescription)")
+                print("Creating new empty state")
+                return AppState()
+            }
+        })
         if WCSession.isSupported() {
             WCSession.default.delegate = self
             WCSession.default.activate()

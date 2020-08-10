@@ -8,6 +8,7 @@
 import UIKit
 import Katana
 import Tempura
+import Hydra
 import PinLayout
 import Cosmos
 import CoreLocation
@@ -20,7 +21,6 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
     let nRatings: String
     let wikipediaLink: String?
     let wikipediaSearchTerms: String
-    let actualLocation: CLLocationCoordinate2D
     let favorite: Bool
     let allLoaded: Bool
     let link: String?
@@ -35,7 +35,6 @@ struct AttractionDetailViewModel: ViewModelWithLocalState {
         }
         self.wikipediaSearchTerms = self.attraction.wikipediaName ?? ""
         self.wikipediaLink = self.attraction.wikipediaLink
-        self.actualLocation = state.locationState.currentLocation!
         self.favorite = state.favorites.contains(attraction)
         self.allLoaded = localState.allLoaded
         self.link = localState.attraction.website
@@ -62,13 +61,12 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     var directionButton = RoundedButton()
     var linkButton = RoundedButton()
     var wikipediaButton = RoundedButton()
-    var timeLabel = UILabel()
     var buttonsStack = ManualStackView()
     var contributeButton = RoundedButton()
     
     var didTapFavoriteButton: ((WDPlace) -> Void)?
     var didLoadEverything: Interaction?
-    var didTapDirectionButton: ((CLLocationCoordinate2D?, WDPlace?) -> Void)?
+    var didTapDirectionButton: ((WDPlace) -> Void)?
     var didTapLinkButton: ((String?) -> Void)?
     var didTapWikipediaButton: ((String?) -> Void)?
     var didTapContributeButton: Interaction?
@@ -99,7 +97,8 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.containerView.addSubview(self.cosmos)
         self.containerView.addSubview(self.nRatingsLabel)
         self.directionButton.on(.touchUpInside) { button in
-            self.didTapDirectionButton?(self.model?.actualLocation, self.model?.attraction)
+            guard let model = self.model else { return }
+            self.didTapDirectionButton?(model.attraction)
         }
         self.linkButton.on(.touchUpInside) { button in
             self.didTapLinkButton?(self.model?.link)
@@ -156,9 +155,6 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.contributeButton.layer.shadowColor = UIColor.label.cgColor
         self.contributeButton.layer.shadowOpacity = 0.75
         self.contributeButton.layer.shadowOffset = .zero
-        self.timeLabel.font = UIFont.systemFont(ofSize: UIFont.systemFontSize, weight: .light)
-        self.timeLabel.textAlignment = .right
-        self.timeLabel.sizeToFit()
         self.favoriteButton.tintColor = .systemRed
         self.buttonsStack.style()
     }
@@ -267,14 +263,6 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
             self.curtainView.isHidden = true
             self.curtainView.removeFromSuperview()
         }
-        
-        self.timeLabel.setText(actualLocation: model.actualLocation, attraction: model.attraction)
-        if self.timeLabel.text == "Unavailable" {
-            self.directionButton.isEnabled = false
-        } else {
-            self.directionButton.isEnabled = true
-        }
-        
         
         var views = [self.directionButton]
         if model.wikipediaLink != nil {

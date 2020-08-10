@@ -10,18 +10,6 @@ import Katana
 import CoreLocation
 
 
-struct SetState: StateUpdater {
-    let state: AppState
-    
-    func updateState(_ state: inout AppState) {
-        state.locationState = self.state.locationState
-        state.favorites = self.state.favorites
-        state.settings = self.state.settings
-        state.cache = self.state.cache
-    }
-}
-
-
 struct SetActualLocation: StateUpdater {
     let location: CLLocationCoordinate2D?
     

@@ -29,8 +29,7 @@ class AttractionDetailViewController: ViewControllerWithLocalState<AttractionDet
             guard let instance = self else { return }
             instance.localState.allLoaded = true
         }
-        self.rootView.didTapDirectionButton = { location, place in
-            guard let place = place else { return }
+        self.rootView.didTapDirectionButton = { place in
             MapsAPI.shared.openDirectionsInMapsApp(to: place)
         }
         self.rootView.didTapLinkButton = { [unowned self] attractionUrl in

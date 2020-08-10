@@ -11,22 +11,6 @@ import CoreLocation
 import Hydra
 
 
-struct LoadState: SideEffect {
-    func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
-        print("Attempting to load state from \(AppState.persistURL)")
-        let decoder = JSONDecoder()
-        do {
-            let data = try Data(contentsOf: AppState.persistURL)
-            let state = try decoder.decode(AppState.self, from: data)
-            context.dispatch(SetState(state: state))
-            print("State loaded") // from \(AppState.persistURL)")
-        } catch {
-            print("\(#function): \(error.localizedDescription)")
-        }
-    }
-}
-
-
 struct GetCurrentCity: SideEffect {
     let throttle: Bool
     

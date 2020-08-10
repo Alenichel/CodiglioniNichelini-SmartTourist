@@ -9,6 +9,9 @@ import Foundation
 import Katana
 
 
+protocol Persistable: Dispatchable {}
+
+
 struct PersistorInterceptor {
     static func interceptor() -> StoreInterceptor {
         return { context in

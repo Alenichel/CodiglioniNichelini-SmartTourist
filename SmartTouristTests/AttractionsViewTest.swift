@@ -15,6 +15,8 @@ import MapKit
 
 
 class AttractionsViewTest: XCTestCase, ViewControllerTestCase {
+    var allLoaded: Bool = false
+    
     let _viewController: AttractionsViewController = {
         let store = Store<AppState, DependenciesContainer>()
         return AttractionsViewController(store: store, localState: AttractionsLocalState(selectedSegmentIndex: .nearest))
@@ -24,16 +26,16 @@ class AttractionsViewTest: XCTestCase, ViewControllerTestCase {
         return _viewController
     }
     
+    static let location = CLLocationCoordinate2D(latitude: 51.50998, longitude: -0.1337)
+    
     let appState: AppState = {
         var state = AppState()
-        let location = CLLocationCoordinate2D(latitude: 51.501476, longitude: -0.140634)    // Should be Buckingham Palace
         state.locationState.nearestPlaces = WDPlace.testPlaces
         state.locationState.actualLocation = location
         state.locationState.mapLocation = location
         state.locationState.currentCity = "London"
         state.locationState.mapCentered = true
         state.needToMoveMap = true
-        print(state.pedometerState)
         return state
     }()
     
@@ -43,7 +45,13 @@ class AttractionsViewTest: XCTestCase, ViewControllerTestCase {
     
     func isViewReady(_ view: MapView, identifier: String) -> Bool {
         guard let model = view.model else { return false }
-        return self.viewController.mapLoaded && model.places.count > 0
+        if self.viewController.mapLoaded && model.places.count > 0 && !self.allLoaded {
+            DispatchQueue.global(qos: .background).async {
+                sleep(5)
+                self.allLoaded = true
+            }
+        }
+        return self.allLoaded
     }
     
     func testMapView() {

@@ -16,4 +16,5 @@ enum TestCase: String {
     case CityDetailViewAllLoaded
     case CityDetailViewNotLoaded
     case AttractionsView
+    case AttractionDetail
 }

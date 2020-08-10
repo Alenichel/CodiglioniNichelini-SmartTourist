@@ -27,6 +27,7 @@
 		E501B0E0244CCB18003E271D /* WDInstances.json in Resources */ = {isa = PBXBuildFile; fileRef = E501B0DF244CCB18003E271D /* WDInstances.json */; };
 		E50A45E424D73B8800E01703 /* FullScreenMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50A45E324D73B8800E01703 /* FullScreenMapView.swift */; };
 		E50A45E624D73B9800E01703 /* FullScreenMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50A45E524D73B9800E01703 /* FullScreenMapViewController.swift */; };
+		E50B56DE24E1D6BC00261D30 /* AttractionDetailTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50B56DD24E1D6BC00261D30 /* AttractionDetailTest.swift */; };
 		E50BC90D241D15EE005EFDCE /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC90C241D15EE005EFDCE /* SettingsView.swift */; };
 		E50BC90F241D15FB005EFDCE /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC90E241D15FB005EFDCE /* SettingsViewController.swift */; };
 		E50BC911241D42DF005EFDCE /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC910241D42DF005EFDCE /* SettingCell.swift */; };
@@ -58,7 +59,6 @@
 		E54BF857244AECAD0049D3E2 /* CGSize+init.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54BF856244AECAD0049D3E2 /* CGSize+init.swift */; };
 		E54CE343245C84F700813F51 /* CityDetailInfoIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54CE342245C84F700813F51 /* CityDetailInfoIcon.swift */; };
 		E54CE345245C95EE00813F51 /* ManualStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54CE344245C95EE00813F51 /* ManualStackView.swift */; };
-		E54E01B423996806009D0331 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E01B323996806009D0331 /* Persistable.swift */; };
 		E54E01BB23996839009D0331 /* Interceptors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54E01BA23996839009D0331 /* Interceptors.swift */; };
 		E553D14B23926CC600C3199C /* ListCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E553D14A23926CC600C3199C /* ListCardView.swift */; };
 		E5615AF9245DB7620079F00C /* SettingDoubleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5615AF8245DB7620079F00C /* SettingDoubleCell.swift */; };
@@ -245,6 +245,7 @@
 		E501B0DF244CCB18003E271D /* WDInstances.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = WDInstances.json; sourceTree = "<group>"; };
 		E50A45E324D73B8800E01703 /* FullScreenMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenMapView.swift; sourceTree = "<group>"; };
 		E50A45E524D73B9800E01703 /* FullScreenMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenMapViewController.swift; sourceTree = "<group>"; };
+		E50B56DD24E1D6BC00261D30 /* AttractionDetailTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionDetailTest.swift; sourceTree = "<group>"; };
 		E50BC90C241D15EE005EFDCE /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		E50BC90E241D15FB005EFDCE /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E50BC910241D42DF005EFDCE /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
@@ -281,7 +282,6 @@
 		E54BF856244AECAD0049D3E2 /* CGSize+init.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+init.swift"; sourceTree = "<group>"; };
 		E54CE342245C84F700813F51 /* CityDetailInfoIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityDetailInfoIcon.swift; sourceTree = "<group>"; };
 		E54CE344245C95EE00813F51 /* ManualStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManualStackView.swift; sourceTree = "<group>"; };
-		E54E01B323996806009D0331 /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		E54E01BA23996839009D0331 /* Interceptors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interceptors.swift; sourceTree = "<group>"; };
 		E553D14A23926CC600C3199C /* ListCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCardView.swift; sourceTree = "<group>"; };
 		E5615AF8245DB7620079F00C /* SettingDoubleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDoubleCell.swift; sourceTree = "<group>"; };
@@ -548,6 +548,7 @@
 				E5EF7097245C266F00C69B3A /* SettingsViewTest.swift */,
 				E530A676245C2982008B0D6A /* CityDetailViewTest.swift */,
 				E5C28DAC24E1960A003C02A9 /* AttractionsViewTest.swift */,
+				E50B56DD24E1D6BC00261D30 /* AttractionDetailTest.swift */,
 			);
 			path = SmartTouristTests;
 			sourceTree = "<group>";
@@ -569,7 +570,6 @@
 				E585FCA2238ADE58008D7C86 /* StateUpdaters.swift */,
 				E585FCA4238ADEF3008D7C86 /* SideEffects.swift */,
 				E54E01BA23996839009D0331 /* Interceptors.swift */,
-				E54E01B323996806009D0331 /* Persistable.swift */,
 			);
 			path = State;
 			sourceTree = "<group>";
@@ -1170,7 +1170,6 @@
 				E50A45E424D73B8800E01703 /* FullScreenMapView.swift in Sources */,
 				E50BC90D241D15EE005EFDCE /* SettingsView.swift in Sources */,
 				993B35462392B9150003FD8F /* AttractionCell.swift in Sources */,
-				E54E01B423996806009D0331 /* Persistable.swift in Sources */,
 				E54CE345245C95EE00813F51 /* ManualStackView.swift in Sources */,
 				E5D005D1244DA0A20079A37E /* WDCity.swift in Sources */,
 				E5615AF9245DB7620079F00C /* SettingDoubleCell.swift in Sources */,
@@ -1240,6 +1239,7 @@
 				E596EB902457437900E6FF7D /* ArrayTest.swift in Sources */,
 				E5C28DAD24E1960B003C02A9 /* AttractionsViewTest.swift in Sources */,
 				E530A677245C2982008B0D6A /* CityDetailViewTest.swift in Sources */,
+				E50B56DE24E1D6BC00261D30 /* AttractionDetailTest.swift in Sources */,
 				E5EF7094245C202B00C69B3A /* WelcomeViewTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

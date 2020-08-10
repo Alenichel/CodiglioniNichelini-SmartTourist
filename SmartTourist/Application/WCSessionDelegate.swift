@@ -19,13 +19,13 @@ extension AppDelegate: WCSessionDelegate {
     func sessionDidDeactivate(_ session: WCSession) {}
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-        if self.store.state.locationState.nearestPlaces.isEmpty && self.store.state.locationState.popularPlaces.isEmpty {
+        /*if self.store.state.locationState.nearestPlaces.isEmpty && self.store.state.locationState.popularPlaces.isEmpty {
             do {
                 try await(self.store.dispatch(LoadState()))
             } catch {
                 print("\(#function): \(error.localizedDescription)")
             }
-        }
+        }*/
         guard let typeString = message["type"] as? String, let type = AppleWatchMessage(rawValue: typeString) else { return }
         var replyMessage: [String: Any] = [:]
         switch type {
