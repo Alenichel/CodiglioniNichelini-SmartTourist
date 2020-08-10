@@ -105,6 +105,7 @@
 		E5AFC8A123F9B006007B9887 /* CityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */; };
 		E5AFC8A223F9B006007B9887 /* CityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFC89B23F9B006007B9887 /* CityDetailView.swift */; };
 		E5C10DBD245EFDB100B2CFAE /* MKMapView+image.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C10DBC245EFDB100B2CFAE /* MKMapView+image.swift */; };
+		E5C28DAD24E1960B003C02A9 /* AttractionsViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C28DAC24E1960A003C02A9 /* AttractionsViewTest.swift */; };
 		E5C4324D2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C4324C2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift */; };
 		E5CA289B245EBB69005BA50A /* SettingDistanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CA289A245EBB69005BA50A /* SettingDistanceCell.swift */; };
 		E5CA289D245EBBA9005BA50A /* SettingIntCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CA289C245EBBA9005BA50A /* SettingIntCell.swift */; };
@@ -325,6 +326,7 @@
 		E5AFC89A23F9B006007B9887 /* CityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityDetailViewController.swift; sourceTree = "<group>"; };
 		E5AFC89B23F9B006007B9887 /* CityDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityDetailView.swift; sourceTree = "<group>"; };
 		E5C10DBC245EFDB100B2CFAE /* MKMapView+image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKMapView+image.swift"; sourceTree = "<group>"; };
+		E5C28DAC24E1960A003C02A9 /* AttractionsViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttractionsViewTest.swift; sourceTree = "<group>"; };
 		E5C4324C2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SFSafariViewController+RoutableWithConfiguration.swift"; sourceTree = "<group>"; };
 		E5CA289A245EBB69005BA50A /* SettingDistanceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingDistanceCell.swift; sourceTree = "<group>"; };
 		E5CA289C245EBBA9005BA50A /* SettingIntCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingIntCell.swift; sourceTree = "<group>"; };
@@ -545,6 +547,7 @@
 				E5EF7093245C202B00C69B3A /* WelcomeViewTest.swift */,
 				E5EF7097245C266F00C69B3A /* SettingsViewTest.swift */,
 				E530A676245C2982008B0D6A /* CityDetailViewTest.swift */,
+				E5C28DAC24E1960A003C02A9 /* AttractionsViewTest.swift */,
 			);
 			path = SmartTouristTests;
 			sourceTree = "<group>";
@@ -1235,6 +1238,7 @@
 				E5EF7098245C266F00C69B3A /* SettingsViewTest.swift in Sources */,
 				E5EF709A245C27BD00C69B3A /* TestCase.swift in Sources */,
 				E596EB902457437900E6FF7D /* ArrayTest.swift in Sources */,
+				E5C28DAD24E1960B003C02A9 /* AttractionsViewTest.swift in Sources */,
 				E530A677245C2982008B0D6A /* CityDetailViewTest.swift in Sources */,
 				E5EF7094245C202B00C69B3A /* WelcomeViewTest.swift in Sources */,
 			);

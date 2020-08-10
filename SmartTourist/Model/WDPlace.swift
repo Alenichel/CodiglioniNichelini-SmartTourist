@@ -32,16 +32,48 @@ class WDPlace: Codable, Hashable, Comparable {
         case location = "location"
         case imageURL = "image"
         case wikipediaLink = "wikipediaLink"
-        
         case rating = "rating"
         case userRatingsTotal = "userRatingsTotal"
         case website = "website"
         case photos = "photos"
         case phoneNumber = "phoneNumber"
-        
         enum ValueCodingKeys: CodingKey {
             case value
         }
+    }
+    
+    init(placeID: String,
+         instance: String,
+         name: String,
+         wikipediaName: String?,
+         city: String?,
+         location: CLLocationCoordinate2D,
+         wikipediaLink: String?,
+         photos: [URL],
+         website: String?,
+         phoneNumber: String?,
+         rating: Double?,
+         userRatingsTotal: Int?) {
+        self.placeID = placeID
+        self.instance = instance
+        self.name = name
+        self.wikipediaName = wikipediaName
+        self.city = city
+        self.location = location
+        self.wikipediaLink = wikipediaLink
+        self.photos = photos
+        self.website = website
+        self.phoneNumber = phoneNumber
+        self.rating = rating
+        self.userRatingsTotal = userRatingsTotal
+    }
+    
+    static var testPlaces: [WDPlace] {
+        return [
+            WDPlace(placeID: "Q42182", instance: "Q2087181", name: "Buckingham Palace", wikipediaName: "Buckingham_Palace", city: "London", location: CLLocationCoordinate2D(latitude: 51.500999999999998, longitude: -0.14199999999999999), wikipediaLink: "https://en.wikipedia.org/wiki/Buckingham_Palace", photos: [URL(string: "http://commons.wikimedia.org/wiki/Special:FilePath/Buckingham%20Palace%2C%20London%20-%20April%202009.jpg")!], website: "https://www.royal.uk/royal-residences-buckingham-palace", phoneNumber: nil, rating: 5.0, userRatingsTotal: 42),
+            WDPlace(placeID: "Q1333411", instance: "Q4989906", name: "Victoria Memorial", wikipediaName: "Victoria_Memorial,_London", city: "London", location: CLLocationCoordinate2D(latitude: 51.501832999999998, longitude: -0.14063899999999999), wikipediaLink: "https://en.wikipedia.org/wiki/Victoria_Memorial,_London", photos: [URL(string: "http://commons.wikimedia.org/wiki/Special:FilePath/VictoriaMemorialview.jpg")!], website: nil, phoneNumber: nil, rating: 4.5, userRatingsTotal: 24),
+            WDPlace(placeID: "Q18889826", instance: "Q53060", name: "Canada Gate", wikipediaName: "Canada_Gate", city: "London", location: CLLocationCoordinate2D(latitude: 51.502499999999998, longitude: -0.14135), wikipediaLink: "https://en.wikipedia.org/wiki/Canada_Gate", photos: [], website: nil, phoneNumber: nil, rating: 4.1, userRatingsTotal: 12)
+        ]
     }
         
     init(gpPlace: GPPlace) {

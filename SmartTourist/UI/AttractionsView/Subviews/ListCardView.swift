@@ -122,6 +122,7 @@ class ListCardView: UIView, ModellableView {
         UIView.animate(withDuration: 0.3) {
             self.emptyLabel.layer.opacity = Float(attractions.isEmpty ? 1.0 : 0.0)
         }
+        self.chooser.selectedSegmentIndex = model.selectedSegmentedIndex.rawValue
         if model.selectedSegmentedIndex == .favorites {
             self.mapButton.isHidden = false
         } else {

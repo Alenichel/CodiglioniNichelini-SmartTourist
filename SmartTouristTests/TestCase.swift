@@ -15,4 +15,5 @@ enum TestCase: String {
     case SettingsViewHideDebug
     case CityDetailViewAllLoaded
     case CityDetailViewNotLoaded
+    case AttractionsView
 }

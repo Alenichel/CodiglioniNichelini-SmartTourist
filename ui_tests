@@ -3,9 +3,5 @@
 xcodebuild \
   -workspace SmartTourist.xcworkspace \
   -scheme "SmartTourist" \
-  -destination name="iPhone 8" \
-  -destination name="iPhone 8 Plus" \
   -destination name="iPhone 11 Pro" \
-  -destination name="iPhone 11" \
-  -destination name="iPhone 11 Pro Max" \
   test
