@@ -399,7 +399,14 @@ SmartTourist is manly based on free data. When a detailed description is missing
 
 
 \chapter{Architectural design}
+SmartTourist is a self-contained application. No external backend services are provided by us but instead it relies on a multitude of internal iOS/iPadOS services and third parties API.
+\\Here it follows a schema that summarise them all:
+\\\\MAGIC SCHEMA WITH ARCHITECTURAL DESIGN
+\\\\Internal application design is strongly influenced by the choice of the Katana/Tempura couple that forced the adoption of a MVVC paradigm.
 
+\section{Katana}
+
+\section{Tempura}
 
 
 
@@ -409,6 +416,8 @@ SmartTourist is manly based on free data. When a detailed description is missing
 
 
 \chapter{User interface}
+For the user interface design, we followed Apple's UI guidelines, but we preferred also to use custom UI element to better fit Katana/Tempura paradigm's requirements and to let the app have a endearing style.  
+
 \section{Screenshot}
 Here follow some screenshot of the application in both Light and Dark mode.
 
@@ -544,9 +553,23 @@ Settings view is displayed when the gear icon on the main view is displayed. Thi
 
 
 \chapter{Notifications}
+Notifications are designed as a way for the user not to miss popular attraction near her. Each time the user is in a 5 minutes range of a popular attraction, the notification is triggered. This works in both background and foreground mode ("\textit{always active}" location tracking is required).
+\\Notification is a \textit{rich notification} with callbacks: \textbf{take me there} will directly open navigation app with that attraction as destination and \textbf{view} will open SmartTourist detail attraction view.
 
-
-
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{.5\textwidth}
+  	\centering
+  	\includegraphics[width=0.98\linewidth]{/screenshot/notification_background}
+  	\label{fig:test1}
+	\end{minipage}%
+	\begin{minipage}{.5\textwidth}
+  	\centering
+  	\includegraphics[width=0.98\linewidth]{/screenshot/notification_rich}
+  	\label{fig:test2}
+	\end{minipage}
+	\caption{Notification layouting}
+\end{figure}
 
 \chapter{Services and libraries}
 
