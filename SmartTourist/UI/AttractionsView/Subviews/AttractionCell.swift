@@ -121,12 +121,11 @@ class AttractionCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
     }
 
     static var paddingHeight: CGFloat = 10
-    static var maxTextWidth: CGFloat = 0.80
-    static func size(for model: AttractionCellViewModel) -> CGSize {
-        //let textWidth = UIScreen.main.bounds.width * AttractionCell.maxTextWidth
-        //let textHeight = model.attractionName.height(constraintedWidth: textWidth, font: font)
+
+    static func size(for model: AttractionCellViewModel, in superview: UIView?) -> CGSize {
         let textHeight: CGFloat = 42
-        return CGSize(width: UIScreen.main.bounds.width,
+        let width = superview != nil ? superview!.frame.width : UIScreen.main.bounds.width
+        return CGSize(width: width,
                       height: textHeight + 2 * AttractionCell.paddingHeight)
     }
     

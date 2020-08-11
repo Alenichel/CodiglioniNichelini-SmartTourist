@@ -200,7 +200,6 @@ class MapView: UIView, ViewControllerModellableView {
             self.markerPool.setMarkers(places: [])
             self.cityNameButton.setTitle(nil, for: .normal)
         }
-        
         self.setNeedsLayout()
     }
     

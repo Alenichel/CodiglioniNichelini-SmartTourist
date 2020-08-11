@@ -28,7 +28,7 @@ class SearchView: UIView, ViewControllerModellableView {
     
     func setup() {
         let layout = SearchFlowLayout()
-        self.collectionView = CollectionView<SearchResultCell, SimpleSource<SearchResultCellViewModel>>(frame: .zero, layout: layout)
+        self.collectionView = CollectionView<SearchResultCell, SimpleSource<SearchResultCellViewModel>>(frame: .zero, layout: layout, useDiffs: true)
         self.collectionView.useDiffs = true
         self.collectionView.didSelectItem = { [unowned self] indexPath in
             guard let model = self.model,
@@ -63,9 +63,9 @@ class SearchView: UIView, ViewControllerModellableView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.blurEffect.pin.top(self.safeAreaInsets.top).horizontally().bottom()
-        self.searchBar.pin.top(self.safeAreaInsets.top).horizontally().sizeToFit()
-        self.collectionView.pin.below(of: self.searchBar).horizontally().bottom()
+        self.blurEffect.pin.top(self.safeAreaInsets).horizontally().bottom()
+        self.searchBar.pin.top(self.safeAreaInsets).horizontally().sizeToFit()
+        self.collectionView.pin.below(of: self.searchBar).horizontally(self.safeAreaInsets).bottom()
     }
     
     func update(oldModel: SearchViewModel?) {

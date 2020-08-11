@@ -15,6 +15,7 @@ class SearchViewController: ViewControllerWithLocalState<SearchView> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.title = "Search"
         self.searchCompleter.delegate = self
         self.rootView.searchBar.delegate = self
         self.rootView.searchBar.becomeFirstResponder()

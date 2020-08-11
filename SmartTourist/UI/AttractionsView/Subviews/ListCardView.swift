@@ -42,7 +42,7 @@ class ListCardView: UIView, ModellableView {
         self.scrollView.isPagingEnabled = true
         self.scrollView.isScrollEnabled = false
         let attractionsLayout = AttractionFlowLayout()
-        self.attractionListView = CollectionView<AttractionCell, SimpleSource<AttractionCellViewModel>>(frame: .zero, layout: attractionsLayout)
+        self.attractionListView = CollectionView<AttractionCell, SimpleSource<AttractionCellViewModel>>(frame: .zero, layout: attractionsLayout, useDiffs: true)
         self.attractionListView.useDiffs = true
         self.attractionListView.didSelectItem = { [unowned self] indexPath in
             guard let model = self.model,

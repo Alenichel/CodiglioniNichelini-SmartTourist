@@ -478,7 +478,6 @@
 			children = (
 				E5C10DBE245F190F00B2CFAE /* Subviews */,
 				E50BC90C241D15EE005EFDCE /* SettingsView.swift */,
-				E58CD2F2241FC6F500BA3F33 /* SettingsDebugSubview.swift */,
 				E50BC90E241D15FB005EFDCE /* SettingsViewController.swift */,
 			);
 			path = SettingsView;
@@ -725,6 +724,7 @@
 		E5C10DBE245F190F00B2CFAE /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				E58CD2F2241FC6F500BA3F33 /* SettingsDebugSubview.swift */,
 				E50BC910241D42DF005EFDCE /* SettingCell.swift */,
 				E50BC916241D4CA3005EFDCE /* SettingBoolCell.swift */,
 				E54958FB241F5BAD00D643F1 /* SettingStringCell.swift */,

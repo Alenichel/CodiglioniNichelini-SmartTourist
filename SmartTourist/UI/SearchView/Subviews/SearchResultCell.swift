@@ -84,18 +84,17 @@ class SearchResultCell: UICollectionViewCell, ConfigurableCell, SizeableCell {
         super.layoutSubviews()
         self.titleLabel.sizeToFit()
         self.subtitleLabel.sizeToFit()
-        self.titleLabel.pin.top(5).left(10).right(10)
-        self.subtitleLabel.pin.below(of: self.titleLabel).left(10).right(10)
-        self.lineView.pin.below(of: self.subtitleLabel).left(20).right().height(1).marginTop(5)
+        self.titleLabel.pin.top(10).horizontally(10)
+        self.subtitleLabel.pin.below(of: self.titleLabel).horizontally(10)
+        self.lineView.pin.bottom().horizontally(10).height(1)
     }
 
     static var paddingHeight: CGFloat = 5
-    static var maxTextWidth: CGFloat = 0.80
-    static func size(for model: SearchResultCellViewModel) -> CGSize {
-        //let textWidth = UIScreen.main.bounds.width * AttractionCell.maxTextWidth
-        //let textHeight = model.attractionName.height(constraintedWidth: textWidth, font: font)
-        let textHeight: CGFloat = 42
-        return CGSize(width: UIScreen.main.bounds.width,
+    
+    static func size(for model: SearchResultCellViewModel, in superview: UIView?) -> CGSize {
+        let textHeight: CGFloat = 50
+        let width = superview != nil ? superview!.frame.width : UIScreen.main.bounds.width
+        return CGSize(width: width,
                       height: textHeight + 2 * SearchResultCell.paddingHeight)
     }
     

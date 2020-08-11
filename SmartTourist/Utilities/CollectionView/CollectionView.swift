@@ -99,7 +99,7 @@ UICollectionViewDelegateFlowLayout  where Cell: ConfigurableCell & SizeableCell,
     
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let vm = source?.data(section: indexPath.section, row: indexPath.row) else { return .zero }
-        return Cell.size(for: vm)
+        return Cell.size(for: vm, in: self.superview)
     }
     
     // MARK: - UIScrollViewDelegate

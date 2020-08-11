@@ -10,5 +10,5 @@ import Tempura
 
 
 public protocol SizeableCell: ModellableView {
-    static func size(for model: VM) -> CGSize
+    static func size(for model: VM, in superview: UIView?) -> CGSize
 }

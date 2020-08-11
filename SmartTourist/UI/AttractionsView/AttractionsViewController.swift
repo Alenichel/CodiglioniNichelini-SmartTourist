@@ -181,7 +181,7 @@ extension AttractionsViewController: RoutableWithConfiguration {
     }
     
     var navigationConfiguration: [NavigationRequest : NavigationInstruction] {
-        [
+        var config: [NavigationRequest : NavigationInstruction] = [
             .show(Screen.welcome): .presentModally { [unowned self] context in
                 let vc = WelcomeViewController(store: self.store, localState: WelcomeLocalState())
                 vc.modalPresentationStyle = .pageSheet
@@ -207,6 +207,21 @@ extension AttractionsViewController: RoutableWithConfiguration {
                 SettingsViewController(store: self.store, localState: SettingsViewLocalState())
             }
         ]
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            config[.show(Screen.settings)] = .presentModally { [unowned self] context in
+                let vc = SettingsViewController(store: self.store, localState: SettingsViewLocalState())
+                vc.modalPresentationStyle = .pageSheet
+                let nav = UINavigationController(rootViewController: vc)
+                return nav
+            }
+            config[.show(Screen.search)] = .presentModally { [unowned self] context in
+                let vc = SearchViewController(store: self.store, localState: SearchViewLocalState())
+                vc.modalPresentationStyle = .pageSheet
+                let nav = UINavigationController(rootViewController: vc)
+                return nav
+            }
+        }
+        return config
     }
 }
 

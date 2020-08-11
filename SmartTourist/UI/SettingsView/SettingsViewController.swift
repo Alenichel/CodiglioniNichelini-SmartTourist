@@ -13,6 +13,13 @@ class SettingsViewController: ViewControllerWithLocalState<SettingsView> {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "Settings"
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            let closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: nil, action: nil)
+            closeButton.onTap { [unowned self] button in
+                self.dispatch(Hide(Screen.settings, animated: true))
+            }
+            self.navigationItem.rightBarButtonItem = closeButton
+        }
     }
     
     override func setupInteraction() {
@@ -49,7 +56,7 @@ extension SettingsViewController: RoutableWithConfiguration {
     
     var navigationConfiguration: [NavigationRequest : NavigationInstruction] {
         [
-            .hide(Screen.settings): .pop,
+            .hide(Screen.settings): UIDevice.current.userInterfaceIdiom == .pad ? .dismissModally(behaviour: .hard) : .pop,
         ]
     }
 }
