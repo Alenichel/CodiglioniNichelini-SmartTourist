@@ -4,7 +4,7 @@ PODS:
   - DeepDiff (2.3.1)
   - FlagKit (2.2)
   - FlexLayout (1.3.20)
-  - FontAwesome.swift (1.9.0)
+  - FontAwesome.swift (5.14.0)
   - Fuse (1.4.0)
   - HydraAsync (1.2.2)
   - ImageSlideshow (1.8.3):
@@ -29,6 +29,7 @@ DEPENDENCIES:
   - FlexLayout
   - FontAwesome.swift
   - Fuse
+  - HydraAsync
   - ImageSlideshow (~> 1.8.3)
   - Katana (~> 3.2.0)
   - MarqueeLabel
@@ -71,7 +72,7 @@ SPEC CHECKSUMS:
   DeepDiff: e5ae6c50d0321568e4508cec5930b9f10bb293fc
   FlagKit: eca7dc89064b0c986302ba9acefad1bf80a435b1
   FlexLayout: 025dd153bd5618dcc9f93ef914106d7dc2a86fdc
-  FontAwesome.swift: a403b88cec950511745ba8f2decd1b6a07346d13
+  FontAwesome.swift: bbb75cd5b380ffb297f557301468a901a1c0cfad
   Fuse: 48eaf66d0c407c7f8b0ddb168888dc4637e87f14
   HydraAsync: 7fa5c0fdd89397617deb726a5b41b2ca72b8492e
   ImageSlideshow: 4694d7d699a1549582e7cc631fb392d8f91630f3
@@ -83,6 +84,6 @@ SPEC CHECKSUMS:
   Tempura: 9c448606f6fd20c60ab2e56a7614eeb1db6bc2a0
   TempuraTesting: 7e73cb4542029b3493cb30e67f619d15fe1065ac
 
-PODFILE CHECKSUM: e017c38ecbfd127f479b2455c534ad382a0ee619
+PODFILE CHECKSUM: 5cd7fcb0cc9b82bd7fa1fb27fa895bf89a531f34
 
 COCOAPODS: 1.9.1

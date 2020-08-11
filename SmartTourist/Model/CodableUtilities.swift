@@ -48,23 +48,3 @@ struct GPPlaceSearchResponse: Decodable {
         case results
     }
 }
-
-
-struct GPPlaceDetailResponse: Decodable {
-    let result: GPPlaceDetailResultsResponse
-    
-    enum CodingKeys: CodingKey {
-        case result
-    }
-}
-
-
-struct GPPlaceDetailResultsResponse: Decodable {
-    let photos: [GPPhoto]?
-    let website: String?
-    
-    enum CodingKeys: CodingKey {
-        case photos
-        case website
-    }
-}

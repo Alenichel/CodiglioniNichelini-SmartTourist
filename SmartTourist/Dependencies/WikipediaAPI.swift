@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import WikipediaKit
 import Hydra
 import Fuse
 import Alamofire
@@ -17,13 +16,10 @@ import SwiftyXMLParser
 class WikipediaAPI {
     
     static let shared = WikipediaAPI()
-    let language = WikipediaLanguage("en")
     private let cache = NSCache<NSString, NSString>()
     private let photoCache = NSCache<NSString, UIImage>()
     
-    private init() {
-        WikipediaNetworking.appAuthorEmailForAPI = "ale.nichelg@gmail.com"
-    }
+    private init() {}
     
     static let wdInstances: Set<String> = {
         if let url = Bundle.main.url(forResource: "WDInstances", withExtension: "json") {
@@ -106,54 +102,42 @@ class WikipediaAPI {
         """
     }
     
-    func search(searchTerms: String) -> Promise<String> {
+    func findExactArticleName(searchTerms: String, coordinates: CLLocationCoordinate2D) -> Promise<String> {
         return Promise<String>(in: .background) { resolve, reject, status in
-            if let description = self.cache.object(forKey: searchTerms as NSString) {
-                resolve(description as String)
-            } else {
-                let _ = Wikipedia.shared.requestOptimizedSearchResults(language: self.language, term: searchTerms) { (searchResults, error) in
-                    if let error = error {
-                        print("\(#function): \(error.localizedDescription)")
-                        reject(error)
+            let parameters = [
+                "action": "query",
+                "ggscoord": "\(coordinates.latitude)|\(coordinates.longitude)",
+                "format": "xml",
+                "generator": "geosearch",
+                "ggsradius": "10000",
+                "prop": "coordinates",
+                "codistancefrompoint": "\(coordinates.latitude)|\(coordinates.longitude)",
+                "colimit": "50"
+            ]
+            let url = "https://en.wikipedia.org/w/api.php"
+            AF.request(url, parameters: parameters).responseData(queue: .global(qos: .utility)) { response in
+                switch response.result {
+                case .success:
+                    guard let data = response.data else { reject(UnknownApiError()); return }
+                    let xml = XML.parse(data)
+                    let pages = xml.api.query.pages.page;
+                    let titles = pages.map { $0.attributes["title"]! }
+                    let fuse = Fuse(threshold: 0.5)
+                    let results = fuse.search(searchTerms.stripped, in: titles).sorted {
+                        if $0.score == $1.score {
+                            return titles[$0.index].count < titles[$1.index].count
+                        } else {
+                            return $0.score < $1.score
+                        }
                     }
-                    if let searchResults = searchResults {
-                        //for articlePreview in searchResults.items { print(articlePreview.displayTitle) }
-                        let description = searchResults.items.first?.displayText ?? "No description"
-                        self.cache.setObject(description as NSString, forKey: searchTerms as NSString)
-                        resolve(description)
+                    guard results.count > 0 else {
+                        reject(UnknownApiError())
+                        return
                     }
-                }
-            }
-        }
-    }
-    
-    // FIXME: NOT USED
-    func getDescriptionFromNearbyArticles(coordinates: CLLocationCoordinate2D, searchTerms: String) -> Promise<String> {
-        return Promise<String>(in: .background) { resolve, reject, status in
-            let _ = Wikipedia.shared.requestNearbyResults(language: self.language, latitude: Double(coordinates.latitude), longitude: Double(coordinates.longitude), maxCount: 50) { (articlePreviews, resultsLanguage, error) in
-                guard error == nil, let articlePreviews = articlePreviews else {
-                    reject(UnknownApiError())
-                    return
-                }
-                
-                let fuse = Fuse(threshold: 0.5)
-                
-                let titles = articlePreviews.map { article -> String in
-                    //print(articlePreviews.firstIndex(of: article)!, article.title)
-                    return article.title
-                }
-                let results = fuse.search(searchTerms, in: titles).sorted(by: {
-                    $0.score < $1.score
-                })
-                
-                guard results.count > 0 else {
-                    resolve("No description available")
-                    return
-                }
-                
-                self.search(searchTerms: titles[results.first!.index]).then(in: .utility) { description in
-                    resolve(description)
-                }.catch(in: .utility) { error in
+                    let result = titles[results.first!.index]
+                    resolve(result)
+                case .failure:
+                    guard let error = response.error else { reject(UnknownApiError()); return }
                     print("\(#function): \(error.localizedDescription)")
                     reject(error)
                 }
@@ -161,31 +145,7 @@ class WikipediaAPI {
         }
     }
     
-    // FIXME: NOT USED
-    func findExactArticleName(searchTerms: String) -> Promise<String> {
-        return Promise<String>(in: .background) { resolve, reject, status in
-            let _ = Wikipedia.shared.requestOptimizedSearchResults(language: self.language, term: searchTerms, maxCount: 50) { (articlePreviews, error) in
-                guard error == nil, let articlePreviews = articlePreviews else {
-                    reject(UnknownApiError())
-                    return
-                }
-                
-                let fuse = Fuse(threshold: 0.5)
-                
-                let titles = articlePreviews.items.map{article -> String in
-                    return article.title
-                }
-                
-                let results = fuse.search(searchTerms, in: titles).sorted(by: {
-                    $0.score < $1.score
-                })
-                
-                resolve(titles[results.first!.index])
-            }
-        }
-    }
-    
-    func findExactArticleName(searchTerms: String, coordinates: CLLocationCoordinate2D) -> Promise<String> {
+    /*func findExactArticleNameOld(searchTerms: String, coordinates: CLLocationCoordinate2D) -> Promise<String> {
         return Promise<String>(in: .background) { resolve, reject, status in
             let _ = Wikipedia.shared.requestNearbyResults(language: self.language, latitude: Double(coordinates.latitude), longitude: Double(coordinates.longitude), maxCount: 50) { (articlePreviews, resultsLanguage, error) in
                 guard error == nil, let articlePreviews = articlePreviews else {
@@ -215,7 +175,7 @@ class WikipediaAPI {
                 resolve(result)
             }
         }
-    }
+    }*/
     
     func getWikidataId(title: String) -> Promise<String> {
         return Promise<String>(in: .background) { resolve, reject, status in

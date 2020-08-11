@@ -1,5 +1,5 @@
 # Uncomment the next line to define a global platform for your project
-platform :ios, '10.0'
+platform :ios, '13.0'
 
 target 'SmartTourist' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -34,6 +34,9 @@ target 'PictureNotification' do
   pod 'PinLayout'
 end
 
-target 'SmartTouristAppleWatch' do
+target 'SmartTouristAppleWatch Extension' do
+  platform :watchos, '6.0'
   use_frameworks!
+  pod 'Alamofire', '~> 5.0.0-rc.3'
+  pod 'HydraAsync'
 end

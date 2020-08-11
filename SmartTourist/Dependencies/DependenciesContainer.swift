@@ -8,7 +8,6 @@
 import Foundation
 import Katana
 import Tempura
-import WikipediaKit
 
 
 final class DependenciesContainer: NavigationProvider {

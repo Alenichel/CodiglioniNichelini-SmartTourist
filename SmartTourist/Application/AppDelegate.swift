@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
         })
         if WCSession.isSupported() {
-            WCSession.default.delegate = self
+            //WCSession.default.delegate = self
             WCSession.default.activate()
         }
         return true
