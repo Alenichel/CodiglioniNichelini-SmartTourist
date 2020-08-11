@@ -71,7 +71,7 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
             self.dispatch(SetNeedToMoveMap(value: false))
         }
         self.rootView.listCardView.didTapMapButton = { [unowned self] in
-            self.dispatch(Show(Screen.worldwideFavorites, animated: true))
+            self.dispatch(Show(Screen.fullScreenMap, animated: true))
         }
         self.rootView.listCardView.didTapSettingsButton = { [unowned self] in
             self.dispatch(Show(Screen.settings, animated: true))
@@ -198,10 +198,11 @@ extension AttractionsViewController: RoutableWithConfiguration {
             .show(Screen.cityDetail): .push { [unowned self] context in
                 CityDetailViewController(store: self.store, localState: CityDetailLocalState())
             },
-            .show(Screen.worldwideFavorites): .presentModally { [unowned self] context in
-                let vc = WorldwideFavoritesViewController(store: self.store)
+            .show(Screen.fullScreenMap): .presentModally { [unowned self] context in
+                let vc = FullScreenMapViewController(store: self.store, localState: FullScreenMapLocalState(attractions: self.state.favorites))
                 vc.modalPresentationStyle = .pageSheet
-                return vc
+                let nav = UINavigationController(rootViewController: vc)
+                return nav
             },
             .show(Screen.settings): .push { [unowned self] context in
                 SettingsViewController(store: self.store, localState: SettingsViewLocalState())

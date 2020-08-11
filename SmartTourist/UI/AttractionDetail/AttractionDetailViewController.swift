@@ -66,9 +66,10 @@ extension AttractionDetailViewController: RoutableWithConfiguration {
             },
             .show(Screen.fullScreenMap): .presentModally { [unowned self] context in
                 let attraction = context as! WDPlace
-                let vc = FullScreenMapViewController(store: self.store, localState: FullScreenMapLocalState(attraction: attraction))
+                let vc = FullScreenMapViewController(store: self.store, localState: FullScreenMapLocalState(attractions: [attraction]))
                 vc.modalPresentationStyle = .pageSheet
-                return vc
+                let nav = UINavigationController(rootViewController: vc)
+                return nav
             }
         ]
     }

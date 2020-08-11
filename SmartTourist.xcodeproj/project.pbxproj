@@ -19,8 +19,6 @@
 		99C27CD423AFC37700667FB0 /* MilanTour(Cycling).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CD123AFC37700667FB0 /* MilanTour(Cycling).gpx */; };
 		99C27CD523AFC37700667FB0 /* MilanTour(Driving).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CD223AFC37700667FB0 /* MilanTour(Driving).gpx */; };
 		99C27CE723AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CE123AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx */; };
-		99D5C9B7241CF4D0008633C7 /* WorldwideFavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D5C9B6241CF4D0008633C7 /* WorldwideFavoritesView.swift */; };
-		99D5C9BF241CFB39008633C7 /* WorldwideFavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D5C9BE241CFB39008633C7 /* WorldwideFavoritesViewController.swift */; };
 		99EC7D66241FBC260065FDE9 /* Array+WDPlace+blacklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EC7D65241FBC260065FDE9 /* Array+WDPlace+blacklist.swift */; };
 		99EC7D6D241FC0890065FDE9 /* String+emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EC7D6C241FC0890065FDE9 /* String+emoji.swift */; };
 		99F36EAC2417FB4C00ACC519 /* PedometerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */; };
@@ -231,8 +229,6 @@
 		99C27CD123AFC37700667FB0 /* MilanTour(Cycling).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Cycling).gpx"; sourceTree = "<group>"; };
 		99C27CD223AFC37700667FB0 /* MilanTour(Driving).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Driving).gpx"; sourceTree = "<group>"; };
 		99C27CE123AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanCityCenterTour(bycicle).gpx"; sourceTree = "<group>"; };
-		99D5C9B6241CF4D0008633C7 /* WorldwideFavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldwideFavoritesView.swift; sourceTree = "<group>"; };
-		99D5C9BE241CFB39008633C7 /* WorldwideFavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldwideFavoritesViewController.swift; sourceTree = "<group>"; };
 		99EC7D65241FBC260065FDE9 /* Array+WDPlace+blacklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+WDPlace+blacklist.swift"; sourceTree = "<group>"; };
 		99EC7D6C241FC0890065FDE9 /* String+emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+emoji.swift"; sourceTree = "<group>"; };
 		99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PedometerHandler.swift; sourceTree = "<group>"; };
@@ -441,15 +437,6 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
-		99D5C9BD241CFB12008633C7 /* WorldwideView */ = {
-			isa = PBXGroup;
-			children = (
-				99D5C9B6241CF4D0008633C7 /* WorldwideFavoritesView.swift */,
-				99D5C9BE241CFB39008633C7 /* WorldwideFavoritesViewController.swift */,
-			);
-			path = WorldwideView;
-			sourceTree = "<group>";
-		};
 		E29D77648F2366C0DE89CACB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -583,7 +570,6 @@
 				E50A45E224D73B6400E01703 /* FullScreenMap */,
 				E5AFC89923F9B006007B9887 /* CityDetailView */,
 				E57AAD09244F5ADC00F49354 /* SearchView */,
-				99D5C9BD241CFB12008633C7 /* WorldwideView */,
 				E50BC906241D159A005EFDCE /* SettingsView */,
 				E57C47172392BE83008DE784 /* Elements */,
 			);
@@ -1199,7 +1185,6 @@
 				E5D005CB244DA0810079A37E /* Place.swift in Sources */,
 				E57AAD0B244F5B5D00F49354 /* SizeableCell.swift in Sources */,
 				E5495903241F648400D643F1 /* Bundle+version+build.swift in Sources */,
-				99D5C9BF241CFB39008633C7 /* WorldwideFavoritesViewController.swift in Sources */,
 				E5628B4D2393D4D500A61676 /* AttractionDetailView.swift in Sources */,
 				E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */,
 				E51696A624542BC1006E235D /* String+stripped.swift in Sources */,
@@ -1216,7 +1201,6 @@
 				E57AAD06244F592800F49354 /* SearchView.swift in Sources */,
 				E524A0F8238C4C060052825F /* WelcomeViewController.swift in Sources */,
 				E50A45E624D73B9800E01703 /* FullScreenMapViewController.swift in Sources */,
-				99D5C9B7241CF4D0008633C7 /* WorldwideFavoritesView.swift in Sources */,
 				E53EEA23241CDC55004CCE16 /* PromiseImageSource.swift in Sources */,
 				E5335CFE238981D000601F02 /* AppState.swift in Sources */,
 				E5F9715F2392D96F0096C296 /* CollectionView.swift in Sources */,

@@ -12,10 +12,10 @@ import MapKit
 
 
 struct FullScreenMapViewModel: ViewModelWithLocalState {
-    let attraction: WDPlace
+    let attractions: [WDPlace]
 
     init?(state: AppState?, localState: FullScreenMapLocalState) {
-        self.attraction = localState.attraction
+        self.attractions = localState.attractions
     }
 }
 
@@ -55,7 +55,7 @@ class FullScreenMapView: UIView, ViewControllerModellableView {
     
     func update(oldModel: FullScreenMapViewModel?){
         guard let model = self.model else { return }
-        self.markerPool.setMarkers(places: [model.attraction])
+        self.markerPool.setMarkers(places: model.attractions)
         self.mapView.showAnnotations(self.markerPool.markers, animated: true)
     }
 }

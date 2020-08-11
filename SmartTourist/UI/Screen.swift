@@ -14,7 +14,6 @@ enum Screen: RouteElementIdentifier {
     case detail
     case test
     case cityDetail
-    case worldwideFavorites
     case settings
     case safari
     case search

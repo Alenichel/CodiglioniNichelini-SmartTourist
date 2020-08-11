@@ -11,10 +11,12 @@ import Tempura
 
 
 class FullScreenMapViewController: ViewControllerWithLocalState<FullScreenMapView> {
-    override func setupInteraction() {
-        self.rootView.didTapCloseButton = {[unowned self] in
-            self.dispatch(Hide(animated: true))
+    override func viewDidLoad() {
+        let closeButton = UIBarButtonItem(barButtonSystemItem: .close, target: nil, action: nil)
+        closeButton.onTap { [unowned self] button in
+            self.dispatch(Hide(Screen.fullScreenMap, animated: true))
         }
+        self.navigationItem.rightBarButtonItem = closeButton
     }
 }
 
@@ -33,5 +35,5 @@ extension FullScreenMapViewController: RoutableWithConfiguration {
 
 
 struct FullScreenMapLocalState: LocalState {
-    let attraction: WDPlace
+    let attractions: [WDPlace]
 }
