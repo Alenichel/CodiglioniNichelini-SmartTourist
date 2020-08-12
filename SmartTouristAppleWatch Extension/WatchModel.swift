@@ -9,59 +9,59 @@ import SwiftUI
 import Combine
 import CoreLocation
 import ImageIO
-import WatchConnectivity
+import Hydra
 
 
 class UserData: ObservableObject {
-    @Published var places: [AWGPPlace] = []
-    @Published var placeDetails: [AWGPPlaceDetail] = []
-    
-    init(places: [AWGPPlace] = [], placeDetails: [AWGPPlaceDetail] = []) {
+    @Published var places: [AWPlace] = []
+    @Published var placeDetails: [AWPlaceDetail] = []
+        
+    init(places: [AWPlace] = [], placeDetails: [AWPlaceDetail] = []) {
         self.places = places
         self.placeDetails = placeDetails
     }
     
-    func getPlaces(type: AppleWatchMessage.PlaceType) {
-        guard WCSession.default.isReachable else {
-            print("UNREACHABLE SESSION")
-            return
-        }
-        let message = ["type": AppleWatchMessage.getPlaces.rawValue, "place_type": type.rawValue]
-        WCSession.default.sendMessage(message, replyHandler: { response in
-            guard let data = response["places"] as? Data else { return }
-            do {
-                let places = try JSONDecoder().decode([AWGPPlace].self, from: data)
-                DispatchQueue.main.async {
-                    self.places = places
+    func getPlaces(type: SelectedPlaces, location: CLLocationCoordinate2D) {
+        switch type {
+        case .nearest:
+            WikipediaAPI.shared.getNearbyPlaces(location: location, radius: 1, isArticleMandatory: true).then(in: .main) { places in
+                var sortedPlaces = Array(Set(places)).sorted(by: { $0.distance(from: location) < $1.distance(from: location) })
+                sortedPlaces = sortedPlaces.filter { $0.wikipediaLink != nil }
+                sortedPlaces = Array(sortedPlaces.prefix(25))
+                let photoPromises = sortedPlaces.map { $0.getPhotosURLs(limit: 1) }
+                all(photoPromises).then(in: .main) { _ in
+                    let awPlaces = sortedPlaces.map { AWPlace(id: $0.placeID, name: $0.name, wikipediaName: $0.wikipediaName ?? $0.name, photoURL: $0.photos![0])}
+                    self.places = awPlaces
                 }
-            } catch {
-                print(error.localizedDescription)
             }
-        }, errorHandler: { error in
-            print(error.localizedDescription)
-        })
+        case .popular:
+            MapsAPI.shared.getCityName(coordinates: location).then(in: .background, GoogleAPI.shared.getPopularPlaces).then(in: .utility) { places in
+                let wdPlaces = places.map { WDPlace(gpPlace: $0) }
+                let promises = wdPlaces.map { $0.getMissingDetails() }
+                all(promises).then(in: .utility) { _ in
+                    let filteredPlaces = wdPlaces.filter { place in
+                        guard let photos = place.photos else { return false }
+                        return !photos.isEmpty
+                    }
+                    let photoPromises = filteredPlaces.map { $0.getPhotosURLs() }
+                    all(photoPromises).then(in: .main) { _ in
+                        let awPlaces = filteredPlaces.map { AWPlace(id: $0.placeID, name: $0.name, wikipediaName: $0.wikipediaName ?? $0.name, photoURL: $0.photos![0]) }
+                        async(in: .main) {
+                            self.places = awPlaces
+                        }
+                    }
+                }
+            }
+        case .favorites:
+            fatalError("Not supported")
+        }
     }
     
-    func getPlaceDetail(_ place: AWGPPlace) {
-        guard !self.placeDetails.map({ $0.awPlace }).contains(place) else { return }
-        guard WCSession.default.isReachable else {
-            print("UNREACHABLE SESSION")
-            return
+    func getPlaceDetail(_ place: AWPlace) {
+        WikipediaAPI.shared.getArticle(articleName: place.wikipediaName).then(in: .main) { article in
+            let placeDetail = AWPlaceDetail(awPlace: place, description: article)
+            self.placeDetails.append(placeDetail)
         }
-        let message = ["type": AppleWatchMessage.getDetail.rawValue, "placeID": place.id]
-        WCSession.default.sendMessage(message, replyHandler: { response in
-            guard let data = response["place_detail"] as? Data else { return }
-            do {
-                let placeDetail = try JSONDecoder().decode(AWGPPlaceDetail.self, from: data)
-                DispatchQueue.main.async {
-                    self.placeDetails.append(placeDetail)
-                }
-            } catch {
-                print(error.localizedDescription)
-            }
-        }, errorHandler: { error in
-            print(error.localizedDescription)
-        })
     }
 }
 
@@ -73,23 +73,16 @@ enum SelectedPlaces {
 }
 
 
-struct AWGPPlace: Identifiable, Codable, Equatable {
+struct AWPlace: Identifiable, Codable, Equatable {
     let id: String
     let name: String
-    let photoData: Data
-    
-    var image: Image? {
-        guard
-            let source = CGImageSourceCreateWithData(self.photoData as CFData, nil),
-            let image = CGImageSourceCreateImageAtIndex(source, 0, nil)
-        else { return nil}
-        return Image(decorative: image, scale: 1).resizable()
-    }
+    let wikipediaName: String
+    let photoURL: URL
 }
 
 
-struct AWGPPlaceDetail: Codable, Equatable {
-    let awPlace: AWGPPlace
+struct AWPlaceDetail: Codable, Equatable {
+    let awPlace: AWPlace
     let description: String
     
     var id: String {
@@ -100,19 +93,18 @@ struct AWGPPlaceDetail: Codable, Equatable {
 
 #if DEBUG
 var userData: UserData = {
-    var photoData: Data
-    if let navigationImage = UIImage(named: "empire"), let data = navigationImage.jpegData(compressionQuality: 1.0) {
-        photoData = data
-    } else {
-        photoData = Data()
-    }
-    return UserData(places: [
-        AWGPPlace(id: UUID().uuidString, name: "Place1", photoData: photoData),
-        AWGPPlace(id: UUID().uuidString, name: "Place2", photoData: photoData),
-        AWGPPlace(id: UUID().uuidString, name: "Place3", photoData: photoData),
-        AWGPPlace(id: UUID().uuidString, name: "Place4", photoData: photoData),
-        AWGPPlace(id: UUID().uuidString, name: "Place5", photoData: photoData),
-    ], placeDetails: [AWGPPlaceDetail(awPlace: AWGPPlace(id: UUID().uuidString, name: "Place1", photoData: photoData), description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id metus sollicitudin magna rhoncus sodales id vitae purus. In hac habitasse platea dictumst. Etiam consectetur sodales placerat. Vestibulum id rhoncus nunc. Donec fringilla ac lorem sed tempus. Aenean sapien leo, porta id enim vitae, dignissim lobortis mauris. Donec commodo suscipit nulla eget sagittis. Nam consequat posuere diam, sit amet fringilla lorem faucibus ut. Sed id eros condimentum, consequat erat sit amet, cursus est. Cras ultrices diam a volutpat aliquet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In congue congue augue gravida iaculis. Morbi mattis mattis magna id luctus. Mauris tincidunt eros vitae rutrum sodales. Donec tincidunt lacus non tellus congue vehicula. Nunc dapibus purus non risus placerat pellentesque.")])
+    let photoURL = URL(string: "https://upload.wikimedia.org/wikipedia/commons/c/c7/Empire_State_Building_from_the_Top_of_the_Rock.jpg")!
+    let places = [
+        AWPlace(id: UUID().uuidString, name: "Place1", wikipediaName: "Empire_State_Building", photoURL: photoURL),
+        AWPlace(id: UUID().uuidString, name: "Place2", wikipediaName: "Empire_State_Building", photoURL: photoURL),
+        AWPlace(id: UUID().uuidString, name: "Place3", wikipediaName: "Empire_State_Building", photoURL: photoURL),
+        AWPlace(id: UUID().uuidString, name: "Place4", wikipediaName: "Empire_State_Building", photoURL: photoURL),
+        AWPlace(id: UUID().uuidString, name: "Place5", wikipediaName: "Empire_State_Building", photoURL: photoURL),
+    ]
+    let placeDetails = [
+        AWPlaceDetail(awPlace: places[0], description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc id metus sollicitudin magna rhoncus sodales id vitae purus. In hac habitasse platea dictumst. Etiam consectetur sodales placerat. Vestibulum id rhoncus nunc. Donec fringilla ac lorem sed tempus. Aenean sapien leo, porta id enim vitae, dignissim lobortis mauris. Donec commodo suscipit nulla eget sagittis. Nam consequat posuere diam, sit amet fringilla lorem faucibus ut. Sed id eros condimentum, consequat erat sit amet, cursus est. Cras ultrices diam a volutpat aliquet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In congue congue augue gravida iaculis. Morbi mattis mattis magna id luctus. Mauris tincidunt eros vitae rutrum sodales. Donec tincidunt lacus non tellus congue vehicula. Nunc dapibus purus non risus placerat pellentesque.")
+    ]
+    return UserData(places: places, placeDetails: placeDetails)
 }()
 #else
 var userData = UserData()

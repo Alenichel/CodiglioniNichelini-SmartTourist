@@ -9,13 +9,12 @@ import UIKit
 import UserNotifications
 import Katana
 import Tempura
-import WatchConnectivity
+
 
 /// UNUserNotificationCenterDelegate let you send notifications and handle their callback actions
 /// It contains two optional methods:
 /// - userNotificationCenter(_:willPresent:withCompletionHandler:) called when the application is in the foreground
 /// - userNotificationCenter (_: didReceive:withCompletionHandler:) is used to select an action for a notification
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     var store: Store<AppState, DependenciesContainer>!
@@ -40,10 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 return AppState()
             }
         })
-        if WCSession.isSupported() {
-            //WCSession.default.delegate = self
-            WCSession.default.activate()
-        }
         return true
     }
 

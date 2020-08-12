@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import CoreLocation
+
 
 struct ListView: View {
     @EnvironmentObject private var userData: UserData
@@ -30,7 +32,7 @@ struct ListView: View {
                     DispatchQueue.main.async {
                         self.userData.places = []
                     }
-                    self.userData.getPlaces(type: .nearest)
+                    self.userData.getPlaces(type: .nearest, location: CLLocationCoordinate2D(latitude: 51.501476, longitude: -0.140634))
                 }) {
                     VStack {
                         Image(systemName: "map.fill")
@@ -41,22 +43,11 @@ struct ListView: View {
                     DispatchQueue.main.async {
                         self.userData.places = []
                     }
-                    self.userData.getPlaces(type: .popular)
+                    self.userData.getPlaces(type: .popular, location: CLLocationCoordinate2D(latitude: 51.501476, longitude: -0.140634))
                 }) {
                     VStack {
                         Image(systemName: "star.fill")
                         Text("Popular")
-                    }
-                }
-                Button(action: {
-                    DispatchQueue.main.async {
-                        self.userData.places = []
-                    }
-                    self.userData.getPlaces(type: .favorites)
-                }) {
-                    VStack {
-                        Image(systemName: "heart.fill")
-                        Text("Favorites")
                     }
                 }
             }
@@ -64,6 +55,7 @@ struct ListView: View {
         .navigationBarTitle(Text("SmartTourist"))
     }
 }
+
 
 struct ListView_Previews: PreviewProvider {
     static var previews: some View {

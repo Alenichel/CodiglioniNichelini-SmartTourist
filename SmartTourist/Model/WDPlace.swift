@@ -192,11 +192,11 @@ class WDPlace: Codable, Hashable, Comparable {
         return self.location.distance(from: from)
     }
     
-    @discardableResult func getPhotosURLs() -> Promise<Void> {
+    @discardableResult func getPhotosURLs(limit: Int = 10) -> Promise<Void> {
         let photosCountThreshold = 2
         return Promise<Void>(in: .utility) { resolve, reject, status in
             if let photos = self.photos, photos.count < photosCountThreshold {
-                WikipediaAPI.shared.getImageUrls(from: self.name).then(in: .utility) { urls in
+                WikipediaAPI.shared.getImageUrls(from: self.name, limit: limit).then(in: .utility) { urls in
                     if let photos = self.photos {
                         self.photos = Array(Set(photos).union(Set(urls)))
                     } else {

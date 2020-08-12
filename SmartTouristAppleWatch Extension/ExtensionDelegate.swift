@@ -6,20 +6,13 @@
 //
 
 import WatchKit
-import WatchConnectivity
+import CoreLocation
 
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
-    var session: WCSession?
-
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
-        if WCSession.isSupported() {
-            self.session = WCSession.default
-            self.session?.delegate = self
-            self.session?.activate()
-            print("ACTIVATING SESSION...")
-        }
+        userData.getPlaces(type: .nearest, location: CLLocationCoordinate2D(latitude: 51.501476, longitude: -0.140634))
     }
 
     func applicationDidBecomeActive() {
@@ -59,22 +52,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
                 // make sure to complete unhandled task types
                 task.setTaskCompletedWithSnapshot(false)
             }
-        }
-    }
-
-}
-
-
-extension ExtensionDelegate: WCSessionDelegate {
-    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        switch activationState {
-        case .activated:
-            self.session = session
-            print("SESSION ACTIVATED")
-            userData.getPlaces(type: .nearest)
-        default:
-            print(activationState)
-            break
         }
     }
 }

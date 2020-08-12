@@ -5,7 +5,11 @@
 //  Created on 03/12/2019
 //
 
-import UIKit
+#if os(watchOS)
+    import Foundation
+#else
+    import UIKit
+#endif
 import Hydra
 import Fuse
 import Alamofire
@@ -144,38 +148,6 @@ class WikipediaAPI {
             }
         }
     }
-    
-    /*func findExactArticleNameOld(searchTerms: String, coordinates: CLLocationCoordinate2D) -> Promise<String> {
-        return Promise<String>(in: .background) { resolve, reject, status in
-            let _ = Wikipedia.shared.requestNearbyResults(language: self.language, latitude: Double(coordinates.latitude), longitude: Double(coordinates.longitude), maxCount: 50) { (articlePreviews, resultsLanguage, error) in
-                guard error == nil, let articlePreviews = articlePreviews else {
-                    reject(UnknownApiError())
-                    return
-                }
-                
-                let fuse = Fuse(threshold: 0.5)
-                
-                let titles = articlePreviews.map { article -> String in
-                    return article.title
-                }
-                let results = fuse.search(searchTerms.stripped, in: titles).sorted {
-                    if $0.score == $1.score {
-                        return titles[$0.index].count < titles[$1.index].count
-                    } else {
-                        return $0.score < $1.score
-                    }
-                }
-                
-                guard results.count > 0 else {
-                    reject(UnknownApiError())
-                    return
-                }
-                
-                let result = titles[results.first!.index]
-                resolve(result)
-            }
-        }
-    }*/
     
     func getWikidataId(title: String) -> Promise<String> {
         return Promise<String>(in: .background) { resolve, reject, status in
@@ -445,10 +417,17 @@ class WikipediaAPI {
     private func getImageUrls(from files: [String]) -> Promise<[URL]> {
         return Promise<[URL]>(in: .background) { resolve, reject, status in
             let filesString = files.joined(separator: "|")
+            #if os(watchOS)
+            let parameters = [
+                "image": filesString,
+                "thumbwidth": "300"
+            ]
+            #else
             let parameters = [
                 "image": filesString,
                 "thumbwidth": "\(Int(UIScreen.main.bounds.width) / 2)"
             ]
+            #endif
             AF.request("https://tools.wmflabs.org/magnus-toolserver/commonsapi.php", parameters: parameters).responseData(queue: .global(qos: .utility)) { response in
                 switch response.result {
                 case .success:

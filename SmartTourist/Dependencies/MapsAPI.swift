@@ -51,24 +51,6 @@ class MapsAPI {
         }
     }
     
-    func getTravelTime(from source: CLLocationCoordinate2D, to destination: CLLocationCoordinate2D) -> Promise<String> {
-        return Promise<String>(in: .background) { resolve, reject, status in
-            let request = MKDirections.Request()
-            request.source = MKMapItem(placemark: MKPlacemark(coordinate: source))
-            request.destination = MKMapItem(placemark: MKPlacemark(coordinate: destination))
-            request.transportType = .walking
-            let directions = MKDirections(request: request)
-            directions.calculateETA { response, error in
-                if let error = error {
-                    reject(error)
-                } else if let response = response {
-                    let etaString = self.timeFormatter.string(from: response.expectedTravelTime)!
-                    resolve(etaString)
-                }
-            }
-        }
-    }
-    
     func openDirectionsInMapsApp(to destination: WDPlace) {
         let options = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeWalking]
         let placemark = MKPlacemark(coordinate: destination.location)

@@ -7,9 +7,10 @@
 
 import SwiftUI
 
+
 struct PlaceDetailView: View {
     @EnvironmentObject private var userData: UserData
-    var place: AWGPPlace
+    var place: AWPlace
     
     var index: Int {
         self.userData.placeDetails.firstIndex(where: { $0.id == place.id}) ?? -1
@@ -19,7 +20,7 @@ struct PlaceDetailView: View {
         Group {
             if index >= 0 {
                 ScrollView {
-                    CircleImage(image: self.userData.placeDetails[index].awPlace.image!)
+                    CircleImage(imageURL: self.userData.placeDetails[index].awPlace.photoURL)
                         .frame(width: 120, height: 120)
                         .padding()
                     Text(self.userData.placeDetails[index].description)
@@ -34,6 +35,7 @@ struct PlaceDetailView: View {
         }
     }
 }
+
 
 struct PlaceDetailView_Previews: PreviewProvider {
     static var previews: some View {

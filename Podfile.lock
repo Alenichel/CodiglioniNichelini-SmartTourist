@@ -28,14 +28,14 @@ DEPENDENCIES:
   - FlagKit
   - FlexLayout
   - FontAwesome.swift
-  - Fuse
+  - Fuse (from `https://github.com/fabiocody/fuse-swift`)
   - HydraAsync
   - ImageSlideshow (~> 1.8.3)
   - Katana (~> 3.2.0)
   - MarqueeLabel
   - PinLayout
   - SigmaSwiftStatistics (~> 9.0)
-  - SwiftyXMLParser (from `https://github.com/yahoojapan/SwiftyXMLParser.git`)
+  - SwiftyXMLParser (from `https://github.com/fabiocody/SwiftyXMLParser.git`)
   - Tempura
   - TempuraTesting
 
@@ -47,7 +47,6 @@ SPEC REPOS:
     - FlagKit
     - FlexLayout
     - FontAwesome.swift
-    - Fuse
     - HydraAsync
     - ImageSlideshow
     - Katana
@@ -58,13 +57,18 @@ SPEC REPOS:
     - TempuraTesting
 
 EXTERNAL SOURCES:
+  Fuse:
+    :git: https://github.com/fabiocody/fuse-swift
   SwiftyXMLParser:
-    :git: https://github.com/yahoojapan/SwiftyXMLParser.git
+    :git: https://github.com/fabiocody/SwiftyXMLParser.git
 
 CHECKOUT OPTIONS:
+  Fuse:
+    :commit: 1d781734c7414ef087504d92bdba150a2ff1070e
+    :git: https://github.com/fabiocody/fuse-swift
   SwiftyXMLParser:
-    :commit: 9d82653e535a13a518b411934c0a5c0c84406c22
-    :git: https://github.com/yahoojapan/SwiftyXMLParser.git
+    :commit: 6af2ca377623d495a9844eb2104cb4e618ebfffa
+    :git: https://github.com/fabiocody/SwiftyXMLParser.git
 
 SPEC CHECKSUMS:
   Alamofire: df2f8f826963b08b9a870791ad48e07a10090b2e
@@ -73,17 +77,17 @@ SPEC CHECKSUMS:
   FlagKit: eca7dc89064b0c986302ba9acefad1bf80a435b1
   FlexLayout: 025dd153bd5618dcc9f93ef914106d7dc2a86fdc
   FontAwesome.swift: bbb75cd5b380ffb297f557301468a901a1c0cfad
-  Fuse: 48eaf66d0c407c7f8b0ddb168888dc4637e87f14
+  Fuse: adf007f84a78fa9a7ed4cfe3b37c02cea4315a6e
   HydraAsync: 7fa5c0fdd89397617deb726a5b41b2ca72b8492e
   ImageSlideshow: 4694d7d699a1549582e7cc631fb392d8f91630f3
   Katana: 1859c1fca08547e8644e58cbe292619c8c9512da
   MarqueeLabel: f762aa681ae201f66c1d511858b171f75d83013a
   PinLayout: 0d96022e46e8b80468d819f182a393b97ca038da
   SigmaSwiftStatistics: 4ec81cd50b0f397baddba05fe88ce228a66edd8c
-  SwiftyXMLParser: 8271497e0a37b5c04b0b167c77b4896e36175a21
+  SwiftyXMLParser: c39a7854b7d32e447e19d0fabdd98696fe26f03a
   Tempura: 9c448606f6fd20c60ab2e56a7614eeb1db6bc2a0
   TempuraTesting: 7e73cb4542029b3493cb30e67f619d15fe1065ac
 
-PODFILE CHECKSUM: 5cd7fcb0cc9b82bd7fa1fb27fa895bf89a531f34
+PODFILE CHECKSUM: fa14d561ef9386f58c7df8bb079160f2a3c8f2f4
 
 COCOAPODS: 1.9.1
