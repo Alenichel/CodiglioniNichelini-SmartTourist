@@ -12,16 +12,30 @@ import ImageIO
 import Hydra
 
 
-class UserData: ObservableObject {
+class UserData: NSObject, ObservableObject {
     @Published var places: [AWPlace] = []
     @Published var placeDetails: [AWPlaceDetail] = []
+    
+    var placesType: SelectedPlaces = .nearest
+    
+    var location: CLLocationCoordinate2D? {
+        didSet {
+            getPlaces(type: self.placesType)
+        }
+    }
         
     init(places: [AWPlace] = [], placeDetails: [AWPlaceDetail] = []) {
         self.places = places
         self.placeDetails = placeDetails
+        super.init()
+        LocationManager.sharedForegound.setDelegate(self)
+        LocationManager.sharedForegound.requestAuth()
+        LocationManager.sharedForegound.startUpdatingLocation()
     }
     
-    func getPlaces(type: SelectedPlaces, location: CLLocationCoordinate2D) {
+    func getPlaces(type: SelectedPlaces) {
+        guard let location = self.location else { return }
+        print(#function)
         switch type {
         case .nearest:
             WikipediaAPI.shared.getNearbyPlaces(location: location, radius: 1, isArticleMandatory: true).then(in: .main) { places in
@@ -39,12 +53,13 @@ class UserData: ObservableObject {
                 let wdPlaces = places.map { WDPlace(gpPlace: $0) }
                 let promises = wdPlaces.map { $0.getMissingDetails() }
                 all(promises).then(in: .utility) { _ in
-                    let filteredPlaces = wdPlaces.filter { place in
+                    var filteredPlaces = wdPlaces.filter { place in
                         guard let photos = place.photos else { return false }
                         return !photos.isEmpty
                     }
                     let photoPromises = filteredPlaces.map { $0.getPhotosURLs() }
                     all(photoPromises).then(in: .main) { _ in
+                        filteredPlaces = filteredPlaces.filter { $0.photos!.count > 0 }
                         let awPlaces = filteredPlaces.map { AWPlace(id: $0.placeID, name: $0.name, wikipediaName: $0.wikipediaName ?? $0.name, photoURL: $0.photos![0]) }
                         async(in: .main) {
                             self.places = awPlaces
@@ -62,6 +77,15 @@ class UserData: ObservableObject {
             let placeDetail = AWPlaceDetail(awPlace: place, description: article)
             self.placeDetails.append(placeDetail)
         }
+    }
+}
+
+
+extension UserData: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.first else { return }
+        print(location.coordinate)
+        self.location = location.coordinate
     }
 }
 

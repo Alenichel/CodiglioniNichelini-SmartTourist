@@ -12,7 +12,6 @@ import CoreLocation
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
-        userData.getPlaces(type: .nearest, location: CLLocationCoordinate2D(latitude: 51.501476, longitude: -0.140634))
     }
 
     func applicationDidBecomeActive() {

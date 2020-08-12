@@ -9,13 +9,15 @@ import Foundation
 import CoreLocation
 
 
-class LocationManager {
+class LocationManager: NSObject {
     static let shared = LocationManager()
+    static let sharedForegound = LocationManager(allowsBacgroundLocationUpdates: false)
     private var lm: CLLocationManager
     
-    private init() {
+    init(allowsBacgroundLocationUpdates: Bool = true) {
         self.lm = CLLocationManager()
-        self.lm.allowsBackgroundLocationUpdates = true
+        self.lm.allowsBackgroundLocationUpdates = allowsBacgroundLocationUpdates
+        super.init()
     }
 
     func requestAuth() {
@@ -40,7 +42,7 @@ class LocationManager {
         print("Stopped updating location")
     }
     
-    func setDelegate (_ delegate: CLLocationManagerDelegate) {
+    func setDelegate(_ delegate: CLLocationManagerDelegate) {
         self.lm.delegate = delegate
     }
 }

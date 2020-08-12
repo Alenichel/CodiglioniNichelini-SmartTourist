@@ -32,7 +32,8 @@ struct ListView: View {
                     DispatchQueue.main.async {
                         self.userData.places = []
                     }
-                    self.userData.getPlaces(type: .nearest, location: CLLocationCoordinate2D(latitude: 51.501476, longitude: -0.140634))
+                    self.userData.placesType = .nearest
+                    self.userData.getPlaces(type: .nearest)
                 }) {
                     VStack {
                         Image(systemName: "map.fill")
@@ -43,7 +44,8 @@ struct ListView: View {
                     DispatchQueue.main.async {
                         self.userData.places = []
                     }
-                    self.userData.getPlaces(type: .popular, location: CLLocationCoordinate2D(latitude: 51.501476, longitude: -0.140634))
+                    self.userData.placesType = .popular
+                    self.userData.getPlaces(type: .popular)
                 }) {
                     VStack {
                         Image(systemName: "star.fill")

@@ -113,6 +113,7 @@
 		E5C4F0AD24E3E03F005C0B3A /* RemoteImageURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C4F0AC24E3E03F005C0B3A /* RemoteImageURL.swift */; };
 		E5C4F0AE24E3E644005C0B3A /* WDInstances.json in Resources */ = {isa = PBXBuildFile; fileRef = E501B0DF244CCB18003E271D /* WDInstances.json */; };
 		E5C4F0AF24E3E645005C0B3A /* WDInstances.json in Resources */ = {isa = PBXBuildFile; fileRef = E501B0DF244CCB18003E271D /* WDInstances.json */; };
+		E5C9E1CE24E4291C004671D6 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992533C3238FF8B800EE479A /* LocationManager.swift */; };
 		E5CA289B245EBB69005BA50A /* SettingDistanceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CA289A245EBB69005BA50A /* SettingDistanceCell.swift */; };
 		E5CA289D245EBBA9005BA50A /* SettingIntCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CA289C245EBBA9005BA50A /* SettingIntCell.swift */; };
 		E5D005CD244DA08D0079A37E /* GPPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D005CC244DA08D0079A37E /* GPPlace.swift */; };
@@ -1266,6 +1267,7 @@
 				E563DB2B242E4FF9003D5FFF /* PlaceRowView.swift in Sources */,
 				E590A959242CCA7100C0F0D5 /* ListView.swift in Sources */,
 				E5C4F09E24E3D142005C0B3A /* GoogleAPI.swift in Sources */,
+				E5C9E1CE24E4291C004671D6 /* LocationManager.swift in Sources */,
 				E5A7B064242F9C400001869A /* CircleImage.swift in Sources */,
 				E590A95D242CCA7100C0F0D5 /* ExtensionDelegate.swift in Sources */,
 				E5C4F0A124E3D442005C0B3A /* CLLocationCoordinate2D+distance.swift in Sources */,
