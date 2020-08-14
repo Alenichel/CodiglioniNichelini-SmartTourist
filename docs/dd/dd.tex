@@ -357,6 +357,7 @@
 % Body
 
 \chapter{Introduction}
+
 This is the \textit{design document} (DD) of the \textbf{\textit{Smart Tourist}} iOS application developed by \textit{Fabio Codiglioni} and \textit{Alessandro Nichelini} in the context of the \textit{Design and Implementation of Mobile Application} course at Politecnico di Milano. The authors have been tutored by \underline{Bending Spoons} for the usage of some technologies that are described later.\\
 The document explains the most important design choices we made and the motivations behind them, with specific focus on the Redux-like architecture adopted.
 
@@ -364,55 +365,62 @@ The document explains the most important design choices we made and the motivati
 
 
 \chapter{General Overview}
-Smart Tourist is a multi-device application for iOS and iPadOS.
+
+Smart Tourist is a multi-device application for iOS, iPadOS and watchOS.
 
 \section{Assignment}
-For the reader convenience, the (free) assignment is reported below:
-\begin{warn}[Assignement:]
+For the reader convenience, the (free) original assignment is reported below:
+\begin{warn}[Assignment:]
 	 Smart Tourist
 	 \\\\Help your users when they are exploring new cities!
-	 \\\\By using the localisation systems on the smartphones and the google places API, notify the user when something interesting is nearby.
-	 \\\\Connect to wikipedia, to retrieve interesting informations on the point of interest selected.
-	 \\\\Search and filters among several interesting places of the city you are visiting, save them as favourites so you can check on them later.
+	 \\\\By using the localization systems on the smartphones and the Google Places API, notify the user when something interesting is nearby.
+	 \\\\Connect to Wikipedia, to retrieve interesting informations on the point of interest selected.
+	 \\\\Search and filters among several interesting places of the city you are visiting, save them as favorites so you can check on them later.
 	 \\\\Attach some pictures to those pins and eventually share them with your friends!
 \end{warn}
 
- \section{Features description}
- \subsection{Exploring}
- The user is given with a navigation map filled with the city's point of interest. She has the chance to control which attraction to see on a map. She can choose between \textit{Nearest places}, \textit{Popular places} and \textit{Favourites}. Each attraction is shown on the map and in a table view. They are clickable from both position to open  the corresponding detail view.
- \\\\In the map, two circles are displayed to help the user better understand distances. These circles correspond to the distance she can cover in 5 and 15 minutes. Circles' radius is automatically updated with information from user profile and thus they fit always with user's pace.
- 
- \subsection{Dynamical exploring}
- SmartTourist works well in both crowded cities and small towns. The user will be always provided with a right amount of attractions. Where not so many attractions are available, the app will automatically show her less known attraction and particular point of interest.
- 
- \subsection{Learning}
- The user can open the detail view of both the city and attractions. She will be provided with useful information about the point of interest such as pictures, Wikipedia description, useful links and a shortcut to open turn-by-turn navigation.
- 
- \subsection{Notifications}
- The user is notified when she is nearby a "top location". The notification comes with a picture of the attraction and lets her either to open the the detail view of the attraction or to open turn-by-turn navigation. 
- 
- \subsection{Keep track of favourite attractions}
- The user can view the attraction of her current city or she can have a preview of other cities attractions. In both case she can keep track of them by adding them in the list of favourite attractions. The user is also provided the ability to open a worldwide map with all her favourite places.
+\section{Features description}
+
+\subsection{Exploring}
+The user is given a navigation map filled with the city's points of interest. They have the chance to control which attraction to see on a map. They can choose between \textit{nearest places}, \textit{popular places} and \textit{favorites}. Each attraction is shown on the map and in a list view, and is clickable from both position to open the corresponding detail view.
+\\\\In the map, two circles are displayed to help the user better understand distances. These circles correspond to the distance they can cover in 5 and 15 minutes. Circles' radius is automatically updated with information from user profile and thus they always fit with the user's pace.
+
+\subsection{Dynamic exploring}
+SmartTourist works well in both crowded cities and small towns. The user will be always provided with the right amount of attractions. In places where not so many attractions are available, the app will automatically show less known attraction and particular point of interest.
+
+\subsection{Learning}
+The user can open the detail view of both the city and attractions. They will be provided with useful information about the point of interest, such as pictures, Wikipedia description, useful links and a shortcut to open turn-by-turn navigation.
+
+\subsection{Notifications}
+The user is notified when they are nearby a "top location". The notification comes with a picture of the attraction and lets them open either the the detail view of the attraction or the turn-by-turn navigation. 
+
+\subsection{Keep track of favorite attractions}
+The user can view the attractions of her current city or they can have a preview of other cities attractions. In both case they can keep track of them by adding them in the list of favorite attractions. The user is also provided the ability to open a worldwide map with all their favorite places.
 
 \subsection{Contribute (proof of concept)}
 SmartTourist is manly based on free data. When a detailed description is missing, the user is given the chance to contribute.
 
 
+
+
 \chapter{Architectural design}
+
 SmartTourist is a self-contained application. No external backend services are provided by us, instead it relies on a multitude of internal iOS/iPadOS services and third parties API.
 \\Here it follows a schema that summarizes them all:
+
 \begin{figure}[H]
   	\centering
   	\includegraphics[width=0.5\linewidth]{ArchitectureOverview}
   	\label{fig:test1}
 	\caption{Architecture overview}
 \end{figure}
-Internal application design is strongly influenced by the choice of the Katana/Tempura couple that forced the adoption of a MVVC paradigm.
+
+Internal application design is strongly influenced by the choice of the Katana/Tempura framework that forced the adoption of a MVVM paradigm.
 
 \section{Katana}
-Katana is a modern Swift framework for writing iOS applications' business logic that are testable and easy to reason about. Katana is strongly inspired by Redux.
+Katana is a modern Swift framework for writing iOS applications' business logic that are testable and easy to reason about. It is strongly inspired by Redux.
 
-In few words, the app state is entirely described by a single serializable data structure, and the only way to change the state is to dispatch a StateUpdater. A StateUpdater is an intent to transform the state, and contains all the information to do so. Because all the changes are centralized and are happening in a strict order, there are no subtle race conditions to watch out for.
+In a few words, the app state is entirely described by a single serializable data structure, and the only way to change the state is to dispatch a StateUpdater. A StateUpdater is an intent to transform the state, and contains all the information to do so. Because all the changes are centralized and are happening in a strict order, there are no subtle race conditions to watch out for.
 
 \section{Tempura}
 Tempura is a holistic approach to iOS development, it borrows concepts from Redux (through Katana) and MVVM.
@@ -424,9 +432,12 @@ Tempura is a holistic approach to iOS development, it borrows concepts from Redu
 	\caption{MVVM architecture overview}
 \end{figure}
 
-\begin{warn}
+\begin{info}
 	Katana and Tempura are from Bending Spoons and they tutored the authors to use it.
-\end{warn}
+\end{info}
+
+
+
 
 \chapter{Services and libraries}
 
@@ -435,70 +446,77 @@ Tempura is a holistic approach to iOS development, it borrows concepts from Redu
 SmartTourist uses consistently internal libraries and services:
 
 \begin{itemize}
-	\item \textbf{\textit{MapKit}}: for location gathering and maps.
+    \item \textbf{\textit{Core Location}}: for location updates.
+	\item \textbf{\textit{MapKit}}: for maps.
 	\item \textbf{\textit{Core Motion}}: for accessing accelerometer, gyroscope, pedometer, and environment-related events.
 \end{itemize}
 
 \section{External services}
 
 SmartTourist relies almost only on \textit{free data and services}. 
-\begin{warn}
-The choice to rely on free services has been carefully pondered and it cost the authors some troubles. SmartTourist has been designed to be a free application in an eventual public launch thus it would be impossible to support the cost of Google Places API without any premium subscription. Moreover, the author strongly believe in the Wikidata project and wanted to test it.
-\end{warn}
+
+\begin{info}
+The choice to rely on free services has been carefully pondered and it costed the authors some troubles. SmartTourist has been designed to be a free application in an eventual public launch, thus it would be impossible to support the cost of Google Places API without any premium subscription. Moreover, the authors strongly believe in the Wikidata project and wanted to work with it.
+\end{info}
+
 Here, it follows the description of the external services used.
 
 \begin{itemize}
-	\item \textit{\textbf{Wikipedia}}: all displayed attractions are taken from the Wikidata knowledge base. The given API is quite basic: attraction entries are retrieved with a SPARQL query embedded in a http API call. Details and pictures are retrieved with standard HTTP API calls from different endpoints.
+	\item \textit{\textbf{Wikipedia}} \\
+	All displayed attractions are taken from the Wikidata knowledge base. The given API is quite basic: attraction entries are retrieved with a SPARQL query embedded in a HTTP API call, while details and pictures are retrieved with standard HTTP API calls from different endpoints.
 		
-		\begin{lstlisting}[language=sql, caption={SPARQL query for attraction retrieving}, captionpos=b]
+	\begin{lstlisting}[language=sql, caption={SPARQL query for attraction retrieving}, captionpos=b]
+SELECT DISTINCT ?place ?placeLabel ?location ?image 
+                ?instance ?phoneNumber ?website ?wikipediaLink WHERE {
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en, it" }
+    SERVICE wikibase:around {
+        ?place wdt:P625 ?location .
+        bd:serviceParam wikibase:center "Point(\(location.longitude) \(location.latitude))"^^geo:wktLiteral .
+        bd:serviceParam wikibase:radius "\(radius)" .
+    }
+    ?place wdt:P31 ?instance  .
+    ?place wdt:P18 ?image .
+    OPTIONAL {?place wdt:P1329 ?phoneNumber}.
+    OPTIONAL {?place wdt:P856 ?website} .
+    OPTIONAL {?wikipediaLink schema:about ?place;
+        schema:inLanguage "en";
+        schema:isPartOf [ wikibase:wikiGroup "wikipedia" ]} .
+}
+	\end{lstlisting}
 		
-		SELECT DISTINCT ?place ?placeLabel ?location ?image ?instance ?phoneNumber ?website ?wikipediaLink
-        WHERE {
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "en, it" }
-            SERVICE wikibase:around {
-                ?place wdt:P625 ?location .
-                bd:serviceParam wikibase:center "Point(\(location.longitude) \(location.latitude))"^^geo:wktLiteral .
-                bd:serviceParam wikibase:radius "\(radius)" .
-            }
-            ?place wdt:P31 ?instance  .
-        ?place wdt:P18 ?image .
-        OPTIONAL {?place wdt:P1329 ?phoneNumber}.
-        OPTIONAL {?place wdt:P856 ?website} .
-        OPTIONAL {?wikipediaLink schema:about ?place;
-            schema:inLanguage "en";
-            schema:isPartOf [ wikibase:wikiGroup "wikipedia" ]} .
-        }
-		\end{lstlisting}
+	\begin{lstlisting}[language=sql, caption={SPARQL query for city detail retrieving}, captionpos=b]
+SELECT DISTINCT ?city ?cityLabel ?country ?countryLabel ?population ?area
+                ?elevation ?link ?facebookPageId ?facebookPlacesId
+                ?instagramUsername ?twitterUsername ?image ?coatOfArmsImage
+                ?cityFlagImage ?countryCode ?wikipediaLink WHERE {
+    BIND( <http://www.wikidata.org/entity/\(cityId)> as ?city ).
+    OPTIONAL {?city wdt:P17 ?country}.
+    OPTIONAL {?city wdt:P1082 ?population}.
+    OPTIONAL {?city wdt:P2046 ?area}.
+    OPTIONAL {?city wdt:P2044 ?elevation}.
+    OPTIONAL {?city wdt:P856 ?link}.
+    OPTIONAL {?city wdt:P2013 ?facebookPageId}.
+    OPTIONAL {?city wdt:P1997 ?facebookPlacesId}.
+    OPTIONAL {?city wdt:P2003 ?instagramUsername}.
+    OPTIONAL {?city wdt:P2002 ?twitterUsername}.
+    OPTIONAL {?city wdt:P18 ?image}.
+    OPTIONAL {?city wdt:P94  ?coatOfArmsImage}.
+    OPTIONAL {?city wdt:P41 ?cityFlagImage}.
+    OPTIONAL {?country wdt:P297 ?countryCode}.
+    OPTIONAL {?wikipediaLink schema:about ?city;
+      schema:inLanguage "en";
+      schema:isPartOf [ wikibase:wikiGroup "wikipedia" ]}.
+    SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
+}
+	\end{lstlisting}
 		
-		\begin{lstlisting}[language=sql, caption={SPARQL query for city detail retrieving}, captionpos=b]
-			SELECT DISTINCT ?city ?cityLabel ?country ?countryLabel ?population ?area ?elevation ?link ?facebookPageId ?facebookPlacesId ?instagramUsername ?twitterUsername ?image ?coatOfArmsImage ?cityFlagImage ?countryCode ?wikipediaLink WHERE {
-            BIND( <http://www.wikidata.org/entity/\(cityId)> as ?city ).
-            OPTIONAL {?city wdt:P17 ?country}.
-            OPTIONAL {?city wdt:P1082 ?population}.
-            OPTIONAL {?city wdt:P2046 ?area}.
-            OPTIONAL {?city wdt:P2044 ?elevation}.
-            OPTIONAL {?city wdt:P856 ?link}.
-            OPTIONAL {?city wdt:P2013 ?facebookPageId}.
-            OPTIONAL {?city wdt:P1997 ?facebookPlacesId}.
-            OPTIONAL {?city wdt:P2003 ?instagramUsername}.
-            OPTIONAL {?city wdt:P2002 ?twitterUsername}.
-            OPTIONAL {?city wdt:P18 ?image}.
-            OPTIONAL {?city wdt:P94  ?coatOfArmsImage}.
-            OPTIONAL {?city wdt:P41 ?cityFlagImage}.
-            OPTIONAL {?country wdt:P297 ?countryCode}.
-            OPTIONAL {?wikipediaLink schema:about ?city;
-              schema:inLanguage "en";
-              schema:isPartOf [ wikibase:wikiGroup "wikipedia" ]}.
-            SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
-        }
-		\end{lstlisting}
-		
-	\item \textit{\textbf{Google}}: Places ratings are the only data retrieved from Google services. This was due to the lack of a reliable free alternative. For the simplicity of the task, we decided not to rely on the Google SDK for iOS and to manually make request to the Google API.
+	\item \textit{\textbf{Google}} \\
+	Places ratings are the only data retrieved from Google services. This was due to the lack of a reliable free alternative. For the simplicity of the task, we decided not to rely on the Google SDK for iOS and to manually make request to the Google API.
 \end{itemize}
 
 \section{External libraries}
 
-The app uses lots of third parties libraries the can be roughly divided into three kind: architectural libraries, back-end libraries and front-end libraries.
+The app uses lots of third parties libraries that can be roughly divided into three kind: architectural libraries, back-end libraries and front-end libraries.
 
 \begin{table}[h]
     \centering
@@ -524,13 +542,15 @@ The app uses lots of third parties libraries the can be roughly divided into thr
 \end{table}
 
 \chapter{User interface}
-For the user interface design, we followed Apple's UI guidelines, but we preferred also to use custom UI element to better fit Katana/Tempura paradigm's requirements and to let the app have a endearing style.  
+For the user interface design, we followed Apple's UI guidelines, but we preferred also to use custom UI element to better fit Katana/Tempura paradigm's requirements and to let the app have an endearing style.  
 
-\section{Screenshot}
-Here follow some screenshot of the application in both Light and Dark mode.
+\section{Screenshots}
+Here follow some screenshots of the application in both Light and Dark mode.
 
-\subsection{Mapview}
-\subsubsection{Mapview - nearest}
+\subsection{MapView}
+
+\subsubsection{MapView - nearest places}
+
 \begin{figure}[H]
 	\centering
 	\begin{minipage}{.5\textwidth}
@@ -546,11 +566,12 @@ Here follow some screenshot of the application in both Light and Dark mode.
 	\caption{Map view with nearest tab selected in both light and dark mode}
 \end{figure}
 
-This is the first view that appears when you open the app. Attractions, up to the maximum number selected, are displayed both in the maps and in the list below. In the list they are ordered by means of their distance to user current position.
-\\In this view you can tap the city name to open the city detail view or an attraction to open the corresponding detail view. By pressing the search button, the user is presented with the common location search bar. Settings are reachable by pressing the gear button near the selectors.
-\\The tab view for attraction list id resizable.
+This is the first view that appears when you open the app. Attractions, up to the maximum selected number, are displayed both in the maps and in the list below. In the list, they are ordered by their distance to the user current position.
+\\In this view you can tap the city name to open the city detail view or an attraction to open the corresponding detail view. By tapping the search button, the user is presented with the familiar search bar. Settings are reachable by tapping the gear button near the selectors.
+\\The tab view for attraction list is resizable.
 
-\subsection{Mapview - popular}
+\subsection{MapView - popular places}
+
 \begin{figure}[H]
 	\centering
 	\begin{minipage}{.5\textwidth}
@@ -565,10 +586,12 @@ This is the first view that appears when you open the app. Attractions, up to th
 	\end{minipage}
 	\caption{Map view with popular tab selected in both light and dark mode}
 \end{figure}
-Same as previous view, but here popular attraction tab is selected. Thus only most popular places are displayed. In the list, favourite items are identified by a hearth icon and the rating of each attraction is also displayed.
-\\In this screenshot, circles that represent distance are more visible. They respectively represent the distance that the user can cover in 5 and 15 minutes of walking at her current walking speed.
 
-\subsection{Mapview - favourite}
+Same as the previous view, but here the popular tab is selected. Thus, only the most popular places are displayed. In the list, favorite items are identified by a hearth icon and the rating of each attraction is also displayed.
+\\In this screenshot, circles that represent distance are more visible. They respectively represent the distance that the user can cover by walking at their current walking speed in 5 and 15 minutes, respectively.
+
+\subsection{MapView - favorite places}
+
 \begin{figure}[H]
 	\centering
 	\begin{minipage}{.5\textwidth}
@@ -581,12 +604,14 @@ Same as previous view, but here popular attraction tab is selected. Thus only mo
   	\includegraphics[width=0.98\linewidth]{/screenshot/dark_favourite}
   	\label{fig:test2}
 	\end{minipage}
-	\caption{Map view with favourite tab selected in both light and dark mode}
+	\caption{Map view with favorite tab selected in both light and dark mode}
 \end{figure}
-Same as previous view, but here favourite attraction tab is selected. Since it's a global tab, they are grouped by city, that is also displayed. 
-\\An additional button with a map is displayed, it lets the user to access the global view of favourite items.
 
-\subsection{Global favourite view}
+Same as the previous view, but here the favorite tab is selected. Since it's a global tab, they are grouped by city, that is also displayed. 
+\\An additional button with a map is displayed, to let the user access the global view of favorite items.
+
+\subsection{Global favorite view}
+
 \begin{figure}[H]
 	\centering
 	\begin{minipage}{.5\textwidth}
@@ -599,11 +624,13 @@ Same as previous view, but here favourite attraction tab is selected. Since it's
   	\includegraphics[width=0.98\linewidth]{/screenshot/dark_worldwide}
   	\label{fig:test2}
 	\end{minipage}
-	\caption{Favourite worldwide view in both light and dark mode}
+	\caption{Favorite worldwide view in both light and dark mode}
 \end{figure}
-In this view, all user's favourite attractions are displayed in a map with fixed zoom. 
+
+In this view, all user's favorite attractions are displayed in a fullscreen map. 
 
 \subsection{Searching view}
+
 \begin{figure}[H]
 	\centering
 	\begin{minipage}{.5\textwidth}
@@ -619,9 +646,10 @@ In this view, all user's favourite attractions are displayed in a map with fixed
 	\caption{Searching view in both light and dark mode}
 \end{figure}
 
-When you press the lens button on the map view, the common searching view provided by iOS is opened. Both cities and attraction can be searched.
+When you tap the lens button on the map view, the familiar searching view provided by iOS is opened. Both cities and attractions can be searched.
 
 \subsection{Attraction detail view}
+
 \begin{figure}[H]
 	\centering
 	\begin{minipage}{.5\textwidth}
@@ -637,10 +665,11 @@ When you press the lens button on the map view, the common searching view provid
 	\caption{Attraction detail view in both light and dark mode}
 \end{figure}
 
-This is the detailed view that is presented when the user tap a specific attraction. A slideshow of picture of the attraction is displayed together with the rating (if available) and buttons that let you access the map direction, the complete Wikipedia Article and the related website.
-In the navigation bar, the back button is available together with the hearth button that let the user favourite the attraction. The view is scrollable to display the entire place description extract. A detailed map with the specific attraction location is also provided at the end. 
+This is the detailed view that is presented when the user tap a specific attraction. A slideshow of pictures of the attraction is displayed together with the rating (if available) and buttons that let you access the map direction, the complete Wikipedia Article and the related website.
+In the navigation bar, the back button is available together with the hearth button that lets the user mask the attraction as favorite. The view is scrollable to display the entire place description extract. A detailed map with the specific attraction location is also provided at the bottom. 
 
 \subsection{City detail view}
+
 \begin{figure}[H]
 	\centering
 	\begin{minipage}{.5\textwidth}
@@ -656,10 +685,11 @@ In the navigation bar, the back button is available together with the hearth but
 	\caption{City detail view in both light and dark mode}
 \end{figure}
 
-This is the city detail view that is displayed when the user tap the city name in the main view. A pictures slideshow is displayed together with some information such as: population, area and altitude. A set of social link is retrieved and presented to the user. The view is scrollable and a summary description of the city is given.
+This is the city detail view that is displayed when the user tap the city name in the main view. A pictures slideshow is displayed together with some information such as: population, area and altitude. A set of social links is retrieved and presented to the user. The view is scrollable and a summary description of the city is given.
 
 
 \subsection{Settings view}
+
 \begin{figure}[H]
 	\centering
 	\begin{minipage}{.5\textwidth}
@@ -675,12 +705,15 @@ This is the city detail view that is displayed when the user tap the city name i
 	\caption{Settings view in both light and dark mode}
 \end{figure}
 
-Settings view is displayed when the gear icon on the main view is displayed. This is a quite standard settings view where some parameters about the application can be set.
+Settings view is displayed when the gear icon on the main view is tapped. This is a quite standard settings view where some parameters about the application can be set.
+
+
 
 
 \chapter{Notifications}
-Notifications are designed as a way for the user not to miss popular attraction near her. Each time the user is in a 5 minutes range of a popular attraction, the notification is triggered. This works in both background and foreground mode ("\textit{always active}" location tracking is required).
-\\Notification is a \textit{rich notification} with callbacks: \textbf{take me there} will directly open navigation app with that attraction as destination and \textbf{view} will open SmartTourist detail attraction view.
+
+Notifications are designed as a way for the user not to miss popular attraction near them. Each time the user is in a 5 minutes range of a popular attraction, a notification is triggered. This works in both background and foreground mode ("\textit{always active}" location tracking is required).
+\\The shown notification is a \textit{rich notification} with callbacks: \textbf{take me there} will directly open navigation app with that attraction as destination and \textbf{view} will open SmartTourist detail attraction view.
 
 \begin{figure}[H]
 	\centering
@@ -697,12 +730,20 @@ Notifications are designed as a way for the user not to miss popular attraction 
 	\caption{Notification layouting}
 \end{figure}
 
+
+
+
 \chapter{Testing}
 
+
+
+
 \chapter{Effort spent}
-The actual development took place between January 2020 and May 2020 while during July/August 2020 just some minor changes have been put in place together with the drafting of all the needed documents and materials.
-\\\\The authors worked together on site and remotely to setup the crucial parts of the application, then, they worked mostly on their own with continuous mutual contacts. They also had a couple of starting tutoring session kindly offered by Bending Spoons at their GQ to learn the Katana/Tempura paradigm.
-\\\\They didn't use any professional time tracker but it's safe to assume that the total amount of work spent is around 300 per worker:
+
+The actual development took place between January 2020 and May 2020, while during July/August 2020 just some minor changes have been put in place, together with the drafting of all the needed documents and materials.
+\\\\The authors worked together on site and remotely to setup the crucial parts of the application, then, they worked mostly on their own with continuous mutual contacts. They also had a couple of starting tutoring session kindly offered by Bending Spoons at their HQ to learn the Katana/Tempura framework.
+\\\\They didn't use any professional time tracker, but it's safe to assume that the total amount of time spent is around 300 hours per worker, roughly divided in this way:
+
 \begin{itemize}
 	\item 20\% platform meet and greet
 	\item 35\% actual development
@@ -710,6 +751,5 @@ The actual development took place between January 2020 and May 2020 while during
 	\item 10\% testing
 	\item 20\% documents drafting
 \end{itemize}
-
 
 \end{document}
