@@ -357,7 +357,7 @@
 % Body
 
 \chapter{Introduction}
-This is the \textit{design document} (DD) of the \textbf{\textit{Smart Tourist}} iOS application developed by \textit{Fabio Codiglioni} and \textit{Alessandro Nichelini} in the context of the \textit{Design and Implementation of Mobile Application} course at Politecnico di Milano. The authors have been tutored by Bending Spoons for the usage of some technologies that are described later.\\
+This is the \textit{design document} (DD) of the \textbf{\textit{Smart Tourist}} iOS application developed by \textit{Fabio Codiglioni} and \textit{Alessandro Nichelini} in the context of the \textit{Design and Implementation of Mobile Application} course at Politecnico di Milano. The authors have been tutored by \underline{Bending Spoons} for the usage of some technologies that are described later.\\
 The document explains the most important design choices we made and the motivations behind them, with specific focus on the Redux-like architecture adopted.
 
 
@@ -367,7 +367,7 @@ The document explains the most important design choices we made and the motivati
 Smart Tourist is a multi-device application for iOS and iPadOS.
 
 \section{Assignment}
-For the reader convenience, the assignment is reported below:
+For the reader convenience, the (free) assignment is reported below:
 \begin{warn}[Assignement:]
 	 Smart Tourist
 	 \\\\Help your users when they are exploring new cities!
@@ -410,8 +410,23 @@ SmartTourist is a self-contained application. No external backend services are p
 Internal application design is strongly influenced by the choice of the Katana/Tempura couple that forced the adoption of a MVVC paradigm.
 
 \section{Katana}
+Katana is a modern Swift framework for writing iOS applications' business logic that are testable and easy to reason about. Katana is strongly inspired by Redux.
+
+In few words, the app state is entirely described by a single serializable data structure, and the only way to change the state is to dispatch a StateUpdater. A StateUpdater is an intent to transform the state, and contains all the information to do so. Because all the changes are centralized and are happening in a strict order, there are no subtle race conditions to watch out for.
 
 \section{Tempura}
+Tempura is a holistic approach to iOS development, it borrows concepts from Redux (through Katana) and MVVM.
+
+\begin{figure}[H]
+  	\centering
+  	\includegraphics[width=0.9\linewidth]{mvvm}
+  	\label{fig:test1}
+	\caption{MVVM architecture overview}
+\end{figure}
+
+\begin{warn}
+	Katana and Tempura are from Bending Spoons and they tutored the authors to use it.
+\end{warn}
 
 
 
@@ -603,7 +618,11 @@ SmartTourist uses consistently internal libraries and services:
 
 \section{External services}
 
-SmartTourist relies almost only on \textit{free data and services}. Here, it follows the description of the external services used.
+SmartTourist relies almost only on \textit{free data and services}. 
+\begin{warn}
+The choice to rely on free services has been carefully pondered and it cost the authors some troubles. SmartTourist has been designed to be a free application in an eventual public launch thus it would be impossible to support the cost of Google Places API without any premium subscription. Moreover, the author strongly believe in the Wikidata project and wanted to test it.
+\end{warn}
+Here, it follows the description of the external services used.
 
 \begin{itemize}
 	\item \textit{\textbf{Wikipedia}}: all displayed attractions are taken from the Wikidata knowledge base. The given API is quite basic: attraction entries are retrieved with a SPARQL query embedded in a http API call. Details and pictures are retrieved with standard HTTP API calls from different endpoints.
@@ -680,6 +699,7 @@ The app uses lots of third parties libraries the can be roughly divided into thr
         & FlagKit & Beautiful flag icons for usage in apps and on the web. \\ \hline
     \end{tabular}
 \end{table}
+
 
 
 
