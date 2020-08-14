@@ -64,7 +64,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Fuse:
-    :commit: 1d781734c7414ef087504d92bdba150a2ff1070e
+    :commit: 0193df2226671bc8d8926ef5ac5dca8030ce3c13
     :git: https://github.com/fabiocody/fuse-swift
   SwiftyXMLParser:
     :commit: 6af2ca377623d495a9844eb2104cb4e618ebfffa
@@ -77,7 +77,7 @@ SPEC CHECKSUMS:
   FlagKit: eca7dc89064b0c986302ba9acefad1bf80a435b1
   FlexLayout: 025dd153bd5618dcc9f93ef914106d7dc2a86fdc
   FontAwesome.swift: bbb75cd5b380ffb297f557301468a901a1c0cfad
-  Fuse: adf007f84a78fa9a7ed4cfe3b37c02cea4315a6e
+  Fuse: c7ca055656c3f68e4a3bcf47a723e8c9c17856e3
   HydraAsync: 7fa5c0fdd89397617deb726a5b41b2ca72b8492e
   ImageSlideshow: 4694d7d699a1549582e7cc631fb392d8f91630f3
   Katana: 1859c1fca08547e8644e58cbe292619c8c9512da

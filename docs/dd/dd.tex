@@ -401,8 +401,13 @@ SmartTourist is manly based on free data. When a detailed description is missing
 \chapter{Architectural design}
 SmartTourist is a self-contained application. No external backend services are provided by us, instead it relies on a multitude of internal iOS/iPadOS services and third parties API.
 \\Here it follows a schema that summarizes them all:
-\\\\MAGIC SCHEMA WITH ARCHITECTURAL DESIGN
-\\\\Internal application design is strongly influenced by the choice of the Katana/Tempura couple that forced the adoption of a MVVC paradigm.
+\begin{figure}[H]
+  	\centering
+  	\includegraphics[width=0.5\linewidth]{ArchitectureOverview}
+  	\label{fig:test1}
+	\caption{Architecture overview}
+\end{figure}
+Internal application design is strongly influenced by the choice of the Katana/Tempura couple that forced the adoption of a MVVC paradigm.
 
 \section{Katana}
 
@@ -490,6 +495,24 @@ Same as previous view, but here favourite attraction tab is selected. Since it's
 	\caption{Favourite worldwide view in both light and dark mode}
 \end{figure}
 In this view, all user's favourite attractions are displayed in a map with fixed zoom. 
+
+\subsection{Searching view}
+\begin{figure}[H]
+	\centering
+	\begin{minipage}{.5\textwidth}
+  	\centering
+  	\includegraphics[width=0.98\linewidth]{/screenshot/light_searching}
+  	\label{fig:test1}
+	\end{minipage}%
+	\begin{minipage}{.5\textwidth}
+  	\centering
+  	\includegraphics[width=0.98\linewidth]{/screenshot/dark_searching}
+  	\label{fig:test2}
+	\end{minipage}
+	\caption{Searching view in both light and dark mode}
+\end{figure}
+
+When you press the lens button on the map view, the common searching view provided by iOS is opened. Both cities and attraction can be searched.
 
 \subsection{Attraction detail view}
 \begin{figure}[H]
