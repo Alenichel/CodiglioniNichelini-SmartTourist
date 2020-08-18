@@ -743,7 +743,7 @@ The application does not contain any part that is suitable for unit testing. Thi
 
 Since we didn't use the standard Apple SDK to layout views -- we just used its components -- we couldn't use the provided UI testing framework. Luckily, Tempura provides its own UI testing framework, which is a little different than Apple's. Basically, it allows to take screenshots of a view in all possible states, with all devices and all supported languages. This way you can then manually check that all the components of a view are correctly displayed.
 
-Unfortunately, we were not able to make this framework work due to the highly asynchronous nature of our main views.
+Unfortunately, we were not able to make this framework work due to the highly asynchronous nature of our main views, an approach suggested by our Bending Spoons tutor in order to make the views more responsive.
 
 
 
