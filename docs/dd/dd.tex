@@ -735,6 +735,16 @@ Notifications are designed as a way for the user not to miss popular attraction 
 
 \chapter{Testing}
 
+\section{Unit testing}
+
+The application does not contain any part that is suitable for unit testing. This is due to the fact that its core functionality can be reduced to making API calls and displaying the results back to the user. It is well known that there are too many variables involved in API calls that make them unsuitable for unit testing.
+
+\section{UI testing}
+
+Since we didn't use the standard Apple SDK to layout views -- we just used its components -- we couldn't use the provided UI testing framework. Luckily, Tempura provides its own UI testing framework, which is a little different than Apple's. Basically, it allows to take screenshots of a view in all possible states, with all devices and all supported languages. This way you can then manually check that all the components of a view are correctly displayed.
+
+Unfortunately, we were not able to make this framework work due to the highly asynchronous nature of our main views.
+
 
 
 
