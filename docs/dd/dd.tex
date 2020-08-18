@@ -448,7 +448,8 @@ In a few words, the app state is entirely described by a single serializable dat
 
 
 \section{Tempura}
-Tempura is a holistic approach to iOS development, it borrows concepts from Redux (through Katana) and MVVM.
+Quoting from Tempura's \href{https://github.com/BendingSpoons/tempura-swift}{documentation}\footnote{https://github.com/BendingSpoons/tempura-swift}:
+\\Tempura is a holistic approach to iOS development, it borrows concepts from Redux (through Katana) and MVVM.
 
 \begin{figure}[H]
   	\centering
@@ -457,10 +458,51 @@ Tempura is a holistic approach to iOS development, it borrows concepts from Redu
 	\caption{MVVM architecture overview}
 \end{figure}
 
-\begin{info}
-	Katana and Tempura are from Bending Spoons and they tutored the authors to use it.
-\end{info}
+Tempura uses Katana to handle the logic of your app: the part of the state needed to render the UI of a screen is selected by a \textit{ViewModelWithState}.
+\\The UI of each screen of your app:
+\begin{itemize}
+	\item  is composed in a \textit{ViewControllerModellableView}. It exposes callbacks (we call them \textit{interactions}) to signal that a user action occurred. It renders itself based on the \textit{ViewModelWithState}
+	\item is managed by a \textit{ViewController}. Out of the box it will automatically listen for state updates and keep the UI in sync. The only other responsibility of a ViewController is to listen for interactions from the UI and dispatch actions to change the state.
+\end{itemize}
 
+\begin{lstlisting}
+struct ListViewModel: ViewModelWithState {
+  var todos: [Todo]
+
+  init(state: AppState) {
+    self.todos = state.todos
+  }
+}
+
+class ListView: UIView, ViewControllerModellableView {
+  // subviews
+  var todoButton: UIButton = UIButton(type: .custom)
+  var todoButton: UIButton = UIButton(type: .custom)
+  var list: CollectionView<TodoCell, SimpleSource<TodoCellViewModel>>
+
+  // interactions
+  var didTapAddItem: ((String) -> ())?
+  var didCompleteItem: ((String) -> ())?
+
+  // update based on ViewModel
+  func update(oldModel: ListViewModel?) {
+    guard let model = self.model else { return }
+    let todos = model.todos
+    self.list.source = SimpleSource<TodoCellViewModel>(todos)
+  }
+}
+\end{lstlisting}
+\newpage
+\begin{lstlisting}
+class ListViewController: ViewController<ListView> {
+  // listen for interactions from the view
+  override func setupInteraction() {
+    self.rootView.didCompleteItem = { [unowned self] index in
+      self.dispatch(CompleteItem(index: index))
+    }
+  }
+}
+\end{lstlisting}
 
 
 
