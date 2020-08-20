@@ -90,7 +90,6 @@
 		E590A966242CCA7200C0F0D5 /* SmartTouristAppleWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = E590A947242CCA6800C0F0D5 /* SmartTouristAppleWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E590FAE42445FCA300A3DD87 /* String+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E590FAE32445FCA300A3DD87 /* String+UIImage.swift */; };
 		E592B82224140FCF00AD46F8 /* UILabel+setText.swift in Sources */ = {isa = PBXBuildFile; fileRef = E592B82124140FCF00AD46F8 /* UILabel+setText.swift */; };
-		E596EB902457437900E6FF7D /* ArrayTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E596EB8F2457437900E6FF7D /* ArrayTest.swift */; };
 		E5A7B057242F93640001869A /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7B056242F93640001869A /* LoadingView.swift */; };
 		E5A7B059242F960A0001869A /* PlaceDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7B058242F960A0001869A /* PlaceDetailView.swift */; };
 		E5A7B064242F9C400001869A /* CircleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A7B063242F9C400001869A /* CircleImage.swift */; };
@@ -312,7 +311,6 @@
 		E590A963242CCA7200C0F0D5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E590FAE32445FCA300A3DD87 /* String+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+UIImage.swift"; sourceTree = "<group>"; };
 		E592B82124140FCF00AD46F8 /* UILabel+setText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+setText.swift"; sourceTree = "<group>"; };
-		E596EB8F2457437900E6FF7D /* ArrayTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayTest.swift; sourceTree = "<group>"; };
 		E5A7B056242F93640001869A /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		E5A7B058242F960A0001869A /* PlaceDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailView.swift; sourceTree = "<group>"; };
 		E5A7B063242F9C400001869A /* CircleImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleImage.swift; sourceTree = "<group>"; };
@@ -522,7 +520,6 @@
 			isa = PBXGroup;
 			children = (
 				E528FF9F238972030065483B /* Info.plist */,
-				E596EB8F2457437900E6FF7D /* ArrayTest.swift */,
 				E5EF7099245C27BD00C69B3A /* TestCase.swift */,
 				E5EF7093245C202B00C69B3A /* WelcomeViewTest.swift */,
 				E5EF7097245C266F00C69B3A /* SettingsViewTest.swift */,
@@ -1216,7 +1213,6 @@
 			files = (
 				E5EF7098245C266F00C69B3A /* SettingsViewTest.swift in Sources */,
 				E5EF709A245C27BD00C69B3A /* TestCase.swift in Sources */,
-				E596EB902457437900E6FF7D /* ArrayTest.swift in Sources */,
 				E5C28DAD24E1960B003C02A9 /* AttractionsViewTest.swift in Sources */,
 				E530A677245C2982008B0D6A /* CityDetailViewTest.swift in Sources */,
 				E50B56DE24E1D6BC00261D30 /* AttractionDetailTest.swift in Sources */,
