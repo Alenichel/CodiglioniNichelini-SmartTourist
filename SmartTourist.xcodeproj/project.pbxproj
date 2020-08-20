@@ -19,8 +19,6 @@
 		99C27CD423AFC37700667FB0 /* MilanTour(Cycling).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CD123AFC37700667FB0 /* MilanTour(Cycling).gpx */; };
 		99C27CD523AFC37700667FB0 /* MilanTour(Driving).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CD223AFC37700667FB0 /* MilanTour(Driving).gpx */; };
 		99C27CE723AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx in Resources */ = {isa = PBXBuildFile; fileRef = 99C27CE123AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx */; };
-		99EC7D66241FBC260065FDE9 /* Array+WDPlace+blacklist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EC7D65241FBC260065FDE9 /* Array+WDPlace+blacklist.swift */; };
-		99EC7D6D241FC0890065FDE9 /* String+emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99EC7D6C241FC0890065FDE9 /* String+emoji.swift */; };
 		99F36EAC2417FB4C00ACC519 /* PedometerHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */; };
 		E501B0E0244CCB18003E271D /* WDInstances.json in Resources */ = {isa = PBXBuildFile; fileRef = E501B0DF244CCB18003E271D /* WDInstances.json */; };
 		E50A45E424D73B8800E01703 /* FullScreenMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50A45E324D73B8800E01703 /* FullScreenMapView.swift */; };
@@ -124,13 +122,11 @@
 		E5EF7098245C266F00C69B3A /* SettingsViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EF7097245C266F00C69B3A /* SettingsViewTest.swift */; };
 		E5EF709A245C27BD00C69B3A /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EF7099245C27BD00C69B3A /* TestCase.swift */; };
 		E5F9715C2392D96F0096C296 /* UIControl+TargetActionable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F971522392D96E0096C296 /* UIControl+TargetActionable.swift */; };
-		E5F9715D2392D96F0096C296 /* String+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F971532392D96E0096C296 /* String+Random.swift */; };
 		E5F9715E2392D96F0096C296 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F971552392D96E0096C296 /* Source.swift */; };
 		E5F9715F2392D96F0096C296 /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F971562392D96E0096C296 /* CollectionView.swift */; };
 		E5F971602392D96F0096C296 /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F971572392D96E0096C296 /* DataSource.swift */; };
 		E5F971612392D96F0096C296 /* ConfigurableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F971582392D96E0096C296 /* ConfigurableCell.swift */; };
 		E5F971622392D96F0096C296 /* CGRect+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F971592392D96E0096C296 /* CGRect+Utils.swift */; };
-		E5F971632392D96F0096C296 /* UIView+Blink.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9715A2392D96E0096C296 /* UIView+Blink.swift */; };
 		E5F971642392D96F0096C296 /* String+Height.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F9715B2392D96E0096C296 /* String+Height.swift */; };
 		E5FDE321238B08A40018D791 /* GoogleAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FDE320238B08A40018D791 /* GoogleAPI.swift */; };
 		E5FF041224095E7000D32EE7 /* MarkerPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5FF041124095E7000D32EE7 /* MarkerPool.swift */; };
@@ -234,8 +230,6 @@
 		99C27CD123AFC37700667FB0 /* MilanTour(Cycling).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Cycling).gpx"; sourceTree = "<group>"; };
 		99C27CD223AFC37700667FB0 /* MilanTour(Driving).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanTour(Driving).gpx"; sourceTree = "<group>"; };
 		99C27CE123AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "MilanCityCenterTour(bycicle).gpx"; sourceTree = "<group>"; };
-		99EC7D65241FBC260065FDE9 /* Array+WDPlace+blacklist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+WDPlace+blacklist.swift"; sourceTree = "<group>"; };
-		99EC7D6C241FC0890065FDE9 /* String+emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+emoji.swift"; sourceTree = "<group>"; };
 		99F36EAB2417FB4C00ACC519 /* PedometerHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PedometerHandler.swift; sourceTree = "<group>"; };
 		A1EDBB9FA8DC31BDE98385C3 /* Pods_SmartTouristUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SmartTouristUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA689174E9F257905D487709 /* Pods-SmartTouristAppleWatch Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SmartTouristAppleWatch Extension.release.xcconfig"; path = "Target Support Files/Pods-SmartTouristAppleWatch Extension/Pods-SmartTouristAppleWatch Extension.release.xcconfig"; sourceTree = "<group>"; };
@@ -339,13 +333,11 @@
 		E5EF7097245C266F00C69B3A /* SettingsViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewTest.swift; sourceTree = "<group>"; };
 		E5EF7099245C27BD00C69B3A /* TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
 		E5F971522392D96E0096C296 /* UIControl+TargetActionable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+TargetActionable.swift"; sourceTree = "<group>"; };
-		E5F971532392D96E0096C296 /* String+Random.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Random.swift"; sourceTree = "<group>"; };
 		E5F971552392D96E0096C296 /* Source.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
 		E5F971562392D96E0096C296 /* CollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
 		E5F971572392D96E0096C296 /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
 		E5F971582392D96E0096C296 /* ConfigurableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurableCell.swift; sourceTree = "<group>"; };
 		E5F971592392D96E0096C296 /* CGRect+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGRect+Utils.swift"; sourceTree = "<group>"; };
-		E5F9715A2392D96E0096C296 /* UIView+Blink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Blink.swift"; sourceTree = "<group>"; };
 		E5F9715B2392D96E0096C296 /* String+Height.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Height.swift"; sourceTree = "<group>"; };
 		E5FDE320238B08A40018D791 /* GoogleAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleAPI.swift; sourceTree = "<group>"; };
 		E5FF041124095E7000D32EE7 /* MarkerPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkerPool.swift; sourceTree = "<group>"; };
@@ -739,7 +731,6 @@
 			isa = PBXGroup;
 			children = (
 				E5F971542392D96E0096C296 /* CollectionView */,
-				99EC7D65241FBC260065FDE9 /* Array+WDPlace+blacklist.swift */,
 				E56167CA2428BAA40064B2E8 /* Array+sortedInsert.swift */,
 				E5495902241F648400D643F1 /* Bundle+version+build.swift */,
 				E5F971592392D96E0096C296 /* CGRect+Utils.swift */,
@@ -750,15 +741,12 @@
 				E5C10DBC245EFDB100B2CFAE /* MKMapView+image.swift */,
 				E53EEA22241CDC55004CCE16 /* PromiseImageSource.swift */,
 				E5C4324C2448FB3600DB8D37 /* SFSafariViewController+RoutableWithConfiguration.swift */,
-				99EC7D6C241FC0890065FDE9 /* String+emoji.swift */,
 				E5F9715B2392D96E0096C296 /* String+Height.swift */,
-				E5F971532392D96E0096C296 /* String+Random.swift */,
 				E51696A524542BC1006E235D /* String+stripped.swift */,
 				E590FAE32445FCA300A3DD87 /* String+UIImage.swift */,
 				E5F971522392D96E0096C296 /* UIControl+TargetActionable.swift */,
 				E5628B502394224F00A61676 /* UIImage+Color.swift */,
 				E592B82124140FCF00AD46F8 /* UILabel+setText.swift */,
-				E5F9715A2392D96E0096C296 /* UIView+Blink.swift */,
 				E53BF0E7242A874B00358E6D /* UNNotificationAttachment+UIImage.swift */,
 			);
 			path = Utilities;
@@ -1155,7 +1143,6 @@
 				E54958FC241F5BAD00D643F1 /* SettingStringCell.swift in Sources */,
 				E54BF857244AECAD0049D3E2 /* CGSize+init.swift in Sources */,
 				E590FAE42445FCA300A3DD87 /* String+UIImage.swift in Sources */,
-				E5F9715D2392D96F0096C296 /* String+Random.swift in Sources */,
 				E5335D052389946C00601F02 /* AttractionsViewController.swift in Sources */,
 				E5CA289D245EBBA9005BA50A /* SettingIntCell.swift in Sources */,
 				E56167CB2428BAA40064B2E8 /* Array+sortedInsert.swift in Sources */,
@@ -1165,7 +1152,6 @@
 				E57AAD08244F593200F49354 /* SearchViewController.swift in Sources */,
 				E553D14B23926CC600C3199C /* ListCardView.swift in Sources */,
 				99F36EAC2417FB4C00ACC519 /* PedometerHandler.swift in Sources */,
-				99EC7D66241FBC260065FDE9 /* Array+WDPlace+blacklist.swift in Sources */,
 				E5F9715C2392D96F0096C296 /* UIControl+TargetActionable.swift in Sources */,
 				E5335D032389942D00601F02 /* MapView.swift in Sources */,
 				E585FCA5238ADEF3008D7C86 /* SideEffects.swift in Sources */,
@@ -1189,7 +1175,6 @@
 				E5904AA1244DD48200F01D50 /* MapsAPI.swift in Sources */,
 				E5D005CF244DA0960079A37E /* WDPlace.swift in Sources */,
 				E5F971602392D96F0096C296 /* DataSource.swift in Sources */,
-				E5F971632392D96F0096C296 /* UIView+Blink.swift in Sources */,
 				E57AAD0D244F5B8900F49354 /* SearchResultCell.swift in Sources */,
 				E52EECCF238EE5FE006196BA /* NotificationManager.swift in Sources */,
 				E524A0FF238C4F530052825F /* Screen.swift in Sources */,
@@ -1220,7 +1205,6 @@
 				E50BC911241D42DF005EFDCE /* SettingCell.swift in Sources */,
 				E5F971642392D96F0096C296 /* String+Height.swift in Sources */,
 				E5F971622392D96F0096C296 /* CGRect+Utils.swift in Sources */,
-				99EC7D6D241FC0890065FDE9 /* String+emoji.swift in Sources */,
 				E5FDE321238B08A40018D791 /* GoogleAPI.swift in Sources */,
 				E54E01BB23996839009D0331 /* Interceptors.swift in Sources */,
 			);

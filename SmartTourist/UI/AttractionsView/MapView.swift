@@ -204,13 +204,12 @@ class MapView: UIView, ViewControllerModellableView {
     }
     
     private func updateCircle(_ mapCircle: MapCircle, actualLocation: CLLocationCoordinate2D, radius: Double, text: String) {
-        // TODO: re-enable circles
-        /*if let circle = mapCircle.circle {
+        if let circle = mapCircle.circle {
             self.mapView.removeOverlay(circle)
         }
         let circle = MKCircle(center: actualLocation, radius: radius)
         self.mapView.addOverlay(circle)
-        mapCircle.circle = circle*/
+        mapCircle.circle = circle
     }
     
     private func moveMap(to location: CLLocationCoordinate2D) {
