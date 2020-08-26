@@ -37,7 +37,7 @@ class WelcomeView: UIView, ViewControllerModellableView {
     var didTapClose: Interaction?
 
     func setup() {
-        self.title.text = "In order to provide a better user experience, Smart Tourist needs the following permissions."
+        self.title.text = "In order to provide a better user experience, SmartTourist needs the following permissions."
         self.locationLabel.text = "Location"
         self.notificationsLabel.text = "Notifications"
         self.locationButton.setTitle("Enable", for: .normal)

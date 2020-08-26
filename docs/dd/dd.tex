@@ -377,7 +377,7 @@
 
 \chapter{Introduction}
 
-This is the \textit{design document} (DD) of the \textbf{\textit{Smart Tourist}} iOS application developed by \textit{Fabio Codiglioni} and \textit{Alessandro Nichelini} in the context of the \textit{Design and Implementation of Mobile Application} course at Politecnico di Milano. The authors have been tutored by \underline{Bending Spoons} for the usage of some technologies that are described later.\\
+This is the \textit{design document} (DD) of the \textbf{\textit{Smart Tourist}} iOS application developed by \textit{Fabio Codiglioni} and \textit{Alessandro Nichelini} in the context of the \textit{Design and Implementation of Mobile Application} course at Politecnico di Milano. The authors have been tutored by \textit{Bending Spoons} for the usage of some technologies that are described later.\\
 The document explains the most important design choices we made and the motivations behind them, with specific focus on the Redux-like architecture adopted.
 
 
@@ -389,14 +389,14 @@ Smart Tourist is a multi-device application for iOS, iPadOS and watchOS.
 
 \section{Assignment}
 For the reader convenience, the (free) original assignment is reported below:
-\begin{warn}[Assignment:]
+\begin{info}[Assignment:]
 	 Smart Tourist
 	 \\\\Help your users when they are exploring new cities!
 	 \\\\By using the localization systems on the smartphones and the Google Places API, notify the user when something interesting is nearby.
 	 \\\\Connect to Wikipedia to retrieve interesting information on the selected point of interest.
 	 \\\\Search and filter among several interesting places of the city you are visiting, save them as favorites so you can check on them later.
 	 \\\\Attach some pictures to those pins and eventually share them with your friends!
-\end{warn}
+\end{info}
 
 \section{Features description}
 
@@ -456,9 +456,9 @@ struct AppState: State, Codable {
 }
 		\end{lstlisting}
 		
-		\begin{warn}
+		\begin{info}
 			Notice that since the main state was becoming very complex, the authors decided to pack inside it instances of different structures. Details in the \href{https://github.com/Alenichel/CodiglioniNichelini-DIMAProject/blob/master/SmartTourist/State/AppState.swift}{source code}.
-		\end{warn}
+		\end{info}
 		
 	\item A \textbf{StateUpdater} is an intent to transform the state, and contains all the information to do so. Because all the changes are centralized and are happening in a strict order, there are no subtle race conditions to watch out for.
 		\\For practical examples, the reader is invited to directly refers to the \href{https://github.com/Alenichel/CodiglioniNichelini-DIMAProject/blob/master/SmartTourist/State/StateUpdaters.swift}{source file}\footnote{https://github.com/Alenichel/CodiglioniNichelini-DIMAProject/blob/master/SmartTourist/State/StateUpdaters.swift}.	 
@@ -486,40 +486,40 @@ Tempura uses Katana to handle the logic of your app: the part of the state neede
 
 \begin{lstlisting}[language=swift]
 struct ListViewModel: ViewModelWithState {
-  var todos: [Todo]
-
-  init(state: AppState) {
-    self.todos = state.todos
-  }
+    var todos: [Todo]
+    
+    init(state: AppState) {
+        self.todos = state.todos
+    }
 }
 
 class ListView: UIView, ViewControllerModellableView {
-  // subviews
-  var todoButton: UIButton = UIButton(type: .custom)
-  var todoButton: UIButton = UIButton(type: .custom)
-  var list: CollectionView<TodoCell, SimpleSource<TodoCellViewModel>>
-
-  // interactions
-  var didTapAddItem: ((String) -> ())?
-  var didCompleteItem: ((String) -> ())?
-
-  // update based on ViewModel
-  func update(oldModel: ListViewModel?) {
-    guard let model = self.model else { return }
-    let todos = model.todos
-    self.list.source = SimpleSource<TodoCellViewModel>(todos)
-  }
+    // subviews
+    var todoButton: UIButton = UIButton(type: .custom)
+    var todoButton: UIButton = UIButton(type: .custom)
+    var list: CollectionView<TodoCell, SimpleSource<TodoCellViewModel>>
+    
+    // interactions
+    var didTapAddItem: ((String) -> ())?
+    var didCompleteItem: ((String) -> ())?
+    
+    // update based on ViewModel
+    func update(oldModel: ListViewModel?) {
+        guard let model = self.model else { return }
+        let todos = model.todos
+        self.list.source = SimpleSource<TodoCellViewModel>(todos)
+    }
 }
 \end{lstlisting}
 \newpage
 \begin{lstlisting}[language=swift]
 class ListViewController: ViewController<ListView> {
-  // listen for interactions from the view
-  override func setupInteraction() {
-    self.rootView.didCompleteItem = { [unowned self] index in
-      self.dispatch(CompleteItem(index: index))
+    // listen for interactions from the view
+    override func setupInteraction() {
+        self.rootView.didCompleteItem = { [unowned self] index in
+            self.dispatch(CompleteItem(index: index))
+        }
     }
-  }
 }
 \end{lstlisting}
 
