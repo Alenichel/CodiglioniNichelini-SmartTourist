@@ -16,7 +16,6 @@ target 'SmartTourist' do
   pod 'Alamofire', '~> 5.0.0-rc.3'
   pod 'ImageSlideshow', '~> 1.8.3'
   pod 'MarqueeLabel'
-  pod 'SigmaSwiftStatistics', '~> 9.0'
   pod 'FontAwesome.swift'
   pod "SwiftyXMLParser", :git => 'https://github.com/fabiocody/SwiftyXMLParser.git'
   pod 'FlagKit'

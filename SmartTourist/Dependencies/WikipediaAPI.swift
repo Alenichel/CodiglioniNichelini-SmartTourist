@@ -41,7 +41,7 @@ class WikipediaAPI {
     
     private func getNearbyPlacesQuery(location: CLLocationCoordinate2D, radius: Int, isArticleMandatory: Bool) -> String {
         var query = """
-        SELECT DISTINCT ?place ?placeLabel ?location ?image ?instance ?phoneNumber ?website ?wikipediaLink
+        SELECT DISTINCT ?place ?placeLabel ?location ?image ?instance ?website ?wikipediaLink
         WHERE {
             SERVICE wikibase:label { bd:serviceParam wikibase:language "en, it" }
             SERVICE wikibase:around {
@@ -51,7 +51,6 @@ class WikipediaAPI {
             }
             ?place wdt:P31 ?instance  .
         ?place wdt:P18 ?image .
-        OPTIONAL {?place wdt:P1329 ?phoneNumber}.
         OPTIONAL {?place wdt:P856 ?website} .
         """
         if !isArticleMandatory {
@@ -93,11 +92,10 @@ class WikipediaAPI {
     
     private func getMissingPlaceDetailsQuery(id: String) -> String {
         return """
-        SELECT DISTINCT ?instance ?image ?phoneNumber ?website ?wikimediaLink WHERE {
+        SELECT DISTINCT ?instance ?image ?website ?wikimediaLink WHERE {
             BIND( <http://www.wikidata.org/entity/\(id)> as ?place ).
             ?place wdt:P31 ?instance  .
             OPTIONAL {?place wdt:P18 ?image } .
-            OPTIONAL {?place wdt:P1329 ?phoneNumber}.
             OPTIONAL {?place wdt:P856 ?website} .
             OPTIONAL {?wikimediaLink schema:about ?place;
                                      schema:inLanguage "en";

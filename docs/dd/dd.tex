@@ -553,7 +553,7 @@ Here, it follows the description of the external services used.
 		
 	\begin{lstlisting}[language=sql, caption={SPARQL query for attraction retrieving}, captionpos=b]
 SELECT DISTINCT ?place ?placeLabel ?location ?image 
-                ?instance ?phoneNumber ?website ?wikipediaLink WHERE {
+                ?instance ?website ?wikipediaLink WHERE {
     SERVICE wikibase:label { bd:serviceParam wikibase:language "en, it" }
     SERVICE wikibase:around {
         ?place wdt:P625 ?location .
@@ -562,7 +562,6 @@ SELECT DISTINCT ?place ?placeLabel ?location ?image
     }
     ?place wdt:P31 ?instance  .
     ?place wdt:P18 ?image .
-    OPTIONAL {?place wdt:P1329 ?phoneNumber}.
     OPTIONAL {?place wdt:P856 ?website} .
     OPTIONAL {?wikipediaLink schema:about ?place;
         schema:inLanguage "en";
@@ -602,7 +601,7 @@ SELECT DISTINCT ?city ?cityLabel ?country ?countryLabel ?population ?area
 
 \section{External libraries}
 
-The app uses lots of third parties libraries that can be roughly divided into three kind: architectural libraries, back-end libraries and front-end libraries.
+The app uses a multitude of third-party libraries that can be roughly divided into three kind: architectural libraries, back-end libraries and front-end libraries.
 
 \begin{table}[h]
     \centering
@@ -615,7 +614,6 @@ The app uses lots of third parties libraries that can be roughly divided into th
         \multirow{5}{*}{Back-end} & DeepDiff & DeepDiff tells the difference between 2 collections and the changes as edit steps. \\ \cline{2-3}
         & Fuse & Fuse is a super lightweight library which provides a simple way to do fuzzy searching. \\ \cline{2-3}
         & Alamofire & Alamofire is an HTTP networking library written in Swift. \\ \cline{2-3}
-        & SigmaSwiftStatistics & It is a collection of functions that perform statistical calculations in Swift. It can be used in Swift apps for Apple devices and in open source Swift programs on other platforms. \\ \cline{2-3}
         & SwiftyXMLParser & Simple XML Parser implemented in Swift. \\ \hline
         \multirow{7}{*}{Front-end} & PinLayout & Extremely fast views layouting without auto layout. No magic, pure code, full control and blazing fast. Concise syntax, intuitive, readable and chainable. PinLayout can layouts UIView, NSView and CALayer. \\ \cline{2-3}
         & FlexLayout & Angular Flex Layout provides a sophisticated layout API using Flexbox CSS + mediaQuery. \\ \cline{2-3}
@@ -628,7 +626,7 @@ The app uses lots of third parties libraries that can be roughly divided into th
 \end{table}
 
 \chapter{User interface}
-For the user interface design, we followed Apple's UI guidelines, but we preferred also to use custom UI element to better fit Katana/Tempura paradigm's requirements and to let the app have an endearing style.  
+For the user interface design, we followed Apple's UI guidelines, but we preferred also to use custom UI element to better fit Katana/Tempura paradigm's requirements and to let the app have a modern and captivating style.  
 
 \section{Screenshots}
 Here follow some screenshots of the application in both Light and Dark mode.
@@ -830,6 +828,15 @@ The application does not contain any part that is suitable for unit testing. Thi
 Since we didn't use the standard Apple SDK to layout views -- we just used its components -- we couldn't use the provided UI testing framework. Luckily, Tempura provides its own UI testing framework, which is a little different than Apple's. Basically, it allows to take screenshots of a view in all possible states, with all devices and all supported languages. This way you can then manually check that all the components of a view are correctly displayed.
 
 Unfortunately, we were not able to make this framework work due to the highly asynchronous nature of our main views, an approach suggested by our Bending Spoons tutor in order to make the views more responsive.
+
+
+
+
+\chapter{Future development}
+
+During the development of the application, we encountered a series of issues that would require some more work in case of a public release. In particular, in order to provide a premium-grade service to our users, a better data integration system is required. The perfect solution would be to build a custom backend that integrates Wikipedia and Google data when requested, storing the results for quicker future lookup. 
+
+% TODO: continue
 
 
 

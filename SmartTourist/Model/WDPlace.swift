@@ -20,7 +20,6 @@ class WDPlace: Codable, Hashable, Comparable {
     var wikipediaLink: String?
     var photos: [URL]? = []
     var website: String?
-    var phoneNumber: String?
     var rating: Double? = 0
     var userRatingsTotal: Int? = 0
     
@@ -36,7 +35,6 @@ class WDPlace: Codable, Hashable, Comparable {
         case userRatingsTotal = "userRatingsTotal"
         case website = "website"
         case photos = "photos"
-        case phoneNumber = "phoneNumber"
         enum ValueCodingKeys: CodingKey {
             case value
         }
@@ -51,7 +49,6 @@ class WDPlace: Codable, Hashable, Comparable {
          wikipediaLink: String?,
          photos: [URL],
          website: String?,
-         phoneNumber: String?,
          rating: Double?,
          userRatingsTotal: Int?) {
         self.placeID = placeID
@@ -63,16 +60,15 @@ class WDPlace: Codable, Hashable, Comparable {
         self.wikipediaLink = wikipediaLink
         self.photos = photos
         self.website = website
-        self.phoneNumber = phoneNumber
         self.rating = rating
         self.userRatingsTotal = userRatingsTotal
     }
     
     static var testPlaces: [WDPlace] {
         return [
-            WDPlace(placeID: "Q42182", instance: "Q2087181", name: "Buckingham Palace", wikipediaName: "Buckingham_Palace", city: "London", location: CLLocationCoordinate2D(latitude: 51.500999999999998, longitude: -0.14199999999999999), wikipediaLink: "https://en.wikipedia.org/wiki/Buckingham_Palace", photos: [URL(string: "http://commons.wikimedia.org/wiki/Special:FilePath/Buckingham%20Palace%2C%20London%20-%20April%202009.jpg")!], website: "https://www.royal.uk/royal-residences-buckingham-palace", phoneNumber: nil, rating: 5.0, userRatingsTotal: 42),
-            WDPlace(placeID: "Q1333411", instance: "Q4989906", name: "Victoria Memorial", wikipediaName: "Victoria_Memorial,_London", city: "London", location: CLLocationCoordinate2D(latitude: 51.501832999999998, longitude: -0.14063899999999999), wikipediaLink: "https://en.wikipedia.org/wiki/Victoria_Memorial,_London", photos: [URL(string: "http://commons.wikimedia.org/wiki/Special:FilePath/VictoriaMemorialview.jpg")!], website: nil, phoneNumber: nil, rating: 4.5, userRatingsTotal: 24),
-            WDPlace(placeID: "Q18889826", instance: "Q53060", name: "Canada Gate", wikipediaName: "Canada_Gate", city: "London", location: CLLocationCoordinate2D(latitude: 51.502499999999998, longitude: -0.14135), wikipediaLink: "https://en.wikipedia.org/wiki/Canada_Gate", photos: [], website: nil, phoneNumber: nil, rating: 4.1, userRatingsTotal: 12)
+            WDPlace(placeID: "Q42182", instance: "Q2087181", name: "Buckingham Palace", wikipediaName: "Buckingham_Palace", city: "London", location: CLLocationCoordinate2D(latitude: 51.500999999999998, longitude: -0.14199999999999999), wikipediaLink: "https://en.wikipedia.org/wiki/Buckingham_Palace", photos: [URL(string: "http://commons.wikimedia.org/wiki/Special:FilePath/Buckingham%20Palace%2C%20London%20-%20April%202009.jpg")!], website: "https://www.royal.uk/royal-residences-buckingham-palace", rating: 5.0, userRatingsTotal: 42),
+            WDPlace(placeID: "Q1333411", instance: "Q4989906", name: "Victoria Memorial", wikipediaName: "Victoria_Memorial,_London", city: "London", location: CLLocationCoordinate2D(latitude: 51.501832999999998, longitude: -0.14063899999999999), wikipediaLink: "https://en.wikipedia.org/wiki/Victoria_Memorial,_London", photos: [URL(string: "http://commons.wikimedia.org/wiki/Special:FilePath/VictoriaMemorialview.jpg")!], website: nil, rating: 4.5, userRatingsTotal: 24),
+            WDPlace(placeID: "Q18889826", instance: "Q53060", name: "Canada Gate", wikipediaName: "Canada_Gate", city: "London", location: CLLocationCoordinate2D(latitude: 51.502499999999998, longitude: -0.14135), wikipediaLink: "https://en.wikipedia.org/wiki/Canada_Gate", photos: [], website: nil, rating: 4.1, userRatingsTotal: 12)
         ]
     }
         
@@ -130,9 +126,6 @@ class WDPlace: Codable, Hashable, Comparable {
         }
         if let web = try container.decodeIfPresent(WDBinding.self, forKey: .website){
             self.website = web.value
-        }
-        if let phoneNumber = try container.decodeIfPresent(WDBinding.self, forKey: .phoneNumber){
-            self.phoneNumber = phoneNumber.value
         }
         if let rating = try container.decodeIfPresent(WDBinding.self, forKey: .rating),
             let urt = try container.decodeIfPresent(WDBinding.self, forKey: .userRatingsTotal) {
