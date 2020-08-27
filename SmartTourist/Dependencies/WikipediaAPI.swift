@@ -370,13 +370,11 @@ class WikipediaAPI {
                     self.photoCache.setObject(img, forKey: urlString)
                     resolve(img)
                     return;
-                }
-                else {
+                } else {
                     reject(UnknownApiError())
                 }
             } else {
                 reject(UnknownApiError())
-                return
             }
         }
     }

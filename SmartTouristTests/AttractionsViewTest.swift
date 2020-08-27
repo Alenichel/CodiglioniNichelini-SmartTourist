@@ -10,6 +10,7 @@ import XCTest
 import Tempura
 import TempuraTesting
 import Katana
+import Hydra
 import CoreLocation
 import MapKit
 
@@ -46,7 +47,7 @@ class AttractionsViewTest: XCTestCase, ViewControllerTestCase {
     func isViewReady(_ view: MapView, identifier: String) -> Bool {
         guard let model = view.model else { return false }
         if self.viewController.mapLoaded && model.places.count > 0 && !self.allLoaded {
-            DispatchQueue.global(qos: .background).async {
+            async(in: .background) {
                 sleep(5)
                 self.allLoaded = true
             }

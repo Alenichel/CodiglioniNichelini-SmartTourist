@@ -65,7 +65,7 @@
     typealias,struct,class,enum,protocol,var,func,let,get,set,willSet,didSet,inout,init,deinit,extension,
     subscript,prefix,operator,infix,postfix,precedence,associativity,left,right,none,convenience,dynamic,
     final,lazy,mutating,nonmutating,optional,override,required,static,unowned,safe,weak,internal,
-        private,public,is,as,self,unsafe,dynamicType,true,false,nil,Type,Protocol,
+        private,public,is,as,self,unsafe,dynamicType,true,false,nil,Type,Protocol,guard
     },
     morecomment=[l]{//}, % l is for line comment
     morecomment=[s]{/*}{*/}, % s is for start and end delimiter
@@ -385,36 +385,35 @@ The document explains the most important design choices we made and the motivati
 
 \chapter{General Overview}
 
-Smart Tourist is a multi-device application for iOS, iPadOS and watchOS.
+SmartTourist is a multi-device application for iOS, iPadOS and watchOS.
 
 \section{Assignment}
-For the reader convenience, the (free) original assignment is reported below:
-\begin{info}[Assignment:]
-	 Smart Tourist
-	 \\\\Help your users when they are exploring new cities!
-	 \\\\By using the localization systems on the smartphones and the Google Places API, notify the user when something interesting is nearby.
-	 \\\\Connect to Wikipedia to retrieve interesting information on the selected point of interest.
-	 \\\\Search and filter among several interesting places of the city you are visiting, save them as favorites so you can check on them later.
-	 \\\\Attach some pictures to those pins and eventually share them with your friends!
-\end{info}
+For the reader convenience, here is the original assignment.
+\begin{itemize}
+    \item Help your users when they are exploring new cities!
+    \item By using the localization systems on the smartphones and the Google Places API, notify the user when something interesting is nearby.
+    \item Connect to Wikipedia to retrieve interesting information on the selected point of interest.
+    \item Search and filter among several interesting places of the city you are visiting, save them as favorites so you can check on them later.
+    \item Attach some pictures to those pins and eventually share them with your friends!
+\end{itemize}
 
 \section{Features description}
 
 \subsection{Exploring}
-The user is given a navigation map filled with the city's points of interest. They have the chance to control which attractions to see on a map. They can choose between \textit{nearest places}, \textit{popular places} and \textit{favorites}. Each attraction is shown on the map and in a list view, and is clickable from both position to open the corresponding detail view.
-\\\\In the map, two circles are displayed to help the user better understand distances. These circles correspond to the distance they can cover in 5 and 15 minutes. Circles' radius is automatically updated with information from user profile and thus they always fit with the user's pace.
+The user is given a navigation map filled with the city's points of interest. They have the chance to control which attractions to see on a map. They can choose between \textit{nearest places}, \textit{popular places} and \textit{favorites}. Each attraction is shown on the map and in a list view, and can be tapped from both positions to open the corresponding detail view.
+\\\\In the map, two circles are displayed to help the user better understand distances. These circles correspond to the distance they can cover in 5 and 15 minutes. Circles' radius is automatically updated with information from user profile and thus they always reflect the user's pace.
 
 \subsection{Dynamic exploring}
 SmartTourist works well in both crowded cities and small towns. The user will be always provided with the right amount of attractions. In places where not so many attractions are available, the app will automatically show less known attraction and particular point of interest.
 
 \subsection{Learning}
-The user can open the detail view of both the city and attractions. They will be provided with useful information about the point of interest, such as pictures, Wikipedia description, useful links and a shortcut to open turn-by-turn navigation.
+The user can open the detail view of both cities and attractions. They will be provided with useful information about the point of interest, such as pictures, the Wikipedia description, useful links and a shortcut to open turn-by-turn navigation.
 
 \subsection{Notifications}
 The user is notified when they are nearby a "top location". The notification comes with a picture of the attraction and lets them open either the the detail view of the attraction or the turn-by-turn navigation. 
 
 \subsection{Keep track of favorite attractions}
-The user can view the attractions of her current city or they can have a preview of other cities attractions. In both case they can keep track of them by adding them in the list of favorite attractions. The user is also provided the ability to open a worldwide map with all their favorite places.
+The user can view the attractions of her current city or they can have a preview of other cities attractions. In both case they can keep track of them by adding them to the list of favorite attractions. The user is also provided the ability to open a worldwide map with all their favorite places.
 
 \subsection{Contribute (proof of concept)}
 SmartTourist is manly based on free data. When a detailed description is missing, the user is given the chance to contribute.
@@ -424,8 +423,7 @@ SmartTourist is manly based on free data. When a detailed description is missing
 
 \chapter{Architectural design}
 
-SmartTourist is a self-contained application. No external backend services are provided by us, instead it relies on a multitude of internal iOS/iPadOS services and third parties API.
-\\Here it follows a schema that summarizes them all:
+SmartTourist is a self-contained application. No external backend services are provided by us: instead, it relies on a multitude of internal Apple services and third-party APIs.
 
 \begin{figure}[H]
   	\centering
@@ -436,13 +434,21 @@ SmartTourist is a self-contained application. No external backend services are p
 
 Internal application design is strongly influenced by the choice of the Katana/Tempura framework that forced the adoption of a MVVM paradigm.
 
-\section{Katana}
-Quoting from Katana's \href{https://github.com/BendingSpoons/katana-swift}{documentation}\footnote{https://github.com/BendingSpoons/katana-swift}:
-\\Katana is a modern Swift framework for writing iOS applications' business logic that are testable and easy to reason about. It is strongly inspired by Redux.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.99\linewidth, keepaspectratio]{Katana-Tempura-light}
+    \caption{Katana/Tempura framework.}
+\end{figure}
 
-In a few words, the app state is entirely described by a single serializable data structure, and the \underline{only way to change the state is to dispatch a StateUpdater}. 
+\section{Katana}
+
+\begin{linedquote}
+    \textit{Katana is a modern Swift framework for writing iOS applications' business logic that are testable and easy to reason about. Katana is strongly inspired by Redux.}
+\end{linedquote}
+
+In a few words, the app state is entirely described by a single serializable data structure, and the only way to change the state is to dispatch a \texttt{StateUpdater}. 
 \begin{itemize}
-	\item SmartTourist \textbf{state} is quite complex, here it follows the main structure:
+	\item SmartTourist's \textbf{state} is quite complex, here it follows the main structure:
 		
 		\begin{lstlisting}[language=swift]
 struct AppState: State, Codable {
@@ -457,18 +463,21 @@ struct AppState: State, Codable {
 		\end{lstlisting}
 		
 		\begin{info}
-			Notice that since the main state was becoming very complex, the authors decided to pack inside it instances of different structures. Details in the \href{https://github.com/Alenichel/CodiglioniNichelini-DIMAProject/blob/master/SmartTourist/State/AppState.swift}{source code}.
+			Notice that since the main state was becoming very complex, the authors decided to pack inside it instances of different structures. Further details in the \href{https://github.com/Alenichel/CodiglioniNichelini-DIMAProject/blob/master/SmartTourist/State/AppState.swift}{source code}.
 		\end{info}
 		
-	\item A \textbf{StateUpdater} is an intent to transform the state, and contains all the information to do so. Because all the changes are centralized and are happening in a strict order, there are no subtle race conditions to watch out for.
-		\\For practical examples, the reader is invited to directly refers to the \href{https://github.com/Alenichel/CodiglioniNichelini-DIMAProject/blob/master/SmartTourist/State/StateUpdaters.swift}{source file}\footnote{https://github.com/Alenichel/CodiglioniNichelini-DIMAProject/blob/master/SmartTourist/State/StateUpdaters.swift}.	 
-	\item Updating the application's state using pure functions is nice and it has a lot of benefits. Applications have to deal with the external world though (e.g., API call, disk files management, …). For all this kind of operations, Katana provides the concept of \textbf{SideEffects}. SideEffects can be used to interact with other parts of your applications and then dispatch new StateUpdaters to update your state.
-		\\SmartTourist features side effects to handle API calls to both Wikipedia and Google services. They are available, \href{https://github.com/Alenichel/CodiglioniNichelini-DIMAProject/blob/master/SmartTourist/State/SideEffects.swift}{here}\footnote{https://github.com/Alenichel/CodiglioniNichelini-DIMAProject/blob/master/SmartTourist/State/SideEffects.swift}.
+	\item A \textbf{\texttt{StateUpdater}} is an intent to transform the state, and contains all the information to do so. Because all the changes are centralized and are happening in a strict order, there are no subtle race conditions to watch out for.
+		\\For practical examples, the reader is invited to directly refer to the \href{https://github.com/Alenichel/CodiglioniNichelini-DIMAProject/blob/master/SmartTourist/State/StateUpdaters.swift}{source file}\footnote{\scriptsize{https://github.com/Alenichel/CodiglioniNichelini-DIMAProject/blob/master/SmartTourist/State/StateUpdaters.swift}}.	 
+	\item Updating the application's state using pure functions is nice and it has a lot of benefits. Unfortunately, applications have to deal with the external world (e.g., API calls, disk files management, …). For all this kind of operations, Katana provides the concept of \textbf{\texttt{SideEffects}}. \texttt{SideEffects} can be used to interact with other parts of your applications and then dispatch new \texttt{StateUpdaters} to update your state.
+		\\SmartTourist features \texttt{SideEffects} to handle API calls to both Wikipedia and Google services. They are available, \href{https://github.com/Alenichel/CodiglioniNichelini-DIMAProject/blob/master/SmartTourist/State/SideEffects.swift}{here}\footnote{\scriptsize{https://github.com/Alenichel/CodiglioniNichelini-DIMAProject/blob/master/SmartTourist/State/SideEffects.swift}}.
 \end{itemize}
 
-
+%\newpage
 \section{Tempura}
-Quoting from Tempura's \href{https://github.com/BendingSpoons/tempura-swift}{documentation}\footnote{https://github.com/BendingSpoons/tempura-swift}: \textit{Tempura is a holistic approach to iOS development, it borrows concepts from Redux (through Katana) and MVVM}.
+
+\begin{linedquote}
+    \textit{Tempura is a holistic approach to iOS development, it borrows concepts from Redux (through Katana) and MVVM.}
+\end{linedquote}
 
 \begin{figure}[H]
   	\centering
@@ -477,11 +486,12 @@ Quoting from Tempura's \href{https://github.com/BendingSpoons/tempura-swift}{doc
 	\caption{MVVM architecture overview}
 \end{figure}
 
-Tempura uses Katana to handle the logic of your app: the part of the state needed to render the UI of a screen is selected by a \textit{ViewModelWithState}.
-\\The UI of each screen of your app:
+Tempura uses Katana to handle the logic of your app: the part of the state needed to render the UI of a screen is selected by a \texttt{ViewModel}.
+
+The UI of each screen of your app:
 \begin{itemize}
-	\item  is composed in a \textit{ViewControllerModellableView}. It exposes callbacks (we call them \textit{interactions}) to signal that a user action occurred. It renders itself based on the \textit{ViewModelWithState}
-	\item is managed by a \textit{ViewController}. Out of the box it will automatically listen for state updates and keep the UI in sync. The only other responsibility of a ViewController is to listen for interactions from the UI and dispatch actions to change the state.
+	\item is composed in a \texttt{ViewControllerModellableView}, that exposes callbacks (we call them \textit{interactions}) to signal that a user action occurred, and renders itself based on the \texttt{ViewModel};
+	\item is managed by a \texttt{ViewController}. Out of the box it will automatically listen for state updates and keep the UI in sync. The only other responsibility of a ViewController is to listen for interactions from the UI and dispatch actions to change the state.
 \end{itemize}
 
 \begin{lstlisting}[language=swift]
@@ -510,9 +520,7 @@ class ListView: UIView, ViewControllerModellableView {
         self.list.source = SimpleSource<TodoCellViewModel>(todos)
     }
 }
-\end{lstlisting}
-\newpage
-\begin{lstlisting}[language=swift]
+
 class ListViewController: ViewController<ListView> {
     // listen for interactions from the view
     override func setupInteraction() {
@@ -523,11 +531,42 @@ class ListViewController: ViewController<ListView> {
 }
 \end{lstlisting}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth, keepaspectratio]{Katana-Tempura}
-    \caption{Katana/Tempura framework.}
-\end{figure}
+\section{Hydra and promises}
+
+Hydra is full-featured lightweight library which allows you to write better async code. It's partially based on JavaScript A+ specs and also implements modern construct like \texttt{await}, which allows you to write async code in a sync manner.
+
+Hydra is based on \textit{promises}. A promise represents the eventual result of an asynchronous operation. The primary way of interacting with a promise is through its \texttt{then} method, which registers callbacks to receive either a promise’s eventual value or the reason why the promise cannot be fulfilled.
+
+With Hydra, developers are also able to resolve many independent async operations simultaneously and get all values at the end, or to resolve dependent async operations by passing the result of each value to the next operation, and then get the final result.
+
+\begin{lstlisting}[language=swift, caption=Examples.]
+// Create a promise
+func getPhoto(url: String) -> Promise<UIImage> {
+    return Promise<UIImage>(in: .background) { resolve, reject, status in
+        if let data = try? Data(contentsOf: url) {
+            if let img = UIImage(data: data) { resolve(img) } 
+            else { reject(ApiError()) }
+        } else {
+            reject(ApiError())
+        }
+    }
+}
+
+
+// Chain promises together
+func loginUser(_ name: String, _ pwd: String) -> Promise<User>
+func getFollowers(user: User) -> Promise<[Follower]>
+func unfollow(followers: [Follower]) -> Promise<Int>
+
+loginUser(username, pass).then(getFollowers).then(unfollow).then { count in
+    print("Unfollowed \(count) users")
+}.catch { error in
+    print(error.localizedDescription)
+}
+\end{lstlisting}
+
+
+
 
 
 
@@ -616,17 +655,18 @@ The app uses a multitude of third-party libraries that can be roughly divided in
     \begin{tabular}{|c|c|m{9cm}|}
         \hline
         \textbf{Kind} & \textbf{Library} & \textbf{Description} \\ \hline
-        \multirow{2}{*}{Architectural} & Katana & Katana is a modern Swift framework for writing iOS applications' business logic that are testable and easy to reason about. Katana is inspired by Redux. \\ \cline{2-3}
-        & Tempura & Tempura is a holistic approach to iOS development, it borrows concepts from Redux (through Katana) and MVVM. \\ \hline
+        \multirow{3}{*}{Architectural} & Katana & Katana is a modern Swift framework for writing iOS applications' business logic that are testable and easy to reason about. Katana is inspired by Redux. \\ \cline{2-3}
+        & Tempura & Tempura is a holistic approach to iOS development, it borrows concepts from Redux (through Katana) and MVVM. \\ \cline{2-3}
+        & Hydra & Hydra is full-featured lightweight library which allows you to write better async code. It's partially based on JavaScript A+ specs and also implements modern construct like await which allows you to write async code in sync manner. \\ \hline
         \multirow{5}{*}{Back-end} & DeepDiff & DeepDiff tells the difference between 2 collections and the changes as edit steps. \\ \cline{2-3}
         & Fuse & Fuse is a super lightweight library which provides a simple way to do fuzzy searching. \\ \cline{2-3}
         & Alamofire & Alamofire is an HTTP networking library written in Swift. \\ \cline{2-3}
         & SwiftyXMLParser & Simple XML Parser implemented in Swift. \\ \hline
-        \multirow{7}{*}{Front-end} & PinLayout & Extremely fast views layouting without auto layout. No magic, pure code, full control and blazing fast. Concise syntax, intuitive, readable and chainable. PinLayout can layouts UIView, NSView and CALayer. \\ \cline{2-3}
+        \multirow{7}{*}{Front-end} & PinLayout & Extremely fast views layouting without auto layout. No magic, pure code, full control and blazing fast. Concise syntax, intuitive, readable and chainable. \\ \cline{2-3}
         & FlexLayout & Angular Flex Layout provides a sophisticated layout API using Flexbox CSS + mediaQuery. \\ \cline{2-3}
-        & Cosmos & This is a UI control for iOS and tvOS written in Swift. \\ \cline{2-3}
+        & Cosmos & A star rating control for iOS/tvOS written in Swift. \\ \cline{2-3}
         & ImageSlideshow & Customizable Swift image slideshow with circular scrolling, timer and full screen viewer. \\ \cline{2-3}
-        & MarqueeLabel & MarqueeLabel is a UILabel subclass adds a scrolling marquee effect when the text of the label outgrows the available width. \\ \cline{2-3}
+        & MarqueeLabel & A drop-in replacement for UILabel, which automatically adds a scrolling marquee effect when the label's text does not fit inside the specified frame. \\ \cline{2-3}
         & FontAwesome & Use Font Awesome in your Swift projects. \\ \cline{2-3}
         & FlagKit & Beautiful flag icons for usage in apps and on the web. \\ \hline
     \end{tabular}

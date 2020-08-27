@@ -232,7 +232,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
             self.twitterButton.alpha = 0.7
         }
         self.descriptionLabel.setText(city: city) {
-            DispatchQueue.main.async {
+            async(in: .main) {
                 self.setNeedsLayout()
             }
         }
