@@ -10,7 +10,6 @@ import Katana
 import CoreLocation
 
 
-// MARK: - State
 /// Main state of the app
 struct AppState: State, Codable {
     var locationState = LocationState()
@@ -107,6 +106,7 @@ struct PedometerState: Codable {
 }
 
 
+/// The part of the state where items are cached (popular places for now)
 struct Cache: Codable {
     var popularPlaces: [String: [WDPlace]] = [String: [WDPlace]]()
 }
