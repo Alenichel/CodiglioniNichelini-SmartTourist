@@ -24,6 +24,7 @@
 \usepackage{enumerate}                          % Custom item numbers for enumerations
 \usepackage[framemethod=tikz]{mdframed}         % Allows defining custom boxed/framed environments
 \usepackage{tocloft}                            % TOC spacing
+\usepackage{comment}                            % Multi-line comments
 
 
 % TODO: REMOVE
@@ -61,7 +62,7 @@
 
 \lstdefinelanguage{swift}{
     morekeywords={
-    open,catch,@escaping,nil,throws,func,if,then,else,for,in,while,do,switch,case,default,where,break,continue,fallthrough,return,
+    open,catch,@escaping,nil,throws,func,if,else,for,in,while,do,switch,case,default,where,break,continue,fallthrough,return,
     typealias,struct,class,enum,protocol,var,func,let,get,set,willSet,didSet,inout,init,deinit,extension,
     subscript,prefix,operator,infix,postfix,precedence,associativity,left,right,none,convenience,dynamic,
     final,lazy,mutating,nonmutating,optional,override,required,static,unowned,safe,weak,internal,
@@ -432,7 +433,7 @@ SmartTourist is a self-contained application. No external backend services are p
 	\caption{Architecture overview}
 \end{figure}
 
-Internal application design is strongly influenced by the choice of the Katana/Tempura framework that forced the adoption of a MVVM paradigm.
+Internal application design is strongly influenced by the choice of the Katana/Tempura framework that forced the adoption of the MVVM paradigm. Moreover, every piece of asynchronous code has been handled with Hydra, as suggested by Katana's documentation.
 
 \begin{figure}[H]
     \centering
@@ -446,11 +447,23 @@ Internal application design is strongly influenced by the choice of the Katana/T
     \textit{Katana is a modern Swift framework for writing iOS applications' business logic that are testable and easy to reason about. Katana is strongly inspired by Redux.}
 \end{linedquote}
 
-In a few words, the app state is entirely described by a single serializable data structure, and the only way to change the state is to dispatch a \texttt{StateUpdater}. 
+\textbf{Redux} was originally a JavaScript library used for managing an application state. It can be described with three fundamental principles.
 \begin{itemize}
-	\item SmartTourist's \textbf{state} is quite complex, here it follows the main structure:
+    \item \textit{Single source of truth} \\
+    The global state of the application is stored in an object tree within a single store.
+    \item \textit{Read-only state} \\
+    The only way to change the state is to emit an \textit{action}, i.e., an object describing what happened.
+    \item \textit{Changes are made with pure functions} \\
+    To specify how the state tree is transformed by actions, the developer needs to write pure functions called \textit{reducers}.
+\end{itemize}
+
+In Katana, actions and reducers are combined into \textbf{\texttt{StateUpdaters}}: a \texttt{StateUpdater} in an object that describes what happened and provides the code to update the state. All the \texttt{StateUpdaters} are executed on the same serial GCD queue: this avoid the occurrence of subtle race conditions.
+
+Updating the application's state using pure functions is nice and it has a lot of benefits. Unfortunately, applications have to deal with the external world (e.g., API calls, disk files management, …). For all this kind of operations, Katana provides the concept of \textbf{\texttt{SideEffects}}. \texttt{SideEffects} can be used to interact with other parts of your applications and then dispatch new \texttt{StateUpdaters} to update your state.
+
+\subsection{SmartTourist's state}
 		
-		\begin{lstlisting}[language=swift]
+\begin{lstlisting}[language=swift]
 struct AppState: State, Codable {
 	var locationState = LocationState()
 	var favorites = [WDPlace]()
@@ -458,30 +471,21 @@ struct AppState: State, Codable {
 	var pedometerState = PedometerState()
 	var cache = Cache()
 	var needToMoveMap = false
-	...
 }
-		\end{lstlisting}
-		
-		\begin{info}
-			Notice that since the main state was becoming very complex, the authors decided to pack inside it instances of different structures. Further details in the \href{https://github.com/Alenichel/CodiglioniNichelini-DIMAProject/blob/master/SmartTourist/State/AppState.swift}{source code}.
-		\end{info}
-		
-	\item A \textbf{\texttt{StateUpdater}} is an intent to transform the state, and contains all the information to do so. Because all the changes are centralized and are happening in a strict order, there are no subtle race conditions to watch out for.
-		\\For practical examples, the reader is invited to directly refer to the \href{https://github.com/Alenichel/CodiglioniNichelini-DIMAProject/blob/master/SmartTourist/State/StateUpdaters.swift}{source file}\footnote{\scriptsize{https://github.com/Alenichel/CodiglioniNichelini-DIMAProject/blob/master/SmartTourist/State/StateUpdaters.swift}}.	 
-	\item Updating the application's state using pure functions is nice and it has a lot of benefits. Unfortunately, applications have to deal with the external world (e.g., API calls, disk files management, …). For all this kind of operations, Katana provides the concept of \textbf{\texttt{SideEffects}}. \texttt{SideEffects} can be used to interact with other parts of your applications and then dispatch new \texttt{StateUpdaters} to update your state.
-		\\SmartTourist features \texttt{SideEffects} to handle API calls to both Wikipedia and Google services. They are available, \href{https://github.com/Alenichel/CodiglioniNichelini-DIMAProject/blob/master/SmartTourist/State/SideEffects.swift}{here}\footnote{\scriptsize{https://github.com/Alenichel/CodiglioniNichelini-DIMAProject/blob/master/SmartTourist/State/SideEffects.swift}}.
-\end{itemize}
+\end{lstlisting}
 
-%\newpage
+Following Redux's principles, we preferred to divide the global state in sub-structures, in order to improve code readability and maintainability.
+
+\newpage
 \section{Tempura}
 
 \begin{linedquote}
-    \textit{Tempura is a holistic approach to iOS development, it borrows concepts from Redux (through Katana) and MVVM.}
+    \textit{Tempura is a holistic approach to iOS development. It borrows concepts from Redux (through Katana) and MVVM.}
 \end{linedquote}
 
 \begin{figure}[H]
   	\centering
-  	\includegraphics[width=0.9\linewidth]{mvvm}
+  	\includegraphics[width=0.75\linewidth]{mvvm}
   	\label{fig:test1}
 	\caption{MVVM architecture overview}
 \end{figure}
@@ -490,11 +494,11 @@ Tempura uses Katana to handle the logic of your app: the part of the state neede
 
 The UI of each screen of your app:
 \begin{itemize}
-	\item is composed in a \texttt{ViewControllerModellableView}, that exposes callbacks (we call them \textit{interactions}) to signal that a user action occurred, and renders itself based on the \texttt{ViewModel};
-	\item is managed by a \texttt{ViewController}. Out of the box it will automatically listen for state updates and keep the UI in sync. The only other responsibility of a ViewController is to listen for interactions from the UI and dispatch actions to change the state.
+	\item is composed in a \texttt{ViewControllerModellableView}, that exposes callbacks (we call them \textit{interactions}) to signal that a user action occurred, and renders itself based on the content of the \texttt{ViewModel};
+	\item is managed by a \texttt{ViewController}. Out of the box it will automatically listen for state updates and keep the UI in sync. The only other responsibility of a \texttt{ViewController} is to listen for interactions from the UI and dispatch actions to change the state.
 \end{itemize}
 
-\begin{lstlisting}[language=swift]
+\begin{lstlisting}[language=swift, caption=Tempura example.]
 struct ListViewModel: ViewModelWithState {
     var todos: [Todo]
     
@@ -505,25 +509,20 @@ struct ListViewModel: ViewModelWithState {
 
 class ListView: UIView, ViewControllerModellableView {
     // subviews
-    var todoButton: UIButton = UIButton(type: .custom)
-    var todoButton: UIButton = UIButton(type: .custom)
     var list: CollectionView<TodoCell, SimpleSource<TodoCellViewModel>>
     
     // interactions
-    var didTapAddItem: ((String) -> ())?
     var didCompleteItem: ((String) -> ())?
     
     // update based on ViewModel
     func update(oldModel: ListViewModel?) {
         guard let model = self.model else { return }
-        let todos = model.todos
-        self.list.source = SimpleSource<TodoCellViewModel>(todos)
+        self.list.source = SimpleSource<TodoCellViewModel>(model.todos)
     }
 }
 
 class ListViewController: ViewController<ListView> {
-    // listen for interactions from the view
-    override func setupInteraction() {
+    override func setupInteraction() {  // listen for interactions from the view
         self.rootView.didCompleteItem = { [unowned self] index in
             self.dispatch(CompleteItem(index: index))
         }
@@ -531,15 +530,15 @@ class ListViewController: ViewController<ListView> {
 }
 \end{lstlisting}
 
-\section{Hydra and promises}
+\section{Hydra}
 
 Hydra is full-featured lightweight library which allows you to write better async code. It's partially based on JavaScript A+ specs and also implements modern construct like \texttt{await}, which allows you to write async code in a sync manner.
 
-Hydra is based on \textit{promises}. A promise represents the eventual result of an asynchronous operation. The primary way of interacting with a promise is through its \texttt{then} method, which registers callbacks to receive either a promise’s eventual value or the reason why the promise cannot be fulfilled.
+Hydra is based on \textbf{\textit{promises}}. A promise represents the eventual result of an asynchronous operation. The primary way of interacting with a promise is through its \textbf{\texttt{then}} method, which registers callbacks to receive either a promise’s eventual value or the reason why the promise cannot be fulfilled.
 
 With Hydra, developers are also able to resolve many independent async operations simultaneously and get all values at the end, or to resolve dependent async operations by passing the result of each value to the next operation, and then get the final result.
 
-\begin{lstlisting}[language=swift, caption=Examples.]
+\begin{lstlisting}[language=swift, caption=Hydra examples.]
 // Create a promise
 func getPhoto(url: String) -> Promise<UIImage> {
     return Promise<UIImage>(in: .background) { resolve, reject, status in
@@ -551,7 +550,6 @@ func getPhoto(url: String) -> Promise<UIImage> {
         }
     }
 }
-
 
 // Chain promises together
 func loginUser(_ name: String, _ pwd: String) -> Promise<User>
@@ -593,11 +591,10 @@ The choice to rely on free services has been carefully pondered and it costed th
 
 Here, it follows the description of the external services used.
 
-\begin{itemize}
-	\item \textit{\textbf{Wikipedia}} \\
-	All displayed attractions are taken from the Wikidata knowledge base. The given API is quite basic: attraction entries are retrieved with a SPARQL query embedded in a HTTP API call, while details and pictures are retrieved with standard HTTP API calls from different endpoints.
+\paragraph{Wikipedia}
+All displayed attractions are taken from the Wikidata knowledge base. The given API is quite basic: attraction entries are retrieved with a SPARQL query embedded in a HTTP API call, while details and pictures are retrieved with standard HTTP API calls from different endpoints.
 		
-	\begin{lstlisting}[language=sql, caption={SPARQL query for attraction retrieving}, captionpos=b]
+\begin{lstlisting}[language=sql, caption={SPARQL query for attraction retrieving.}, captionpos=b]
 SELECT DISTINCT ?place ?placeLabel ?location ?image 
                 ?instance ?website ?wikipediaLink WHERE {
     SERVICE wikibase:label { bd:serviceParam wikibase:language "en, it" }
@@ -613,9 +610,9 @@ SELECT DISTINCT ?place ?placeLabel ?location ?image
         schema:inLanguage "en";
         schema:isPartOf [ wikibase:wikiGroup "wikipedia" ]} .
 }
-	\end{lstlisting}
+\end{lstlisting}
 		
-	\begin{lstlisting}[language=sql, caption={SPARQL query for city detail retrieving}, captionpos=b]
+\begin{lstlisting}[language=sql, caption={SPARQL query for city detail retrieving.}, captionpos=b]
 SELECT DISTINCT ?city ?cityLabel ?country ?countryLabel ?population ?area
                 ?elevation ?link ?facebookPageId ?facebookPlacesId
                 ?instagramUsername ?twitterUsername ?image ?coatOfArmsImage
@@ -639,11 +636,10 @@ SELECT DISTINCT ?city ?cityLabel ?country ?countryLabel ?population ?area
       schema:isPartOf [ wikibase:wikiGroup "wikipedia" ]}.
     SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
 }
-	\end{lstlisting}
-		
-	\item \textit{\textbf{Google}} \\
-	Places ratings are the only data retrieved from Google services. This was due to the lack of a reliable free alternative. For the simplicity of the task, we decided not to rely on the Google SDK for iOS and to manually make request to the Google API.
-\end{itemize}
+\end{lstlisting}
+
+\paragraph{Google}
+Places ratings are the only data retrieved from Google services. This was due to the lack of a reliable free alternative. For the simplicity of the task, we decided not to rely on the Google SDK for iOS and to manually make request to the Google API.
 
 \section{External libraries}
 
@@ -847,15 +843,15 @@ Notifications are designed as a way for the user not to miss popular attraction 
 \\The shown notification is a \textit{rich notification} with callbacks: \textbf{take me there} will directly open navigation app with that attraction as destination and \textbf{view} will open SmartTourist detail attraction view.
 
 \begin{figure}[H]
+    \centering
+	\begin{minipage}{.49\textwidth}
 	\centering
-	\begin{minipage}{.5\textwidth}
-  	\centering
-  	\includegraphics[width=0.98\linewidth]{/screenshot/notification_background}
+  	\includegraphics[width=0.9\linewidth]{/screenshot/notification_background}
   	\label{fig:test1}
-	\end{minipage}%
-	\begin{minipage}{.5\textwidth}
+	\end{minipage}
+	\begin{minipage}{.49\textwidth}
   	\centering
-  	\includegraphics[width=0.98\linewidth]{/screenshot/notification_rich}
+  	\includegraphics[width=0.9\linewidth]{/screenshot/notification_rich}
   	\label{fig:test2}
 	\end{minipage}
 	\caption{Notification layouting}
@@ -874,7 +870,7 @@ The application does not contain any part that is suitable for unit testing. Thi
 
 Since we didn't use the standard Apple SDK to layout views -- we just used its components -- we couldn't use the provided UI testing framework. Luckily, Tempura provides its own UI testing framework, which is a little different than Apple's. Basically, it allows to take screenshots of a view in all possible states, with all devices and all supported languages. This way you can then manually check that all the components of a view are correctly displayed.
 
-Unfortunately, we were not able to make this framework work due to the highly asynchronous nature of our main views, an approach suggested by our Bending Spoons tutor in order to make the views more responsive.
+Unfortunately, we were not able to make this framework work due to the highly asynchronous nature of our main views, an approach suggested by our Bending Spoons tutor aimed to make the views more responsive.
 
 
 
