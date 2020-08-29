@@ -8,6 +8,7 @@
 import UIKit
 import Katana
 import Tempura
+import SafariServices
 
 
 class CityDetailViewController: ViewControllerWithLocalState<CityDetailView> {
@@ -18,9 +19,9 @@ class CityDetailViewController: ViewControllerWithLocalState<CityDetailView> {
     }
     
     override func setupInteraction() {
-        /*self.rootView.didLoadEverything = { [unowned self ] in
-            self.localState.allLoaded = true
-        }*/
+        self.rootView.didTapButton = { url in
+            self.dispatch(Show(Screen.safari, animated: true, context: url))
+        }
     }
 }
 
@@ -33,7 +34,20 @@ extension CityDetailViewController: RoutableWithConfiguration {
     var navigationConfiguration: [NavigationRequest : NavigationInstruction] {
         [
             .hide(Screen.cityDetail): .pop,
+            .show(Screen.safari): .presentModally { [unowned self] context in
+                let vc = SFSafariViewController(url: context as! URL)
+                vc.delegate = self
+                vc.dismissButtonStyle = .close
+                return vc
+            },
         ]
+    }
+}
+
+
+extension CityDetailViewController: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+        self.dispatch(Hide(animated: true))
     }
 }
 

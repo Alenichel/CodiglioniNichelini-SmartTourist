@@ -72,6 +72,9 @@ class CityDetailView: UIView, ViewControllerModellableView {
         return formatter
     }()
     
+    // MARK: interactions
+    var didTapButton: ((URL) -> Void)?
+    
     func setup() {
         self.setupMapView()
         self.setupInfoIcons()
@@ -135,7 +138,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.scrollView.pin.all().margin(pin.safeArea)
+        self.scrollView.pin.top(pin.safeArea).horizontally(pin.safeArea).bottom()
         self.titleContainerView.pin.top().horizontally()
         self.titleContainerView.flex.layout(mode: .adjustHeight)
         self.slideshow.pin.below(of: self.titleContainerView).horizontally().marginTop(5).bottom(50%)
@@ -188,7 +191,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
         if let link = city.link {
             let url = URL(string: link)!
             self.linkButton.on(.touchUpInside) { _ in
-                UIApplication.shared.open(url)
+                self.didTapButton?(url)
             }
             self.linkButton.alpha = 1.0
         } else {
@@ -198,13 +201,13 @@ class CityDetailView: UIView, ViewControllerModellableView {
         if let facebookId = city.facebookPageId {
             let url = URL(string: "https://www.facebook.com/\(facebookId)")!
             self.facebookButton.on(.touchUpInside) { _ in
-                UIApplication.shared.open(url)
+                self.didTapButton?(url)
             }
             self.facebookButton.alpha = 1.0
         } else if let facebookPlacesId = city.facebookPlacesId {
             let url = URL(string: "https://www.facebook.com/\(facebookPlacesId)")!
             self.facebookButton.on(.touchUpInside) { _ in
-                UIApplication.shared.open(url)
+                self.didTapButton?(url)
             }
             self.facebookButton.alpha = 1.0
         } else {
@@ -214,7 +217,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
         if let instagramUsername = city.instagramUsername {
             let url = URL(string: "https://www.instagram.com/\(instagramUsername)")!
             self.instagramButton.on(.touchUpInside) { _ in
-                UIApplication.shared.open(url)
+                self.didTapButton?(url)
             }
             self.instagramButton.alpha = 1.0
         } else {
@@ -224,7 +227,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
         if let twitterUsername = city.twitterUsername {
             let url = URL(string: "https://www.twitter.com/\(twitterUsername)")!
             self.twitterButton.on(.touchUpInside) { _ in
-                UIApplication.shared.open(url)
+                self.didTapButton?(url)
             }
             self.twitterButton.alpha = 1.0
         } else {

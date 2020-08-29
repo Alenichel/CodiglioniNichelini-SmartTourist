@@ -173,7 +173,7 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.scrollView.pin.top(self.safeAreaInsets).bottom().horizontally()
+        self.scrollView.pin.top(pin.safeArea).horizontally(pin.safeArea).bottom()
         self.curtainView.pin.all()
         self.activityIndicator.pin.center().size(30)
         
