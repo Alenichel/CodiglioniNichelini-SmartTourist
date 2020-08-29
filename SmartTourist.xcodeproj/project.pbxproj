@@ -29,6 +29,10 @@
 		E50BC911241D42DF005EFDCE /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC910241D42DF005EFDCE /* SettingCell.swift */; };
 		E50BC917241D4CA3005EFDCE /* SettingBoolCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E50BC916241D4CA3005EFDCE /* SettingBoolCell.swift */; };
 		E51696A624542BC1006E235D /* String+stripped.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51696A524542BC1006E235D /* String+stripped.swift */; };
+		E51E8C9C24FA43D2002E7262 /* BigBen.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E51E8C9B24FA43D2002E7262 /* BigBen.gpx */; };
+		E51E8CA024FA4559002E7262 /* TowerBridge.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E51E8C9F24FA4559002E7262 /* TowerBridge.gpx */; };
+		E51E8CA224FA4591002E7262 /* BuckinghamPalace.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E51E8CA124FA4591002E7262 /* BuckinghamPalace.gpx */; };
+		E51E8CA424FA45BB002E7262 /* TrafalgarSquare.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E51E8CA324FA45BB002E7262 /* TrafalgarSquare.gpx */; };
 		E524A0F6238C4AFF0052825F /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F5238C4AFF0052825F /* WelcomeView.swift */; };
 		E524A0F8238C4C060052825F /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0F7238C4C060052825F /* WelcomeViewController.swift */; };
 		E524A0FF238C4F530052825F /* Screen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524A0FE238C4F530052825F /* Screen.swift */; };
@@ -246,6 +250,10 @@
 		E50BC910241D42DF005EFDCE /* SettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		E50BC916241D4CA3005EFDCE /* SettingBoolCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingBoolCell.swift; sourceTree = "<group>"; };
 		E51696A524542BC1006E235D /* String+stripped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+stripped.swift"; sourceTree = "<group>"; };
+		E51E8C9B24FA43D2002E7262 /* BigBen.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BigBen.gpx; sourceTree = "<group>"; };
+		E51E8C9F24FA4559002E7262 /* TowerBridge.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TowerBridge.gpx; sourceTree = "<group>"; };
+		E51E8CA124FA4591002E7262 /* BuckinghamPalace.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = BuckinghamPalace.gpx; sourceTree = "<group>"; };
+		E51E8CA324FA45BB002E7262 /* TrafalgarSquare.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = TrafalgarSquare.gpx; sourceTree = "<group>"; };
 		E524A0F5238C4AFF0052825F /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		E524A0F7238C4C060052825F /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		E524A0FE238C4F530052825F /* Screen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Screen.swift; sourceTree = "<group>"; };
@@ -408,6 +416,10 @@
 		991F955A238EDD25002A1093 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				E51E8C9B24FA43D2002E7262 /* BigBen.gpx */,
+				E51E8CA124FA4591002E7262 /* BuckinghamPalace.gpx */,
+				E51E8C9F24FA4559002E7262 /* TowerBridge.gpx */,
+				E51E8CA324FA45BB002E7262 /* TrafalgarSquare.gpx */,
 				99C27CE123AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx */,
 				99C27CD123AFC37700667FB0 /* MilanTour(Cycling).gpx */,
 				99C27CD223AFC37700667FB0 /* MilanTour(Driving).gpx */,
@@ -941,6 +953,10 @@
 			files = (
 				99C27CD523AFC37700667FB0 /* MilanTour(Driving).gpx in Resources */,
 				99C27CD323AFC37700667FB0 /* MilanTour(Fast).gpx in Resources */,
+				E51E8CA024FA4559002E7262 /* TowerBridge.gpx in Resources */,
+				E51E8CA424FA45BB002E7262 /* TrafalgarSquare.gpx in Resources */,
+				E51E8C9C24FA43D2002E7262 /* BigBen.gpx in Resources */,
+				E51E8CA224FA4591002E7262 /* BuckinghamPalace.gpx in Resources */,
 				991F955C238EDD4D002A1093 /* mapStyle.json in Resources */,
 				99C27CD423AFC37700667FB0 /* MilanTour(Cycling).gpx in Resources */,
 				99C27CE723AFCAA300667FB0 /* MilanCityCenterTour(bycicle).gpx in Resources */,
