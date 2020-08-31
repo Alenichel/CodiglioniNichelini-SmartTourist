@@ -71,8 +71,8 @@
          </BuildableReference>
       </BuildableProductRunnable>
       <LocationScenarioReference
-         identifier = "../../../../Downloads/London-Loop-SWC-Walk-L24.gpx"
-         referenceType = "0">
+         identifier = "London, England"
+         referenceType = "1">
       </LocationScenarioReference>
    </LaunchAction>
    <ProfileAction

@@ -121,6 +121,7 @@
 		E5D005CF244DA0960079A37E /* WDPlace.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D005CE244DA0960079A37E /* WDPlace.swift */; };
 		E5D005D1244DA0A20079A37E /* WDCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D005D0244DA0A20079A37E /* WDCity.swift */; };
 		E5D005D3244DA0BB0079A37E /* CodableUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D005D2244DA0BB0079A37E /* CodableUtilities.swift */; };
+		E5D9E28824FCE0BA002D86DB /* ArrayTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9E28724FCE0BA002D86DB /* ArrayTest.swift */; };
 		E5EF7094245C202B00C69B3A /* WelcomeViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EF7093245C202B00C69B3A /* WelcomeViewTest.swift */; };
 		E5EF7098245C266F00C69B3A /* SettingsViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EF7097245C266F00C69B3A /* SettingsViewTest.swift */; };
 		E5EF709A245C27BD00C69B3A /* TestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EF7099245C27BD00C69B3A /* TestCase.swift */; };
@@ -335,6 +336,7 @@
 		E5D005CE244DA0960079A37E /* WDPlace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WDPlace.swift; sourceTree = "<group>"; };
 		E5D005D0244DA0A20079A37E /* WDCity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WDCity.swift; sourceTree = "<group>"; };
 		E5D005D2244DA0BB0079A37E /* CodableUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableUtilities.swift; sourceTree = "<group>"; };
+		E5D9E28724FCE0BA002D86DB /* ArrayTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayTest.swift; sourceTree = "<group>"; };
 		E5EF7093245C202B00C69B3A /* WelcomeViewTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewTest.swift; sourceTree = "<group>"; };
 		E5EF7097245C266F00C69B3A /* SettingsViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewTest.swift; sourceTree = "<group>"; };
 		E5EF7099245C27BD00C69B3A /* TestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCase.swift; sourceTree = "<group>"; };
@@ -532,6 +534,7 @@
 			isa = PBXGroup;
 			children = (
 				E528FF9F238972030065483B /* Info.plist */,
+				E5D9E28724FCE0BA002D86DB /* ArrayTest.swift */,
 				E5EF7099245C27BD00C69B3A /* TestCase.swift */,
 				E5EF7093245C202B00C69B3A /* WelcomeViewTest.swift */,
 				E5EF7097245C266F00C69B3A /* SettingsViewTest.swift */,
@@ -1229,6 +1232,7 @@
 			files = (
 				E5EF7098245C266F00C69B3A /* SettingsViewTest.swift in Sources */,
 				E5EF709A245C27BD00C69B3A /* TestCase.swift in Sources */,
+				E5D9E28824FCE0BA002D86DB /* ArrayTest.swift in Sources */,
 				E5C28DAD24E1960B003C02A9 /* AttractionsViewTest.swift in Sources */,
 				E530A677245C2982008B0D6A /* CityDetailViewTest.swift in Sources */,
 				E50B56DE24E1D6BC00261D30 /* AttractionDetailTest.swift in Sources */,
