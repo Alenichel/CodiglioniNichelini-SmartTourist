@@ -1443,14 +1443,14 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3E65HHUN9M;
+				DEVELOPMENT_TEAM = Q82QAU88KE;
 				INFOPLIST_FILE = SmartTourist/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.fcan.SmartTouristv2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fcan.SmartTourist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1485,7 +1485,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3E65HHUN9M;
+				DEVELOPMENT_TEAM = Q82QAU88KE;
 				INFOPLIST_FILE = SmartTouristTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1529,7 +1529,7 @@
 			baseConfigurationReference = 864666DF532B8752C2B28FD3 /* Pods-PictureNotification.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3E65HHUN9M;
+				DEVELOPMENT_TEAM = Q82QAU88KE;
 				INFOPLIST_FILE = PictureNotification/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1537,7 +1537,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.fcan.SmartTouristv2.PictureNotification;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fcan.SmartTourist.PictureNotification;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -1572,10 +1572,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3E65HHUN9M;
+				DEVELOPMENT_TEAM = Q82QAU88KE;
 				IBSC_MODULE = SmartTouristAppleWatch_Extension;
 				INFOPLIST_FILE = SmartTouristAppleWatch/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.fcan.SmartTouristv2.watchkitapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fcan.SmartTourist.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1611,7 +1611,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"SmartTouristAppleWatch Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = 3E65HHUN9M;
+				DEVELOPMENT_TEAM = Q82QAU88KE;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "SmartTouristAppleWatch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1619,7 +1619,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.fcan.SmartTouristv2.watchkitapp.watchkitextension;
+				PRODUCT_BUNDLE_IDENTIFIER = com.fcan.SmartTourist.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;

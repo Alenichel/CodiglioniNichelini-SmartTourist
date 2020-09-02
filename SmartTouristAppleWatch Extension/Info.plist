@@ -20,20 +20,20 @@
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>The apps needs the user location to offer location-sensitive content.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>The apps needs the user location to offer location-sensitive content.</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
 		<dict>
 			<key>WKAppBundleIdentifier</key>
-			<string>com.fcan.SmartTouristv2.watchkitapp</string>
+			<string>com.fcan.SmartTourist.watchkitapp</string>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.watchkit</string>
 	</dict>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>The apps needs the user location to offer location-sensitive content.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>The apps needs the user location to offer location-sensitive content.</string>
 	<key>WKExtensionDelegateClassName</key>
 	<string>$(PRODUCT_MODULE_NAME).ExtensionDelegate</string>
 	<key>WKRunsIndependentlyOfCompanionApp</key>
