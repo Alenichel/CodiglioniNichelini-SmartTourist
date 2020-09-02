@@ -61,7 +61,7 @@ class AttractionsViewController: ViewControllerWithLocalState<MapView> {
         }
         self.rootView.didTapLocationButton = { [unowned self] in
             self.rootView.mapView.setUserTrackingMode(.follow, animated: true)
-            self.dispatch(GetCurrentCity(throttle: false))   // Also calls GetPopularPlaces
+            self.dispatch(GetCurrentCity())   // Also calls GetPopularPlaces
             self.dispatch(GetNearestPlaces(throttle: false))
         }
         self.rootView.ditTapSearchButton = { [unowned self] in
@@ -87,7 +87,7 @@ extension AttractionsViewController: CLLocationManagerDelegate {
         self.dispatch(SetActualLocation(location: location.coordinate))
         self.locationBasedNotification(lastCoordinates: location.coordinate)
         if self.state.locationState.mapCentered {
-            self.dispatch(GetCurrentCity(throttle: true))   // Also calls GetPopularPlaces
+            self.dispatch(GetCurrentCity())   // Also calls GetPopularPlaces
             self.dispatch(GetNearestPlaces(throttle: true))
         }
     }
@@ -124,7 +124,7 @@ extension AttractionsViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         self.dispatch(SetMapLocation(location: mapView.centerCoordinate))
         if !self.state.locationState.mapCentered {
-            self.dispatch(GetCurrentCity(throttle: false))   // Also calls GetPopularPlaces
+            self.dispatch(GetCurrentCity())   // Also calls GetPopularPlaces
             self.dispatch(GetNearestPlaces(throttle: false))
         }
     }

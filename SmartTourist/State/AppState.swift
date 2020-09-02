@@ -66,9 +66,6 @@ struct LocationState {
     /// The most popular places in `currentCity`
     var popularPlaces: [WDPlace] = [WDPlace]()
     
-    /// The last update of `popularPlaces`
-    var popularPlacesLastUpdate: Date = initDate
-    
     /// `Date` used to initialize all the `lastUpdate` variables
     private static var initDate: Date {
         Date().advanced(by: TimeInterval(-60))
@@ -108,5 +105,7 @@ struct PedometerState: Codable {
 
 /// The part of the state where items are cached (popular places for now)
 struct Cache: Codable {
+    let ttl: Double = 60 * 60 * 24 * 7
     var popularPlaces: [String: [WDPlace]] = [String: [WDPlace]]()
+    var popularPlacesUpdate: [String: Date] = [String: Date]()
 }

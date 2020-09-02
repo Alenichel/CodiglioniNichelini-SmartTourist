@@ -49,7 +49,7 @@ class WikipediaAPI {
                 bd:serviceParam wikibase:center "Point(\(location.longitude) \(location.latitude))"^^geo:wktLiteral .
                 bd:serviceParam wikibase:radius "\(radius)" .
             }
-            ?place wdt:P31 ?instance  .
+            ?place wdt:P31 ?instance .
         ?place wdt:P18 ?image .
         OPTIONAL {?place wdt:P856 ?website} .
         """
@@ -68,7 +68,7 @@ class WikipediaAPI {
     private func getCityDetailsQuery(_ cityId: String) -> String {
         return"""
         SELECT DISTINCT ?city ?cityLabel ?country ?countryLabel ?population ?area ?elevation ?link ?facebookPageId ?facebookPlacesId ?instagramUsername ?twitterUsername ?image ?coatOfArmsImage ?cityFlagImage ?countryCode ?wikipediaLink WHERE {
-            BIND( <http://www.wikidata.org/entity/\(cityId)> as ?city ).
+            BIND (<http://www.wikidata.org/entity/\(cityId)> as ?city).
             OPTIONAL {?city wdt:P17 ?country}.
             OPTIONAL {?city wdt:P1082 ?population}.
             OPTIONAL {?city wdt:P2046 ?area}.
@@ -90,12 +90,12 @@ class WikipediaAPI {
         """
     }
     
-    private func getMissingPlaceDetailsQuery(id: String) -> String {
+    private func getMissingPlaceDetailsQuery(_ id: String) -> String {
         return """
         SELECT DISTINCT ?instance ?image ?website ?wikimediaLink WHERE {
-            BIND( <http://www.wikidata.org/entity/\(id)> as ?place ).
-            ?place wdt:P31 ?instance  .
-            OPTIONAL {?place wdt:P18 ?image } .
+            BIND(<http://www.wikidata.org/entity/\(id)> as ?place).
+            ?place wdt:P31 ?instance .
+            OPTIONAL {?place wdt:P18 ?image} .
             OPTIONAL {?place wdt:P856 ?website} .
             OPTIONAL {?wikimediaLink schema:about ?place;
                                      schema:inLanguage "en";
@@ -313,7 +313,7 @@ class WikipediaAPI {
     func getMissingDetail(place: WDPlace) -> Promise<Void> {
         return Promise<Void> (in: .utility) { resolve, reject, status in
             let parameters = [
-                "query": self.getMissingPlaceDetailsQuery(id: place.placeID),
+                "query": self.getMissingPlaceDetailsQuery(place.placeID),
                 "format": "json"
             ]
             let url = "https://query.wikidata.org/sparql"

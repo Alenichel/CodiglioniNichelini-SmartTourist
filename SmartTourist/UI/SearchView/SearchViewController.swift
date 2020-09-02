@@ -39,7 +39,7 @@ class SearchViewController: ViewControllerWithLocalState<SearchView> {
             guard let place = response?.mapItems.first else { return }
             self.dispatch(SetMapLocation(location: place.placemark.coordinate))
             self.dispatch(SetMapCentered(value: false))
-            self.dispatch(GetCurrentCity(throttle: false))   // Also calls GetPopularPlaces
+            self.dispatch(GetCurrentCity())   // Also calls GetPopularPlaces
             self.dispatch(GetNearestPlaces(throttle: false))
             self.dispatch(SetNeedToMoveMap(value: true))
             self.dispatch(Hide(animated: true))

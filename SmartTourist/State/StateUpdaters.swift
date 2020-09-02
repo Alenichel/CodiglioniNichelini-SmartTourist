@@ -73,15 +73,6 @@ struct SetPopularPlaces: StateUpdater {
 }
 
 
-struct SetPopularPlacesLastUpdate: StateUpdater {
-    let lastUpdate: Date
-    
-    func updateState(_ state: inout AppState) {
-        state.locationState.popularPlacesLastUpdate = lastUpdate
-    }
-}
-
-
 struct AddFavoriteStateUpdater: StateUpdater, Persistable {
     let place: WDPlace
     
@@ -170,6 +161,7 @@ struct UpdatePopularPlacesCache: StateUpdater, Persistable {
     
     func updateState(_ state: inout AppState) {
         state.cache.popularPlaces[city] = places
+        state.cache.popularPlacesUpdate[city] = Date()
     }
 }
 
@@ -177,5 +169,6 @@ struct UpdatePopularPlacesCache: StateUpdater, Persistable {
 struct ClearPopularPlacesCache: StateUpdater, Persistable {
     func updateState(_ state: inout AppState) {
         state.cache.popularPlaces = [String: [WDPlace]]()
+        state.cache.popularPlacesUpdate = [String: Date]()
     }
 }

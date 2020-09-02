@@ -12,13 +12,11 @@ import Hydra
 
 
 struct GetCurrentCity: SideEffect {
-    let throttle: Bool
-    
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
         guard let coordinates = context.getState().locationState.currentLocation else { return }
         context.dependencies.mapsAPI.getCityName(coordinates: coordinates).then(in: .utility) { city in
             context.dispatch(SetCurrentCity(city: city))
-            context.dispatch(GetPopularPlaces(city: city, throttle: self.throttle))
+            context.dispatch(GetPopularPlaces(city: city))
         }.catch(in: .utility) { error in
             context.dispatch(SetCurrentCity(city: nil))
         }
@@ -56,17 +54,16 @@ struct GetNearestPlaces: SideEffect {
 
 struct GetPopularPlaces: SideEffect {
     let city: String?
-    let throttle: Bool
     
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
         guard let currentCity = self.city else { return }
         let cachedPlaces = context.getState().cache.popularPlaces[currentCity]
-        if let cachedPlaces = cachedPlaces {
+        let cachedPlacesUpdate = context.getState().cache.popularPlacesUpdate[currentCity]
+        if let cachedPlaces = cachedPlaces, let cachedPlacesUpdate = cachedPlacesUpdate, cachedPlacesUpdate.distance(to: Date()) < context.getState().cache.ttl {
             context.dispatch(SetPopularPlaces(places: cachedPlaces))
             print("POPULAR_PLACES: retrieved from cache")
-        } else if !self.throttle || context.getState().locationState.popularPlacesLastUpdate.distance(to: Date()) > GoogleAPI.apiThrottleTime {
+        } else {
             print("POPULAR PLACES: attempting to download")
-            context.dispatch(SetPopularPlacesLastUpdate(lastUpdate: Date()))
             context.dependencies.googleAPI.getPopularPlaces(city: currentCity).then(in: .background) { places in
                 let converted = places.map { WDPlace(gpPlace: $0) }
                 let promises = converted.map { $0.getMissingDetails() }
