@@ -64,6 +64,28 @@ class WDPlace: Codable, Hashable, Comparable {
         self.userRatingsTotal = userRatingsTotal
     }
     
+    func augment(with place: WDPlace) {
+        guard self.placeID == place.placeID else { return }
+        if self.wikipediaName == nil && place.wikipediaName != nil {
+            self.wikipediaName = place.wikipediaName
+        }
+        if self.city == nil && place.city != nil {
+            self.city = place.city
+        }
+        if self.wikipediaLink == nil && place.wikipediaLink != nil {
+            self.wikipediaLink = place.wikipediaLink
+        }
+        if self.website == nil && place.website != nil {
+            self.website = place.website
+        }
+        if (self.rating == nil || self.rating == 0) && (place.rating != nil || place.rating != 0) {
+            self.rating = place.rating
+        }
+        if (self.userRatingsTotal == nil || self.userRatingsTotal == 0) && (place.userRatingsTotal != nil || place.userRatingsTotal != 0) {
+            self.userRatingsTotal = place.userRatingsTotal
+        }
+    }
+    
     static var testPlaces: [WDPlace] {
         return [
             WDPlace(placeID: "Q42182", instance: "Q2087181", name: "Buckingham Palace", wikipediaName: "Buckingham_Palace", city: "London", location: CLLocationCoordinate2D(latitude: 51.500999999999998, longitude: -0.14199999999999999), wikipediaLink: "https://en.wikipedia.org/wiki/Buckingham_Palace", photos: [URL(string: "http://commons.wikimedia.org/wiki/Special:FilePath/Buckingham%20Palace%2C%20London%20-%20April%202009.jpg")!], website: "https://www.royal.uk/royal-residences-buckingham-palace", rating: 5.0, userRatingsTotal: 42),

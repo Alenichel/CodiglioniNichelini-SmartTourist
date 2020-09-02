@@ -46,7 +46,19 @@ struct GetNearestPlaces: SideEffect {
             if !context.getState().settings.poorEntitiesEnabled {
                 sortedPlaces = sortedPlaces.filter({ $0.wikipediaLink != nil})
             }
-            context.dispatch(SetNearestPlaces(places: Array(sortedPlaces.prefix(context.getState().settings.maxNAttractions))))
+            let nearestPlaces = Array(sortedPlaces.prefix(context.getState().settings.maxNAttractions))
+            let augmentPromises = nearestPlaces.map { place in
+                return Promise<Void>(in: .utility) { resolve, reject, status in
+                    let popularPlace = context.getState().locationState.popularPlaces.first(where: { $0 == place })
+                    if let popularPlace = popularPlace {
+                        place.augment(with: popularPlace)
+                    }
+                    resolve(())
+                }
+            }
+            all(augmentPromises).then(in: .utility) { _ in
+                context.dispatch(SetNearestPlaces(places: nearestPlaces))
+            }
         }
     }
 }
@@ -68,12 +80,23 @@ struct GetPopularPlaces: SideEffect {
                 let converted = places.map { WDPlace(gpPlace: $0) }
                 let promises = converted.map { $0.getMissingDetails() }
                 all(promises).then(in: .utility) { _ in
-                    let places = converted.filter { place in
+                    let popularPlaces = converted.filter { place in
                         guard let photos = place.photos else { return false }
                         return !photos.isEmpty
                     }
-                    context.dispatch(SetPopularPlaces(places: places))
-                    context.dispatch(UpdatePopularPlacesCache(city: currentCity, places: places))
+                    let augmentPromises = popularPlaces.map { place in
+                        return Promise<Void>(in: .utility) { resolve, reject, status in
+                            let nearestPlace = context.getState().locationState.nearestPlaces.first(where: { $0 == place })
+                            if let nearestPlace = nearestPlace {
+                                place.augment(with: nearestPlace)
+                            }
+                            resolve(())
+                        }
+                    }
+                    all(augmentPromises).then(in: .utility) { _ in
+                        context.dispatch(SetPopularPlaces(places: popularPlaces))
+                        context.dispatch(UpdatePopularPlacesCache(city: currentCity, places: popularPlaces))
+                    }
                 }.catch(in: .utility) { error in
                     print(error.localizedDescription)
                 }
@@ -99,6 +122,14 @@ struct AddFavorite: SideEffect {
                 self.place.city = currentCity
             }
         }.always(in: .utility) {
+            let popularPlace = context.getState().locationState.popularPlaces.first(where: { $0 == self.place })
+            let nearestPlace = context.getState().locationState.nearestPlaces.first(where: { $0 == self.place })
+            if let popularPlace = popularPlace {
+                self.place.augment(with: popularPlace)
+            }
+            if let nearestPlace = nearestPlace {
+                self.place.augment(with: nearestPlace)
+            }
             context.dispatch(AddFavoriteStateUpdater(place: self.place))
         }
     }
