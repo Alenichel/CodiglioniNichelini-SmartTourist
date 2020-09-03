@@ -18,8 +18,9 @@ import SwiftyXMLParser
 
 
 class WikipediaAPI {
-    
     static let shared = WikipediaAPI()
+    static let apiThrottleTime: Double = 15   // seconds
+
     private let cache = NSCache<NSString, NSString>()
     private let photoCache = NSCache<NSString, UIImage>()
     

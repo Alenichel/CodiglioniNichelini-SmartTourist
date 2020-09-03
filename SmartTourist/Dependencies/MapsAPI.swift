@@ -14,7 +14,7 @@ class MapsAPI {
     static let shared = MapsAPI()
     private init() {}
     
-    static let throttleTime: Double = 60        // seconds
+    static let throttleTime: Double = 60      // seconds
     static let throttleDistance: Int = 1000   // meters
     
     private let geocoder = CLGeocoder()

@@ -66,7 +66,7 @@
     typealias,struct,class,enum,protocol,var,func,let,get,set,willSet,didSet,inout,init,deinit,extension,
     subscript,prefix,operator,infix,postfix,precedence,associativity,left,right,none,convenience,dynamic,
     final,lazy,mutating,nonmutating,optional,override,required,static,unowned,safe,weak,internal,
-        private,public,is,as,self,unsafe,dynamicType,true,false,nil,Type,Protocol,guard
+        private,public,is,as,self,unsafe,dynamicType,true,false,nil,Type,Protocol,guard,super
     },
     morecomment=[l]{//}, % l is for line comment
     morecomment=[s]{/*}{*/}, % s is for start and end delimiter
@@ -485,12 +485,12 @@ Following Redux's principles, we preferred to divide the global state in sub-str
 
 \begin{figure}[H]
   	\centering
-  	\includegraphics[width=0.75\linewidth]{MVVM-light}
+  	\includegraphics[width=0.85\linewidth]{MVVM-light}
   	\label{fig:test1}
 	\caption{MVVM architecture overview}
 \end{figure}
 
-Tempura uses Katana to handle the logic of your app: the part of the state needed to render the UI of a screen is selected by a \texttt{ViewModel}.
+Tempura uses Katana to handle the logic of your app: the portion of the state needed to render the UI of a screen is selected by a \texttt{ViewModel}.
 
 The UI of each screen of your app:
 \begin{itemize}
@@ -498,6 +498,65 @@ The UI of each screen of your app:
 	\item is managed by a \texttt{ViewController}. Out of the box it will automatically listen for state updates and keep the UI in sync. The only other responsibility of a \texttt{ViewController} is to listen for interactions from the UI and dispatch actions to change the state.
 \end{itemize}
 
+\begin{lstlisting}[language=swift, caption=Tempura example.]
+struct CounterViewModel: ViewModelWithState {
+    var countDescription: String
+
+    init(state: CounterState) {
+        self.countDescription = "\(state.counter)"
+    }
+}
+
+
+class CounterView: UIView, ViewControllerModellableView {   //
+    var counterLabel = UILabel()
+    var addButton = UIButton(type: .system)
+
+    var didTapAdd: Interaction?
+    
+    func setup() {
+        self.addButton.on(.touchUpInside) { _ in
+            self.didTapAdd?()
+        }
+        addSubview(self.counterLabel)
+        addSubview(self.addButton)
+    }
+
+    func style() {
+        self.backgroundColor = .systemBackground
+        self.counterLabel.font = UIFont.systemFont(ofSize: 32 + 16)
+        self.addButton.setImage(UIImage(systemName: "plus.circle.fill"), 
+                                for: .normal)
+        self.addButton.tintColor = .systemGreen
+    }
+
+    func update(oldModel: CounterViewModel?) {
+        guard let model = self.model else { return }
+        self.counterLabel.text = model.countDescription
+        self.setNeedsLayout()
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        counterLabel.pin.center().sizeToFit()
+        addButton.pin
+            .below(of: counterLabel, aligned: .center)
+            .marginTop(20)
+            .sizeToFit()
+    }
+}
+
+
+class CounterViewController: ViewController<CounterView> {
+    override func setupInteraction() {
+        rootView.didTapAdd = { [unowned self] in
+            self.dispatch(IncrementCounter())
+        }
+    }
+}
+\end{lstlisting}
+
+\begin{comment}
 \begin{lstlisting}[language=swift, caption=Tempura example.]
 struct ListViewModel: ViewModelWithState {
     var todos: [Todo]
@@ -529,6 +588,7 @@ class ListViewController: ViewController<ListView> {
     }
 }
 \end{lstlisting}
+\end{comment}
 
 \section{Hydra}
 
@@ -538,13 +598,17 @@ Hydra is based on \textbf{\textit{promises}}. A promise represents the eventual 
 
 With Hydra, developers are also able to resolve many independent async operations simultaneously and get all values at the end, or to resolve dependent async operations by passing the result of each value to the next operation, and then get the final result.
 
+\newpage
 \begin{lstlisting}[language=swift, caption=Hydra examples.]
 // Create a promise
 func getPhoto(url: String) -> Promise<UIImage> {
     return Promise<UIImage>(in: .background) { resolve, reject, status in
         if let data = try? Data(contentsOf: url) {
-            if let img = UIImage(data: data) { resolve(img) } 
-            else { reject(ApiError()) }
+            if let img = UIImage(data: data) {
+                resolve(img)
+            } else {
+                reject(ApiError())
+            }
         } else {
             reject(ApiError())
         }
@@ -864,7 +928,7 @@ Notifications are designed as a way for the user not to miss popular attraction 
 
 \section{Unit testing}
 
-The application does not contain any part that is suitable for unit testing. This is due to the fact that its core functionality can be reduced to making API calls and displaying the results back to the user. It is well known that there are too many variables involved in API calls that make them unsuitable for unit testing.
+The application does not contain any part that is suitable for unit testing. This is due to the fact that its core functionality can be reduced to making API calls and displaying the results back to the user. It is well known that there are too many variables involved in API calls that make them unsuitable for unit testing. For this reason -- except for a small piece of code, a sorted insert into an array -- we decided not to do any unit testing.
 
 \section{UI testing}
 

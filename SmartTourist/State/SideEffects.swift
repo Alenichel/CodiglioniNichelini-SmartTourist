@@ -29,7 +29,7 @@ struct GetNearestPlaces: SideEffect {
     
     func sideEffect(_ context: SideEffectContext<AppState, DependenciesContainer>) throws {
         guard let currentLocation = context.getState().locationState.currentLocation else { return }
-        if !self.throttle || context.getState().locationState.nearestPlacesLastUpdate.distance(to: Date()) > GoogleAPI.apiThrottleTime {
+        if !self.throttle || context.getState().locationState.nearestPlacesLastUpdate.distance(to: Date()) > WikipediaAPI.apiThrottleTime {
             context.dispatch(SetNearestPlacesLastUpdate(lastUpdate: Date()))
             var nPlaces = 0
             var distance : Double = 1
@@ -148,7 +148,7 @@ struct GetCityDetails: SideEffect {
         if self.rerun {
             cityName += " City"
         }
-        WikipediaAPI.shared.getWikidataId(title: cityName).then(WikipediaAPI.shared.getCityDetail).then(in: .utility) { city in
+        context.dependencies.wikiAPI.getWikidataId(title: cityName).then(context.dependencies.wikiAPI.getCityDetail).then(in: .utility) { city in
             context.dispatch(SetWDCity(city: city))
         }.catch(in: .utility) { error in
             if let _ = error as? DisambiguationPageError {
