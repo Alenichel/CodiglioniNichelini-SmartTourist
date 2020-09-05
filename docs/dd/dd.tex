@@ -457,7 +457,7 @@ Internal application design is strongly influenced by the choice of the Katana/T
     To specify how the state tree is transformed by actions, the developer needs to write pure functions called \textit{reducers}.
 \end{itemize}
 
-In Katana, actions and reducers are combined into \textbf{\texttt{StateUpdaters}}: a \texttt{StateUpdater} in an object that describes what happened and provides the code to update the state. All the \texttt{StateUpdaters} are executed on the same serial GCD \footnote{\href{https://developer.apple.com/documentation/DISPATCH}{https://developer.apple.com/documentation/DISPATCH}} queue: this avoid the occurrence of subtle race conditions.
+In Katana, actions and reducers are combined into \textbf{\texttt{StateUpdaters}}: a \texttt{StateUpdater} is an object that describes what happened and provides the code to update the state. All the \texttt{StateUpdaters} are executed on the same serial GCD\footnote{\href{https://developer.apple.com/documentation/DISPATCH}{https://developer.apple.com/documentation/DISPATCH}} queue: this avoid the occurrence of subtle race conditions.
 
 Updating the application's state using pure functions is nice and it has a lot of benefits. Unfortunately, applications have to deal with the external world (e.g., API calls, disk files management, …). For all this kind of operations, Katana provides the concept of \textbf{\texttt{SideEffects}}. \texttt{SideEffects} can be used to interact with other parts of your applications and then dispatch new \texttt{StateUpdaters} to update your state.
 
@@ -492,7 +492,7 @@ Following Redux's principles, we preferred to divide the global state in sub-str
 
 Tempura uses Katana to handle the logic of your app: the portion of the state needed to render the UI of a screen is selected by a \texttt{ViewModel}.
 
-The UI of each screen of your app:
+The UI of each screen of the application:
 \begin{itemize}
 	\item is composed in a \texttt{ViewControllerModellableView}, that exposes callbacks (we call them \textit{interactions}) to signal that a user action occurred, and renders itself based on the content of the \texttt{ViewModel};
 	\item is managed by a \texttt{ViewController}. Out of the box it will automatically listen for state updates and keep the UI in sync. The only other responsibility of a \texttt{ViewController} is to listen for interactions from the UI and dispatch actions to change the state.
