@@ -23,7 +23,7 @@ struct FullScreenMapViewModel: ViewModelWithLocalState {
 class FullScreenMapView: UIView, ViewControllerModellableView {
     var mapView = MKMapView(frame: .zero)
     var closeButton = UIButton(type: .custom)
-    var markerPool : MarkerPool!
+    var markerPool: MarkerPool!
     
     var didTapCloseButton: (()->())?
     

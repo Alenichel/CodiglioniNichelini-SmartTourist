@@ -66,7 +66,7 @@
     typealias,struct,class,enum,protocol,var,func,let,get,set,willSet,didSet,inout,init,deinit,extension,
     subscript,prefix,operator,infix,postfix,precedence,associativity,left,right,none,convenience,dynamic,
     final,lazy,mutating,nonmutating,optional,override,required,static,unowned,safe,weak,internal,
-        private,public,is,as,self,unsafe,dynamicType,true,false,nil,Type,Protocol,guard,super
+        private,public,is,as,self,unsafe,dynamicType,true,false,nil,Type,Protocol,guard,super,try
     },
     morecomment=[l]{//}, % l is for line comment
     morecomment=[s]{/*}{*/}, % s is for start and end delimiter
@@ -603,12 +603,8 @@ With Hydra, developers are also able to resolve many independent async operation
 // Create a promise
 func getPhoto(url: String) -> Promise<UIImage> {
     return Promise<UIImage>(in: .background) { resolve, reject, status in
-        if let data = try? Data(contentsOf: url) {
-            if let img = UIImage(data: data) {
-                resolve(img)
-            } else {
-                reject(ApiError())
-            }
+        if let data = try? Data(contentsOf: url), let img = UIImage(data: data) {
+            resolve(img)
         } else {
             reject(ApiError())
         }
@@ -650,15 +646,16 @@ SmartTourist uses consistently internal libraries and services:
 SmartTourist relies almost only on \textit{free data and services}. 
 
 \begin{info}
-The choice to rely on free services has been carefully pondered and it costed the authors some troubles. SmartTourist has been designed to be a free application in an eventual public launch, thus it would be impossible to support the cost of Google Places API without any premium subscription. Moreover, the authors strongly believe in the Wikidata project and wanted to work with it.
+The choice to rely on free services has been carefully pondered and it didn't come without troubles. SmartTourist has been designed to be a free application in an eventual public launch, thus it would be impossible to support the cost of Google Places API without any premium subscription. Moreover, we strongly believe in the Wikidata project and wanted to work with it.
 \end{info}
 
 Here, it follows the description of the external services used.
 
 \paragraph{Wikipedia}
-All displayed attractions are taken from the Wikidata knowledge base. The given API is quite basic: attraction entries are retrieved with a SPARQL query embedded in a HTTP API call, while details and pictures are retrieved with standard HTTP API calls from different endpoints.
+As can be seen in Section \ref{section:mapview}, the application displays attractions divided in three categories: nearest, popular and favorites. Nearest attractions are entirely taken from the Wikidata knowledge base, while a slightly different strategy is used for popular places. Favorites places are instead selected from the other two lists. \\
+The Wikidata API is quite basic: attraction entries are retrieved with a SPARQL query embedded in a HTTP API call, while details and pictures are retrieved with standard HTTP API calls from different endpoints.
 		
-\begin{lstlisting}[language=sql, caption={SPARQL query for attraction retrieving.}, captionpos=b]
+\begin{lstlisting}[language=sql, caption={SPARQL query for attractions retrieving.}, captionpos=b]
 SELECT DISTINCT ?place ?placeLabel ?location ?image 
                 ?instance ?website ?wikipediaLink WHERE {
     SERVICE wikibase:label { bd:serviceParam wikibase:language "en, it" }
@@ -703,7 +700,36 @@ SELECT DISTINCT ?city ?cityLabel ?country ?countryLabel ?population ?area
 \end{lstlisting}
 
 \paragraph{Google}
-Places ratings are the only data retrieved from Google services. This was due to the lack of a reliable free alternative. For the simplicity of the task, we decided not to rely on the Google SDK for iOS and to manually make request to the Google API.
+Unfortunately, attractions retrieved from Wikidata do not contain any properties that could be used to measure popularity. For this the reason, we decided to use Google Places API to retrieve popular places. Google Places API is not as expensive as other places APIs, and include ratings gathered from a quite active user base. Further details about the data merging process is given in the next section.
+
+\subsection{Data merging}
+
+While nearest places retrieval is pretty straightforward -- we get them from the Wikidata API and we request pictures and the description only when needed -- we wanted to highlight the processes for retrieving popular places from Google Places API and merging the data with Wikidata's. Once these places are converted and enriched, both kinds of places are treated equally by the application.
+
+\begin{algorithm}
+    \caption{Popular place retrieving.}
+    \begin{algorithmic}[1]
+        \Procedure{GetPopularPlaces}{$\textit{city}$}
+            \If {places are cached and the cache has not expired}
+                \State \Return \textit{cachedPlaces}
+            \Else
+                \State $\textit{places} \gets$ \Call{googleAPI.getPopularPlaces}{\textit{city}}
+                \State $\textit{popularPlaces} \gets \varnothing$
+                \For {\textit{popularPlace} \textbf{in} \textit{place}}
+                    \State $p \gets$ \Call{convertToWikidataFormat}{\textit{popularPlace}}
+                    \State $\textit{articleName} \gets$ \Call{findArticleName}{$p$}
+                    \State $\textit{wikidataId} \gets$ \Call{getWikidataId}{\textit{articleName}}
+                    \State $p \gets$ \Call{getMissingDetails}{$p$, \textit{wikidataId}}
+                    \State $\textit{popularPlaces} \gets \textit{popularPlaces} + p$
+                \EndFor
+                \State \Call{updateCache}{\textit{city}, \textit{popularPlaces}}
+                \State \Return \textit{popularPlaces}
+            \EndIf
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+In order to help the merging process between Google and Wikidata attractions, we adopted a fuzzy search library, that together with some heuristics is able to reliably merge data based on the attraction name.
 
 \section{External libraries}
 
@@ -738,6 +764,7 @@ For the user interface design, we followed Apple's UI guidelines, but we preferr
 \section{Screenshots}
 Here follow some screenshots of the application in both Light and Dark mode.
 
+\label{section:mapview}
 \subsection{MapView}
 
 \subsubsection{MapView - nearest places}
@@ -934,7 +961,7 @@ The application does not contain any part that is suitable for unit testing. Thi
 
 Since we didn't use the standard Apple SDK to layout views -- we just used its components -- we couldn't use the provided UI testing framework. Luckily, Tempura provides its own UI testing framework, which is a little different than Apple's. Basically, it allows to take screenshots of a view in all possible states, with all devices and all supported languages. This way you can then manually check that all the components of a view are correctly displayed.
 
-Unfortunately, we were not able to make this framework work due to the highly asynchronous nature of our main views, an approach suggested by our Bending Spoons tutor aimed to make the views more responsive.
+Unfortunately, we had some difficulties while trying to make this framework work due to the highly asynchronous nature of our main views, an approach suggested by our Bending Spoons tutor aimed to make the views more responsive. For this reason, only the simpler views have been completely tested.
 
 
 
@@ -952,9 +979,6 @@ These are other ideas that have come to our mind during the development process.
 \end{itemize}
 
 
-% TODO: continue
-
-
 
 
 \chapter{Effort spent}
@@ -965,9 +989,9 @@ The actual development took place between January 2020 and May 2020, while durin
 
 \begin{itemize}
 	\item 20\% platform meet and greet
-	\item 35\% actual development
+	\item 40\% actual development
 	\item 15\% free services refactoring
-	\item 10\% testing
+	\item 5\% testing
 	\item 20\% documents drafting
 \end{itemize}
 
