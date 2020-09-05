@@ -27,12 +27,14 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     
     func didReceive(_ notification: UNNotification) {
         guard let attachment = notification.request.content.attachments.first else { return }
-        do {
-            let data = try Data(contentsOf: attachment.url)
-            let image = UIImage(data: data)
-            self.imageView.image = image
-        } catch {
-            print(error.localizedDescription)
+        if attachment.url.startAccessingSecurityScopedResource() {
+            do {
+                let data = try Data(contentsOf: attachment.url)
+                let image = UIImage(data: data)
+                self.imageView.image = image
+            } catch {
+                print(error.localizedDescription)
+            }
         }
     }
 }

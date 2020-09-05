@@ -57,8 +57,12 @@
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES"
       launchAutomaticallySubstyle = "2">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <RemoteRunnable
+         runnableDebuggingMode = "0"
+         BundleIdentifier = "com.fcan.SmartTourist"
+         RemotePath = "/var/containers/Bundle/Application/595A5F39-5DC2-4AC4-82C9-C8FB7F28DB47/SmartTourist.app">
+      </RemoteRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E528FF82238971FE0065483B"
@@ -66,7 +70,11 @@
             BlueprintName = "SmartTourist"
             ReferencedContainer = "container:SmartTourist.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
+      <LocationScenarioReference
+         identifier = "../SmartTourist/Resources/BuckinghamPalace.gpx"
+         referenceType = "0">
+      </LocationScenarioReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
