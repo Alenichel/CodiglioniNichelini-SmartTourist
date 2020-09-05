@@ -414,25 +414,21 @@ class WikipediaAPI {
     private func getImageUrls(from files: [String]) -> Promise<[URL]> {
         return Promise<[URL]>(in: .background) { resolve, reject, status in
             let filesString = files.joined(separator: "|")
-            #if os(watchOS)
             let parameters = [
-                "image": filesString,
-                "thumbwidth": "300"
+                "action": "query",
+                "titles": filesString,
+                "prop": "imageinfo",
+                "iiprop": "url",
+                "format": "xml"
             ]
-            #else
-            let parameters = [
-                "image": filesString,
-                "thumbwidth": "\(Int(UIScreen.main.bounds.width) / 2)"
-            ]
-            #endif
-            AF.request("https://tools.wmflabs.org/magnus-toolserver/commonsapi.php", parameters: parameters).responseData(queue: .global(qos: .utility)) { response in
+            AF.request("https://en.wikipedia.org/w/api.php", parameters: parameters).responseData(queue: .global(qos: .utility)) { response in
                 switch response.result {
                 case .success:
                     guard let data = response.data else { reject(UnknownApiError()); return }
                     var urls = [String]()
                     let xml = XML.parse(data)
-                    for image in xml.response.image {
-                        if let url = image.file.urls.file.text {
+                    for page in xml.api.query.pages.page {
+                        if let url = page.imageinfo.ii.attributes["url"] {
                             urls.append(url)
                         }
                     }
