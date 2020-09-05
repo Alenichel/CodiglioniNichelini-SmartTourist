@@ -213,7 +213,11 @@ class WDPlace: Codable, Hashable, Comparable {
             if let photos = self.photos, photos.count < photosCountThreshold {
                 WikipediaAPI.shared.getImageUrls(from: self.name, limit: limit).then(in: .utility) { urls in
                     if let photos = self.photos {
-                        self.photos = Array(Set(photos).union(Set(urls)))
+                        for url in Array(Set(urls)) {
+                            if !photos.contains(url) {
+                                self.photos?.append(url)
+                            }
+                        }
                     } else {
                         self.photos = Array(Set(urls))
                     }

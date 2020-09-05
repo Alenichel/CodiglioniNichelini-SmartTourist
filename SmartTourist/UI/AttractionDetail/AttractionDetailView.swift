@@ -234,6 +234,15 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
         self.nRatingsLabel.text = model.nRatings
         
         if !model.allLoaded {
+            var photos = [URL]()
+            if let attractionPhotos = model.attraction.photos {
+                photos = attractionPhotos
+            }
+            let imagePromises = photos.map { WikipediaAPI.shared.getPhoto(imageURL: $0) }
+            self.imageSlideshow.setImageInputs(imagePromises.map { PromiseImageSource($0) })
+            self.descriptionText.setText(title: model.wikipediaSearchTerms) {
+                self.didLoadEverything?()
+            }
             model.attraction.getPhotosURLs().then(in: .main) {
                 var photos = [URL]()
                 if let attractionPhotos = model.attraction.photos {
@@ -241,9 +250,6 @@ class AttractionDetailView: UIView, ViewControllerModellableView {
                 }
                 let imagePromises = photos.map { WikipediaAPI.shared.getPhoto(imageURL: $0) }
                 self.imageSlideshow.setImageInputs(imagePromises.map { PromiseImageSource($0) })
-                self.descriptionText.setText(title: model.wikipediaSearchTerms) {
-                    self.didLoadEverything?()
-                }
             }
         }
 
