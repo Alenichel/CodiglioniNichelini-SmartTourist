@@ -22,6 +22,9 @@ class CityDetailViewController: ViewControllerWithLocalState<CityDetailView> {
         self.rootView.didTapButton = { url in
             self.dispatch(Show(Screen.safari, animated: true, context: url))
         }
+        self.rootView.didLoadEverything = { [unowned self] in
+            self.localState.allLoaded = true
+        }
     }
 }
 

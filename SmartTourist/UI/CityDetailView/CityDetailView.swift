@@ -74,6 +74,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
     
     // MARK: interactions
     var didTapButton: ((URL) -> Void)?
+    var didLoadEverything: Interaction?
     
     func setup() {
         self.setupMapView()
@@ -158,6 +159,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
     
     func update(oldModel: CityDetailViewModel?) {
         guard let model = self.model, let city = model.wdCity else { return }
+        guard !model.allLoaded else { return }
         self.cityLabel.text = city.cityLabel ?? "NO CITY LABEL"
         self.countryLabel.text = city.countryLabel ?? "NO COUNTRY LABEL"
         self.flagView.image = city.countryFlagImage ?? UIImage(systemName: "photo")
@@ -241,6 +243,7 @@ class CityDetailView: UIView, ViewControllerModellableView {
         }
         self.markDirty()
         self.setNeedsLayout()
+        self.didLoadEverything?()
     }
     
     private func setupMapView() {
